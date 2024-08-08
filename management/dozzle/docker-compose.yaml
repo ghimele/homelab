@@ -7,6 +7,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - DOZZLE_REMOTE_AGENT=$REMOTE_AGENT
+      - DOZZLE_REMOTE_AGENT=$DOZZLE_REMOTE_AGENT
     ports:
       - $DOZZLE_PORT:8080
