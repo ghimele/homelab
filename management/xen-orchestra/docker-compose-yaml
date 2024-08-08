@@ -1,0 +1,49 @@
+name: homelab-management
+
+services:
+  xen-orchestra:
+      restart: unless-stopped
+      image: ronivay/xen-orchestra:latest
+      container_name: xen-orchestra
+      stop_grace_period: 1m
+      ports:
+          - $XEN_ORCHESTRA_HTTP_PORT:80
+          - $XEN_ORCHESTRA_HTTPS_PORT:443
+      environment:
+          - HTTP_PORT=80
+          - HTTPS_PORT=443
+
+          #redirect takes effect only if HTTPS_PORT is defined
+          - REDIRECT_TO_HTTPS=true
+
+          #if HTTPS_PORT is defined and CERT/KEY paths are empty, a self-signed certificate will be generated
+          #- CERT_PATH='/cert.pem'
+          #- KEY_PATH='/cert.key'
+      # capabilities are needed for NFS/SMB mount
+      # cap_add:
+      #   - SYS_ADMIN
+      #   - DAC_READ_SEARCH
+      # additional setting required for apparmor enabled systems. also needed for NFS mount
+      # security_opt:
+      #   - apparmor:unconfined
+      volumes:
+        - /var/opt/appdata/xen-orchestra/xo-server:/var/lib/xo-server
+        - /var/opt/appdata/xen-orchestra/redis:/var/lib/redis
+        - /mnt/backup:/mnt/backup
+        # mount certificate files to container if HTTPS is set with cert/key paths
+        #- /path/to/cert.pem:/cert.pem
+        #- /path/to/cert.key:/cert.key
+      # mount your custom CA to container if host certificates are issued by it and you want XO to trust it
+      #- /path/to/ca.pem:/host-ca.pem
+      # logging
+      logging: &default_logging
+          driver: "json-file"
+          options:
+              max-size: "1M"
+              max-file: "2"
+      # these are needed for file restore. allows one backup to be mounted at once which will be umounted after some minutes if not used (prevents other backups to be mounted during that)
+      # add loop devices (loop1, loop2 etc) if multiple simultaneous mounts needed.
+      #devices:
+      #  - "/dev/fuse:/dev/fuse"
+      #  - "/dev/loop-control:/dev/loop-control"
+      #  - "/dev/loop0:/dev/loop0"
