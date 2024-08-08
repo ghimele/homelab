@@ -1,6 +1,5 @@
-name: management
+name: homelab-management
 
 include:
-  # - ./portainer/docker-compose.yaml 
   - ./dozzle/docker-compose.yaml
-  # - ./xen-orchestra/docker-compose.yaml
+  - ./xen-orchestra/docker-compose.yaml

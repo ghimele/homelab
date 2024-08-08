@@ -1,4 +1,4 @@
-name: hlm
+name: homelab-management
 
 services:
   dozzle:
