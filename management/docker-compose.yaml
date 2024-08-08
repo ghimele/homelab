@@ -3,3 +3,4 @@ name: homelab-management
 include:
   - ./dozzle/docker-compose.yaml
   - ./xen-orchestra/docker-compose.yaml
+  - ./omada-controller/docker-compose.yaml
