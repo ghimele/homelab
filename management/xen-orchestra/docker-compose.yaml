@@ -8,6 +8,7 @@ services:
     image: ronivay/xen-orchestra:latest
     container_name: xen-orchestra
     stop_grace_period: 1m
+    network_mode: bridge
     ports:
       - $XEN_ORCHESTRA_HTTP_PORT:80
       - $XEN_ORCHESTRA_HTTPS_PORT:443
