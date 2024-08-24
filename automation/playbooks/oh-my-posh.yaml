@@ -1,6 +1,6 @@
 ---
 - name: Oh My Posh
-  hosts: server
+  hosts: servers
   # connection: local
   # remote_user: root
 
