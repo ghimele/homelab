@@ -1,8 +1,8 @@
 ---
 - name: Oh My Posh
-  hosts: localhost
-  connection: local
-  remote_user: root
+  # hosts: localhost
+  # connection: local
+  # remote_user: root
 
   
   tasks:
