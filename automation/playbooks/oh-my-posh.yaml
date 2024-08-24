@@ -2,7 +2,7 @@
 - name: Oh My Posh
   hosts: localhost
   connection: local
-  remote_user: ghimele
+  remote_user: root
 
   
   tasks:
