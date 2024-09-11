@@ -1,0 +1,14 @@
+---
+- name: local_server
+  hosts: localhost
+
+  tasks:
+    - import_tasks: tasks/server_packages.yml
+      tags:
+        - server
+    - import_tasks: tasks/fonts.yml
+      tags:
+        - fonts
+    - import_tasks: tasks/oh-my-posh.yml
+      tags:
+        - terminal
