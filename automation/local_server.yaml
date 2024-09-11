@@ -3,12 +3,12 @@
   hosts: localhost
 
   tasks:
-    - import_tasks: ./tasks/server_packages.yml
+    - import_tasks: tasks/server_packages.yaml
       tags:
         - server
-    - import_tasks: ./tasks/fonts.yml
+    - import_tasks: tasks/fonts.yaml
       tags:
         - fonts
-    - import_tasks: ./tasks/oh-my-posh.yml
+    - import_tasks: tasks/oh-my-posh.yaml
       tags:
         - terminal
