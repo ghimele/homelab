@@ -5,7 +5,7 @@ Welcome to the Homelab Configuration repository! This repository contains the co
 ## Repository Structure
 
 Here's an overview of the repository structure:
-
+```
 homelab/
 ├── .github/              # GitHub Actions workflows and configurations
 │   └── workflows/        # GitHub Actions workflows
@@ -32,7 +32,7 @@ homelab/
 │           ├── test/     # Values for the Test environment
 │           └── prod/     # Values for the Production environment
 └── scripts/              # Any additional automation or management scripts
-
+```
 
 ## Getting Started
 
