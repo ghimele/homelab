@@ -1,0 +1,25 @@
+---
+name: HomeLab CI
+
+on:
+  push:
+    paths-ignore:
+      - '**/README.md'
+      - 'assets/**'
+      - 'docs/**'
+  pull_request:
+    paths-ignore:
+      - '**/README.md'
+      - 'assets/**'
+      - 'docs/**'
+
+jobs:
+  yamllint:
+    name: 🧹 yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out configuration from GitHub
+        uses: actions/checkout@v4.1.3
+      - name: 🚀 Run yamllint
+        run: |
+          yamllint .

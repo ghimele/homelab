@@ -1,0 +1,14 @@
+.vscode/**
+
+# Docker Secrets, Environment Files
+**/secret.*
+**/.env
+**/.envrc
+
+packer-*.log
+packer_cache/
+*.iso
+*.box
+*.ova
+
+**/helm-credentials.yaml
