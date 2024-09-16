@@ -2,7 +2,7 @@
 - name: Download Oh My Posh installer
   get_url:
     url: https://ohmyposh.dev/install.sh
-    dest: /home/ghimele/oh-my-posh-install.sh 
+    dest: /home/ghimele/oh-my-posh-install.sh
 
 - name: Install Oh My Posh
   shell: |
@@ -26,6 +26,6 @@
     echo " " >> /home/ghimele/.profile
     echo 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"' >> /home/ghimele/.profile
   when: theme_check.rc != 0
-  
+
 - name: Remove Oh My Posh installer
   shell: rm /home/ghimele/oh-my-posh-install.sh

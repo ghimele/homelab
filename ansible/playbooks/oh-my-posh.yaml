@@ -4,17 +4,16 @@
   # connection: local
   # remote_user: root
 
-  
   tasks:
   - name: Install unzip
     apt:
       name: unzip
-      update_cache: yes
+      update_cache: true
 
   - name: Download Oh My Posh installer
     get_url:
       url: https://ohmyposh.dev/install.sh
-      dest: /home/ghimele/oh-my-posh-install.sh 
+      dest: /home/ghimele/oh-my-posh-install.sh
 
   - name: Install Oh My Posh
     shell: |
@@ -37,7 +36,7 @@
     register: theme_check
     ignore_errors: true
 
-  # - debug: 
+  # - debug:
   #     msg: "{{ theme_check }}"
 
   - name: Change the bash prompt using the ghimele theme

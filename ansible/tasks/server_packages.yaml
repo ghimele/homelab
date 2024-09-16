@@ -2,8 +2,8 @@
 - name: Install System Packages
   become_user: root
   apt:
-    name: 
+    name:
       - curl
       - htop
       - unzip
-    update_cache: yes
+    update_cache: true

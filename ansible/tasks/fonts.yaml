@@ -14,4 +14,4 @@
   ansible.builtin.unarchive:
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip
     dest: "/usr/share/fonts/"
-    remote_src: yes
+    remote_src: true
