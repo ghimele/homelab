@@ -1,6 +1,9 @@
+---
 name: homelab-management
 
 include:
+  - ./portainer/docker-compose.yaml
   - ./dozzle/docker-compose.yaml
   - ./xen-orchestra/docker-compose.yaml
   - ./omada-controller/docker-compose.yaml
+  - ./backrest/docker-compose.yaml

@@ -1,0 +1,15 @@
+---
+name: homelab-management
+
+services:
+  portainer:
+    container_name: portainer
+    restart: unless-stopped
+    image: portainer/portainer-ee:latest
+    network_mode: bridge
+    volumes:
+      - /var/opt/appdata/portainer-be:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - $PORTAINER_HTTP_PORT:8000
+      - $PORTAINER_HTTPS_PORT:9443
