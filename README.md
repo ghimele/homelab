@@ -31,6 +31,7 @@ homelab/
 │           ├── dev/      # Values for the Dev environment
 │           ├── test/     # Values for the Test environment
 │           └── prod/     # Values for the Production environment
+├── management/           # Configuration for VM management and services
 └── scripts/              # Any additional automation or management scripts
 
 
