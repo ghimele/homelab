@@ -1,3 +1,4 @@
+---
 name: homelab-management
 
 services:
@@ -10,22 +11,5 @@ services:
       - /var/opt/appdata/portainer-be:/data
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - $PORTAINER_HTTP_PORT:8000 
-      - $PORTAINER_HTTPS_PORT:9443 
-
-    #environment:
-      # VIRTUAL_HOST: ${DOMAINS}
-      # VIRTUAL_PORT: ${PORT}
-      # LETSENCRYPT_HOST: ${DOMAINS}
-      # LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      # SSL:
-      # SSLCERT: ${PORTAINER_SSL_CERTIFICATE}
-      # SSLKEY: ${PORTAINER_SSL_KEY}
-
-# networks:
-#   default:
-#     external: true
-#     name: ${NETWORK}
-
-# volumes:
-#   portainer_data:
+      - $PORTAINER_HTTP_PORT:8000
+      - $PORTAINER_HTTPS_PORT:9443

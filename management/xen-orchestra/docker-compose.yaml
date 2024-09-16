@@ -19,7 +19,7 @@ services:
       # redirect takes effect only if HTTPS_PORT is defined
       - REDIRECT_TO_HTTPS=true
 
-      # if HTTPS_PORT is defined and CERT/KEY paths are empty, 
+      # if HTTPS_PORT is defined and CERT/KEY paths are empty,
       # a self-signed certificate will be generated
       # - CERT_PATH='/cert.pem'
       # - KEY_PATH='/cert.key'
