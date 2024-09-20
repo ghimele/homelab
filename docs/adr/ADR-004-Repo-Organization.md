@@ -1,5 +1,4 @@
-# Title
-Repository Structure for Homelab Configuration
+# ADR-004: Repository Structure for Homelab Configuration
 
 ## Status
 Accepted

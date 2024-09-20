@@ -1,8 +1,7 @@
-# Title
-Short description of the decision.
+# ADR-00X-short title of solved problem and solution
 
 ## Status
-[Proposed | Accepted | Rejected | Deprecated]
+[ Accepted | Rejected | Deprecated | Superseded ]
 
 ## Date
 The date when the decision was made.

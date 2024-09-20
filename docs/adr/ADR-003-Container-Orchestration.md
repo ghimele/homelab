@@ -1,5 +1,4 @@
-# Title
-Choosing Kubernetes for Container Orchestration in the Homelab
+# ADR-003: Choosing Kubernetes for Container Orchestration in the Homelab
 
 ## Status
 Accepted
