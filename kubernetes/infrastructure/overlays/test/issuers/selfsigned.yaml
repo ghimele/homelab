@@ -3,4 +3,6 @@ kind: ClusterIssuer
 metadata:
   name: selfsigned
 spec:
+  dependsOn:
+    - name: cert-manager
   selfSigned: {}
