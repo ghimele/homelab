@@ -1,5 +1,5 @@
 ---
 resources:
-  - ../../base/cert-manager
-  - issuers
+  - ../../base/apps/cert-manager
+
 
