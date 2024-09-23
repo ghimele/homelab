@@ -7,7 +7,7 @@ metadata:
 spec:
   secretName: traefik-dashboard-cert
   dnsNames:
-  - "*.test.ghimele.com"
+    - "*.test.ghimele.com"
   issuerRef:
     kind: ClusterIssuer
     name: test-selfsigned
