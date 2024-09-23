@@ -1,5 +1,6 @@
 ---
 resources:
   - ../../base/apps/cert-manager
+  - ../../base/apps/traefik
 
 

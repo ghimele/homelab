@@ -1,0 +1,6 @@
+---
+# create a namespace for traefik
+apiVersion: v1
+kind: Namespace
+metadata:
+  name:  traefik
