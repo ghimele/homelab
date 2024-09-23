@@ -37,7 +37,7 @@ spec:
       dashboard:
         enabled: true
         # You should protect your dashboard if it’s on the internet matchRule:
-        matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
-        entryPoints: ["web"]
+        # matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+        # entryPoints: ["web"]
     persistence:
       enabled: true
