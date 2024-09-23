@@ -9,5 +9,5 @@ spec:
   - "*.test.ghimele.com"
   issuerRef:
     kind: ClusterIssuer
-    name: selfsigned-ca
+    name: selfsigned
   secretName: selfsigned-secret
