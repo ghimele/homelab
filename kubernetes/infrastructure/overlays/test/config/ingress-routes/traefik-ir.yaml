@@ -4,6 +4,7 @@ kind: IngressRoute
 metadata:
   name: dashboard
   annotations:
+  namespace: traefik
 spec:
   entryPoints:
     - websecure
