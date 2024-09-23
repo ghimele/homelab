@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: "3.1.x"
+      version: "31.x"
       sourceRef:
         kind: HelmRepository
         name: traefik
@@ -21,7 +21,6 @@ spec:
       kubernetesCRD:
         enabled: true
         allowCrossNamespace: true
-
     logs:
       general:
         level: DEBUG
@@ -34,13 +33,11 @@ spec:
         fields:
           headers:
             defaultmode: keep
-
     ingressRoute:
       dashboard:
         enabled: true
         # You should protect your dashboard if it’s on the internet matchRule:
         matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
         entryPoints: ["web"]
-
     persistence:
       enabled: true
