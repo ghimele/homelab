@@ -1,3 +1,4 @@
 ---
 resources:
   - selfsigned.yaml
+  - test-selfsigned.yaml

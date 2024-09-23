@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: dashboard
+  name: test-dashboard
   namespace: cert-manager
 spec:
   dnsNames:
   - "*.test.ghimele.com"
   issuerRef:
     kind: ClusterIssuer
-    name: selfsigned
+    name: test-selfsigned
   secretName: selfsigned-secret
