@@ -9,7 +9,7 @@ spec:
   entryPoints:
     - websecure
   tls:
-    secretName: selfsigned-secret
+    secretName: traefik-dashboard-cert
   routes:
     - kind: Rule
       match: Host("traefik.test.ghimele.com")
