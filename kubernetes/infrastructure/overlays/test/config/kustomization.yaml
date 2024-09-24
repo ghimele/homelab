@@ -3,3 +3,4 @@ resources:
   - issuers
   - certificates
   - ingress-routes
+  - secrets
