@@ -3,6 +3,7 @@ ignore: |
   **/flux-system/gotk-components.yaml
   **/flux-system/gotk-sync.yaml
   **/flux-system/kustomization.yaml
+  **/*enc.yaml
 rules:
   braces:
     level: error
