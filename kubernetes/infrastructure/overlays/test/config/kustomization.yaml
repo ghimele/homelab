@@ -1,6 +1,6 @@
 ---
 resources:
+  - secrets
   - issuers
   - certificates
   - ingress-routes
-  - secrets
