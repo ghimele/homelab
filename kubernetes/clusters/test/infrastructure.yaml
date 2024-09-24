@@ -11,7 +11,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: homelab
   # Decryption configuration starts here
   decryption:
     provider: sops
