@@ -1,0 +1,6 @@
+---
+# Tell to SOPS which key to use to encrypt the files.
+creation_rules:
+  - path_regex: .*/test/.*
+    encrypted_regex: '^(user.*|pass.*|.*[Bb]earer.*|.*[Kk]ey|.*[Kk]eys|salt|sentry.*|.*[Tt]oken|data|stringData)$'
+    age: age1987m5wdr5t8z9kvhun4sa8nm9ygpt8mrh63mysv7x57fk52xacvqpmnp27

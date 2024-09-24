@@ -1,4 +1,10 @@
 ---
+# create a self-signed Certificate Authority (CA) certificate using cert-manager.
+# This can be useful if you want to generate a root CA certificate that can sign other certificates within the cluster.
+# Purpose of the Certificate
+# - The Certificate resource creates a CA (Certificate Authority) certificate, which can be used to sign other certificates (e.g., TLS certificates for services like Traefik).
+# - The isCA: true field indicates that this certificate is intended to be used as a CA.
+# - The resulting certificate will be stored in a Kubernetes secret (selfsigned-secret), and it can later be used by other certificates that require a CA.
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:

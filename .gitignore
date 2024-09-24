@@ -1,3 +1,4 @@
+---
 .vscode/**
 
 # Docker Secrets, Environment Files
@@ -12,3 +13,4 @@ packer_cache/
 *.ova
 
 **/helm-credentials.yaml
+**/**secret.yaml
