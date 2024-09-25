@@ -25,9 +25,3 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  # Decryption configuration starts here
-  # definition that uses SOPS with our the age TEST key
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
