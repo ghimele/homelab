@@ -5,5 +5,5 @@ resources:
 secretGenerator:
   - name: dashboard
     files:
-      - match=c../secrets/onfig-map-traefik.enc.yaml
+      - match=../secrets/onfig-map-traefik.enc.yaml
     behavior: replace
