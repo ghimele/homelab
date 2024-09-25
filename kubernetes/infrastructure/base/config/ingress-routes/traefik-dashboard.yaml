@@ -2,7 +2,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: dashboard
+  name: traefik-dashboard
   annotations:
   namespace: traefik
 spec:
@@ -12,15 +12,12 @@ spec:
     secretName: traefik-dashboard-cert
   routes:
     - kind: Rule
-      match: |-
-        {{ .Values.match }}
-      # match: Host("traefik.test.ghimele.com")
+      match: Host("traefik.com")
       services:
         - name: api@internal
           kind: TraefikService
     - kind: Rule
-      # match: {{ .Values.host &&  PathPrefix("/api") }}
-      match: Host("traefik.test.ghimele.com") &&  PathPrefix("/api")
+      match: Host("traefik.com") &&  PathPrefix("/api")
       services:
         - name: api@internal
           kind: TraefikService

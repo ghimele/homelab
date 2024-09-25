@@ -1,3 +1,5 @@
 ---
 resources:
-  - traefik-ir.yaml
+  - ../../../../base/config/ingress-routs/traefik-dashboard.yaml
+patches:
+  - path: traefik-dashboard-patch.enc.yaml

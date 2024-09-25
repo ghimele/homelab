@@ -1,0 +1,42 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: traefik-dashboard
+    annotations: null
+    namespace: traefik
+spec:
+    entryPoints:
+        - websecure
+    tls:
+        secretName: traefik-dashboard-cert
+    routes:
+        - kind: Rule
+          match: ENC[AES256_GCM,data:mR42VpFdYjlC6aqFwg0Z/Llz7l7M/BMivUBqjD6BSqA=,iv:g//ol7O8hrGxLktG6q/2U2pCeKYu47ff1FsWKyI+2FY=,tag:qpCpomVQ3qYUkXlRonRe1Q==,type:str]
+          services:
+            - name: api@internal
+              kind: TraefikService
+        - kind: Rule
+          match: ENC[AES256_GCM,data:6eL7voyM5NNt3cnF2IXGaKbCkya7J7bwSqZOiKs1rE4cogQk9suFJ4FC91oJOYU5t2ijF4D0Pw==,iv:Z5MmZnnNbyM9MaPGfdFY1TObtK3u0k8OpCZdENpAsnY=,tag:3tOdiyT2wrTr8WF3ixB3RQ==,type:str]
+          services:
+            - name: api@internal
+              kind: TraefikService
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1987m5wdr5t8z9kvhun4sa8nm9ygpt8mrh63mysv7x57fk52xacvqpmnp27
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiNC9URHdpeHJBZThxRk9E
+            djlJQ2R2a0pDQmxkNGFMREFRZFE2Qnd2VzBBCkl6VjV0bXpKZmFpTzNwMmF4dE9i
+            dnVhZ2Y1UmJrTzJ0RmRlZUE4ZGc1T1kKLS0tIDN3SURhNFVXUDJuMFhlRGlVYTNZ
+            M04ya3liU045KzYzeUNNUENFUWpxM0UK99Pth8OF1Emz05uTkHwua6SJy6K6AjFz
+            YYa6gEUwuvr1eoXarvmnTtKJOtg9dAbGRFaKpudIG7sP4v9Es9Ge2g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-09-25T15:42:36Z"
+    mac: ENC[AES256_GCM,data:ZZYzLBPzTYM/kP7ki25mMCMkMlij5yyG1At+19Zq7nVltbOgVFKUkTtFh1kVCRg7W/3/3TI8/domjZIYscSRzQZ5042BgE27XMFTR30iaee+Do/fVEsia9+jtCazRksn42eLY73LFMbFZgKVma3p23CuH6vn1P0c2++JkeilhCA=,iv:FhfvNjbT+2CGkp5IbIS+VtxXSypaHSMCN0r1Cuy7gDw=,tag:13NYnBy/h3ZBfLEwaX0pAg==,type:str]
+    pgp: []
+    encrypted_regex: ^(user.*|pass.*|.*[Bb]earer.*|.*[Kk]ey|.*[Kk]eys|salt|sentry.*|.*[Tt]oken|data|stringData|match)$
+    version: 3.9.0

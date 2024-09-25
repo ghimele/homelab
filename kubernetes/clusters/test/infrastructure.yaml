@@ -10,7 +10,7 @@ spec:
     secretRef:
       name: sops-age
   interval: 1m0s
-  path: ./kubernetes/infrastructure/overlays/test/config/secrets
+  path: ./kubernetes/infrastructure/overlays/test
   prune: true
   sourceRef:
     kind: GitRepository
