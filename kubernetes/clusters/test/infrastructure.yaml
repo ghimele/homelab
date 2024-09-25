@@ -1,24 +1,4 @@
 ---
-# kustomize definition that uses SOPS with our the age TEST key
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: overalys-test
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  path: ./kubernetes/infrastructure/overlays/test
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  # Decryption configuration starts here
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
----
-
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:

@@ -12,12 +12,14 @@ spec:
     secretName: traefik-dashboard-cert
   routes:
     - kind: Rule
-      match: {{ .Values.host }}
+      # match: {{ .Values.host }}
+      match: Host("traefik.test.ghimele.com")
       services:
         - name: api@internal
           kind: TraefikService
     - kind: Rule
-      match: {{ .Values.host &&  PathPrefix("/api") }} 
+      # match: {{ .Values.host &&  PathPrefix("/api") }}
+      match: Host("traefik.test.ghimele.com") &&  PathPrefix("/api")
       services:
         - name: api@internal
           kind: TraefikService
