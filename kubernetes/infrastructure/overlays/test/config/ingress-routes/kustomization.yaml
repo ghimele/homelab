@@ -1,9 +1,3 @@
 ---
 resources:
   - traefik-ir.yaml
-
-secretGenerator:
-  - name: dashboard
-    files:
-      - match=../secrets/config-map-traefik.enc.yaml
-    behavior: replace
