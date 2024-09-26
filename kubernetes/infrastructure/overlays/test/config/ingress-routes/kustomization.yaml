@@ -9,12 +9,12 @@ replacements:
   - source:
       kind: ConfigMap
       name: host-config
-      fieldPath: data.HOST
+      fieldPath: data.host
     targets:
-    - select:
-        kind: IngressRoute
-        name: traefik-dashboard
-      fieldPaths:
-      - spec.routes.0.match
-      options:
-        create: true
+      - select:
+          kind: IngressRoute
+          name: traefik-dashboard
+        fieldPaths:
+          - spec.routes.0.match
+        options:
+          create: true
