@@ -2,14 +2,19 @@
 resources:
   - ../../../../base/config/ingress-routes/traefik-dashboard.yaml
 
-patches:
-  - path: ../../secrets/traefik-dashboard.enc.yaml
+# patches:
+#   - path: ../../secrets/traefik-dashboard.enc.yaml
 
-# vars:
-#   - name: HOST
-#     objref:
-#       kind: ConfigMap
-#       name: host-config
-#       apiVersion: v1
-#     fieldref:
-#       fieldpath: data.host
+replacements:
+- source:
+    kind: ConfigMap
+    name: host-config
+    fieldPath: data.HOST
+  targets:
+  - select:
+      kind: IngressRoute
+      name: traefik-dashboard
+    fieldPaths:
+     - spec.routes.0.match
+    options:
+      replace: true
