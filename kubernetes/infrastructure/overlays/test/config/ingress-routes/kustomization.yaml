@@ -1,6 +1,8 @@
 ---
 resources:
+  - ../../secrets/host-config.enc.yaml
   - ../../../../base/config/ingress-routes/traefik-dashboard.yaml
+
 vars:
   - name: HOST
     objref:
