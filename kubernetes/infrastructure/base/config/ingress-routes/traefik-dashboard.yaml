@@ -12,12 +12,12 @@ spec:
     secretName: traefik-dashboard-cert
   routes:
     - kind: Rule
-      match: Host(`$(HOST)`)
+      match: Host($(HOST))
       services:
         - name: api@internal
           kind: TraefikService
     - kind: Rule
-      match: Host(`$(HOST)`) &&  PathPrefix("/api")
+      match: Host($(HOST)) &&  PathPrefix("/api")
       services:
         - name: api@internal
           kind: TraefikService
