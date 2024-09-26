@@ -1,3 +1,0 @@
-varReference:
-  - path: spec/routes/match  # Specifies where the variable should be substituted
-    kind: IngressRoute
