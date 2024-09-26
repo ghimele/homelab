@@ -1,5 +1,11 @@
 ---
 resources:
   - ../../../../base/config/ingress-routes/traefik-dashboard.yaml
-patches:
-  - path: ../../secrets/traefik-dashboard-patch.enc.yaml
+vars:
+  - name: HOST
+    objref:
+      kind: ConfigMap
+      name: ingress-host-config
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.host
