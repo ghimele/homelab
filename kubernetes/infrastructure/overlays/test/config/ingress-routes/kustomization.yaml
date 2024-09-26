@@ -1,7 +1,9 @@
 ---
 resources:
-  - ../../secrets/host-config.enc.yaml
   - ../../../../base/config/ingress-routes/traefik-dashboard.yaml
+
+patches:
+  - path: ../../secrets/traefik-dashboard.enc.yaml
 
 vars:
   - name: HOST
