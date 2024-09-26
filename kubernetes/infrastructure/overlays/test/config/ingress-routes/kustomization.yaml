@@ -5,7 +5,7 @@ vars:
   - name: HOST
     objref:
       kind: ConfigMap
-      name: ingress-host-config
+      name: host-config
       apiVersion: v1
     fieldref:
       fieldpath: data.host
