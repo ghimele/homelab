@@ -5,11 +5,11 @@ resources:
 patches:
   - path: ../../secrets/traefik-dashboard.enc.yaml
 
-vars:
-  - name: HOST
-    objref:
-      kind: ConfigMap
-      name: host-config
-      apiVersion: v1
-    fieldref:
-      fieldpath: data.host
+# vars:
+#   - name: HOST
+#     objref:
+#       kind: ConfigMap
+#       name: host-config
+#       apiVersion: v1
+#     fieldref:
+#       fieldpath: data.host
