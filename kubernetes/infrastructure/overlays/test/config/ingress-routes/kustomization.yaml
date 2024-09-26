@@ -6,15 +6,15 @@ resources:
 #   - path: ../../secrets/traefik-dashboard.enc.yaml
 
 replacements:
-- source:
-    kind: ConfigMap
-    name: host-config
-    fieldPath: data.HOST
-  targets:
-  - select:
-      kind: IngressRoute
-      name: traefik-dashboard
-    fieldPaths:
-     - spec.routes.0.match
-    options:
-      replace: true
+  - source:
+      kind: ConfigMap
+      name: host-config
+      fieldPath: data.HOST
+    targets:
+    - select:
+        kind: IngressRoute
+        name: traefik-dashboard
+      fieldPaths:
+      - spec.routes.0.match
+      options:
+        create: true
