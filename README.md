@@ -5,34 +5,21 @@ Welcome to the Homelab Configuration repository! This repository contains the co
 ## Repository Structure
 
 Here's an overview of the repository structure:
-```
-homelab/
-├── .github/              # GitHub Actions workflows and configurations
-│   └── workflows/        # GitHub Actions workflows
-│       ├── ci.yml        # Example workflow for continuous integration
-│       └── deploy.yml    # Example workflow for deployment
-├── ansible/              # Ansible configuration
-│   └── playbooks/        # Ansible playbooks for various tasks
-│   └── tasks/            # Ansible tasks
-│   └── inventory/        # Ansible inventory files
-├── docs/
-│   └── adr/              # Architecture Decision Records (ADRs)
-├── kubernetes/
-│   ├── manifests/        # Base Kubernetes manifests and Kustomize overlays
-│   │   ├── base/         # Base Kubernetes manifests (common to all environments)
-│   │   ├── overlays/
-│   │   │   ├── dev/      # Dev-specific Kubernetes configurations using Kustomize
-│   │   │   ├── test/     # Test-specific Kubernetes configurations using Kustomize
-│   │   │   ├── prod/     # Production-specific Kubernetes configurations using Kustomize
-│   └── helm/             # Helm charts and values files
-│       ├── charts/       # Helm charts (reusable across environments)
-│       │   └── my-app/   # Example Helm chart for 'my-app'
-│       └── values/       # Environment-specific Helm values files
-│           ├── dev/      # Values for the Dev environment
-│           ├── test/     # Values for the Test environment
-│           └── prod/     # Values for the Production environment
-├── management/           # Configuration for VM management and services
-└── scripts/              # Any additional automation or management scripts
+```bash
+├── .github/                # GitHub Actions workflows
+├── ansible/                # Ansible playbooks and tasks for system automation
+│   ├── inventory/          # Ansible inventory files
+│   ├── playbooks/          # Ansible playbooks for various tasks
+│   └── tasks/              # Individual tasks
+├── docs/                   # Documentation and ADRs (Architecture Decision Records)
+│   └── adr/
+├── kubernetes/             # Kubernetes clusters config folder.
+│   ├── apps/               # Application-specific configurations (base, dev, prod, test).
+│   ├── clusters/           # Cluster-specific configurations (dev, prod, test).
+│   ├── config/             # Base and environment-specific configurations for Kubernetes custom resources such as cert issuers and networks policies
+│   └── infrastructure/     # Infr-specific configurations (base, dev, prod, test). Contains common infra tools for Kubernetes controllers such as traefik and cert-manager
+├── management/             # Management services (e.g., backrest, portainer, xen-orchestra). The services are installed in a deidated VM using docker compose.
+└── scripts/                # Automation and management scripts
 ```
 
 ## Getting Started
@@ -50,10 +37,10 @@ To get started with the homelab configuration, follow these steps:
   Configure your inventory files in ansible/inventories/ as needed.
   Run playbooks from ansible/playbooks/ to configure your systems.
 ### 3. Kubernetes Configuration
+  The Kubernetes Configuration is managed by Fluxcd, see the CD section.
 
-  Use kustomize to build and apply Kubernetes manifests from the kubernetes/manifests/ directory.
-  Use Helm to manage Helm charts and values from the kubernetes/helm/ directory.
-
-### 4. CI/CD with GitHub Actions
-
+### 4. Continuos Integration with GitHub Actions
   Configure GitHub Actions workflows in the .github/workflows/ directory for automated testing and deployment.
+
+### 5. Continuous Deployment with FluxCD
+  FluxCD manages the continuous deployment of the Kubernetes resources. The Flux configuration is located under kubernetes/clusters/<environment>. Ensure that your FluxCD setup is properly synced with this repository to automate deployments.
