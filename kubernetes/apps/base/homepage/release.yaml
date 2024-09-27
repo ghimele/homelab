@@ -18,3 +18,6 @@ spec:
       interval: 12h
   values:
     namespace: homepage
+    ingressroute:
+      tls:
+        secretName: traefik-dashboard-cert
