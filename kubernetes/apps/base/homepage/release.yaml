@@ -17,27 +17,4 @@ spec:
         namespace: homepage
       interval: 12h
   values:
-    providers:
-      kubernetesCRD:
-        enabled: true
-        allowCrossNamespace: true
-    logs:
-      general:
-        level: DEBUG
-        format: json
-      access:
-        enabled: true
-        filePath: "/data/log/traefik/access.log"
-        format: json
-        bufferingSize: 100
-        fields:
-          headers:
-            defaultmode: keep
-    ingressRoute:
-      dashboard:
-        enabled: false
-        # You should protect your dashboard if it’s on the internet matchRule:
-        # matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
-        # entryPoints: ["web"]
-    persistence:
-      enabled: true
+    namespace: homepage
