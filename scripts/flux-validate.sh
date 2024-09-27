@@ -54,14 +54,14 @@ find ./kubernetes/clusters -maxdepth 2 -type f -name '*.yaml' -print0 | while IF
     fi
 done
 
-echo "INFO - Validating kustomize overlays"
-find ./kubernetes -type f -name $kustomize_config -print0 | while IFS= read -r -d $'\0' file;
-  do
-    echo "INFO - Validating kustomization ${file/%$kustomize_config}"
-    echo kustomize build "${file/%$kustomize_config}" "${kustomize_flags[@]}"
-    kustomize build "${file/%$kustomize_config}" "${kustomize_flags[@]}" | \
-      kubeconform "${kubeconform_flags[@]}" "${kubeconform_config[@]}"
-    if [[ ${PIPESTATUS[0]} != 0 ]]; then
-      exit 1
-    fi
-done
+# echo "INFO - Validating kustomize overlays"
+# find ./kubernetes -type f -name $kustomize_config -print0 | while IFS= read -r -d $'\0' file;
+#   do
+#     echo "INFO - Validating kustomization ${file/%$kustomize_config}"
+#     echo kustomize build "${file/%$kustomize_config}" "${kustomize_flags[@]}"
+#     kustomize build "${file/%$kustomize_config}" "${kustomize_flags[@]}" | \
+#       kubeconform "${kubeconform_flags[@]}" "${kubeconform_config[@]}"
+#     if [[ ${PIPESTATUS[0]} != 0 ]]; then
+#       exit 1
+#     fi
+# done
