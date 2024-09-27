@@ -1,3 +1,4 @@
 ---
 resources:
+  - ./secrets/traefik-homepage.enc.yaml
   - ../base/homepage
