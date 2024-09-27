@@ -1,4 +1,0 @@
----
-resources:
-  - ../../../apps/cert-manager
-  - ../../../apps/traefik

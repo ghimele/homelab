@@ -1,4 +1,0 @@
----
-resources:
-  - self-signed-ca.yaml
-  - test-dashboard.yaml

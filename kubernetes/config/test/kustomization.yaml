@@ -1,0 +1,8 @@
+---
+resources:
+  - ../secrets
+  - ../base/certificates/self-signed-ca.yaml
+  - ../base/certificates/test-dashboard.yaml
+  - ../base/issuers/selfsigned.yaml
+  - ../base/issuers/test-selfsigned.yaml
+
