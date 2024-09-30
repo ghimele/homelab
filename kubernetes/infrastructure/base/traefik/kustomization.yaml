@@ -3,4 +3,4 @@ resources:
   - namespace.yaml
   - repository.yaml
   - release.yaml
-  - ingress-rout.yaml
+  - ingress-route.yaml
