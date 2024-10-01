@@ -16,6 +16,10 @@ spec:
   path: ./kubernetes/infrastructure/test
   prune: true
   wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   postBuild:
     substitute: {}
     substituteFrom:
