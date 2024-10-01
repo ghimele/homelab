@@ -6,8 +6,9 @@ metadata:
   namespace: xen
 spec:
   type: ExternalName
+  externalName: svp-mgm01.home.arpa
   ports:
     - name: https
       port: 8443
       targetPort: 8443
-  externalName: 192.168.10.51
+      protocol: TCP
