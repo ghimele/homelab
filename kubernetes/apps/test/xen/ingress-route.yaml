@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: xen
+spec:
+  entryPoints:
+    - https
+  routes:
+    - match: Host(`xen.${DOMAIN}`)
+      kind: Rule
+      priority: 1
+      services:
+        - name: xen
+          port: 8443
+  tls:
+    secretName: certsecret

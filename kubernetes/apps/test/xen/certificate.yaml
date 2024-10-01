@@ -1,0 +1,12 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: xen.${DOMAIN}
+spec:
+  secretName: xen.${DOMAIN}
+  dnsNames:
+    - xen.${DOMAIN}
+  issuerRef:
+    kind: ClusterIssuer
+    name: lets-encrypt-staging

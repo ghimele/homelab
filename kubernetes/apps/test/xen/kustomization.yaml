@@ -1,0 +1,6 @@
+---
+resources:
+  - secrets.enc.yaml
+  - certificate.yaml
+  - service.yaml
+  - ingress-route.yaml
