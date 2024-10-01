@@ -3,6 +3,4 @@ resources:
   - ../../base/homepage
   - certificate.yaml
   - ingress-route.yaml
-  - configmap.yaml
-  # - secrets.enc.yaml
-  # - configmap.enc.yaml
+  - configmap.enc.yaml
