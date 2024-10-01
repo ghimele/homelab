@@ -2,10 +2,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: homepage.${DOMAIN_INTERNAL}
+  name: homepage.${DOMAIN}
   namespace: homepage
 spec:
-  secretName: homepage.${DOMAIN_INTERNAL}
+  secretName: homepage.${DOMAIN}
   dnsNames:
     - homepage.${DOMAIN}
   issuerRef:
