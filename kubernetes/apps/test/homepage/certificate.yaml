@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: homepage.${DOMAIN_INTERNAL}
+  namespace: homepage
+spec:
+  secretName: homepage.${DOMAIN_INTERNAL}
+  dnsNames:
+    - homepage.${DOMAIN}
+  issuerRef:
+    kind: ClusterIssuer
+    name: lets-encrypt-staging

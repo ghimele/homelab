@@ -18,8 +18,3 @@ spec:
       interval: 12h
   values:
     namespace: homepage
-    ingressroute:
-      rules:
-        - host: homepage.test.ghimele.com
-      tls:
-        secretName: traefik-dashboard-cert
