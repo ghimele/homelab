@@ -1,5 +1,3 @@
 ---
 resources:
-  - ../base/homepage
-  - ./secrets/cm-homepage.enc.yaml
   - ./homepage
