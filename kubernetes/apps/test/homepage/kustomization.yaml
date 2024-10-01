@@ -3,5 +3,5 @@ resources:
   - ../../base/homepage
   - certificate.yaml
   - ingress-route.yaml
-  - secrets.enc.yaml
+  # - secrets.enc.yaml
   - configmap.enc.yaml
