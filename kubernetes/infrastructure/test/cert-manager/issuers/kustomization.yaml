@@ -1,0 +1,3 @@
+---
+resources:
+  - lets-encrypt-staging.yaml

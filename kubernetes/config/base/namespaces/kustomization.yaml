@@ -1,4 +1,0 @@
----
-resources:
-  - cert-manager.yaml
-  - traefik.yaml

@@ -3,22 +3,19 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-dashboard
-  annotations: null
   namespace: traefik
 spec:
   entryPoints:
     - websecure
   tls:
-    secretName: traefik-dashboard-cert
+    secretName: traefik.${DOMAIN}
   routes:
     - kind: Rule
       match: Host(`traefik.${DOMAIN}`)
-      # match: Host("traefik.test.ghimele.com")
       services:
         - name: api@internal
           kind: TraefikService
     - kind: Rule
-      # match: Host("traefik.test.ghimele.com") &&  PathPrefix("/api")
       match: Host(`traefik.${DOMAIN}`) &&  PathPrefix("/api")
       services:
         - name: api@internal

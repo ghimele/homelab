@@ -1,4 +1,4 @@
 ---
 resources:
-  - ../base/cert-manager/
+  - ./cert-manager/
   - ../base/traefik/

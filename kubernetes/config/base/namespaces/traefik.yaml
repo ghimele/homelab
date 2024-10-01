@@ -1,6 +1,0 @@
----
-# create a namespace for cert-manager
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: traefik
