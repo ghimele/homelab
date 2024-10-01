@@ -11,4 +11,3 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: lets-encrypt-staging
-    namespace: cert-manager
