@@ -9,5 +9,5 @@ spec:
   ports:
     - name: https
       port: 8443
-      targetPort: ${XEN_PORT}
-  externalName: ${XEN_IP}
+      targetPort: 8443
+  externalName: 192.168.10.51
