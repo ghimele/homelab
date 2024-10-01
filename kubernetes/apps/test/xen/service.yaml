@@ -3,6 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: xen
+  namespace: xen
 spec:
   type: ExternalName
   ports:
