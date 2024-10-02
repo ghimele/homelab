@@ -38,10 +38,8 @@ spec:
             defaultmode: keep
     ports:
       web:
-        redirectTo: websecure
-      websecure:
-        tls:
-          enable: true
+        redirectTo:
+          port: websecure
     ingressRoute:
       dashboard:
         enabled: false
