@@ -6,7 +6,7 @@ metadata:
   namespace: xen
 spec:
   entryPoints:
-    - http
+    - websecure
   routes:
     - match: Host(`xen.${DOMAIN}`)
       kind: Rule
