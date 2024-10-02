@@ -47,22 +47,22 @@ spec:
         # entryPoints: ["web"]
     persistence:
       enabled: true
-      # metrics:
-      #   prometheus:
-      #     entryPoint: metrics
-      #     service:
-      #       enabled: true
-      #     serviceMonitor:
-      #       namespace: traefik
-      #     prometheusRule:
-      #       namespace: traefik
-      #       rules:
-      #         - alert: TraefikDown
-      #           expr: up{job="traefik"} == 0
-      #           for: 5m
-      #           labels:
-      #             context: traefik
-      #             severity: warning
-      #           annotations:
-      #             summary: "Traefik Down"
-      #             description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
+    metrics:
+      prometheus:
+        entryPoint: metrics
+        service:
+          enabled: true
+        serviceMonitor:
+          namespace: traefik
+        prometheusRule:
+          namespace: traefik
+          rules:
+            - alert: TraefikDown
+              expr: up{job="traefik"} == 0
+              for: 5m
+              labels:
+                context: traefik
+                severity: warning
+              annotations:
+                summary: "Traefik Down"
+                description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
