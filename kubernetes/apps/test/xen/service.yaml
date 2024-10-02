@@ -5,6 +5,7 @@ metadata:
   name: xen
   namespace: xen
 spec:
+  insecureSkipVerify: true
   ports:
     - port: 443
       targetPort: 8443
