@@ -7,6 +7,6 @@ metadata:
 spec:
   insecureSkipVerify: true
   ports:
-    - port: 443
-      targetPort: 8443
+    - port: 9898
+      targetPort: 9898
       protocol: TCP
