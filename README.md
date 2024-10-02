@@ -1,4 +1,10 @@
 # Ghimele's Homelab Configuration Repository
+![GitHub tag status](https://img.shields.io/github/checks-status/ghimele/homelab/main?style=for-the-badge)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ghimele/homelab/ci.yaml?style=for-the-badge)
+ [![Pipeline (docs)](https://img.shields.io/github/actions/workflow/status/ghimele/homelab/docs.yml?branch=main&label=docs&style=for-the-badge)](https://github.com/ghimele/homelab/actions/workflows/docs.yml) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ghimele/homelab?style=for-the-badge) [![GitHub Last Commit](https://img.shields.io/github/last-commit/ghimele/homelab?style=for-the-badge)](https://github.com/ghimele/homelab/commits/main) ![GitHub top language](https://img.shields.io/github/languages/top/ghimele/homelab?style=for-the-badge) ![GitHub repo size](https://img.shields.io/github/repo-size/ghimele/homelab?style=for-the-badge) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white) ![Ansible](https://img.shields.io/badge/ansible-%231A1918.svg?style=for-the-badge&logo=ansible&logoColor=white) ![Flux](https://img.shields.io/badge/flux-5468ff?style=for-the-badge&logo=flux&logoColor=white)
+
 
 Welcome to the Homelab Configuration repository! This repository contains the configuration and automation scripts used to manage and deploy resources in the homelab environment. It includes Ansible playbooks, Kubernetes manifests, Helm charts, and CI/CD workflows.
 
