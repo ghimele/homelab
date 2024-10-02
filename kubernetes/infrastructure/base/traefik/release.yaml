@@ -17,6 +17,9 @@ spec:
         namespace: traefik
       interval: 12h
   values:
+    additionalArguments:
+      - '--ping.entrypoint=metrics'
+      - '--serverstransport.insecureskipverify'
     providers:
       kubernetesCRD:
         enabled: true
@@ -41,3 +44,25 @@ spec:
         # entryPoints: ["web"]
     persistence:
       enabled: true
+    ports:
+      web:
+        redirectTo: websecure
+    metrics:
+      prometheus:
+        entryPoint: metrics
+        service:
+          enabled: true
+        serviceMonitor:
+          namespace: traefik
+        prometheusRule:
+          namespace: traefik
+          rules:
+            - alert: TraefikDown
+              expr: up{job="traefik"} == 0
+              for: 5m
+              labels:
+                context: traefik
+                severity: warning
+              annotations:
+                summary: "Traefik Down"
+                description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
