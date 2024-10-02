@@ -6,6 +6,6 @@ metadata:
   namespace: xen
 spec:
   ports:
-    - port: 8443
-      targetPort: https
+    - port: 443
+      targetPort: 8443
       protocol: TCP
