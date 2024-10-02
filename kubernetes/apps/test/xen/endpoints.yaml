@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Endpoints
 metadata:
   name: xen
+  namespace: xen
 subsets:
   - addresses:
       - ip: 192.168.10.51
