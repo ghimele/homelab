@@ -36,6 +36,12 @@ spec:
         fields:
           headers:
             defaultmode: keep
+    ports:
+      web:
+        redirectTo: websecure
+      websecure:
+        tls:
+          enable: true
     ingressRoute:
       dashboard:
         enabled: false
@@ -44,9 +50,6 @@ spec:
         # entryPoints: ["web"]
     persistence:
       enabled: true
-    ports:
-      web:
-        redirectTo: websecure
     metrics:
       prometheus:
         entryPoint: metrics
