@@ -10,11 +10,11 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: "32.x"
+      version: "32.0.0"
       sourceRef:
         kind: HelmRepository
         name: traefik
-        namespace: traefik
+        namespace: flux-system
       interval: 12h
   values:
     additionalArguments:
