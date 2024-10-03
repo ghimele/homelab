@@ -17,11 +17,10 @@ spec:
         name: jetstack
         namespace: flux-system
   values:
-    crds:
-      enabled: false
-    # extraEnv:
-    #   - name: TZ
-    #     value: ${TIMEZONE}
+    installCRDs: true
+    extraEnv:
+      - name: TZ
+        value: ${TIMEZONE}
     prometheus:
       enabled: true
       servicemonitor:
