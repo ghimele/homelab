@@ -22,7 +22,7 @@ Here's an overview of the repository structure:
 │   └── adr/
 ├── kubernetes/             # Kubernetes clusters config folder.
 │   ├── apps/               # Application-specific configurations (base, dev, prod, test).
-|   |-- charts/             # Chart repository configuration
+|   ├── charts/             # Chart repository configuration
 │   ├── clusters/           # Cluster-specific configurations (dev, prod, test).
 │   ├── config/             # Base and environment-specific configurations for Kubernetes custom resources such as cert issuers and networks policies
 │   └── infrastructure/     # Infr-specific configurations (base, dev, prod, test). Contains common infra tools for Kubernetes controllers such as traefik and cert-manager
