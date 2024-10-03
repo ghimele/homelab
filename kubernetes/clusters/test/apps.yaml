@@ -8,6 +8,7 @@ spec:
   interval: 1h
   dependsOn:
     - name: config
+    - name: charts
     - name: infrastructure
   retryInterval: 1m
   timeout: 5m
