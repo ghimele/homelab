@@ -19,9 +19,9 @@ spec:
   values:
     crds:
       enabled: false
-    extraEnv:
-      - name: TZ
-        value: ${TIMEZONE}
+    # extraEnv:
+    #   - name: TZ
+    #     value: ${TIMEZONE}
     prometheus:
       enabled: true
       servicemonitor:
