@@ -17,7 +17,8 @@ spec:
         name: jetstack
         namespace: flux-system
   values:
-    installCRDs: true
+    crds:
+      enable: false
     extraEnv:
       - name: TZ
         value: ${TIMEZONE}
