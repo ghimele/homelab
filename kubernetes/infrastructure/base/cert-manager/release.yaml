@@ -10,12 +10,14 @@ spec:
   chart:
     spec:
       chart: cert-manager
-      version: "1.15.x"
+      version: "1.15.3"
       sourceRef:
         kind: HelmRepository
         name: jetstack
         namespace: flux-system
   values:
+    crds:
+      enabled: true
     extraEnv:
       - name: TZ
         value: ${TIMEZONE}
