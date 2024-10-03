@@ -16,8 +16,6 @@ spec:
         name: jetstack
         namespace: flux-system
   values:
-    crds:
-      enabled: true
     extraEnv:
       - name: TZ
         value: ${TIMEZONE}
