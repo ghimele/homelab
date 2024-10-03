@@ -6,15 +6,14 @@ metadata:
   name: homepage
   namespace: homepage
 spec:
-  interval: 30m
+  interval: 10m0s
   chart:
     spec:
       chart: homepage
       version: "2024.x"
       sourceRef:
         kind: HelmRepository
-        name: homepage
-        namespace: homepage
-      interval: 12h
+        name: ghimele
+        namespace: flux-system
   values:
     namespace: homepage

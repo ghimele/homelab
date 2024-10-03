@@ -6,15 +6,21 @@ metadata:
   name: cert-manager
   namespace: cert-manager
 spec:
-  interval: 30m
+  interval: 10m0s
   chart:
     spec:
       chart: cert-manager
       version: "1.15.x"
       sourceRef:
         kind: HelmRepository
-        name: cert-manager
-        namespace: cert-manager
-      interval: 12h
+        name: jetstack
+        namespace: flux-system
   values:
     installCRDs: true
+    extraEnv:
+      - name: TZ
+        value: ${TIMEZONE}
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
