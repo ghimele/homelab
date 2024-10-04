@@ -59,8 +59,9 @@ BREAKING CHANGE: old data format handling is deprecated
 | **Automation Integration**  | Strong                   | None                     | Medium                   |
 
 ## Consequences
-- **Positive**: 
+
+- **Positive**:
   - Consistent commit messages across the project will enhance collaboration and make it easier to understand the history of changes.
   - Better integration with automated tools (like changelog generators and semantic versioning) will streamline releases.
-- **Negative**: 
+- **Negative**:
   - Developers must adhere to a specific commit format, which may require some initial adjustment.

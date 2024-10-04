@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to the ADR directory
-ADR_DIR="./adr"
+ADR_DIR="./docs/adr"
 INDEX_FILE="$ADR_DIR/ADR-000-Index.md"
 TEMPLATE_FILE="$ADR_DIR/ADR-000-Template.md"
 
@@ -49,14 +49,15 @@ done
 
 # Write the index structure to the file
 echo "## Accepted Records" >> "$INDEX_FILE"
+echo "" >> "$INDEX_FILE"
 if [[ -n "$accepted_records" ]]; then
   echo -e "$accepted_records" >> "$INDEX_FILE"
 else
   echo "None" >> "$INDEX_FILE"
 fi
 
-echo "" >> "$INDEX_FILE"
 echo "## Rejected Records" >> "$INDEX_FILE"
+echo "" >> "$INDEX_FILE"
 if [[ -n "$rejected_records" ]]; then
   echo -e "$rejected_records" >> "$INDEX_FILE"
 else
@@ -65,6 +66,7 @@ fi
 
 echo "" >> "$INDEX_FILE"
 echo "## Deprecated Records" >> "$INDEX_FILE"
+echo "" >> "$INDEX_FILE"
 if [[ -n "$deprecated_records" ]]; then
   echo -e "$deprecated_records" >> "$INDEX_FILE"
 else
@@ -73,6 +75,7 @@ fi
 
 echo "" >> "$INDEX_FILE"
 echo "## Superseded Records" >> "$INDEX_FILE"
+echo "" >> "$INDEX_FILE"
 if [[ -n "$superseded_records" ]]; then
   echo -e "$superseded_records" >> "$INDEX_FILE"
 else
@@ -81,6 +84,7 @@ fi
 
 echo "" >> "$INDEX_FILE"
 echo "## Records with non-standard statuses" >> "$INDEX_FILE"
+echo "" >> "$INDEX_FILE"
 if [[ -n "$non_standard_status_records" ]]; then
   echo -e "$non_standard_status_records" >> "$INDEX_FILE"
 else

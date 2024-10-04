@@ -62,3 +62,4 @@ A big thank you goes to these awesome people and their projects who inspired me 
 - [onedr0p/home-ops](https://github.com/onedr0p/home-ops)
 - [nicholaswilde/home-cluster](https://github.com/nicholaswilde/home-cluster)
 - [billimek/k8s-gitops](https://github.com/billimek/k8s-gitops)
+- [szinn/k8s-homelab](https://github.com/szinn/k8s-homelab)
