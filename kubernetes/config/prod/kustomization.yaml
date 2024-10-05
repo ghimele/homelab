@@ -1,0 +1,4 @@
+---
+resources:
+  - ./secrets
+  - ../base
