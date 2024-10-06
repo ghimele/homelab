@@ -1,0 +1,4 @@
+---
+resources:
+  - ./homepage
+  - ./xen
