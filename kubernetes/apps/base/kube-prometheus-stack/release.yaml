@@ -34,92 +34,92 @@ spec:
         kubeProxy: false
         kubeScheduler: false
 
-    alertmanager:
-      config:
-        inhibit_rules:
-          - source_matchers:
-              - 'severity = critical'
-            target_matchers:
-              - 'severity =~ warning|info'
-            equal:
-              - 'namespace'
-              - 'alertname'
-          - source_matchers:
-              - 'severity = warning'
-            target_matchers:
-              - 'severity = info'
-            equal:
-              - 'namespace'
-              - 'alertname'
-          - source_matchers:
-              - 'alertname = InfoInhibitor'
-            target_matchers:
-              - 'severity = info'
-            equal:
-              - 'namespace'
-        route:
-          group_by: ['namespace']
-          receiver: discord
-          routes:
-            - receiver: nowhere
-              matchers:
-                - alertname =~ "InfoInhibitor|Watchdog"
-        receivers:
-          - name: nowhere
-          - name: discord
-            discord_configs:
-              - webhook_url: ${ALERTMANAGER_DISCORD_URL}
-                title: >-
-                  {{ template "discord.iske.title" . }}
-                message: >-
-                  {{ template "discord.iske.message" . }}
-                send_resolved: true
-        templates:
-          - /etc/alertmanager/config/*.tmpl
-      templateFiles:
-        discord.tmpl: |-
-          {{ define "discord.iske.title" }}
-          [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}{{ end }}
-          {{ define "discord.iske.message" }}
-          {{ range $i, $e := .Alerts -}}
-          {{ if $i }}———{{ end }}
-          {{ if .Labels.severity }}`{{ .Labels.severity }}`{{ end }}
+    # alertmanager:
+    #   config:
+    #     inhibit_rules:
+    #       - source_matchers:
+    #           - 'severity = critical'
+    #         target_matchers:
+    #           - 'severity =~ warning|info'
+    #         equal:
+    #           - 'namespace'
+    #           - 'alertname'
+    #       - source_matchers:
+    #           - 'severity = warning'
+    #         target_matchers:
+    #           - 'severity = info'
+    #         equal:
+    #           - 'namespace'
+    #           - 'alertname'
+    #       - source_matchers:
+    #           - 'alertname = InfoInhibitor'
+    #         target_matchers:
+    #           - 'severity = info'
+    #         equal:
+    #           - 'namespace'
+    #     route:
+    #       group_by: ['namespace']
+    #       receiver: discord
+    #       routes:
+    #         - receiver: nowhere
+    #           matchers:
+    #             - alertname =~ "InfoInhibitor|Watchdog"
+    #     receivers:
+    #       - name: nowhere
+    #       - name: discord
+    #         discord_configs:
+    #           - webhook_url: ${ALERTMANAGER_DISCORD_URL}
+    #             title: >-
+    #               {{ template "discord.iske.title" . }}
+    #             message: >-
+    #               {{ template "discord.iske.message" . }}
+    #             send_resolved: true
+    #     templates:
+    #       - /etc/alertmanager/config/*.tmpl
+    #   templateFiles:
+    #     discord.tmpl: |-
+    #       {{ define "discord.iske.title" }}
+    #       [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}{{ end }}
+    #       {{ define "discord.iske.message" }}
+    #       {{ range $i, $e := .Alerts -}}
+    #       {{ if $i }}———{{ end }}
+    #       {{ if .Labels.severity }}`{{ .Labels.severity }}`{{ end }}
 
-          {{ if and (eq .Status "resolved") .Annotations.resolved -}}
-          *Resolved*
-          {{ .Annotations.resolved }}
-          {{- else -}}
-          *Description*
-          {{ .Annotations.description }}
-          {{- end }}
+    #       {{ if and (eq .Status "resolved") .Annotations.resolved -}}
+    #       *Resolved*
+    #       {{ .Annotations.resolved }}
+    #       {{- else -}}
+    #       *Description*
+    #       {{ .Annotations.description }}
+    #       {{- end }}
 
-          {{ if not .Annotations.minimal -}}
-          *Labels*
-          {{- range .Labels.SortedPairs }}
-          • {{ .Name }}: `{{ .Value }}`
-          {{- end }}
-          {{- end }}
-          {{ end }}{{ end }}
-      serviceMonitor:
-        relabelings:
-          - sourceLabels: [__meta_kubernetes_pod_node_name]
-            separator: ;
-            regex: ^(.*)$
-            targetLabel: nodename
-            replacement: $1
-            action: replace
-      alertmanagerSpec:
-        logLevel: info  # before: warn
-        externalUrl: https://${HOST_ALERTS}.${DOMAIN}
-        storage:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: local-path
-              accessModes:
-                - ReadWriteOnce
-              resources:
-                requests:
-                  storage: 50Gi
+    #       {{ if not .Annotations.minimal -}}
+    #       *Labels*
+    #       {{- range .Labels.SortedPairs }}
+    #       • {{ .Name }}: `{{ .Value }}`
+    #       {{- end }}
+    #       {{- end }}
+    #       {{ end }}{{ end }}
+    #   serviceMonitor:
+    #     relabelings:
+    #       - sourceLabels: [__meta_kubernetes_pod_node_name]
+    #         separator: ;
+    #         regex: ^(.*)$
+    #         targetLabel: nodename
+    #         replacement: $1
+    #         action: replace
+    #   alertmanagerSpec:
+    #     logLevel: info  # before: warn
+    #     externalUrl: https://${HOST_ALERTS}.${DOMAIN}
+    #     storage:
+    #       volumeClaimTemplate:
+    #         spec:
+    #           storageClassName: local-path
+    #           accessModes:
+    #             - ReadWriteOnce
+    #           resources:
+    #             requests:
+    #               storage: 50Gi
 
     grafana:
       fullnameOverride: grafana
