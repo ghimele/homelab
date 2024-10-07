@@ -17,6 +17,8 @@ spec:
         name: jetstack
         namespace: flux-system
   values:
+    image:
+      tag: 'v1.16.0'
     crds:
       enabled: false
     extraEnv:

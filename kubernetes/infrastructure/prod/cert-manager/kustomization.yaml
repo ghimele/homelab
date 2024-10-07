@@ -3,3 +3,8 @@ resources:
   - ../../base/cert-manager/
   - ./secrets/
   - ./issuers/
+
+patches:
+  - path: cert-manager-values.yaml
+    target:
+      kind: HelmRelease
