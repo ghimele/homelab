@@ -18,6 +18,7 @@ spec:
     solvers:
       - dns01:
           cloudflare:
+            email: '${EMAIL}'
             apiTokenSecretRef:
               name: cloudflare-api-token
               key: api-token
