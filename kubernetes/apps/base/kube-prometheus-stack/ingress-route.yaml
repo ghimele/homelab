@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
 spec:
   entryPoints:
-    - https
+    - websecure
   routes:
     - kind: Rule
       match: Host(`${HOST_PROMETHEUS}.${DOMAIN}`)
@@ -25,7 +25,7 @@ metadata:
   namespace: monitoring
 spec:
   entryPoints:
-    - https
+    - websecure
   routes:
     - kind: Rule
       match: Host(`${HOST_ALERTS}.${DOMAIN}`)
@@ -44,7 +44,7 @@ metadata:
   namespace: monitoring
 spec:
   entryPoints:
-    - https
+    - websecure
   routes:
     - kind: Rule
       match: Host(`${HOST_GRAFANA}.${DOMAIN}`)
