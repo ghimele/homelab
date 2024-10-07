@@ -35,10 +35,12 @@ Here's an overview of the repository structure:
 To get started with the homelab configuration, follow these steps:
 
 ### 1. Clone the Repository
+
   ```bash
   git clone https://github.com/ghimele/homelab.git
   cd homelab
   ```
+
 ### 2. Setup Ansible
 
   Install Ansible on your local machine.
@@ -46,20 +48,24 @@ To get started with the homelab configuration, follow these steps:
   Run playbooks from ansible/playbooks/ to configure your systems.
 
 ### 3. Kubernetes Configuration
+
   The Kubernetes Configuration is managed by Fluxcd, see the CD section.
 
 ### 4. Continuos Integration with GitHub Actions
+
   Configure GitHub Actions workflows in the .github/workflows/ directory for automated testing and deployment.
 
 ### 5. Continuous Deployment with FluxCD
+
   FluxCD manages the continuous deployment of the Kubernetes resources. The Flux configuration is located under `kubernetes/clusters/<environment>`. Ensure that your FluxCD setup is properly synced with this repository to automate deployments.
 
 ## Thanks
 
-A big thank you goes to these awesome people and their projects who inspired me to do this project:
+A big thank you goes to these awesome people and their projects who inspired and helped me to do this project:
 
 - [pascaliske/infrastructure](https://github.com/pascaliske/infrastructure)
 - [onedr0p/home-ops](https://github.com/onedr0p/home-ops)
 - [nicholaswilde/home-cluster](https://github.com/nicholaswilde/home-cluster)
 - [billimek/k8s-gitops](https://github.com/billimek/k8s-gitops)
 - [szinn/k8s-homelab](https://github.com/szinn/k8s-homelab)
+- [flux2-kustomize-helm-example](https://github.com/fluxcd/flux2-kustomize-helm-example/tree/main)
