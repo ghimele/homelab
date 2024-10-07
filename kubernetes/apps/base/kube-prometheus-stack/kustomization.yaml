@@ -2,5 +2,5 @@
 resources:
   - release.yaml
   - certificate.yaml
-  - route.yaml
+  - ingress-route.yaml
   - dashboard
