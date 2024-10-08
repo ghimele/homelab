@@ -22,7 +22,7 @@ spec:
       - --global.sendanonymoususage=false
     additionalArguments:
       - '--serverstransport.insecureskipverify'
-      - '--ping.entrypoint=metrics'
+      # - '--ping.entrypoint=metrics'
     env:
       - name: TZ
         value: ${TIMEZONE}
