@@ -183,7 +183,7 @@
                 "refId": "A"
               }
             ],
-            "title": "Load 1",
+            "title": "1 min load averages",
             "type": "stat"
           },
           {
@@ -253,7 +253,7 @@
                 "refId": "A"
               }
             ],
-            "title": "Load 5",
+            "title": "5 min load averages",
             "type": "stat"
           },
           {
@@ -323,7 +323,7 @@
                 "refId": "A"
               }
             ],
-            "title": "Load 15",
+            "title": "5 min load averages",
             "type": "stat"
           }
         ],
