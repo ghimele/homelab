@@ -18,6 +18,9 @@ configMapGenerator:
   - name: grafana-dashboard-ingress-routes
     files:
       - ingress-routes.json
+  - name: grafana-dashboard-node-exporter
+    files:
+      - node-exporter-full.json
 generatorOptions:
   disableNameSuffixHash: true
   labels:

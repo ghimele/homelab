@@ -302,14 +302,9 @@ spec:
               resources:
                 requests:
                   storage: 40Gi
-        # additionalScrapeConfigs:
-        #   - job_name: custom/minio
-        #     metrics_path: /minio/v2/metrics/cluster
-        #     bearer_token: ${MINIO_METRICS_TOKEN}
-        #     scheme: http
-        #     static_configs:
-        #       - targets: ['${IP_RYLOTH_TAILSCALE}:9000']
-        #   - job_name: custom/magicmirror
-        #     static_configs:
-        #       - targets: ['${IP_ILUM_TAILSCALE}:9000']
+        additionalScrapeConfigs:
+          - job_name: unraid
+            scheme: http
+            static_configs:
+              - targets: ['${HOST_OCEANO}.${DOMAIN}:9100']
   interval: 10m0s
