@@ -4,3 +4,4 @@ resources:
   - traefik.yaml
   - ghimele.yaml
   - prometheus-community.yaml
+  - grafana.yaml
