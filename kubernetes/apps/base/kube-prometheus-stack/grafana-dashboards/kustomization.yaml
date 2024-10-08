@@ -12,6 +12,12 @@ configMapGenerator:
   - name: grafana-dashboard-alerts
     files:
       - alerts.json
+  - name: grafana-dashboard-certificates
+    files:
+      - certificates.json
+  - name: grafana-dashboard-ingress-routes
+    files:
+      - ingress-routes.json
 generatorOptions:
   disableNameSuffixHash: true
   labels:

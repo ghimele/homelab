@@ -4,4 +4,4 @@ resources:
   - release.yaml
   - certificate.yaml
   - ingress-route.yaml
-  - grafana-dashboard
+  - grafana-dashboards
