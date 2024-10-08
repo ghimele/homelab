@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      chart: loki
+      version: '6.16.0'
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  install:
+    createNamespace: true
+  values:
+    deploymentMode: SingleBinary
+    loki:
+      image:
+        repository: grafana/loki
+        tag: '3.2.0'
+      auth_enabled: false
+      storage:
+        type: filesystem
+      # another workaround for another weird chart validation error: https://github.com/grafana/loki/blob/1b80458e2eff2d41b9126a7529ee32ae1e269f05/production/helm/loki/templates/validate.yaml#L40
+      schemaConfig:
+        configs:
+          - from: '2024-04-01'
+            object_store: filesystem
+            store: tsdb
+            schema: v13
+            index:
+              prefix: index_
+              period: 24h
+    test:
+      enabled: false
+    lokiCanary:
+      enabled: false
+    gateway:
+      enabled: false
+    singleBinary:
+      # workaround to fix helm error due to weird default value of zero replicas: https://github.com/grafana/loki/issues/8443#issuecomment-1421636858
+      replicas: 1
+      extraArgs:
+        - -config.expand-env=true
+        - -log.level=warn
+      extraEnv:
+        - name: TZ
+          value: ${TIMEZONE}
+      persistence:
+        storageClass: local-path
+    # single binary mode requires to manually set the following replicas to zero: https://github.com/grafana/loki/blob/1b80458e2eff2d41b9126a7529ee32ae1e269f05/production/helm/loki/templates/validate.yaml#L31
+    write:
+      replicas: 0
+    read:
+      replicas: 0
+    backend:
+      replicas: 0
+    resultsCache:
+      enabled: false
+    chunksCache:
+      enabled: false
+    monitoring:
+      serviceMonitor:
+        enabled: true
+  interval: 10m0s

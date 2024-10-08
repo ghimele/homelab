@@ -3,3 +3,4 @@ resources:
   - ./homepage
   - ./xen
   - ./kube-prometheus-stack
+  - ./loki

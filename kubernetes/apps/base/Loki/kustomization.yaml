@@ -1,0 +1,4 @@
+---
+resources:
+  - release.yaml
+  - datasource

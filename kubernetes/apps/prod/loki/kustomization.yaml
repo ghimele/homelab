@@ -1,0 +1,5 @@
+---
+resources:
+  - ../../base/loki
+  - certificate.yaml
+  - ingress-route.yaml
