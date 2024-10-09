@@ -1,8 +1,8 @@
 ---
 resources:
   - release.yaml
-  - configmap.yaml
-  - daemonset.yaml
-  - clusterrole.yaml
-  - rolebinding.yaml
-  - serviceaccount.yaml
+  # - configmap.yaml
+  # - daemonset.yaml
+  # - clusterrole.yaml
+  # - rolebinding.yaml
+  # - serviceaccount.yaml
