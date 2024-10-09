@@ -1,4 +1,4 @@
---- # Clusterrole.yaml
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -6,10 +6,10 @@ metadata:
 rules:
   - apiGroups: [""]
     resources:
-    - nodes
-    - services
-    - pods
+      - nodes
+      - services
+      - pods
     verbs:
-    - get
-    - watch
-    - list
+      - get
+      - watch
+      - list
