@@ -4,3 +4,4 @@ resources:
   - ./xen
   - ./kube-prometheus-stack
   - ./loki
+  - ./promtail
