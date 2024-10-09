@@ -17,9 +17,6 @@ spec:
   install:
     createNamespace: true
   values:
-    commonConfig:
-      replication_factor: 1
-    deploymentMode: SingleBinary
     loki:
       image:
         repository: grafana/loki
@@ -27,6 +24,8 @@ spec:
       auth_enabled: false
       storage:
         type: filesystem
+      commonConfig:
+        replication_factor: 1
       # another workaround for another weird chart validation error: https://github.com/grafana/loki/blob/1b80458e2eff2d41b9126a7529ee32ae1e269f05/production/helm/loki/templates/validate.yaml#L40
       schemaConfig:
         configs:
@@ -43,6 +42,7 @@ spec:
       enabled: false
     gateway:
       enabled: false
+    deploymentMode: SingleBinary
     singleBinary:
       # workaround to fix helm error due to weird default value of zero replicas: https://github.com/grafana/loki/issues/8443#issuecomment-1421636858
       replicas: 1
