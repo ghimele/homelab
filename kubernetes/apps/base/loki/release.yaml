@@ -17,6 +17,8 @@ spec:
   install:
     createNamespace: true
   values:
+    commonConfig:
+      replication_factor: 1
     deploymentMode: SingleBinary
     loki:
       image:
