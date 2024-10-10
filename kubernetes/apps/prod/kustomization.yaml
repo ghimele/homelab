@@ -5,3 +5,4 @@ resources:
   - ./kube-prometheus-stack
   - ./loki
   - ./promtail
+  - ./longhorn

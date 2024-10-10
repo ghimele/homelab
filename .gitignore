@@ -16,3 +16,4 @@ packer_cache/
 **/**secret.yaml
 **/.decrypted~*
 kubernetes/apps/test/secrets/cm-homepage.yaml
+tmp/**

@@ -1,0 +1,5 @@
+---
+resources:
+  - ../../base/longhorn
+  - certificate.yaml
+  - ingress-route.yaml

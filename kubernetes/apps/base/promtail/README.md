@@ -2,15 +2,15 @@
 
 ## Introduction
 
-Promtail is an agent which ships the contents of local logs to a Loki instance
+Promtail is an agent which ships the contents of local logs to a private Grafana Loki instance or Grafana Cloud. It is usually deployed to every machine that runs applications which need to be monitored.
 
 ## Created Resources
 
 | Kind                                | Name             |
 | ----------------------------------- | ---------------- |
-| [`HelmRelease`][ref-helm-release]   | `loki`           |
-| [`Certificate`][ref-certificate]    | `loki.${DOMAIN}` |
-| [`IngressRoute`][ref-ingress-route] | `loki`           |
+| [`HelmRelease`][ref-helm-release]   | `promtail`           |
+| [`Certificate`][ref-certificate]    | `promtail.${DOMAIN}` |
+| [`IngressRoute`][ref-ingress-route] | `promtail`           |
 
 [ref-helm-release]: https://fluxcd.io/docs/components/helm/helmreleases/
 [ref-certificate]: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate
@@ -18,6 +18,6 @@ Promtail is an agent which ships the contents of local logs to a Loki instance
 
 ## Links
 
-- [Documentation](https://grafana.com/docs/loki/latest/)
-- [GitHub Repository](https://github.com/grafana/loki)
-- [Helm Chart](https://github.com/grafana/helm-charts/tree/main/charts/promtail)
+- [Documentation](https://grafana.com/docs/loki/latest/send-data/promtail/)
+- [GitHub Repository](https://github.com/grafana)
+- [Helm Chart](https://github.com/grafana/helm-charts/blob/main/charts/promtail/Chart.yaml)
