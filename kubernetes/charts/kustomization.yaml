@@ -5,3 +5,4 @@ resources:
   - ghimele.yaml
   - prometheus-community.yaml
   - grafana.yaml
+  - longhorn.yaml
