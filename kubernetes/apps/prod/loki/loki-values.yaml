@@ -10,4 +10,5 @@ spec:
     loki:
       singleBinary:
         persistence:
+          size: 10Gi
           storageClass: longhorn
