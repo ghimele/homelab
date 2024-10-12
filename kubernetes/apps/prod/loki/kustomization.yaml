@@ -3,3 +3,8 @@ resources:
   - ../../base/loki
   - certificate.yaml
   - ingress-route.yaml
+
+patches:
+  - path: loki-values.yaml
+    target:
+      kind: HelmRelease
