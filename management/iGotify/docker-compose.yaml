@@ -1,0 +1,22 @@
+---
+
+name: homelab-management
+
+services:
+  igotify:
+    container_name: igotify
+    hostname: igotify
+    image: ghcr.io/androidseb25/igotify-notification-assist:latest
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    pull_policy: always
+    network_mode: bridge
+    # networks:
+    #   - net
+    ports:
+      - "$IGOTIFY_PORT:8080"
+    volumes:
+      - /var/opt/appdata/igotify:/app/data
+    environment:                 # option environment see above note
+      GOTIFY_URLS: $GOTIFY_URLS
