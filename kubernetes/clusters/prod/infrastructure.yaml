@@ -8,7 +8,7 @@ spec:
   interval: 1h
   dependsOn:
     - name: config
-    - name: charts
+    - name: repositories
   retryInterval: 1m
   timeout: 5m
   sourceRef:
