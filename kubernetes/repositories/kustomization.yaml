@@ -7,3 +7,4 @@ resources:
   - grafana.yaml
   - longhorn.yaml
   - cloudnative-pg.yaml
+  - bjw-s.yaml
