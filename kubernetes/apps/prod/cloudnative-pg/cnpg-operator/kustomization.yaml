@@ -1,6 +1,6 @@
 ---
 resources:
-  - ../../base/cloudnative-pg/cnpg-operator
+  - ../../../base/cloudnative-pg/cnpg-operator
 
 patches:
   - path: values.yaml
