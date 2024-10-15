@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cluster
+  namespace: clusterdb
+spec:
+  interval: 10m0s
+  values:
+    type: postgresql
+    mode: standalone
+    version:
+      postgresql: "17"
+    cluster:
+      instances: 3
+      # -- Strategy to follow to upgrade the primary server during a rolling update procedure, after all replicas have been
+      # successfully updated: it can be automated (unsupervised - default) or manual (supervised)
+      primaryUpdateStrategy: unsupervised
+      monitoring:
+        enabled: true
+      storage:
+        storageClass: "longhorn-postgres-storage"
+        size: 2Gi
+      walStorage:
+        storageClass: "longhorn-postgres-storage"
+        size: 2Gi
+      initdb:
+        database: khcdb
+        owner: khcadmin
+        secret:
+          name: db-credentials
+        encoding: UTF8
+    backups:
+      enabled: false

@@ -1,0 +1,8 @@
+---
+resources:
+  - ../../base/cloudnative-pg/cnpg-operator
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

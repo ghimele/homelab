@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cloudnative-pg
+  namespace: cnpg-system
+spec:
+  interval: 10m0s
+  values:
+    crds:
+      create: true
+    config:
+      data:
+        INHERITED_LABELS: app.kubernetes.io/*
+    monitoring:
+      podMonitorEnabled: true
+    grafanaDashboard:
+      create: true

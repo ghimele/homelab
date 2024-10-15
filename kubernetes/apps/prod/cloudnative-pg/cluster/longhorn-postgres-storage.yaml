@@ -1,0 +1,17 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: longhorn-postgres-storage
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+# WaitForFirstConsumer mode will delay the binding and provisioning of a PersistentVolume until a Pod using the PersistentVolumeClaim is created.
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+parameters:
+  numberOfReplicas: "1"
+  staleReplicaTimeout: "1440"  # 1 day
+  fsType: "ext4"
+  dataLocality: "strict-local"

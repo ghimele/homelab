@@ -1,0 +1,10 @@
+---
+resources:
+  - db-credentials.enc.yaml
+  - longhorn-postgres-storage.yaml
+  - ../../base/cloudnative-pg/cluster
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease
