@@ -6,3 +6,4 @@ resources:
   - prometheus-community.yaml
   - grafana.yaml
   - longhorn.yaml
+  - cloudnative-pg.yaml
