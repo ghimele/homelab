@@ -1,4 +1,4 @@
 ---
 resources:
   - ./cnpg-operator
-  # - ./cluster
+  - ./cluster
