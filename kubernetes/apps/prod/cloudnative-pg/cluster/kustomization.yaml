@@ -3,6 +3,8 @@ resources:
   - db-credentials.enc.yaml
   - longhorn-postgres-storage.yaml
   - ../../../base/cloudnative-pg/cluster
+  - certificate.yaml
+  - ingress-route.yaml
 
 patches:
   - path: values.yaml
