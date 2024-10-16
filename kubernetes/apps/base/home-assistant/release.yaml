@@ -39,14 +39,14 @@ spec:
       privileged: true
 
     persistence:
-      size: 1Gi
-      storageClass: longhorn
-      mountPath: /config
-      # config:
-      #   enabled: true
-      #   type: hostPath
-      #   hostPath: ${PATH_HOME}/home-assistant
-      #   mountPath: /config
+      config:
+        enabled: true
+        size: 1Gi
+        storageClass: longhorn
+        type: pvc
+        accessMode: ReadWriteMany
+        # hostPath: ${PATH_HOME}/home-assistant
+        mountPath: /config
     metrics:
       enabled: true
       prometheusRule:
