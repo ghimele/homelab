@@ -11,7 +11,7 @@ spec:
     secretName: clusterdb.${DOMAIN}
     passthrough: true
   routes:
-    - match: HostSNI(`clusterdb.${DOMAIN}`)
+    - match: HostSNI(`${HOST_DB}.${DOMAIN}`)
       services:
         - name: cluster-rw
           port: 5432
