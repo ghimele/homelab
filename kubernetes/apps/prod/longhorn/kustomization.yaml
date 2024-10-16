@@ -2,4 +2,5 @@
 resources:
   - ../../base/longhorn
   - certificate.yaml
+  - middleware.yaml
   - ingress-route.yaml

@@ -13,7 +13,10 @@ spec:
       services:
         - kind: Service
           name: longhorn-frontend
-          namespace: monitoring
+          namespace: longhorn-system
           port: 80
+      middlewares:
+        - name: x-forwarded-proto-https
+          namespace: traefik
   tls:
     secretName: longhorn.${DOMAIN_INTERNAL}
