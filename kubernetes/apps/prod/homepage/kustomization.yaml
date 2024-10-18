@@ -1,6 +1,0 @@
----
-resources:
-  - ../../base/homepage
-  - certificate.yaml
-  - ingress-route.yaml
-  - configmap.enc.yaml

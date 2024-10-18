@@ -1,5 +1,0 @@
----
-resources:
-  - ../../base/cert-manager/
-  - ./secrets/
-  - ./issuers/

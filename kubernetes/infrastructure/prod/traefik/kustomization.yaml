@@ -1,5 +1,0 @@
----
-resources:
-  - ../../base/traefik/
-  - certificate.yaml
-  - ingress-route.yaml

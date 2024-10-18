@@ -1,3 +1,0 @@
----
-resources:
-  - x-forwarded-proto-https.yaml

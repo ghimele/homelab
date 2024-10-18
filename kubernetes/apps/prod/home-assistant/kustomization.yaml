@@ -1,5 +1,0 @@
----
-resources:
-  - ../../base/home-assistant
-  - certificate.yaml
-  - ingress-route.yaml
