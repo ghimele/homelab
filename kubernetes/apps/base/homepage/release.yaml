@@ -17,3 +17,7 @@ spec:
         namespace: flux-system
   values:
     namespace: homepage
+    image:
+      repository: ghcr.io/gethomepage/homepage
+      # Overrides the image tag whose default is the chart appVersion.
+      tag: 'v0.9.10'
