@@ -11,6 +11,7 @@ spec:
     spec:
       chart: homepage
       version: '2024.9.2'
+      reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
         name: ghimele
