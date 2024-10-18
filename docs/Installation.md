@@ -1,6 +1,6 @@
 # Intstallation
 
-My cluster run in a virtual environment managed by xcp-ng [XCP-ng](https://xcp-ng.org/) and [Xen Orchestra](https://xen-orchestra.com/#!/xo-features/webinterface)
+My cluster runs in a virtual environment managed by xcp-ng [XCP-ng](https://xcp-ng.org/) and [Xen Orchestra](https://xen-orchestra.com/#!/xo-features/webinterface)
 To install a new cluster we need first to create the virtual machine nodes that will manage the workload.
 
 The below chart describes the steps to be done before to create a new VM
