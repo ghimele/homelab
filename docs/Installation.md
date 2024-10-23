@@ -110,7 +110,7 @@ We need to create a GitHub PAT[^5] first and it needs to be exported as an envir
 
 ``bash
 export GITHUB_TOKEN=<gh-token>
-```
+``
 
 Then is possible to run the bootstrap[^6] for a repository on your personal GitHub account, in addition we had the image automation components because they are not installed by default.
 
