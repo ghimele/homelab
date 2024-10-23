@@ -1,0 +1,4 @@
+---
+- name: Install SOPS on remote hosts
+  ansible.builtin.include_role:
+    name: community.sops.install

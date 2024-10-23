@@ -6,4 +6,12 @@
       - curl
       - htop
       - unzip
+      - lvm2
+      - jq
+      - nfs-common
+      - open-iscsi
+      - cryptsetup
+      - dmsetup
+      - lvm2
+      - age
     update_cache: true
