@@ -32,11 +32,13 @@ apt install age
 ## Configure SOPS ang age with Flux
 
 Generate an age key with age using age-keygen
+
 ```bash
 age-keygen -o age.agekey
 ```
 
 Create a secret with the age private key, the key name must end with .agekey to be detected as an age key:
+
 ```bash
 cat age.agekey |
 kubectl create secret generic sops-age \
