@@ -1,0 +1,8 @@
+---
+- name: Create the "logs" directory
+  file:
+    path: /home/ghimele/.cache
+    state: directory
+    mode: '0755'
+    owner: ghimele
+    group: ghimele
