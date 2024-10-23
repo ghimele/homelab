@@ -12,3 +12,6 @@
     - import_tasks: tasks/oh-my-posh.yaml
       tags:
         - terminal
+    - import_tasks: taks/sops_localhost.yaml
+      tags:
+        - server
