@@ -3,16 +3,16 @@
 1. Create a file named traefik.yaml.skip on folder /var/lib/rancher/k3s/server/manifests like this:
 
     ```bash
-    touch /var/lib/rancher/k3s/server   anifests/traefik.yaml.skip
+    touch /var/lib/rancher/k3s/server/manifests/traefik.yaml.skip
     ```
 
 2. After that, run
 
     ```bash
-    kubectl -n kube-system deletehelmcharts.helm.cattle.io traefik
+    kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
     ```
 
-    to remove traefik in the case itwas deployed.
+    to remove traefik in the case it was deployed.
 
 3. Restart k3s
 
