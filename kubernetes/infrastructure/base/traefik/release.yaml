@@ -60,6 +60,8 @@ spec:
         # entryPoints: ["web"]
     persistence:
       enabled: true
+    tracing:
+      addInternals: true
     metrics:
       prometheus:
         entryPoint: metrics
