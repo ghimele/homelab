@@ -5,5 +5,5 @@ resources:
   - ./kube-prometheus-stack
   - ./promtail
   # - ./loki
-  - ./cloudnative-pg
+  # - ./cloudnative-pg
   # - ./home-assistant
