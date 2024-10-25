@@ -16,6 +16,16 @@ spec:
       # -- Strategy to follow to upgrade the primary server during a rolling update procedure, after all replicas have been
       # successfully updated: it can be automated (unsupervised - default) or manual (supervised)
       primaryUpdateStrategy: unsupervised
+      postgresql:
+        parameters:
+          max_connections: 300
+          shared_buffers: 256MB
+      resources:
+        requests:
+          cpu: 500m
+        limits:
+          cpu: 2000m
+          memory: 4Gi
       monitoring:
         enabled: true
       storage:
