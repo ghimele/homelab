@@ -8,9 +8,9 @@ The CNPG cluster chart follows a convention over configuration approach
 
 | Kind                                | Name             |
 | ----------------------------------- | ---------------- |
-| [`HelmRelease`][ref-helm-release]   | `cluster` |
-| [`Certificate`][ref-certificate]    | `clusterdb.${DOMAIN}` |
-| [`IngressRoute`][ref-ingress-route] | `clusterdb`           |
+| [`HelmRelease`][ref-helm-release]   | `postgres-cluster` |
+| [`Certificate`][ref-certificate]    | `postgres-cluster.${DOMAIN}` |
+| [`IngressRoute`][ref-ingress-route] | `postgres-cluster`           |
 
 [ref-helm-release]: https://fluxcd.io/docs/components/helm/helmreleases/
 [ref-certificate]: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate

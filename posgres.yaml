@@ -1,0 +1,153 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cnpg-db
+---
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+  name: longhorn-postgres-storage
+parameters:
+  dataLocality: strict-local
+  fsType: ext4
+  numberOfReplicas: "1"
+  staleReplicaTimeout: "1440"
+provisioner: driver.longhorn.io
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-credentials
+  namespace: cnpg-db
+sops:
+  age:
+  - enc: |
+      -----BEGIN AGE ENCRYPTED FILE-----
+      YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5UnRkejdBMFUvM0lUdDRF
+      Q3IrOWFsUHZNaWZ4N2phM2dyekZuWXVzK1JvCnh5RnVNOVY4a2VNUUVMbU5jdXFN
+      VGI0alF6QnJXSy8yc0g0bVB5a2QzejAKLS0tIE1wRlBxeUNjWng3MGplbmt2UFIv
+      aE5oOVNaZVBjblpUTjdpWm5pQ3dNbzQKWyuKUgrHMJG73sb4uVTEf0wbCiL3f9k0
+      YJw6NBwjSduYqz9UEevpyVcGlYueZ2B/AoaC0rmpiXQ+fMyschUCkw==
+      -----END AGE ENCRYPTED FILE-----
+    recipient: age1xv8cuqcr09e3845unmja9x5jct30q9rmgz7awjc6dwrnq5m79etsvkz2z6
+  azure_kv: []
+  encrypted_regex: ^(user.*|pass.*|.*[Bb]earer.*|.*[Kk]ey|.*[Kk]eys|salt|sentry.*|.*[Tt]oken|data|stringData|match|href)$
+  gcp_kms: []
+  hc_vault: []
+  kms: []
+  lastmodified: "2024-10-15T18:51:51Z"
+  mac: ENC[AES256_GCM,data:c4YsMSlSj9B7j3/MJyFsQ9K5x4P1uvvZPlTPUc4VtVtopGsquWfFNxMHb8IzqjKysn5Qr6z8YbOyN+0zxN1hPbMT9zelTZvLZExWtiEjjsLzQotIt6FSdcsWLAXCMBTLIstWO8Iqw1wS3wOqINipX2TY3J5uOSNWGnbqf5yHXfM=,iv:fhHBVpB+CV0eGaM9BYydFlQXt85obycWJPEpGl2ZXBQ=,tag:1I5ptmSj05Sfn69YZ9Q0Ow==,type:str]
+  pgp: []
+  version: 3.9.0
+stringData:
+  password: ENC[AES256_GCM,data:wqgm6fi475oQNoE=,iv:dimOCVIl1dK5ytPWhe0SEOd7a2E1lUCRuLnaI9S714w=,tag:SpHcuJkI69qKC4V6NkL/5Q==,type:str]
+  username: ENC[AES256_GCM,data:F88HEuGZEMo=,iv:dk1COubAlFwUVqePWRcp03n/eiKwSaN6iHPgM1q4ShE=,tag:e5BGwytNoA23Q8/6gvwy3A==,type:str]
+type: kubernetes.io/basic-auth
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: clusterdb.${DOMAIN}
+  namespace: cnpg-db
+spec:
+  dnsNames:
+  - clusterdb.${DOMAIN}
+  issuerRef:
+    kind: ClusterIssuer
+    name: lets-encrypt
+  secretName: clusterdb.${DOMAIN}
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cluster
+  namespace: cnpg-db
+spec:
+  chart:
+    spec:
+      chart: cluster
+      sourceRef:
+        kind: HelmRepository
+        name: cloudnative-pg-charts
+        namespace: flux-system
+      version: 0.0.11
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  interval: 10m0s
+  maxHistory: 3
+  uninstall:
+    keepHistory: false
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    backups:
+      enabled: false
+    cluster:
+      affinity:
+        enablePodAntiAffinity: true
+        nodeSelector:
+          node-role.kubernetes.io/postgres: ""
+        podAntiAffinityType: required
+        topologyKey: kubernetes.io/hostname
+      initdb:
+        database: khcdb
+        encoding: UTF8
+        owner: khcadmin
+        secret:
+          name: db-credentials
+      instances: 3
+      monitoring:
+        enabled: true
+      primaryUpdateStrategy: unsupervised
+      storage:
+        size: 2Gi
+        storageClass: longhorn-postgres-storage
+      walStorage:
+        size: 2Gi
+        storageClass: longhorn-postgres-storage
+    mode: standalone
+    tablespaces:
+    - name: tbs-homeassistant
+      storage:
+        size: 5Gi
+        storageClass: longhorn-postgres-storage
+      temporary: true
+    - name: tbs-gotify
+      storage:
+        size: 1Gi
+        storageClass: longhorn-postgres-storage
+      temporary: true
+    - name: tbs-immich
+      storage:
+        size: 10Gi
+        storageClass: longhorn-postgres-storage
+    type: postgresql
+    version:
+      postgresql: "17.0"
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: clusterdb
+  namespace: cnpg-db
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: HostSNI(`${HOST_DB}.${DOMAIN}`)
+    services:
+    - name: cluster-rw
+      port: 5432
+      terminationDelay: 0
+  tls:
+    passthrough: true
+    secretName: clusterdb.${DOMAIN}

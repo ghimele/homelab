@@ -2,15 +2,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cluster
-  namespace: clusterdb
+  name: postgres-cluster
+  namespace: cnpg-db
 spec:
   interval: 10m0s
   values:
     type: postgresql
     mode: standalone
     version:
-      postgresql: "17"
+      postgresql: 17
     cluster:
       instances: 3
       # -- Strategy to follow to upgrade the primary server during a rolling update procedure, after all replicas have been
@@ -42,3 +42,18 @@ spec:
         #     effect: NoSchedule
     backups:
       enabled: false
+    tablespaces:
+      - name: tbs-homeassistant
+        storage:
+          size: 5Gi
+          storageClass: longhorn-postgres-storage
+        temporary: true
+      - name: tbs-gotify
+        storage:
+          size: 1Gi
+          storageClass: longhorn-postgres-storage
+        temporary: true
+      - name: tbs-immich
+        storage:
+          size: 10Gi
+          storageClass: longhorn-postgres-storage

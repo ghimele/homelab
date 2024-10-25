@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: clusterdb.${DOMAIN}
-  namespace: clusterdb
+  name: postgres-cluster.${DOMAIN}
+  namespace: cnpg-db
 spec:
-  secretName: clusterdb.${DOMAIN}
+  secretName: postgres-cluster.${DOMAIN}
   dnsNames:
-    - clusterdb.${DOMAIN}
+    - postgres-cluster.${DOMAIN}
   issuerRef:
     kind: ClusterIssuer
     name: lets-encrypt
