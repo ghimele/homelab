@@ -13,6 +13,6 @@ spec:
   routes:
     - match: HostSNI(`${HOST_DB}.${DOMAIN}`)
       services:
-        - name: cluster-rw
+        - name: postgres-cluster-rw
           port: 5432
           terminationDelay: 0
