@@ -52,18 +52,18 @@ spec:
         #     effect: NoSchedule
     backups:
       enabled: false
-    tablespaces:
-      - name: tbs-homeassistant
-        storage:
-          size: 5Gi
-          storageClass: longhorn-postgres-storage
-        temporary: true
-      - name: tbs-gotify
-        storage:
-          size: 1Gi
-          storageClass: longhorn-postgres-storage
-        temporary: true
-      - name: tbs-immich
-        storage:
-          size: 10Gi
-          storageClass: longhorn-postgres-storage
+    # tablespaces:
+    #   - name: tbs-homeassistant
+    #     storage:
+    #       size: 5Gi
+    #       storageClass: longhorn-postgres-storage
+    #     temporary: true
+    #   - name: tbs-gotify
+    #     storage:
+    #       size: 1Gi
+    #       storageClass: longhorn-postgres-storage
+    #     temporary: true
+    #   - name: tbs-immich
+    #     storage:
+    #       size: 10Gi
+    #       storageClass: longhorn-postgres-storage
