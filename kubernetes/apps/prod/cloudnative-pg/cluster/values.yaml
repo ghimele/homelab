@@ -18,7 +18,7 @@ spec:
       primaryUpdateStrategy: unsupervised
       postgresql:
         parameters:
-          max_connections: 300
+          max_connections: "300"
           shared_buffers: 256MB
       resources:
         requests:
