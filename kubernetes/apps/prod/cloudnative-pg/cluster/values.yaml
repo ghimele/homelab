@@ -10,7 +10,7 @@ spec:
     type: postgresql
     mode: standalone
     version:
-      postgresql: 17
+      postgresql: "17"
     cluster:
       instances: 3
       # -- Strategy to follow to upgrade the primary server during a rolling update procedure, after all replicas have been
