@@ -9,7 +9,7 @@ resources:
   - certificate.yaml
   - ingress-route.yaml
   - tablespaces.yaml
-  - roles.yaml
+  # - roles.yaml
 
 patches:
   - path: values.yaml

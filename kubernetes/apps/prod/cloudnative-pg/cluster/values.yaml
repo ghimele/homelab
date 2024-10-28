@@ -50,6 +50,29 @@ spec:
         #   - key: node-role.kubernetes.io/postgres
         #     operator: Exists
         #     effect: NoSchedule
+    managed:
+      roles:
+        - name: homeassistant
+          ensure: present
+          comment: HomeAssistant Role
+          login: true
+          superuser: false
+          passwordSecret:
+            name: postgres-cluster-homeassistant
+        - name: gotify
+          ensure: present
+          comment: HomeAssistant Role
+          login: true
+          superuser: false
+          passwordSecret:
+            name: postgres-cluster-gotify
+        - name: wp_pm
+          ensure: present
+          comment: HomeAssistant Role
+          login: true
+          superuser: false
+          passwordSecret:
+            name: postgres-cluster-wp_pm
     backups:
       enabled: false
     # tablespaces:
