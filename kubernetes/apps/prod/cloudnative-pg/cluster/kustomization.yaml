@@ -5,6 +5,7 @@ resources:
   - ../../../base/cloudnative-pg/cluster
   - certificate.yaml
   - ingress-route.yaml
+  - tablespaces.yaml
 
 patches:
   - path: values.yaml

@@ -1,0 +1,20 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cnpg-db
+spec:
+  tablespaces:
+    - name: home-assistant
+      storage:
+        size: 5Gi
+        storageClass: "longhorn-postgres-storage"
+      temporary: true
+    - name: gotify
+      storage:
+        size: 1Gi
+        storageClass: "longhorn-postgres-storage"
+      temporary: true
+    - name: wp-pm
+      storage:
+        size: 2Gi
+        storageClass: "longhorn-postgres-storage"
