@@ -1,7 +1,9 @@
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: cnpg-db
+  name: postgres-cluster
+  namespace: cnpg-db
 spec:
   tablespaces:
     - name: home-assistant
