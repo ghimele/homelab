@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/basic-auth
+metadata:
+    name: postgres-cluster-homeassistant
+    namespace: cnpg-db
+stringData:
+    username: ENC[AES256_GCM,data:zUtLfOkmzYfeGSzZgQ==,iv:WkmcawdU2IQ+idjVlIscgiOfvJT49gxBtKX2V48C5KU=,tag:sOYnpGY/1Oev3XUh7qalKA==,type:str]
+    password: ENC[AES256_GCM,data:XfCDfvRHVox+S+O/QH5UzQxe,iv:/M70w/ehUvfE5BOUjgJTgyHQkmDO8AJ+UIrxKh7U78I=,tag:/K9wZjsJBK5A9DbzQ78FjQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1xv8cuqcr09e3845unmja9x5jct30q9rmgz7awjc6dwrnq5m79etsvkz2z6
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSByZW8xSmczc2ExRzJxTFk1
+            ZUlhdnVFTDdIMlZIajBUeFdsWS9sQ2l1TEI4CjlIYlIxR1E2bHE2bXVFSDJwUnl0
+            R1NZSmd0RUt5NndCSjJORGZKZ09sYVUKLS0tIENFc1hYZEJFWEkxYk15M1hZdVV6
+            WnJHazl1ODVtOEx6eG56R3k3cWc3Y1EKvW6SWrRUQzvUXcaHU9SZcRA1mvT+J/sR
+            WYfx2FpQlF7BbP7DdzFP3PQM0qeF9x74122EwAfvitiBrwGWMEY3oQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-10-28T11:47:38Z"
+    mac: ENC[AES256_GCM,data:ES2Or4Nwo17qO88qSvCEL/hUMcofN3IvBCRP42uwouzTsKzdcPrSAg8hxrhPMI1GWPosdg/jttlmx2VkDLQzPL5rkFXDGbqjZM+9sN7p71/7WGPgyu4f1jsvrQnb3B35bjI44svI9eMsk/vHscOaLIEdzoc2iaQFGzgrQB4l34Q=,iv:89OnFkeOiZ9prAWIWv70kg2fve7AQNvGtRNgXZJyEDg=,tag:mYKAr2G12EN6hjrX5Z+YDw==,type:str]
+    pgp: []
+    encrypted_regex: ^(user.*|pass.*|.*[Bb]earer.*|.*[Kk]ey|.*[Kk]eys|salt|sentry.*|.*[Tt]oken|data|stringData|match|href)$
+    version: 3.9.0

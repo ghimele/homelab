@@ -1,11 +1,15 @@
 ---
 resources:
   - db-credentials.enc.yaml
+  - postgres-cluster-gotify.enc.yaml
+  - postgres-cluster-homeassistant.enc.yaml
+  - postgres-cluster-wp_pm.enc.yaml
   - longhorn-postgres-storage.yaml
   - ../../../base/cloudnative-pg/cluster
   - certificate.yaml
   - ingress-route.yaml
   - tablespaces.yaml
+  - roles.yaml
 
 patches:
   - path: values.yaml
