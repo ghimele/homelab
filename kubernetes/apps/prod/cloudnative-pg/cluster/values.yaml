@@ -72,7 +72,7 @@ spec:
           login: true
           superuser: false
           passwordSecret:
-            name: postgres-cluster-wp_pm
+            name: postgres-cluster-wppm
     backups:
       enabled: false
     # tablespaces:
