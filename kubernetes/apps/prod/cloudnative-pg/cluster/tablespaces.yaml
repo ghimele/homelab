@@ -6,7 +6,7 @@ metadata:
   namespace: cnpg-db
 spec:
   tablespaces:
-    - name: home-assistant
+    - name: homeassistant
       storage:
         size: 5Gi
         storageClass: "longhorn-postgres-storage"
@@ -16,7 +16,7 @@ spec:
         size: 1Gi
         storageClass: "longhorn-postgres-storage"
       temporary: true
-    - name: wp-pm
+    - name: wp_pm
       storage:
         size: 2Gi
         storageClass: "longhorn-postgres-storage"
