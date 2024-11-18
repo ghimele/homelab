@@ -6,5 +6,5 @@ resources:
   - ./promtail
   # - ./loki
   - ./cloudnative-pg
-  - ./gotify
+  # - ./gotify
   # - ./home-assistant
