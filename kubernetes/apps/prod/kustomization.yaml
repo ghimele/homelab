@@ -1,10 +1,11 @@
 ---
 resources:
   - ./homepage
+  - ./gotify
   - ./xen
   - ./kube-prometheus-stack
   - ./promtail
   # - ./loki
   - ./cloudnative-pg
-  # - ./gotify
+  
   # - ./home-assistant
