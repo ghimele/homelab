@@ -3,7 +3,7 @@ resources:
   - ./homepage
   - ./gotify
   - ./xen
-  - ./kube-prometheus-stack
+  # - ./kube-prometheus-stack
   - ./promtail
   # - ./loki
   - ./cloudnative-pg
