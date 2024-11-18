@@ -1,0 +1,73 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gotify
+  namespace: gotify
+spec:
+  chart:
+    spec:
+      chart: gotify
+      version: '0.5.1'
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: gotify
+        namespace: flux-system
+  install:
+    createNamespace: true
+  values:
+    image:
+      repository: gotify/server
+      tag: '2.6.1'
+
+    imagePullSecrets: []
+
+    env:
+      - name: TZ
+        value: ${TIMEZONE}
+
+    # needed for homekit, wake-on-lan and ps4 integrations
+    # hostNetwork: true
+
+    # needed as workaround for dns issues with host network
+    # dnsPolicy: ClusterFirst
+
+    # needed for zigbee usb access
+    server:
+      # responseHeaders: "Access-Control-Allow-Origin: \"*\"\nAccess-Control-Allow-Methods: \"GET,POST\""
+      # streamAllowedOrigins: ""
+      # -- select database kind (sqlite3, mysql, postgres)
+      databaseDialect: sqlite3
+      # -- set connection string for mysql (gotify:secret@/gotifydb?charset=utf8&parseTime=True&loc=Local) or postgresql (host=localhost port=3306 user=gotify dbname=gotify password=secret)
+      databaseConnection: ""
+      # -- default user
+      defaultUserName: admin
+      # -- default user password
+      defaultUserPassword: admin  # gotify internal default password
+      # -- minimal password length
+      passstrength: 10
+      # -- server timezone
+      timezone: Europe/Rome
+      # -- is user registration enabled?
+      registration: false
+
+    serviceAccount:
+      # -- enable serviceAccount
+      create: true
+      # -- add annotations to serviceAccount
+      annotations: {}
+      # -- name of the serviceAccount (will be generated if empty)
+      name: "gotify"
+
+    persistence:
+      # -- enable persistence when true
+      enabled: true
+      # -- default storage size
+      size: 10Gi
+      # -- accessMode
+      accessMode: ReadWriteOnce
+      # -- actual storageClass
+      storageClass: local-path
+
+  interval: 10m0s

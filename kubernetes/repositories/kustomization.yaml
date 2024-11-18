@@ -9,3 +9,4 @@ resources:
   - cloudnative-pg.yaml
   - bjw-s.yaml
   - k8s-at-home.yaml
+  - gotify.yaml

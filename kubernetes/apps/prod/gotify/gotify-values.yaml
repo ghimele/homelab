@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gotify
+  namespace: gotify
+spec:
+  interval: 10m0s
+  values:
+    server:
+      # responseHeaders: "Access-Control-Allow-Origin: \"*\"\nAccess-Control-Allow-Methods: \"GET,POST\""
+      # streamAllowedOrigins: ""
+      # -- select database kind (sqlite3, mysql, postgres)
+      databaseDialect: postgres
+      # -- set connection string for mysql (gotify:secret@/gotifydb?charset=utf8&parseTime=True&loc=Local) or postgresql (host=localhost port=3306 user=gotify dbname=gotify password=secret)
+      databaseConnection: ${GOTIFY_DB_CONNECTION}
+      # -- default user
+      defaultUserName: ${GOTIFY_USERNAME}
+      # -- default user password
+      defaultUserPassword: ${GOTIFY_PASSWORD}  # gotify internal default password
+      # -- minimal password length
+      passstrength: 10
+      # -- server timezone
+      timezone: Europe/Rome
+      # -- is user registration enabled?
+      registration: false
+    persistence:
+      # -- enable persistence when true
+      enabled: true
+      # -- default storage size
+      size: 10Gi
+      # -- accessMode
+      accessMode: ReadWriteOnce
+      # -- actual storageClass
+      storageClass: longhorn

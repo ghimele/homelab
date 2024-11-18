@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: gotify
+  namespace: gotify
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_GOTIFY}.${DOMAIN}`)
+      services:
+        - kind: Service
+          name: gotify
+          namespace: gotify
+          port: 80
+  tls:
+    secretName: gotify.${DOMAIN}
