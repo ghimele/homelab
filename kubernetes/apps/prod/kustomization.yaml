@@ -1,7 +1,7 @@
 ---
 resources:
   - ./homepage
-# - ./gotify
+  - ./gotify
   - ./xen
   - ./kube-prometheus-stack
   - ./promtail
