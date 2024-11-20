@@ -1,0 +1,47 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: igotify
+  namespace: gotify
+spec:
+  chart:
+    spec:
+      chart: igotify
+      version: '1.0.0'
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: ghimele
+        namespace: flux-system
+  install:
+    createNamespace: true
+  values:
+    image:
+      tag: "1.3.0.0"
+
+    imagePullSecrets: []
+
+    service:
+      type: ClusterIP
+      port: 80
+
+    serviceAccount:
+      # -- enable serviceAccount
+      create: true
+      # -- add annotations to serviceAccount
+      annotations: {}
+      # -- name of the serviceAccount (will be generated if empty)
+      name: "igotify"
+
+    persistence:
+      # -- enable persistence when true
+      enabled: false
+      # -- default storage size
+      size: 500Mi
+      # -- accessMode
+      accessMode: ReadWriteOnce
+      # -- actual storageClass
+      storageClass: ""
+
+  interval: 10m0s

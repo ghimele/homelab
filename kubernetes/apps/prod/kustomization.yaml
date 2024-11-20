@@ -2,6 +2,7 @@
 resources:
   - ./homepage
   - ./gotify
+  - ./igotify
   - ./xen
   - ./kube-prometheus-stack
   - ./promtail

@@ -46,10 +46,10 @@ spec:
         podAntiAffinityType: required
         nodeSelector:
           node-role.kubernetes.io/postgres: ""
-        # tolerations:
-        #   - key: node-role.kubernetes.io/postgres
-        #     operator: Exists
-        #     effect: NoSchedule
+          # tolerations:
+          #   - key: node-role.kubernetes.io/postgres
+          #     operator: Exists
+          #     effect: NoSchedule
       roles:
         - name: homeassistant
           ensure: present
@@ -74,18 +74,3 @@ spec:
             name: postgres-cluster-wppm
     backups:
       enabled: false
-    # tablespaces:
-    #   - name: tbs-homeassistant
-    #     storage:
-    #       size: 5Gi
-    #       storageClass: longhorn-postgres-storage
-    #     temporary: true
-    #   - name: tbs-gotify
-    #     storage:
-    #       size: 1Gi
-    #       storageClass: longhorn-postgres-storage
-    #     temporary: true
-    #   - name: tbs-immich
-    #     storage:
-    #       size: 10Gi
-    #       storageClass: longhorn-postgres-storage

@@ -1,0 +1,21 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: igotify
+  namespace: gotify
+spec:
+  interval: 10m0s
+  values:
+    server:
+      gotifyUrls: ${GOTIFY_URL}
+
+    persistence:
+      # -- enable persistence when true
+      enabled: true
+      # -- default storage size
+      size: 1Gi
+      # -- accessMode
+      accessMode: ReadWriteOnce
+      # -- actual storageClass
+      storageClass: longhorn

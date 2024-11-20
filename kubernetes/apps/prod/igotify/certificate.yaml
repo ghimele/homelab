@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: igotify.${DOMAIN}
+  namespace: gotify
+spec:
+  secretName: igotify.${DOMAIN}
+  dnsNames:
+    - igotify.${DOMAIN}
+  issuerRef:
+    kind: ClusterIssuer
+    name: lets-encrypt
