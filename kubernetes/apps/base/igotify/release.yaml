@@ -20,7 +20,7 @@ spec:
     image:
       # -- repository with igotify image
       repository: ghcr.io/androidseb25/igotify-notification-assist
-      tag: "v1.3.0.0"
+      tag: "latest"
 
     imagePullSecrets: []
 
