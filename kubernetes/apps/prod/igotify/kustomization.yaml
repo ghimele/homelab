@@ -1,6 +1,6 @@
 ---
 resources:
-  - ../../base/gotify
+  - ../../base/igotify
   - certificate.yaml
   - ingress-route.yaml
 
