@@ -303,11 +303,11 @@ spec:
                 requests:
                   storage: 40Gi
         additionalScrapeConfigs:
-          - job_name: oceano
+          - job_name: unraid
             scheme: http
             static_configs:
               - targets: ['${HOST_OCEANO}.${DOMAIN}:9100']
-          - job_name: iperione
+          - job_name: pfsense
             scheme: http
             static_configs:
               - targets: ['${HOST_PFSENSE}.${DOMAIN}:9100']
