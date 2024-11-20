@@ -18,6 +18,8 @@ spec:
     createNamespace: true
   values:
     image:
+      # -- repository with igotify image
+      repository: ghcr.io/androidseb25/igotify-notification-assist
       tag: "1.3.0.0"
 
     imagePullSecrets: []
