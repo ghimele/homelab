@@ -6,6 +6,6 @@ resources:
   - ./xen
   - ./kube-prometheus-stack
   - ./promtail
-  - ./loki
+  # - ./loki
   - ./cloudnative-pg
   # - ./home-assistant
