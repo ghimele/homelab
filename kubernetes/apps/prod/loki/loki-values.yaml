@@ -9,5 +9,5 @@ spec:
   values:
     singleBinary:
       persistence:
-        size: 20Gi
+        size: 15Gi
         storageClass: longhorn
