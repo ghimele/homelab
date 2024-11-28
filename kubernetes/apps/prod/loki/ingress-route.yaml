@@ -16,4 +16,4 @@ spec:
           namespace: monitoring
           port: 3100
   tls:
-    secretName: loki.${DOMAIN_INTERNAL}
+    secretName: loki.${DOMAIN}
