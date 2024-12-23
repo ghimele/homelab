@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: loki
-      version: '6.22.0'
+      version: '6.24.0'
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
@@ -20,7 +20,7 @@ spec:
     loki:
       image:
         repository: grafana/loki
-        tag: '3.3.0'
+        tag: '3.3.2'
       auth_enabled: false
       storage:
         type: filesystem
