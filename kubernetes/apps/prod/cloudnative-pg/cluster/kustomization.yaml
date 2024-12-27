@@ -1,5 +1,6 @@
 ---
 resources:
+  - namespace.yaml
   - db-credentials.enc.yaml
   - postgres-cluster-gotify.enc.yaml
   - postgres-cluster-homeassistant.enc.yaml
