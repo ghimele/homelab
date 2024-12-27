@@ -10,6 +10,8 @@ resources:
   # - ../../../base/cloudnative-pg/cluster
   - certificate.yaml
   - ingress-route.yaml
+  - gotify-db.yaml
+  - homeassistant-db.yaml
   # - tablespaces.yaml
   # - roles.yaml
 
