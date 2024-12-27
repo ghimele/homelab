@@ -78,8 +78,6 @@ spec:
       superuser: false
       passwordSecret:
         name: postgres-cluster-wppm
-  backups:
-    enabled: false
 
   tablespaces:
     - name: homeassistant
