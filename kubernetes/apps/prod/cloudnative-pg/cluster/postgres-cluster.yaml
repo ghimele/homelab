@@ -28,7 +28,7 @@ spec:
       owner: khcadmin
       secret:
         name: db-credentials
-        encoding: UTF8
+      encoding: UTF8
 
   enableSuperuserAccess: true
 
@@ -38,8 +38,6 @@ spec:
     limits:
       cpu: 2000m
       # memory: 3Gi
-  monitoring:
-    enabled: true
 
   storage:
     storageClass: "longhorn-postgres-storage"
