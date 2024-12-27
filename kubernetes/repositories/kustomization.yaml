@@ -10,3 +10,4 @@ resources:
   - bjw-s.yaml
   - k8s-at-home.yaml
   - gotify.yaml
+  - smtp-gotify.yaml

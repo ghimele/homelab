@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: smtp-gotify
+  namespace: gotify
+spec:
+  chart:
+    spec:
+      chart: smtp-gotify
+      version: '0.1.4'
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: smtp-gotify
+        namespace: flux-system
+  install:
+    createNamespace: true
+  values:
+    image:
+      # -- repository with smtp-gotify image
+      repository: quay.io/reiml/smtp-gotify
+      tag: "latest"
+
+    imagePullSecrets: []
+
+    service:
+      type: ClusterIP
+      port: 2525
+
+    gotify:
+      url: "<SERVER_URL>"
+      token: "<APP_TOKEN1>,<APP_TOKEN2>"
+
+  interval: 10m0s
