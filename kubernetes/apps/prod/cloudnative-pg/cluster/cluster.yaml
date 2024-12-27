@@ -3,8 +3,9 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: postgres-cluster
+  namespace: cnpg-db
 spec:
-  description: "Postgres Cluster"
+  description: "PostgreSQL Cluster"
   imageName: ghcr.io/cloudnative-pg/postgresql:17.2
   # imagePullSecret is only required if the images are located in a private registry
   # imagePullSecrets:
