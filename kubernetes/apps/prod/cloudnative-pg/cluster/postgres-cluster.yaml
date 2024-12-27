@@ -82,3 +82,17 @@ spec:
         name: postgres-cluster-wppm
   backups:
     enabled: false
+
+  tablespaces:
+    - name: homeassistant
+      storage:
+        size: 5Gi
+        storageClass: "longhorn-postgres-storage"
+    - name: gotify
+      storage:
+        size: 1Gi
+        storageClass: "longhorn-postgres-storage"
+    - name: wp_pm
+      storage:
+        size: 2Gi
+        storageClass: "longhorn-postgres-storage"
