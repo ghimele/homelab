@@ -1,0 +1,83 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-cluster
+spec:
+  description: "Postgres Cluster"
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.2
+  # imagePullSecret is only required if the images are located in a private registry
+  # imagePullSecrets:
+  #   - name: private_registry_access
+  instances: 3
+  startDelay: 300
+  stopDelay: 300
+  primaryUpdateStrategy: unsupervised
+
+  postgresql:
+    parameters:
+      shared_buffers: 256MB
+      pg_stat_statements.max: '10000'
+      pg_stat_statements.track: all
+      auto_explain.log_min_duration: '10s'
+
+  bootstrap:
+    initdb:
+      database: khcdb
+      owner: khcadmin
+      secret:
+        name: db-credentials
+        encoding: UTF8
+
+  enableSuperuserAccess: true
+
+  resources:
+    requests:
+      cpu: 100m
+    limits:
+      cpu: 2000m
+      # memory: 3Gi
+  monitoring:
+    enabled: true
+
+  storage:
+    storageClass: "longhorn-postgres-storage"
+    size: 2Gi
+  walStorage:
+    storageClass: "longhorn-postgres-storage"
+    size: 2Gi
+
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+    nodeSelector:
+      node-role.kubernetes.io/postgres: ""
+      # tolerations:
+      #   - key: node-role.kubernetes.io/postgres
+      #     operator: Exists
+      #     effect: NoSchedule
+  roles:
+    - name: homeassistant
+      ensure: present
+      comment: HomeAssistant Role
+      login: true
+      superuser: false
+      passwordSecret:
+        name: postgres-cluster-homeassistant
+    - name: gotify
+      ensure: present
+      comment: HomeAssistant Role
+      login: true
+      superuser: false
+      passwordSecret:
+        name: postgres-cluster-gotify
+    - name: wp_pm
+      ensure: present
+      comment: HomeAssistant Role
+      login: true
+      superuser: false
+      passwordSecret:
+        name: postgres-cluster-wppm
+  backups:
+    enabled: false

@@ -5,13 +5,14 @@ resources:
   - postgres-cluster-homeassistant.enc.yaml
   - postgres-cluster-wppm.enc.yaml
   - longhorn-postgres-storage.yaml
-  - ../../../base/cloudnative-pg/cluster
+  - cluster.yaml
+  # - ../../../base/cloudnative-pg/cluster
   - certificate.yaml
   - ingress-route.yaml
   - tablespaces.yaml
   # - roles.yaml
 
-patches:
-  - path: values.yaml
-    target:
-      kind: HelmRelease
+# patches:
+#   - path: values.yaml
+#     target:
+#       kind: HelmRelease
