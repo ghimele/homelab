@@ -5,7 +5,7 @@ resources:
   - postgres-cluster-homeassistant.enc.yaml
   - postgres-cluster-wppm.enc.yaml
   - longhorn-postgres-storage.yaml
-  - cluster.yaml
+  - postgres-cluster.yaml
   # - ../../../base/cloudnative-pg/cluster
   - certificate.yaml
   - ingress-route.yaml
