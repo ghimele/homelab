@@ -42,9 +42,13 @@ spec:
   storage:
     storageClass: "longhorn-postgres-storage"
     size: 2Gi
+
   walStorage:
     storageClass: "longhorn-postgres-storage"
     size: 2Gi
+
+  monitoring:
+    enablePodMonitor: true
 
   affinity:
     enablePodAntiAffinity: true
