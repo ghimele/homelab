@@ -77,12 +77,12 @@ spec:
         passwordSecret:
           name: postgres-cluster-gotify
 
-  tablespaces:
-    - name: homeassistant
-      storage:
-        size: 5Gi
-        storageClass: "longhorn-postgres-storage"
-    - name: gotify
-      storage:
-        size: 1Gi
-        storageClass: "longhorn-postgres-storage"
+  # tablespaces:
+  #   - name: homeassistant
+  #     storage:
+  #       size: 5Gi
+  #       storageClass: "longhorn-postgres-storage"
+  #   - name: gotify
+  #     storage:
+  #       size: 1Gi
+  #       storageClass: "longhorn-postgres-storage"
