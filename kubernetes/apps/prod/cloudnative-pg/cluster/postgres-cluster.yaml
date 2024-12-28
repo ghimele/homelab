@@ -86,3 +86,7 @@ spec:
       storage:
         size: 1Gi
         storageClass: "longhorn-postgres-storage"
+    - name: wp_pm
+      storage:
+        size: 2Gi
+        storageClass: "longhorn-postgres-storage"
