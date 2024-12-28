@@ -4,7 +4,6 @@ resources:
   - db-credentials.enc.yaml
   - postgres-cluster-gotify.enc.yaml
   - postgres-cluster-homeassistant.enc.yaml
-  - postgres-cluster-wppm.enc.yaml
   - longhorn-postgres-storage.yaml
   - postgres-cluster.yaml
   - certificate.yaml
