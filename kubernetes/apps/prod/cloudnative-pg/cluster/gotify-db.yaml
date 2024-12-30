@@ -7,5 +7,6 @@ metadata:
 spec:
   name: gotify
   owner: gotify
+  tablespace: gotify
   cluster:
     name: postgres-cluster

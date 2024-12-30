@@ -7,5 +7,6 @@ metadata:
 spec:
   name: homeassistant
   owner: homeassistant
+  tablespace: homeassistant
   cluster:
     name: postgres-cluster
