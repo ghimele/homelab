@@ -1,6 +1,7 @@
 ---
 resources:
   - ../../../base/cloudnative-pg/cnpg-operator
+  - prometheusrule.yaml
 
 patches:
   - path: values.yaml
