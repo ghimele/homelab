@@ -295,7 +295,9 @@ spec:
         logLevel: info  # before: warn
         ruleSelector:
           matchLabels:
-            role: prometheys-rule
+            app: kube-prometheus-stack
+            release: prometheus
+            role: prometheus-rule
         storageSpec:
           volumeClaimTemplate:
             spec:
