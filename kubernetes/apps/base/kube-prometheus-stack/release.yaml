@@ -293,6 +293,9 @@ spec:
         retention: 4w
         replicas: 1
         logLevel: info  # before: warn
+        ruleSelector:
+          matchLabels:
+            role: prometheys-rule
         storageSpec:
           volumeClaimTemplate:
             spec:
