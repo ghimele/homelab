@@ -3,6 +3,7 @@ resources:
   - ../../base/cert-manager/
   - ./secrets/
   - ./issuers/
+  - prometheusrules.yaml
 
 patches:
   - path: cert-manager-values.yaml
