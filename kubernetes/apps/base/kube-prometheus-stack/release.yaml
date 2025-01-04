@@ -293,11 +293,11 @@ spec:
         retention: 4w
         replicas: 1
         logLevel: info  # before: warn
-        ruleSelector:
-          matchLabels:
-            app: kube-prometheus-stack
-            release: prometheus
-            role: prometheus-rule
+        # ruleSelector:
+        #   matchLabels:
+        #     app: kube-prometheus-stack
+        #     release: prometheus
+        #     role: prometheus-rule
         storageSpec:
           volumeClaimTemplate:
             spec:
