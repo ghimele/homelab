@@ -6,8 +6,8 @@ metadata:
   name: cert-manager
   namespace: monitoring
   labels:
-    app: kube-prometheus-stack
-    role: prometheus-rule
+    prometheus: cert-manager
+    role: alert-rules
 spec:
   groups:
     - name: cert-manager
