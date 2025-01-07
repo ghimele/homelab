@@ -19,5 +19,4 @@ spec:
         #sidecarLabel: "grafana-dashboard"
         #sidecarLabelValue: "true"
         labels:
-          grafana-dashboard: true
-
+          grafana-dashboard: "true"
