@@ -16,3 +16,5 @@ spec:
       podMonitorEnabled: true
       grafanaDashboard:
         create: true
+        sidecarLabel: "grafana-dashboard"
+        sidecarLabelValue: "true"
