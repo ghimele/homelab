@@ -14,5 +14,5 @@ spec:
         INHERITED_LABELS: app.kubernetes.io/*
     monitoring:
       podMonitorEnabled: true
-    grafanaDashboard:
-      create: true
+      grafanaDashboard:
+        create: true
