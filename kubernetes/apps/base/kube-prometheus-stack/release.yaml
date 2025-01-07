@@ -25,14 +25,14 @@ spec:
     crds:
       enabled: false
 
-    defaultRules:
-      rules:
-        etcd: false
-        kubeApiserverBurnrate: false
-        kubeApiserverHistogram: false
-        kubeApiserverSlos: false
-        kubeProxy: false
-        kubeScheduler: false
+    # defaultRules:
+    #   rules:
+    #     etcd: false
+    #     kubeApiserverBurnrate: false
+    #     kubeApiserverHistogram: false
+    #     kubeApiserverSlos: false
+    #     kubeProxy: false
+    #     kubeScheduler: false
 
     # alertmanager:
     #   config:
