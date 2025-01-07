@@ -4,6 +4,8 @@ kind: PrometheusRule
 metadata:
   name: cnpg-default-alerts
   namespace: monitoring
+  annotations:
+    prometheus-operator-validated: "true"
 spec:
   groups:
     - name: cnp-default.rules

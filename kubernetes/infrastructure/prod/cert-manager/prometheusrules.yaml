@@ -5,9 +5,8 @@ kind: PrometheusRule
 metadata:
   name: cert-manager
   namespace: monitoring
-  labels:
-    prometheus: cert-manager
-    role: alert-rules
+  annotations:
+    prometheus-operator-validated: "true"
 spec:
   groups:
     - name: cert-manager
