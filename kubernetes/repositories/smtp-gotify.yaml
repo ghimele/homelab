@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: smtp-gotify
-  namespace: gotify
+  namespace: flux-system
 spec:
   interval: 10m0s
   url: https://jreiml.github.io/smtp-gotify-helm
