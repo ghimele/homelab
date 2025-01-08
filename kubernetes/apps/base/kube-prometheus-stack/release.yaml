@@ -239,6 +239,7 @@ spec:
             targetLabel: nodename
             replacement: $1
             action: replace
+      assertNoLeakedSecrets: false
 
     kubeControllerManager:
       enabled: false
