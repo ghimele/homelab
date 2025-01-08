@@ -181,7 +181,8 @@ spec:
       grafana.ini:
         server:
           domain: ${HOST_GRAFANA}.${DOMAIN}
-          root_url: '%(protocol)s://%(domain)s:%(http_port)s'
+          # root_url: '%(protocol)s://%(domain)s:%(http_port)s'
+          root_url: https://${HOST_GRAFANA}.${DOMAIN}
           serve_from_sub_path: false
           enable_gzip: true
         auth.github:
