@@ -1,0 +1,10 @@
+---
+resources:
+  - ../../base/gotify/igotify
+  - certificate.yaml
+  - ingress-route.yaml
+
+patches:
+  - path: igotify-values.yaml
+    target:
+      kind: HelmRelease

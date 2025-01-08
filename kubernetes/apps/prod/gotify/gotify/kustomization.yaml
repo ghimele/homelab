@@ -1,10 +1,10 @@
 ---
 resources:
-  - ../../base/igotify
+  - ../../base/gotify/gotify
   - certificate.yaml
   - ingress-route.yaml
 
 patches:
-  - path: igotify-values.yaml
+  - path: gotify-values.yaml
     target:
       kind: HelmRelease

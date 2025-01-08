@@ -29,7 +29,7 @@ spec:
       port: 2525
 
     gotify:
-      url: "<SERVER_URL>"
-      token: "<APP_TOKEN1>,<APP_TOKEN2>"
+      url: ${GOTIFY_URL}
+      token: ${GOTIFY_APP_SMTP}
 
   interval: 10m0s

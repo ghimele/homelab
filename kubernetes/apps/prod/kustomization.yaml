@@ -7,5 +7,4 @@ resources:
   - ./loki
   - ./cloudnative-pg
   - ./gotify
-  - ./igotify
   # - ./home-assistant
