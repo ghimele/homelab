@@ -187,15 +187,17 @@ spec:
           enable_gzip: true
         auth.github:
           enabled: true
-          allow_sign_up: false
+          allow_sign_up: true
           scopes: user:email,read:org
           auth_url: https://github.com/login/oauth/authorize
           token_url: https://github.com/login/oauth/access_token
           api_url: https://api.github.com/user
           team_ids:
-          allowed_organizations:
           client_id: ${GRAFANA_GIHUB_CLIENTID}
           client_secret: ${GRAFANA_GITHUB_CLIENTSECRET}
+          allowed_organizations: ["GhimeleTech", "Octocats"]
+          allowed_domains: ghimele.com
+          role_attribute_path: "[login=='octocat'][0] && 'GrafanaAdmin' || 'Viewer'"
         log:
           level: warn
         users:
