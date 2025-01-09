@@ -196,15 +196,18 @@ spec:
           client_secret: ${GRAFANA_GITHUB_CLIENTSECRET}
           allowed_domains: ghimele.com github.com outlook.com
           # role_attribute_path: "[login=='michele.vomera@outlook.com'][0] && 'GrafanaAdmin' || 'Viewer'"
-          role_attribute_path: 'Admin'
+          role_attribute_path: "'Admin'"
           # allow_assign_grafana_admin: true
           skip_org_role_sync: true
+          auto_assign_org: true
+          auto_assign_org_id: 1
         log:
           level: warn
         users:
           allow_sign_up: false
           auto_assign_org: true
-          auto_assign_org_role: Viewer
+          auto_assign_org_id: 1
+          auto_assign_org_role: Admin
         auth:
           disable_signout_menu: true
         auth.proxy:
