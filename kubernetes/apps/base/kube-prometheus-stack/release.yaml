@@ -125,7 +125,7 @@ spec:
       fullnameOverride: grafana
       defaultDashboardsEnabled: false
       defaultDashboardsTimezone: ${TIMEZONE}
-      adminUser: ${GRAFANA_USERNAME}
+      adminUser: ghimeleAdmin
       adminPassword: ${GRAFANA_PASSWORD}
       plugins:
         - grafana-piechart-panel
@@ -200,8 +200,6 @@ spec:
           # allow_assign_grafana_admin: true
           # team_ids: 1
           skip_org_role_sync: true
-          auto_assign_org: true
-          auto_assign_org_id: 1
         log:
           level: warn
         users:
