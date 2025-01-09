@@ -198,7 +198,7 @@ spec:
           role_attribute_path: "[login=='michele.vomera@outlook.com'][0] && 'Admin' || 'Admin'"
           # role_attribute_path: "'Admin'"
           # allow_assign_grafana_admin: true
-          team_ids: 1
+          # team_ids: 1
           skip_org_role_sync: true
           auto_assign_org: true
           auto_assign_org_id: 1
