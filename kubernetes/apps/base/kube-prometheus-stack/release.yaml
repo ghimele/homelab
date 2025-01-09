@@ -125,7 +125,7 @@ spec:
       fullnameOverride: grafana
       defaultDashboardsEnabled: false
       defaultDashboardsTimezone: ${TIMEZONE}
-      adminUser: ghimeleAdmin
+      adminUser: ${GRAFANA_USERNAME}
       adminPassword: ${GRAFANA_PASSWORD}
       plugins:
         - grafana-piechart-panel
@@ -181,7 +181,6 @@ spec:
       grafana.ini:
         server:
           domain: ${HOST_GRAFANA}.${DOMAIN}
-          # root_url: '%(protocol)s://%(domain)s:%(http_port)s'
           root_url: https://${HOST_GRAFANA}.${DOMAIN}
           serve_from_sub_path: false
           enable_gzip: true
@@ -195,10 +194,7 @@ spec:
           client_id: ${GRAFANA_GIHUB_CLIENTID}
           client_secret: ${GRAFANA_GITHUB_CLIENTSECRET}
           allowed_domains: ghimele.com github.com outlook.com
-          role_attribute_path: "[login=='michele.vomera@outlook.com'][0] && 'Admin' || 'Admin'"
-          # role_attribute_path: "'Admin'"
-          # allow_assign_grafana_admin: true
-          # team_ids: 1
+          role_attribute_path: "[login=='${EMAIL}'][0] && 'Admin' || 'Viewer'"
           skip_org_role_sync: true
         log:
           level: warn
