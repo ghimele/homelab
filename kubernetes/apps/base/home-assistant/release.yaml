@@ -67,21 +67,30 @@ spec:
             env:
               TZ: "${TIMEZONE}"
 
+    # service:
+    #   # Configure a service for the main application
+    #   main:
+    #     controller: main
+    #     type: ClusterIP
+    #     ports:
+    #       http:
+    #         port: 8123
+    #   # Configure a service for the code-server sidecar
+    #   code:
+    #     type: ClusterIP
+    #     controller: main
+    #     ports:
+    #       http:
+    #         port: 8081
     service:
-      # Configure a service for the main application
       main:
         controller: main
         type: ClusterIP
         ports:
           http:
             port: 8123
-      # Configure a service for the code-server sidecar
-      code:
-        type: ClusterIP
-        controller: main
-        ports:
-          http:
-            port: 8081
+          code-server:
+            port: 8080
 
     metrics:
       enabled: true
