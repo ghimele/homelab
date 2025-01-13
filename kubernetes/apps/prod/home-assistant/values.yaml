@@ -12,5 +12,9 @@ spec:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: home-assistant-pvc
-        globalMounts:
-          - path: /config
+        advancedMounts:
+          main:
+            main:
+              - path: /config
+            code-server:
+              - path: /config
