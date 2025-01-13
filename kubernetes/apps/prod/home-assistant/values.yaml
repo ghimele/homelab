@@ -1,0 +1,14 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  interval: 10m0s
+  values:
+    persistence:
+      config:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: home-assistant-pvc

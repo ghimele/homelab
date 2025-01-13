@@ -1,5 +1,12 @@
 ---
 resources:
+  - home-assistant-secret.enc.yaml
+  - home-assistant-pvc.yaml
   - ../../base/home-assistant
   - certificate.yaml
   - ingress-route.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

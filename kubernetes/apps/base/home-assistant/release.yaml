@@ -5,51 +5,85 @@ metadata:
   name: home-assistant
   namespace: home-assistant
 spec:
+  interval: 15m
   chart:
     spec:
-      chart: home-assistant
-      version: '13.4.2'
-      reconcileStrategy: ChartVersion
+      chart: app-template
+      version: 3.6.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s-charts
         namespace: flux-system
   install:
-    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
   values:
-    image:
-      repository: ghcr.io/home-assistant/home-assistant
-      tag: '2025.1.2'
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            privileged: true
+      containers:
+        main:
+          image:
+            repository: ghcr.io/onedr0p/home-assistant
+            tag: 2025.1.2
+          envFrom:
+            - secretRef:
+                name: home-assistant-secret
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+        code-server:
+          image:
+            repository: ghcr.io/coder/code-server
+            tag: 4.96.2
+          args:
+            [
+              "--auth",
+              "none",
+              "--disable-telemetry",
+              "--disable-update-check",
+              "--user-data-dir",
+              "/config/.vscode",
+              "--extensions-dir",
+              "/config/.vscode",
+              "--port",
+              "8080",
+              "/config"
+            ]
+          env:
+            TZ: "${TIMEZONE}"
 
-    imagePullSecrets:
-      - name: github-registry
+    service:
+      # Configure a service for the main application
+      main:
+        controller: main
+        type: ClusterIP
+        ports:
+          http:
+            port: 8123
+      # Configure a service for the code-server sidecar
+      code:
+        type: ClusterIP
+        controller: main
+        ports:
+          http:
+            port: 8081
 
-    env:
-      - name: TZ
-        value: ${TIMEZONE}
-
-    # needed for homekit, wake-on-lan and ps4 integrations
-    # hostNetwork: true
-
-    # needed as workaround for dns issues with host network
-    # dnsPolicy: ClusterFirst
-
-    # needed for zigbee usb access
-    securityContext:
-      privileged: true
-
-    persistence:
-      config:
-        enabled: true
-        size: 1Gi
-        storageClass: longhorn
-        type: pvc
-        accessMode: ReadWriteMany
-        # hostPath: ${PATH_HOME}/home-assistant
-        mountPath: /config
     metrics:
       enabled: true
       prometheusRule:
         enabled: true
-
-  interval: 10m0s
