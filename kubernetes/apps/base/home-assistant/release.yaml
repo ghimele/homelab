@@ -33,11 +33,11 @@ spec:
         #     privileged: true
         pod:
           securityContext:
-            runAsUser: 65534
-            runAsGroup: 65533
-            runAsNonRoot: true
-            fsGroup: 65533
-            fsGroupChangePolicy: OnRootMismatch
+            # runAsUser: 65534
+            # runAsGroup: 65533
+            runAsNonRoot: false
+            # fsGroup: 65533
+            # fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
