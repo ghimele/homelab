@@ -28,9 +28,9 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          securityContext:
-            privileged: true
+        # pod:
+        #   securityContext:
+        #     privileged: true
         containers:
           main:
             image:
