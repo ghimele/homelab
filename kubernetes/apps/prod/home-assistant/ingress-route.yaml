@@ -12,6 +12,8 @@ spec:
   routes:
     - kind: Rule
       match: Host(`${HOST_HOME_ASSISTANT}.${DOMAIN}`)
+      middlewares:
+        - name: x-forwarded-proto-https
       services:
         - name: home-assistant
           kind: Service
