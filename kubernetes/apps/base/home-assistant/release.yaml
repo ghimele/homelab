@@ -41,7 +41,7 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/onedr0p/home-assistant
+              repository: ghcr.io/home-assistant/home-assistant
               tag: 2025.1.2
             envFrom:
               - secretRef:
