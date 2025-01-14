@@ -44,8 +44,11 @@ spec:
             defaultmode: keep
     ports:
       web:
-        redirectTo:
-          port: websecure
+        redirections:
+          entryPoint:
+            to: websecure
+            scheme: https
+            permanent: true
       # metrics
       metrics:
         port: 9100
