@@ -67,5 +67,5 @@ spec:
       enabled: false
     monitoring:
       serviceMonitor:
-        enabled: true
+        enabled: false
   interval: 10m0s
