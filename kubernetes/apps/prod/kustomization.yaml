@@ -1,6 +1,6 @@
 ---
 resources:
-  # - ./kube-prometheus-stack
+  - ./kube-prometheus-stack
   - ./homepage
   - ./xen
   - ./promtail
