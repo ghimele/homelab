@@ -1,0 +1,6 @@
+---
+# create a namespace for homepage
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: uptime-kuma

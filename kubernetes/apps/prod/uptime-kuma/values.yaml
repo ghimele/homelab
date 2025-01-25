@@ -1,0 +1,16 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  interval: 10m0s
+  values:
+    volume:
+      # Reuse your own pre-existing PVC.
+      existingClaim: "uptime-kuma-pvc"
+
+    # Prometheus ServiceMonitor configuration
+    serviceMonitor:
+      enabled: true

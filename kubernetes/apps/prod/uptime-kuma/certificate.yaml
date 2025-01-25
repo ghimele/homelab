@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: uptime-kuma.${DOMAIN}
+  namespace: uptime-kuma
+spec:
+  secretName: uptime-kuma.${DOMAIN}
+  dnsNames:
+    - ${HOST_UPTIME_KUMA}.${DOMAIN}
+  issuerRef:
+    kind: ClusterIssuer
+    name: lets-encrypt

@@ -1,0 +1,11 @@
+---
+resources:
+  - uptime-kuma-pvc.yaml
+  - ../../base/uptime-kuma
+  - certificate.yaml
+  - ingress-route.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

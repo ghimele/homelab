@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: uptime-kuma
+  namespace: uptime-kuma
+spec:
+  interval: 10m0s
+  chart:
+    spec:
+      chart: uptime-kuma
+      version: '2.21.2'
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: uptime-kuma
+        namespace: flux-system
+  install:
+    createNamespace: true
+  values:
+    image:
+      repository: louislam/uptime-kuma
+      pullPolicy: IfNotPresent
+      # Overrides the image tag whose default is the chart appVersion.
+      tag: "2.0.0-beta.1"
+
+    # If this option is set to false a StateFulset instead of a Deployment is used
+    useDeploy: true
+
+    serviceAccount:
+      # Specifies whether a service account should be created
+      create: true
+
+    service:
+      type: ClusterIP
+      port: 3001
+      nodePort:
+      annotations: {}
