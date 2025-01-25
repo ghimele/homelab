@@ -4,7 +4,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: cert-manager
-  namespace: monitoring
+  namespace: cert-manager
   annotations:
     prometheus-operator-validated: "true"
 spec:
