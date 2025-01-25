@@ -11,7 +11,7 @@ spec:
     secretName: uptime-kuma.${DOMAIN}
   routes:
     - kind: Rule
-      match: Host(`${HOST_HOME_ASSISTANT}.${DOMAIN}`)
+      match: Host(`${HOST_UPTIME_KUMA}.${DOMAIN}`)
       # middlewares:
       #   - name: x-forwarded-proto-https
       #     namespace: traefik
