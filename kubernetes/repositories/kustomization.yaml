@@ -11,3 +11,4 @@ resources:
   - k8s-at-home.yaml
   - gotify.yaml
   - smtp-gotify.yaml
+  - uptime-kuma.yaml
