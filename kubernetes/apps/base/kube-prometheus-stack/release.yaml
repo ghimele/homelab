@@ -332,7 +332,7 @@ spec:
             scheme: http
             metrics_path: '/metrics'
             static_configs:
-              - targets: ['${UPTIMEKUMA_SERVICE}.uptime-kuma.svc.cluster.local']
+              - targets: ['${UPTIMEKUMA_SERVICE}.uptime-kuma.svc.cluster.local:3001']
             basic_auth:  # Only needed if authentication is enabled (default)
               username: ${UPTIMEKUMA_USERNAME}
               password: ${UPTIMEKUMA_PASSWORD}
