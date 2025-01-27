@@ -36,3 +36,8 @@ spec:
       port: 3001
       nodePort:
       annotations: {}
+
+    livenessProbe:
+      # Uptime-Kuma recommends to configure a delay of 180 seconds until the server fully started.
+      # https://github.com/louislam/uptime-kuma/blob/ae224f9e188b1fc32ed8729818710975589cdce7/extra/healthcheck.go#L3
+      initialDelaySeconds: 200
