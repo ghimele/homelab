@@ -12,3 +12,4 @@ resources:
   - gotify.yaml
   - smtp-gotify.yaml
   - uptime-kuma.yaml
+  - headlamp.yaml

@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: headlamp
+  namespace: kube-system
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: headlamp.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_HEADLAMP}.${DOMAIN}`)
+      services:
+        - kind: Service
+          name: headlamp
+          namespace: kube-system
+          port: 80

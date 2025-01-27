@@ -1,0 +1,5 @@
+---
+resources:
+  - ../../base/headlamp/
+  - certificate.yaml
+  - ingress-route.yaml
