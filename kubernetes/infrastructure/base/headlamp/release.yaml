@@ -19,7 +19,7 @@ spec:
   values:
     config:
       oidc:
-        clientID: ${HEADLAMP_GIHUB_CLIENTID}
+        clientID: ${HEADLAMP_GITHUB_CLIENTID}
         clientSecret: ${HEADLAMP_GITHUB_CLIENTSECRET}
         issuerURL: "https://github.com"
         scopes: "openid profile email"
