@@ -3,4 +3,4 @@ resources:
   - ./cert-manager/
   - ./traefik/
   - ./longhorn
-  - ./headlamp
+  # - ./headlamp
