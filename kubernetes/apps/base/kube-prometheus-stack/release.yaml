@@ -342,7 +342,4 @@ spec:
             metrics_path: '/metrics'
             static_configs:
               - targets: ['longhorn-backend.longhorn-system.svc.cluster.local:9500']
-            basic_auth:  # Only needed if authentication is enabled (default)
-              username: ${UPTIMEKUMA_USERNAME}
-              password: ${UPTIMEKUMA_PASSWORD}
   interval: 10m0s
