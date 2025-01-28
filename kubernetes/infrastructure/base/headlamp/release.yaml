@@ -17,9 +17,9 @@ spec:
         namespace: flux-system
       interval: 12h
   values:
-    config:
-      oidc:
-        clientID: ${HEADLAMP_GITHUB_CLIENTID}
-        clientSecret: ${HEADLAMP_GITHUB_CLIENTSECRET}
-        issuerURL: "https://github.com"
-        scopes: "openid profile email"
+    # config:
+    #   oidc:
+    #     clientID: ${HEADLAMP_GITHUB_CLIENTID}
+    #     clientSecret: ${HEADLAMP_GITHUB_CLIENTSECRET}
+    #     issuerURL: "https://github.com"
+    #     scopes: "openid profile email"
