@@ -213,9 +213,9 @@ spec:
           auto_sign_up: false
           enable_login_token: true
           sync_ttl: 60
-        remote_cache:
-          type: redis
-          connstr: addr=redis.redis.svc.cluster.local:6379
+        # remote_cache:
+        #   type: redis
+        #   connstr: addr=redis.redis.svc.cluster.local:6379
         analytics:
           reporting_enabled: false
           check_for_updates: true
