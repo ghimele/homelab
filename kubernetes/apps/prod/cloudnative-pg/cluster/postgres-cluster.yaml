@@ -21,6 +21,7 @@ spec:
       pg_stat_statements.max: '10000'
       pg_stat_statements.track: all
       auto_explain.log_min_duration: '10s'
+      max_slot_wal_keep_size: "2.5GB"
 
   bootstrap:
     initdb:
@@ -41,11 +42,11 @@ spec:
 
   storage:
     storageClass: "longhorn-postgres-storage"
-    size: 2Gi
+    size: 3Gi
 
   walStorage:
     storageClass: "longhorn-postgres-storage"
-    size: 2Gi
+    size: 3Gi
 
   monitoring:
     enablePodMonitor: true
@@ -86,7 +87,7 @@ spec:
       storage:
         size: 1Gi
         storageClass: "longhorn-postgres-storage"
-    - name: wp_pm
-      storage:
-        size: 2Gi
-        storageClass: "longhorn-postgres-storage"
+    # - name: wp_pm
+    #   storage:
+    #     size: 2Gi
+    #     storageClass: "longhorn-postgres-storage"
