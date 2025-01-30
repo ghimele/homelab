@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   values:
     server:
-      gotifyUrls: ${GOTIFY_URL}
+      gotifyUrls: "http://${GOTIFY_URL}"
 
     persistence:
       # -- enable persistence when true
