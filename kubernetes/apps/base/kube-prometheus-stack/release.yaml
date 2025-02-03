@@ -304,7 +304,7 @@ spec:
         podMonitorSelector: {}
         podMonitorSelectorNilUsesHelmValues: false
         podMonitorNamespaceSelector: {}
-        retention: 4w
+        retention: 2w
         replicas: 1
         logLevel: info  # before: warn
         ruleNamespaceSelector: {}  # Add a namespace if you want Prometheus to identify rules created in specific namespaces. Leave {} to detect rules from any namespace.
@@ -321,14 +321,16 @@ spec:
         additionalScrapeConfigs:
           - job_name: unraid
             scheme: http
+            scrape_interval: 60s
             static_configs:
               - targets: ['${HOST_OCEANO}.${DOMAIN}:9100']
           - job_name: pfsense
             scheme: http
+            scrape_interval: 60s
             static_configs:
               - targets: ['${HOST_PFSENSE}.${DOMAIN}:9100']
           - job_name: 'uptime-kuma'
-            scrape_interval: 30s
+            scrape_interval: 60s
             scheme: http
             metrics_path: '/metrics'
             static_configs:
@@ -337,7 +339,7 @@ spec:
               username: ${UPTIMEKUMA_USERNAME}
               password: ${UPTIMEKUMA_PASSWORD}
           - job_name: 'longhorn'
-            scrape_interval: 30s
+            scrape_interval: 60s
             scheme: http
             metrics_path: '/metrics'
             static_configs:
