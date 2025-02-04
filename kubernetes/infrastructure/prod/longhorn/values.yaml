@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: longhorn-system
+spec:
+  interval: 10m0s
+  values:
+    global:
+      # -- Toleration for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer.
+      tolerations: []
+      # -- Node selector for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer.
+      nodeSelector:
+        storage: "longhorn"
+    defaultSettings:
+      defaultDataPath: /mnt/longhorn-data/
+      # -- Percentage of disk space that is not allocated to the default disk on each new Longhorn node.
+      storageReservedPercentageForDefaultDisk: 0

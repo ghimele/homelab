@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: ${CLUSTER_NODE_2}
+  labels:
+    storage: longhorn

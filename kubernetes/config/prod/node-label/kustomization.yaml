@@ -1,0 +1,5 @@
+---
+resources:
+  - node1.yaml
+  - node2.yaml
+  - node3.yaml
