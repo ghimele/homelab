@@ -1,0 +1,6 @@
+---
+# create a namespace for system-upgrade
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: system-upgrade
