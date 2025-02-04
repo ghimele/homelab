@@ -4,4 +4,4 @@ resources:
   - ./traefik/
   - ./longhorn
   - ./headlamp
-  - ./system-upgrade
+  - ./system-upgrade/
