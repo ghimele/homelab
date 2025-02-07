@@ -5,7 +5,7 @@ resources:
   - ./xen
   - ./promtail
   - ./loki
-  - ./cloudnative-pg
-  - ./gotify
-  - ./home-assistant
-  - ./uptime-kuma
+  # - ./cloudnative-pg
+  # - ./gotify
+  # - ./home-assistant
+  # - ./uptime-kuma
