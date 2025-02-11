@@ -20,15 +20,13 @@ patches:
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:
                     - matchExpressions:
-                      - key: role
-                        operator: In
-                        values:
-                          - flux
+                      - key: node-role.kubernetes.io/control-plane
+                        operator: Exists
             tolerations:
-              - effect: NoSchedule
-                key: role
-                operator: Equal
-                value: flux
+              - key: "node-role.kubernetes.io/control-plane"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
     target:
       kind: Deployment
       labelSelector: app.kubernetes.io/part-of=flux
