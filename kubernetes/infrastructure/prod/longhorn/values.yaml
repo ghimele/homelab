@@ -12,7 +12,7 @@ spec:
       tolerations: []
       # -- Node selector for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer.
       nodeSelector:
-      # storage: "longhorn"
+      storage: "longhorn"
     defaultSettings:
       defaultDataPath: /mnt/longhorn-data/
       # -- Percentage of disk space that is not allocated to the default disk on each new Longhorn node.
@@ -24,3 +24,5 @@ spec:
         - key: node-role.kubernetes.io/control-plane
           operator: Exists
           effect: NoSchedule
+      nodeSelector: 
+        node-role.kubernetes.io/control-plane: "true"
