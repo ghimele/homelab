@@ -12,6 +12,7 @@ spec:
       tolerations: []
       # -- Node selector for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer.
       nodeSelector:
+        # We will install all the services on nodes labeled as storage:longhorn (the agent nodes) except for longhorManager
         storage: "longhorn"
     defaultSettings:
       defaultDataPath: /mnt/longhorn-data/
@@ -19,7 +20,7 @@ spec:
       storageReservedPercentageForDefaultDisk: 0
     longhornManager:
       # -- Toleration for Longhorn Manager on nodes allowed to run Longhorn Manager.
-      # tolerations: []
+      # We will install all the services related to longhornManaged inside the control plane nodes.
       tolerations:
         - key: node-role.kubernetes.io/control-plane
           operator: Exists
