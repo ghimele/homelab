@@ -22,7 +22,7 @@ spec:
         # -- Format of Longhorn Manager logs. (Options: "plain", "json")
         format: plain
       # -- PriorityClass for Longhorn Manager.
-      priorityClass: *defaultPriorityClassNameRef
+      priorityClass: defaultPriorityClassNameRef
       # -- Toleration for Longhorn Manager on nodes allowed to run Longhorn Manager.
       # tolerations: []
       tolerations:
