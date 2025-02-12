@@ -18,11 +18,6 @@ spec:
       # -- Percentage of disk space that is not allocated to the default disk on each new Longhorn node.
       storageReservedPercentageForDefaultDisk: 0
     longhornManager:
-      log:
-        # -- Format of Longhorn Manager logs. (Options: "plain", "json")
-        format: plain
-      # -- PriorityClass for Longhorn Manager.
-      priorityClass: defaultPriorityClassNameRef
       # -- Toleration for Longhorn Manager on nodes allowed to run Longhorn Manager.
       # tolerations: []
       tolerations:
