@@ -1,0 +1,9 @@
+---
+resources:
+  - ../../base/metallb/
+  - metallb-config.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

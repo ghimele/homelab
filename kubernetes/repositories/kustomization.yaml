@@ -13,3 +13,4 @@ resources:
   - smtp-gotify.yaml
   - uptime-kuma.yaml
   - headlamp.yaml
+  - metallb.yaml

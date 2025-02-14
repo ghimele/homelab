@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: metallb
+  namespace: metallb-system
+spec:
+  interval: 10m0s
+  values:
+    prometheus:
+      # Prometheus Operator PodMonitors
+      podMonitor:
+        # enable support for Prometheus Operator
+        enabled: false
+      # Prometheus Operator alertmanager alerts
+      prometheusRule:
+        # enable alertmanager alerts
+        enabled: false
