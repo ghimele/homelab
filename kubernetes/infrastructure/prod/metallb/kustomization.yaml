@@ -1,7 +1,7 @@
 ---
 resources:
   - ../../base/metallb/
-  # - metallb-config.yaml
+  - metallb-config.yaml
 
 patches:
   - path: values.yaml
