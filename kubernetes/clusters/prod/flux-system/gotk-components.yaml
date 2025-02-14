@@ -4886,7 +4886,7 @@ spec:
             resourceFieldRef:
               containerName: manager
               resource: limits.memory
-        image: ghcr.io/fluxcd/source-controller:v1.4.1
+        image: ghcr.io/fluxcd/source-controller:v1.5.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -12453,7 +12453,7 @@ spec:
             resourceFieldRef:
               containerName: manager
               resource: limits.memory
-        image: ghcr.io/fluxcd/notification-controller:v1.4.0
+        image: ghcr.io/fluxcd/notification-controller:v1.5.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -13489,7 +13489,7 @@ spec:
             resourceFieldRef:
               containerName: manager
               resource: limits.memory
-        image: ghcr.io/fluxcd/image-reflector-controller:v0.33.0
+        image: ghcr.io/fluxcd/image-reflector-controller:v0.34.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
@@ -14314,7 +14314,7 @@ spec:
             resourceFieldRef:
               containerName: manager
               resource: limits.memory
-        image: ghcr.io/fluxcd/image-automation-controller:v0.39.0
+        image: ghcr.io/fluxcd/image-automation-controller:v0.40.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
