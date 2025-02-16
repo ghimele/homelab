@@ -8,12 +8,12 @@ spec:
   interval: 10m0s
   values:
     global:
-      # -- Toleration for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer.
-      tolerations: []
-      # -- Node selector for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer.
-      nodeSelector:
-        # We will install all the services on nodes labeled as storage:longhorn (the agent nodes) except for longhorManager
-        storage: "longhorn"
+      # tolerations:
+      #   - key: node-role.kubernetes.io/control-plane
+      #     operator: Exists
+      #     effect: NoSchedule
+      # nodeSelector:
+      #   node-role.kubernetes.io/control-plane: "true"
     persistence:
       # -- Setting that allows you to specify the default Longhorn StorageClass.
       defaultClass: true
@@ -23,9 +23,9 @@ spec:
       defaultClassReplicaCount: 3
       defaultNodeSelector:
         # -- Setting that allows you to enable the node selector for the default Longhorn StorageClass.
-        enable: true
+        # enable: true
         # -- Node selector for the default Longhorn StorageClass. Longhorn uses only nodes with the specified tags for storing volume data. (Examples: "storage,fast")
-        selector: "storage"
+        # selector: "storage"
     defaultSettings:
       defaultDataPath: /mnt/longhorn-data/
       # -- Percentage of disk space that is not allocated to the default disk on each new Longhorn node.
@@ -46,3 +46,11 @@ spec:
           effect: NoSchedule
       nodeSelector:
         node-role.kubernetes.io/control-plane: "true"
+    # longhornUI:
+    #   tolerations:
+    #     - key: node-role.kubernetes.io/control-plane
+    #       operator: Exists
+    #       effect: NoSchedule
+    #   nodeSelector:
+    #     node-role.kubernetes.io/control-plane: "true"
+
