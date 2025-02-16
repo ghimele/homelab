@@ -8,12 +8,12 @@ spec:
   interval: 10m0s
   values:
     global:
-      # tolerations:
-      #   - key: node-role.kubernetes.io/control-plane
-      #     operator: Exists
-      #     effect: NoSchedule
-      # nodeSelector:
-      #   node-role.kubernetes.io/control-plane: "true"
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: "true"
     persistence:
       # -- Setting that allows you to specify the default Longhorn StorageClass.
       defaultClass: true
