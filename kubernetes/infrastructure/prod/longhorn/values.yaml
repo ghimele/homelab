@@ -40,15 +40,15 @@ spec:
         - key: node-role.kubernetes.io/control-plane
           operator: Exists
           effect: NoSchedule
-      nodeSelector:
-        node-role.kubernetes.io/control-plane: "true"
+      # nodeSelector:
+      #   node-role.kubernetes.io/control-plane: "true"
     longhornDriver:
       tolerations:
         - key: node-role.kubernetes.io/control-plane
           operator: Exists
           effect: NoSchedule
-      nodeSelector:
-        node-role.kubernetes.io/control-plane: "true"
+      # nodeSelector:
+      #   node-role.kubernetes.io/control-plane: "true"
     # longhornUI:
     #   tolerations:
     #     - key: node-role.kubernetes.io/control-plane
