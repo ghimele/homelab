@@ -1,0 +1,17 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: metallb
+  namespace: flux-system
+spec:
+  url: https://github.com/metallb/metallb
+  ref:
+    # renovate: registryUrl=https://metallb.github.io/metallb chart=crds
+    tag: v0.14.9
+  interval: 15m
+  ignore: |
+    # exclude all
+    /*
+    # include crds directory
+    !/charts/metallb/charts/crds/templates
