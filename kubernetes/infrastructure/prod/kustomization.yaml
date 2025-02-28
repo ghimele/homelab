@@ -2,7 +2,7 @@
 resources:
   - ./metallb/
   - ./cert-manager/
-  - ./traefik/
+  # - ./traefik/
   - ./headlamp
   - ./system-upgrade/
   # - ./longhorn/
