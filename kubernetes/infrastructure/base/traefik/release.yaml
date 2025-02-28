@@ -63,6 +63,7 @@ spec:
         # entryPoints: ["web"]
     persistence:
       enabled: true
+      storageClass: "local-path"
     tracing:
       addInternals: true
     metrics:
