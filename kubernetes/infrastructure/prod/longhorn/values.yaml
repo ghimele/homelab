@@ -12,36 +12,16 @@ spec:
       tolerations: []
       # -- Node selector for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer.
       nodeSelector:
-        # We will install all the services on nodes labeled as storage:longhorn (the agent nodes) except for longhorManager
+        # We will install all the services on nodes labeled as storage:longhorn (the agent nodes)
         storage: "longhorn"
+    persistence:
+      # -- Setting that allows you to specify the default Longhorn StorageClass.
+      defaultClass: true
+      # -- Filesystem type of the default Longhorn StorageClass.
+      defaultFsType: ext4
+      # -- Replica count of the default Longhorn StorageClass.
+      defaultClassReplicaCount: 3
     defaultSettings:
       defaultDataPath: /mnt/longhorn-data/
       # -- Percentage of disk space that is not allocated to the default disk on each new Longhorn node.
       storageReservedPercentageForDefaultDisk: 0
-      # -- Taint or toleration for system-managed Longhorn components.
-      # Specify values using a semicolon-separated list in `kubectl taint` syntax (Example: key1=value1:effect; key2=value2:effect).
-      taintToleration: node-role.kubernetes.io/control-plane=true:NoSchedule
-    longhornManager:
-      # -- Toleration for Longhorn Manager on nodes allowed to run Longhorn Manager.
-      # We will install all the services related to longhornManaged inside the control plane nodes.
-      tolerations:
-        - key: node-role.kubernetes.io/control-plane
-          operator: Exists
-          effect: NoSchedule
-      nodeSelector:
-        node-role.kubernetes.io/control-plane: "true"
-    longhornDriver:
-      tolerations:
-        - key: node-role.kubernetes.io/control-plane
-          operator: Exists
-          effect: NoSchedule
-      # nodeSelector:
-      #   node-role.kubernetes.io/control-plane: "true"
-    # longhornUI:
-    #   tolerations:
-    #     - key: node-role.kubernetes.io/control-plane
-    #       operator: Exists
-    #       effect: NoSchedule
-    #   nodeSelector:
-    #     node-role.kubernetes.io/control-plane: "true"
-
