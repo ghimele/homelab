@@ -4,6 +4,17 @@ kind: IngressRoute
 metadata:
   name: xen
   namespace: xen
+  annotations:
+    gethomepage.dev/href: "https://xen.${DOMAIN}"
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Xen Orchestra
+    gethomepage.dev/group: Infrastructure
+    gethomepage.dev/icon: xen.png
+    gethomepage.dev/app: xen # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+    gethomepage.dev/name: Xen
+    gethomepage.dev/pod-selector: ""
+    gethomepage.dev/weight: 10  # optional
+    gethomepage.dev/instance: "public"  # optional
 spec:
   entryPoints:
     - websecure
