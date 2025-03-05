@@ -13,8 +13,8 @@ metadata:
     gethomepage.dev/widget.type: "traefik"
     gethomepage.dev/widget.url: https://`${HOST_TRAEFIK}.${DOMAIN}`
     gethomepage.dev/pod-selector: ""
-    gethomepage.dev/weight: 10 # optional
-    gethomepage.dev/instance: "public" # optional
+    gethomepage.dev/weight: 10  # optional
+    gethomepage.dev/instance: "public"  # optional
 spec:
   entryPoints:
     - websecure
