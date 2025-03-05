@@ -2,10 +2,10 @@
 resources:
   - ./homepage
   - ./xen
-  # - ./kube-prometheus-stack
-  # - ./promtail
-  # - ./loki
-  # - ./cloudnative-pg
-  # - ./gotify
-  # - ./home-assistant
-  # - ./uptime-kuma
+  - ./cloudnative-pg
+  - ./kube-prometheus-stack
+  - ./promtail
+  - ./loki
+  - ./gotify
+  - ./home-assistant
+  - ./uptime-kuma
