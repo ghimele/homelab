@@ -5,13 +5,15 @@ metadata:
   name: traefik-dashboard
   namespace: traefik
   annotations:
+    gethomepage.dev/href: "https://${HOST_TRAEFIK}.${DOMAIN}"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/description: Traefik Dashboard
     gethomepage.dev/group: Infrastructure
     gethomepage.dev/icon: traefik.png
+    # gethomepage.dev/app: emby-app # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
     gethomepage.dev/name: Traefik
     gethomepage.dev/widget.type: "traefik"
-    gethomepage.dev/widget.url: https://`${HOST_TRAEFIK}.${DOMAIN}`
+    gethomepage.dev/widget.url: "https://${HOST_TRAEFIK}.${DOMAIN}"
     gethomepage.dev/pod-selector: ""
     gethomepage.dev/weight: 10  # optional
     gethomepage.dev/instance: "public"  # optional
