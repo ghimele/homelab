@@ -18,15 +18,10 @@ rules:
   - apiGroups:
       - extensions
       - networking.k8s.io
+      - traefik.containo.us
+      - traefik.io
     resources:
       - ingresses
-    verbs:
-      - get
-      - list
-  - apiGroups:
-      - traefik.io
-      - traefik.containo.us
-    resources:
       - ingressroutes
     verbs:
       - get
@@ -45,6 +40,7 @@ rules:
       - customresourcedefinitions/status
     verbs:
       - get
+      - list
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
