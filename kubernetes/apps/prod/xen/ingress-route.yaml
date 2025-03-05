@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/href: "https://xen.${DOMAIN}"
     gethomepage.dev/description: Xen Orchestra
     gethomepage.dev/group: Infrastructure
-    gethomepage.dev/icon: xen.png
+    gethomepage.dev/icon: xen-orchestra.png
     # gethomepage.dev/app: xen  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
     gethomepage.dev/name: "Xen Orchestra"
 spec:
