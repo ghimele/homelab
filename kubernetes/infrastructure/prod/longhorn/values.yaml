@@ -13,7 +13,7 @@ spec:
       # -- Node selector for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer.
       nodeSelector:
         # We will install all the services on nodes labeled as storage:longhorn (the agent nodes)
-        storage: "longhorn"
+        node-role.kubernetes.io/longhorn: ""
     persistence:
       # -- Setting that allows you to specify the default Longhorn StorageClass.
       defaultClass: true
