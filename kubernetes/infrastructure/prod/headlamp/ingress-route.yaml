@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/href: "https://${HOST_HEADLAMP}.${DOMAIN}"
     gethomepage.dev/description: user-friendly Kubernetes UI focused
     gethomepage.dev/group: Infrastructure
-    gethomepage.dev/icon: headlamp.png
+    gethomepage.dev/icon: https://headlamp.dev/img/logo.svg
     gethomepage.dev/name: Headlamp
     gethomepage.dev/app: headlamp
 spec:
