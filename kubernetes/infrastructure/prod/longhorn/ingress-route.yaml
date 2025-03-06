@@ -4,6 +4,14 @@ kind: IngressRoute
 metadata:
   name: longhorn
   namespace: longhorn-system
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_LONGHORN}.${DOMAIN}"
+    gethomepage.dev/description: Block storage for Kubernetes
+    gethomepage.dev/group: Infrastructure
+    gethomepage.dev/icon: rancher-longhorn.png
+    gethomepage.dev/name: Longhorn
+    gethomepage.dev/app: longhorn  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
 spec:
   entryPoints:
     - websecure
