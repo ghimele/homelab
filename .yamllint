@@ -4,6 +4,7 @@ ignore: |
   **/flux-system/gotk-sync.yaml
   **/flux-system/kustomization.yaml
   **/*enc.yaml
+  **/cnpg/crd.yaml
 rules:
   braces:
     level: error
