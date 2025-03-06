@@ -294,6 +294,12 @@ spec:
               action: replace
 
     prometheus:
+      ## Resource limits & requests
+      resources:
+        requests:
+          memory: 500Mi
+        limits:
+          memory: 800Mi
       prometheusSpec:
         externalUrl: https://${HOST_PROMETHEUS}.${DOMAIN}
         # TODO: implement label for selection, enable all service monitors for now
