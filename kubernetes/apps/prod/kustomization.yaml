@@ -8,4 +8,4 @@ resources:
   - ./loki
   - ./gotify
   - ./home-assistant
-  - ./uptime-kuma
+  # - ./uptime-kuma
