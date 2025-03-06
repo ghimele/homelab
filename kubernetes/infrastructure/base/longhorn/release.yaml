@@ -10,7 +10,6 @@ spec:
     spec:
       chart: longhorn
       version: 1.8.1
-      failurePolicy: abort
       sourceRef:
         kind: HelmRepository
         name: longhorn
