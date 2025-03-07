@@ -14,7 +14,7 @@ metadata:
     gethomepage.dev/app: gotify
     gethomepage.dev/widget.type: gotify
     gethomepage.dev/widget.url: "https://${HOST_GOTIFY}.${DOMAIN}"
-    gethomepage.dev/widget.token: ${HOMEPAGE_GOTIFY_TOKEN}
+    gethomepage.dev/widget.key: ${HOMEPAGE_GOTIFY_TOKEN}
 spec:
   entryPoints:
     - websecure
