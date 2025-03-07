@@ -4,6 +4,14 @@ kind: IngressRoute
 metadata:
   name: loki
   namespace: monitoring
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_LOKI}.${DOMAIN}"
+    gethomepage.dev/description: Logging system.
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: loki.png
+    gethomepage.dev/name: Loki
+    gethomepage.dev/app: loki
 spec:
   entryPoints:
     - websecure

@@ -2,6 +2,4 @@
 resources:
   - namespace.yaml
   - release.yaml
-  - certificate.yaml
-  - ingress-route.yaml
   - grafana-dashboards

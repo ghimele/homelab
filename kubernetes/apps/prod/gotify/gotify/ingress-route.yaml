@@ -4,6 +4,17 @@ kind: IngressRoute
 metadata:
   name: gotify
   namespace: gotify
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_GOTIFY}.${DOMAIN}"
+    gethomepage.dev/description: Monitoring Dashboards.
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: gotify.png
+    gethomepage.dev/name: Gotify
+    gethomepage.dev/app: gotify
+    gethomepage.dev/widget.type: gotify
+    gethomepage.dev/widget.url: "https://${HOST_GOTIFY}.${DOMAIN}"
+    gethomepage.dev/widget.token: ${HOMEPAGE_GOTIFY_TOKEN}
 spec:
   entryPoints:
     - websecure
