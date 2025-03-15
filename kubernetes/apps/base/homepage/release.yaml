@@ -21,4 +21,4 @@ spec:
     image:
       repository: ghcr.io/gethomepage/homepage
       # Overrides the image tag whose default is the chart appVersion.
-      tag: 'v0.10.9'
+      tag: 'v1.0.0'
