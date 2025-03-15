@@ -13,4 +13,5 @@ spec:
       # Overrides the image tag whose default is the chart appVersion.
       tag: 'v1.0.0'
     env:
-      HOMEPAGE_ALLOWED_HOSTS: homepage.${DOMAIN}
+      - name: HOMEPAGE_ALLOWED_HOSTS
+        value: homepage.${DOMAIN}
