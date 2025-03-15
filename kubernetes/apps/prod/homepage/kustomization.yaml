@@ -5,3 +5,8 @@ resources:
   - ./certificate.yaml
   - ./ingress-route.yaml
   - ./configmap.enc.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

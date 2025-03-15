@@ -1,0 +1,2 @@
+env:
+  HOMEPAGE_ALLOWED_HOSTS: homepage.${DOMAIN}
