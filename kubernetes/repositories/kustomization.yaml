@@ -14,3 +14,4 @@ resources:
   - uptime-kuma.yaml
   - headlamp.yaml
   - metallb.yaml
+  - jellyfin.yaml
