@@ -1,0 +1,25 @@
+---
+# jellyfin release
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jellyfin
+  namespace: media
+spec:
+  interval: 10m0s
+  chart:
+    spec:
+      chart: jellyfin
+      version: '2.1.1'
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: jellyfin
+        namespace: flux-system
+  values:
+    namespace: jellyfin
+    image:
+      # -- Container image repository for Jellyfin.
+      repository: docker.io/jellyfin/jellyfin
+      # -- Jellyfin container image tag. Leave empty to automatically use the Chart's app version.
+      tag: "10.10.6"
