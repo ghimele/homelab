@@ -1,0 +1,238 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vmetrics
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: victoria-metrics-k8s-stack
+      # renovate: registryUrl=https://victoriametrics.github.io/helm-charts chart=victoria-metrics-k8s-stack
+      version: 0.39.4
+      sourceRef:
+        kind: HelmRepository
+        name: victoriametrics
+        namespace: flux-system
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    # VictoriaMetrics Operator dependency chart configuration.
+    # More values can be found [here](https://docs.victoriametrics.com/helm/victoriametrics-operator#parameters). Also checkout [here](https://docs.victoriametrics.com/operator/vars) possible ENV variables to configure operator behaviour
+    victoria-metrics-operator:
+      enabled: true
+      operator:
+        disable_prometheus_converter: false
+        enable_converter_ownership: true
+
+    defaultDashboards:
+      # -- Enable custom dashboards installation
+      enabled: true
+      defaultTimezone: utc+1
+
+    # -- Create default rules for monitoring the cluster
+    defaultRules:
+      # -- Labels, which are used for grouping results of the queries. Note that these labels are joined with `.Values.global.clusterLabel`
+      additionalGroupByLabels: []
+      create: true
+      # -- Runbook url prefix for default rules
+      runbookUrl: https://runbooks.prometheus-operator.dev/runbooks
+
+    # Configures vmsingle params
+    vmsingle:
+      # -- VMSingle annotations
+      annotations: {}
+      # -- Create VMSingle CR
+      enabled: true
+      # -- Full spec for VMSingle CRD. Allowed values describe [here](https://docs.victoriametrics.com/operator/api#vmsinglespec)
+      spec:
+        port: "8429"
+        # -- Data retention period. Possible units character: h(ours), d(ays), w(eeks), y(ears), if no unit character specified - month. The minimum retention period is 24h
+        # See these [docs](https://docs.victoriametrics.com/single-server-victoriametrics/#retention)
+        retentionPeriod: "1"
+        replicaCount: 1
+        extraArgs: {}
+        storage:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 20Gi
+
+    vmcluster:
+      # -- Create VMCluster CR
+      enabled: false
+      # -- VMCluster annotations
+      annotations: {}
+      # -- Full spec for VMCluster CRD. Allowed values described [here](https://docs.victoriametrics.com/operator/api#vmclusterspec)
+      spec:
+        # -- Data retention period. Possible units character: h(ours), d(ays), w(eeks), y(ears), if no unit character specified - month. The minimum retention period is 24h
+        # See these [docs](https://docs.victoriametrics.com/single-server-victoriametrics/#retention)
+        retentionPeriod: "1"
+        replicationFactor: 2
+        vmstorage:
+          replicaCount: 2
+          storageDataPath: /vm-data
+          storage:
+            volumeClaimTemplate:
+              spec:
+                resources:
+                  requests:
+                    storage: 10Gi
+        vmselect:
+          # -- Set this value to false to disable VMSelect
+          enabled: true
+          port: "8481"
+          replicaCount: 2
+          cacheMountPath: /select-cache
+          extraArgs: {}
+          storage:
+            volumeClaimTemplate:
+              spec:
+                resources:
+                  requests:
+                    storage: 2Gi
+
+    alertmanager:
+      enabled: true
+      annotations: {}
+      # spec for VMAlertmanager crd
+      # https://github.com/VictoriaMetrics/operator/blob/master/docs/api.MD#vmalertmanagerspec
+      spec:
+        selectAllByDefault: true
+        externalURL: ""
+        routePrefix: /
+      ingress:
+        enabled: false
+      monzoTemplate:
+        enabled: false
+
+      # templateFiles:
+      #   telegram.tmpl: |-
+      #     {{ define "alert_list" }}
+      #     {{- range . }}
+      #     🪪 <b>{{ .Labels.alertname }}</b>
+      #     {{- if eq .Labels.severity "critical" }}
+      #     🚨 CRITICAL 🚨 {{ end }}
+      #     {{- if eq .Labels.severity "warning" }}
+      #     ⚠️ WARNING ⚠️{{ end }}
+      #     {{- if .Annotations.summary }}
+      #     📝 {{ .Annotations.summary }}{{ end }}
+      #     {{- if .Annotations.description }}
+      #     📖 {{ .Annotations.description }}{{ end }}
+
+      #     🏷 Labels:
+      #     {{ range .Labels.SortedPairs }}• {{ .Name }}: {{ .Value }}
+      #     {{ end }}
+      #     {{ end }}
+      #     {{ end }}
+
+      #     {{ define "telegram.message" }}
+      #     {{ if gt (len .Alerts.Firing) 0 }}
+      #     🔥 Alerts Firing 🔥
+      #     {{ template "alert_list" .Alerts.Firing }}
+      #     {{ end }}
+      #     {{ if gt (len .Alerts.Resolved) 0 }}
+      #     ✅ Alerts Resolved ✅
+      #     {{ template "alert_list" .Alerts.Resolved }}
+      #     {{ end }}
+      #     {{ end }}
+
+      config:
+        global:
+          resolve_timeout: 5m
+        route:
+          group_by: ["alertname"]
+          group_wait: 1m
+          group_interval: 5m
+          repeat_interval: 3h
+          receiver: devnull
+          routes:
+            - receiver: blackhole
+              matchers:
+                - "severity=blackhole"
+              continue: false
+        receivers:
+          - name: devnull
+          - name: blackhole
+
+    vmalert:
+      # -- VMAlert annotations
+      annotations: {}
+      # -- Create VMAlert CR
+      enabled: true
+
+    vmauth:
+      # -- Enable VMAuth CR
+      enabled: false
+
+    vmagent:
+      # -- Create VMAgent CR
+      enabled: true
+      spec:
+        port: "8429"
+        selectAllByDefault: true
+        scrapeInterval: 20s
+        externalLabels: {}
+        # For multi-cluster setups it is useful to use "cluster" label to identify the metrics source.
+        # For example:
+        cluster: KHC-PROD
+
+    # -- Grafana dependency chart configuration. For possible values refer [here](https://github.com/grafana/helm-charts/tree/main/charts/grafana#configuration)
+    grafana:
+      enabled: false
+
+    # -- prometheus-node-exporter dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml)
+    prometheus-node-exporter:
+      enabled: true
+
+    # -- kube-state-metrics dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-state-metrics/values.yaml)
+    kube-state-metrics:
+      enabled: true
+
+    # -- Component scraping the kubelets
+    kubelet:
+      enabled: true
+
+    # Component scraping the kube api server
+    kubeApiServer:
+      # -- Enable Kube Api Server metrics scraping
+      enabled: true
+
+    # Component scraping the kube controller manager
+    kubeControllerManager:
+      enabled: true
+
+    # Component scraping kubeDns. Use either this or coreDns
+    kubeDns:
+      # -- Enabled KubeDNS metrics scraping
+      enabled: false
+
+    # Component scraping coreDns. Use either this or kubeDns
+    coreDns:
+      # -- Enabled CoreDNS metrics scraping
+      enabled: true
+
+    # Component scraping etcd
+    kubeEtcd:
+      # -- Enabled KubeETCD metrics scraping
+      enabled: true
+
+    # Component scraping kube scheduler
+    kubeScheduler:
+      # -- Enable KubeScheduler metrics scraping
+      enabled: true
+
+    # Component scraping kube proxy
+    kubeProxy:
+      # -- Enable kube proxy metrics scraping
+      enabled: false
