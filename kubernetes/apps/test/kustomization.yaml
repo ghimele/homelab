@@ -2,3 +2,4 @@
 resources:
   - ./homepage
   - ./xen
+  - ./victoriametrics
