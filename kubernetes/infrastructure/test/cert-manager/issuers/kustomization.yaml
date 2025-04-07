@@ -1,3 +1,4 @@
 ---
 resources:
   - lets-encrypt-staging.yaml
+  - test-selfsigned.yaml
