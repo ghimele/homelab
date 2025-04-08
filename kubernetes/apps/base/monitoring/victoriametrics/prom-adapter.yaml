@@ -1,0 +1,23 @@
+---
+# it is an auxiliary svc that creates the expected labels to be used by the Prometheus plugin for Headlamp.
+# more information here https://github.com/headlamp-k8s/plugins/issues/37
+# We can configure the Prometheus plugin for Headlamp in the following way without using the service.
+# Prometheus Service Address: monitoring/vmsingle-vmetrics-victoria-metrics-k8s-stack:8429
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: prometheus
+  name: prom-adapter
+  namespace: monitoring
+spec:
+  ports:
+  - name: http
+    port: 8429
+    protocol: TCP
+    targetPort: 8429
+  selector:
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/name: vmsingle
+  type: ClusterIP

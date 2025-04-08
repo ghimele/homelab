@@ -1,3 +1,4 @@
 ---
 resources:
   - release.yaml
+  - prom-adapter.yaml
