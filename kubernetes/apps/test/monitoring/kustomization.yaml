@@ -1,3 +1,5 @@
 ---
 resources:
-  - ../../base/monitoring/
+  - ../../base/monitoring/namespace.yaml
+  - ./vicotriametrics
+  - ./grafana
