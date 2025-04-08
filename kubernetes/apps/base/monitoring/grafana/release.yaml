@@ -36,7 +36,7 @@ spec:
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
-    assertNoLeakedSecrets: false
+    
     grafana.ini:
       server:
         domain: ${HOST_GRAFANA}.${DOMAIN}
@@ -217,3 +217,4 @@ spec:
       enabled: true
     testFramework:
       enabled: false
+    assertNoLeakedSecrets: false
