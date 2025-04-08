@@ -10,4 +10,4 @@ spec:
     - homepage.${DOMAIN}
   issuerRef:
     kind: ClusterIssuer
-    name: lets-encrypt-staging
+    name: test-selfsigned
