@@ -4,5 +4,4 @@ kind: ClusterIssuer
 metadata:
   name: test-selfsigned
 spec:
-  ca:
-    secretName: selfsigned-secret
+  selfSigned: {}
