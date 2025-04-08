@@ -36,7 +36,6 @@ spec:
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
-      GF_SERVER_ROOT_URL: https://grafana.nikola.wtf
     grafana.ini:
       server:
         domain: ${HOST_GRAFANA}.${DOMAIN}
@@ -55,6 +54,7 @@ spec:
         allowed_domains: ghimele.com github.com outlook.com
         role_attribute_path: "[login=='${EMAIL}'][0] && 'Admin' || 'Viewer'"
         skip_org_role_sync: true
+      assertNoLeakedSecrets: false
       log:
         level: warn
       users:
