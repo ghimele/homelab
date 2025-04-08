@@ -2,5 +2,6 @@
 resources:
   - namespace.yaml
   - ./victoriametrics
+  - ./grafana
   # - release.yaml
   # - grafana-dashboards

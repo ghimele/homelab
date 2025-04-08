@@ -1,0 +1,218 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: grafana
+      version: 8.11.3
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    deploymentStrategy:
+      type: Recreate
+    fullnameOverride: grafana
+    defaultDashboardsEnabled: false
+    defaultDashboardsTimezone: ${TIMEZONE}
+    # Administrator credentials when not using an existing secret (see below)
+    adminUser: ${GRAFANA_USERNAME}
+    adminPassword: ${GRAFANA_PASSWORD}
+    env:
+      GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
+      GF_EXPLORE_ENABLED: true
+      GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
+      GF_SERVER_ROOT_URL: https://grafana.nikola.wtf
+    grafana.ini:
+      server:
+        domain: ${HOST_GRAFANA}.${DOMAIN}
+        root_url: https://${HOST_GRAFANA}.${DOMAIN}
+        serve_from_sub_path: false
+        enable_gzip: true
+      auth.github:
+        enabled: true
+        allow_sign_up: true
+        scopes: user:email,read:org
+        auth_url: https://github.com/login/oauth/authorize
+        token_url: https://github.com/login/oauth/access_token
+        api_url: https://api.github.com/user
+        client_id: ${GRAFANA_GIHUB_CLIENTID}
+        client_secret: ${GRAFANA_GITHUB_CLIENTSECRET}
+        allowed_domains: ghimele.com github.com outlook.com
+        role_attribute_path: "[login=='${EMAIL}'][0] && 'Admin' || 'Viewer'"
+        skip_org_role_sync: true
+      log:
+        level: warn
+      users:
+        allow_sign_up: false
+        auto_assign_org: true
+        auto_assign_org_id: 1
+        auto_assign_org_role: Admin
+      auth:
+        disable_signout_menu: true
+      auth.proxy:
+        enabled: true
+        header_name: Remote-User
+        header_property: username
+        headers: 'Name:Remote-Name Email:Remote-Email Groups:Remote-Groups'
+        auto_sign_up: false
+        enable_login_token: true
+        sync_ttl: 60
+      analytics:
+        check_for_updates: false
+        check_for_plugin_updates: false
+        reporting_enabled: false
+      news:
+        news_feed_enabled: false
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: VictoriaMetrics
+            type: prometheus
+            uid: prometheus
+            access: proxy
+            url: http://vmsingle-vmetrics-victoria-metrics-k8s-stack.monitoring.svc.cluster.local:8429
+            jsonData:
+              prometheusType: Prometheus
+              timeInterval: 1m
+            isDefault: true
+          - name: VictoriaLogs
+            type: victoriametrics-logs-datasource
+            url: http://vm-logs-victoria-logs-single-server.monitoring.svc:9428
+
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: default
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+    dashboards:
+      default:
+        cloudflared:
+          # renovate: depName="Cloudflare Tunnels (cloudflared)"
+          gnetId: 17457
+          revision: 6
+          datasource:
+            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
+        node-exporter-full:
+          # renovate: depName="Node Exporter Full"
+          gnetId: 1860
+          revision: 36
+          datasource: VictoriaMetrics
+        cloudnative-pg:
+          url: https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/main/charts/cluster/grafana-dashboard.json
+          datasource: VictoriaMetrics
+        cert-manager:
+          # renovate: depName="Cert-manager-Kubernetes"
+          gnetId: 20842
+          revision: 3
+          datasource: VictoriaMetrics
+        omada-exporter:
+          url: https://raw.githubusercontent.com/charlie-haley/omada_exporter/main/dashboard.json
+          datasource: VictoriaMetrics
+        flux-cluster:
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
+          datasource: VictoriaMetrics
+        flux-control-plane:
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
+          datasource: VictoriaMetrics
+        kubernetes-api-server:
+          # renovate: depName="Kubernetes / System / API Server"
+          gnetId: 15761
+          revision: 16
+          datasource: VictoriaMetrics
+        kubernetes-coredns:
+          # renovate: depName="Kubernetes / System / CoreDNS"
+          gnetId: 15762
+          revision: 17
+          datasource: VictoriaMetrics
+        kubernetes-global:
+          # renovate: depName="Kubernetes / Views / Global"
+          gnetId: 15757
+          revision: 37
+          datasource: VictoriaMetrics
+        kubernetes-namespaces:
+          # renovate: depName="Kubernetes / Views / Namespaces"
+          gnetId: 15758
+          revision: 34
+          datasource: VictoriaMetrics
+        kubernetes-nodes:
+          # renovate: depName="Kubernetes / Views / Nodes"
+          gnetId: 15759
+          revision: 29
+          datasource: VictoriaMetrics
+        kubernetes-pods:
+          # renovate: depName="Kubernetes / Views / Pods"
+          gNetId: 15760
+          revision: 21
+          datasource: VictoriaMetrics
+        kubernetes-volumes:
+          # renovate: depName="K8s / Storage / Volumes / Cluster"
+          gnetId: 11454
+          revision: 14
+          datasource: VictoriaMetrics
+        smartctl-exporter:
+          # renovate: depName="SMARTctl Exporter Dashboard"
+          gnetId: 22604
+          revision: 1
+          datasource:
+            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
+        node-feature-discovery:
+          url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
+          datasource: VictoriaMetrics
+        blocky:
+          url: https://0xerr0r.github.io/blocky/latest/blocky-grafana.json
+          datasource:
+            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
+        victoriametrics:
+          url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/victoriametrics.json
+        vmagent:
+          url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/vmagent.json
+        vmlogs:
+          url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/victorialogs.json
+        vmalert:
+          url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/vmalert.json
+        vmoperator:
+          url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/operator.json
+    sidecar:
+      dashboards:
+        enabled: false
+        searchNamespace: ALL
+        label: grafana-dashboard
+        folderAnnotation: grafana-folder
+        provider:
+          disableDelete: true
+          foldersFromFilesStructure: true
+      datasources:
+        enabled: false
+        searchNamespace: ALL
+        labelValue: ""
+    plugins:
+      - grafana-clock-panel
+      - grafana-piechart-panel
+      - grafana-worldmap-panel
+      - victoriametrics-logs-datasource
+    serviceMonitor:
+      enabled: true
+    testFramework:
+      enabled: false
