@@ -20,7 +20,7 @@ spec:
   values:
     config:
       clients:
-        - url: http://vm-logs-victoria-logs-single-server:9428/loki/api/v1/push
+        - url: http://vm-logs-victoria-logs-single-server:9428/insert/loki/api/v1/push
       snippets:
         extraScrapeConfigs: |
           - job_name: syslog
