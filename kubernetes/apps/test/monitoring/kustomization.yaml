@@ -2,4 +2,5 @@
 resources:
   - ../../base/monitoring/namespace.yaml
   - ./victoriametrics
+  - ./victorialogs
   - ./grafana
