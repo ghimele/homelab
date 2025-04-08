@@ -4,3 +4,4 @@ resources:
   - ./victoriametrics
   - ./victorialogs
   - ./grafana
+  - ./promtail
