@@ -186,6 +186,17 @@ spec:
         # For multi-cluster setups it is useful to use "cluster" label to identify the metrics source.
         # For example:
         cluster: KHC-PROD
+        inlineScrapeConfig: |
+          - job_name: unraid
+            scheme: http
+            scrape_interval: 60s
+            static_configs:
+              - targets: ['${HOST_OCEANO}.${DOMAIN}:9100']
+          - job_name: pfsense
+            scheme: http
+            scrape_interval: 60s
+            static_configs:
+              - targets: ['${HOST_PFSENSE}.${DOMAIN}:9100']
 
     # -- Grafana dependency chart configuration. For possible values refer [here](https://github.com/grafana/helm-charts/tree/main/charts/grafana#configuration)
     grafana:
