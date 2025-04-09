@@ -149,7 +149,7 @@ spec:
         kubernetes-global:
           # renovate: depName="Kubernetes / Views / Global"
           gnetId: 15757
-          revision: 37
+          # revision: 37
           datasource: VictoriaMetrics
         kubernetes-namespaces:
           # renovate: depName="Kubernetes / Views / Namespaces"
@@ -208,9 +208,7 @@ spec:
         searchNamespace: ALL
         labelValue: ""
     plugins:
-      - grafana-clock-panel
       - grafana-piechart-panel
-      - grafana-worldmap-panel
       - victoriametrics-logs-datasource
     serviceMonitor:
       enabled: true
