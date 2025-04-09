@@ -153,6 +153,7 @@ spec:
           # revision: 43
           token: ''
           datasource: VictoriaMetrics
+          folder: Kubernetes
         kubernetes-namespaces:
           # renovate: depName="Kubernetes / Views / Namespaces"
           gnetId: 15758
