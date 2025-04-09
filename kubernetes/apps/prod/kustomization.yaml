@@ -3,9 +3,10 @@ resources:
   - ./homepage
   - ./xen
   - ./cloudnative-pg
-  - ./kube-prometheus-stack
-  - ./promtail
-  - ./loki
+  # - ./kube-prometheus-stack
+  # - ./monitoring
+  # - ./promtail
+  # - ./loki
   - ./gotify
   - ./home-assistant
   # - ./uptime-kuma
