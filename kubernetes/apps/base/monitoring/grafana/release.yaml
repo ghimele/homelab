@@ -27,7 +27,7 @@ spec:
     deploymentStrategy:
       type: Recreate
     fullnameOverride: grafana
-    defaultDashboardsEnabled: false
+    defaultDashboardsEnabled: true
     defaultDashboardsTimezone: ${TIMEZONE}
     # Administrator credentials when not using an existing secret (see below)
     adminUser: ${GRAFANA_USERNAME}
