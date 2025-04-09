@@ -148,8 +148,10 @@ spec:
           datasource: VictoriaMetrics
         kubernetes-global:
           # renovate: depName="Kubernetes / Views / Global"
-          gnetId: 15757
-          # revision: 37
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+          # gnetId: 15757
+          # revision: 43
+          token: ''
           datasource: VictoriaMetrics
         kubernetes-namespaces:
           # renovate: depName="Kubernetes / Views / Namespaces"
