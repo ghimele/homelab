@@ -90,9 +90,17 @@ spec:
               prometheusType: Prometheus
               timeInterval: 1m
             isDefault: true
+          - name: VictoriaMetrics (DS)
+            isDefault: false
+            access: proxy
+            type: victoriametrics-metrics-datasource
           - name: VictoriaLogs
             type: victoriametrics-logs-datasource
             url: http://vm-logs-victoria-logs-single-server.monitoring.svc:9428
+          - name: Alertmanager
+            access: proxy
+            jsonData:
+              implementation: prometheus
 
     dashboardProviders:
       dashboardproviders.yaml:

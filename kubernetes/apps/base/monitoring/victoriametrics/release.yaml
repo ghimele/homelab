@@ -205,6 +205,12 @@ spec:
     # -- prometheus-node-exporter dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml)
     prometheus-node-exporter:
       enabled: true
+      extraArgs:
+        - --collector.disable-defaults
+        - --collector.uname
+        - --collector.cpu
+        - --collector.meminfo
+        - --collector.nfs
 
     # -- kube-state-metrics dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-state-metrics/values.yaml)
     kube-state-metrics:
