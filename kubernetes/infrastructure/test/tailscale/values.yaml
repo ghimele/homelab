@@ -30,4 +30,4 @@ spec:
     # If you need more configuration options, take a look at ProxyClass:
     # https://tailscale.com/kb/1445/kubernetes-operator-customization#cluster-resource-customization-using-proxyclass-custom-resource
     proxyConfig:
-      defaultTags: "test-tag:k8s"
+      defaultTags: "tag:test-k8s"
