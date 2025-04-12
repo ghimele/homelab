@@ -47,3 +47,30 @@ spec:
           resources:
             requests:
               storage: 20Gi
+    vmagent:
+      # -- Create VMAgent CR
+      enabled: true
+      spec:
+        port: "8429"
+        selectAllByDefault: true
+        scrapeInterval: 20s
+        externalLabels: {}
+        # For multi-cluster setups it is useful to use "cluster" label to identify the metrics source.
+        # For example:
+        cluster: KHC-PROD
+        inlineScrapeConfig: |
+          - job_name: unraid
+            scheme: http
+            scrape_interval: 60s
+            static_configs:
+              - targets: ['${HOST_OCEANO}.${DOMAIN}:9100']
+          - job_name: pfsense
+            scheme: http
+            scrape_interval: 60s
+            static_configs:
+              - targets: ['${HOST_PFSENSE}.${DOMAIN}:9100']
+          - job_name: test-khc
+            scheme: http
+            scrape_interval: 60s
+            static_configs:
+              - targets: ['test-node-exporter']
