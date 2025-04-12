@@ -1,6 +1,7 @@
 ---
 resources:
   - ../../base/tailscale/
+  - ./egress-test-node-exporter.yaml
 
 patches:
   - path: values.yaml

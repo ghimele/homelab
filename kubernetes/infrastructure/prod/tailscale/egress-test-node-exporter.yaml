@@ -3,8 +3,8 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    tailscale.com/tailnet-ip: <Tailscale IP address>
-  name: rds-staging   # service name
+    tailscale.com/tailnet-ip: ${TAILSCALE_TEST_NODE_EXPORTER_IP}
+  name: test-node-exporter   # service name
 spec:
   externalName: placeholder   # any value - will be overwritten by operator
   type: ExternalName
