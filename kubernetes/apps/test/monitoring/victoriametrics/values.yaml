@@ -1,0 +1,20 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vmetrics
+  namespace: monitoring
+spec:
+  interval: 10m0s
+  values:
+    # -- prometheus-node-exporter dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml)
+    prometheus-node-exporter:
+      enabled: true
+
+      # all values for prometheus-node-exporter helm chart can be specified here
+      service:
+        # Add the 'node-exporter' label to be used by serviceMonitor to match standard common usage in rules and grafana dashboards
+        #
+        annotations:
+          prometheus.io/scrape: "true"
+          tailscale.com/expose: "true"
