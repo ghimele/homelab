@@ -12,8 +12,8 @@ spec:
     # operator-oauth must be precreated or oauthSecretVolume needs to be adjusted.
     # This block will be overridden by oauthSecretVolume, if set.
     oauth:
-      clientId: ""
-      clientSecret: ""
+      clientId: ${TAILSCALE_CLIENTID}
+      clientSecret: ${TAILSCALE_CLIENTSECRET}
     operatorConfig:
       # ACL tag that operator will be tagged with. Operator must be made owner of
       # these tags
