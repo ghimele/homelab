@@ -6,3 +6,4 @@ resources:
   - ./headlamp
   - ./system-upgrade/
   - ./longhorn/
+  - ./tailscale/
