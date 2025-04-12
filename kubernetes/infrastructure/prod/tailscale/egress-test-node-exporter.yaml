@@ -5,6 +5,7 @@ metadata:
   annotations:
     tailscale.com/tailnet-ip: ${TAILSCALE_TEST_NODE_EXPORTER_IP}
   name: test-node-exporter   # service name
+  namespace: monitoring
 spec:
   externalName: placeholder   # any value - will be overwritten by operator
   type: ExternalName
