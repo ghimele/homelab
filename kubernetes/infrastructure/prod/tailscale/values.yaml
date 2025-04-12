@@ -19,7 +19,9 @@ spec:
       # these tags
       # https://tailscale.com/kb/1236/kubernetes-operator/?q=operator#setting-up-the-kubernetes-operator
       # Multiple tags are defined as array items and passed to the operator as a comma-separated string
-      defaultTags: ${TAILSCALE_OPERATOR_TAG}
+      defaultTags: 
+        - "tag:k8s-operator"
+        - "tag:test-k8s-operator"
     # proxyConfig contains configuraton that will be applied to any ingress/egress
     # proxies created by the operator.
     # https://tailscale.com/kb/1439/kubernetes-operator-cluster-ingress
