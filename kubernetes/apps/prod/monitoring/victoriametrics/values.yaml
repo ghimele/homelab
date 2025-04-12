@@ -69,3 +69,7 @@ spec:
             scrape_interval: 60s
             static_configs:
               - targets: ['${HOST_PFSENSE}.${DOMAIN}:9100']
+          - job_name: "khc-test"
+            scrape_interval: 60s
+            static_configs:
+              - targets: ["test-node-exporter"]
