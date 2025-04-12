@@ -14,7 +14,7 @@ spec:
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: jetstack
+        name: tailscale
         namespace: flux-system
   values:
     # Operator oauth credentials. If set a Kubernetes Secret with the provided
