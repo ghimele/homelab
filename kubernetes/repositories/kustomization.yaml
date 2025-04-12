@@ -15,3 +15,4 @@ resources:
   - headlamp.yaml
   - metallb.yaml
   - victoriametrics.yaml
+  - tailscale.yaml
