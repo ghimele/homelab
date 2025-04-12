@@ -1,0 +1,8 @@
+---
+resources:
+  - ../../base/tailscale/
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease
