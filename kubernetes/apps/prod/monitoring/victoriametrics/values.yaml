@@ -72,7 +72,7 @@ spec:
           - job_name: "TEST-KHC"
             scrape_interval: 60s
             static_configs:
-              - targets: ["test-node-exporter:9100"]
+              - targets: ["test-khc-node-exporter:9100"]
 
     # -- prometheus-node-exporter dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml)
     prometheus-node-exporter:
