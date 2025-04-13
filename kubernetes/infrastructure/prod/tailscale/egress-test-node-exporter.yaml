@@ -2,13 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: test-node-exporter   # service name
+  name: test-khc-node-exporter   # service name
   namespace: monitoring
-  labels:
-    jobLabel: khc-test
   annotations:
     tailscale.com/tailnet-ip: ${TAILSCALE_TEST_NODE_EXPORTER_IP}
-    prometheus.io/scrape: "true"
 spec:
   externalName: placeholder   # any value - will be overwritten by operator
   type: ExternalName

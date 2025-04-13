@@ -1,7 +1,6 @@
 ---
 resources:
   - ../../base/tailscale/
-  # - ./ingress-tailscale-node-exporter.yaml
 
 patches:
   - path: values.yaml
