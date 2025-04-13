@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: test-node-exporter   # service name
   namespace: monitoring
-  labels: 
+  labels:
     jobLabel: khc-test
   annotations:
     tailscale.com/tailnet-ip: ${TAILSCALE_TEST_NODE_EXPORTER_IP}
