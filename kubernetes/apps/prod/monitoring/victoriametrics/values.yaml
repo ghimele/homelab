@@ -77,8 +77,10 @@ spec:
     # -- prometheus-node-exporter dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml)
     prometheus-node-exporter:
       enabled: true
-      collectors: [ ]
+      collectors: []
       extraArgs:
+        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+        - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|erofs|sysfs|tracefs)$
         - --custom-resource-state-only=true
       rbac:
         extraRules:
@@ -102,7 +104,7 @@ spec:
               - imagerepositories
               - imagepolicies
               - imageupdateautomations
-            verbs: [ "list", "watch" ]
+            verbs: ["list", "watch"]
       customResourceState:
         enabled: true
         config:
@@ -120,13 +122,13 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      revision: [ status, lastAppliedRevision ]
-                      source_name: [ spec, sourceRef, name ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      revision: [status, lastAppliedRevision]
+                      source_name: [spec, sourceRef, name]
               - groupVersionKind:
                   group: helm.toolkit.fluxcd.io
                   version: v2
@@ -139,16 +141,16 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      revision: [ status, history, "0", chartVersion ]
-                      chart_name: [ status, history, "0", chartName ]
-                      chart_app_version: [ status, history, "0", appVersion ]
-                      chart_ref_name: [ spec, chartRef, name ]
-                      chart_source_name: [ spec, chart, spec, sourceRef, name ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      revision: [status, history, "0", chartVersion]
+                      chart_name: [status, history, "0", chartName]
+                      chart_app_version: [status, history, "0", appVersion]
+                      chart_ref_name: [spec, chartRef, name]
+                      chart_source_name: [spec, chart, spec, sourceRef, name]
               - groupVersionKind:
                   group: source.toolkit.fluxcd.io
                   version: v1
@@ -161,13 +163,13 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      revision: [ status, artifact, revision ]
-                      url: [ spec, url ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      revision: [status, artifact, revision]
+                      url: [spec, url]
               - groupVersionKind:
                   group: source.toolkit.fluxcd.io
                   version: v1
@@ -180,14 +182,14 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      revision: [ status, artifact, revision ]
-                      endpoint: [ spec, endpoint ]
-                      bucket_name: [ spec, bucketName ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      revision: [status, artifact, revision]
+                      endpoint: [spec, endpoint]
+                      bucket_name: [spec, bucketName]
               - groupVersionKind:
                   group: source.toolkit.fluxcd.io
                   version: v1
@@ -200,13 +202,13 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      revision: [ status, artifact, revision ]
-                      url: [ spec, url ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      revision: [status, artifact, revision]
+                      url: [spec, url]
               - groupVersionKind:
                   group: source.toolkit.fluxcd.io
                   version: v1
@@ -219,14 +221,14 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      revision: [ status, artifact, revision ]
-                      chart_name: [ spec, chart ]
-                      chart_version: [ spec, version ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      revision: [status, artifact, revision]
+                      chart_name: [spec, chart]
+                      chart_version: [spec, version]
               - groupVersionKind:
                   group: source.toolkit.fluxcd.io
                   version: v1beta2
@@ -239,13 +241,13 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      revision: [ status, artifact, revision ]
-                      url: [ spec, url ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      revision: [status, artifact, revision]
+                      url: [spec, url]
               - groupVersionKind:
                   group: notification.toolkit.fluxcd.io
                   version: v1beta3
@@ -258,10 +260,10 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      suspended: [ spec, suspend ]
+                      exported_namespace: [metadata, namespace]
+                      suspended: [spec, suspend]
               - groupVersionKind:
                   group: notification.toolkit.fluxcd.io
                   version: v1beta3
@@ -274,10 +276,10 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      suspended: [ spec, suspend ]
+                      exported_namespace: [metadata, namespace]
+                      suspended: [spec, suspend]
               - groupVersionKind:
                   group: notification.toolkit.fluxcd.io
                   version: v1
@@ -290,12 +292,12 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      webhook_path: [ status, webhookPath ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      webhook_path: [status, webhookPath]
               - groupVersionKind:
                   group: image.toolkit.fluxcd.io
                   version: v1beta2
@@ -308,12 +310,12 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      image: [ spec, image ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      image: [spec, image]
               - groupVersionKind:
                   group: image.toolkit.fluxcd.io
                   version: v1beta2
@@ -326,12 +328,12 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      source_name: [ spec, imageRepositoryRef, name ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      source_name: [spec, imageRepositoryRef, name]
               - groupVersionKind:
                   group: image.toolkit.fluxcd.io
                   version: v1beta2
@@ -344,21 +346,19 @@ spec:
                       type: Info
                       info:
                         labelsFromPath:
-                          name: [ metadata, name ]
+                          name: [metadata, name]
                     labelsFromPath:
-                      exported_namespace: [ metadata, namespace ]
-                      ready: [ status, conditions, "[type=Ready]", status ]
-                      suspended: [ spec, suspend ]
-                      source_name: [ spec, sourceRef, name ]
+                      exported_namespace: [metadata, namespace]
+                      ready: [status, conditions, "[type=Ready]", status]
+                      suspended: [spec, suspend]
+                      source_name: [spec, sourceRef, name]
 
       # all values for prometheus-node-exporter helm chart can be specified here
       service:
         # Add the 'node-exporter' label to be used by serviceMonitor to match standard common usage in rules and grafana dashboards
         labels:
           jobLabel: PROD-KHC
-      extraArgs:
-        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
-        - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|erofs|sysfs|tracefs)$
+
       # -- Node Exporter VM scrape config
       vmScrape:
         # whether we should create a service scrape resource for node-exporter
