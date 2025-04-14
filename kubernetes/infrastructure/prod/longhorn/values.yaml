@@ -33,3 +33,7 @@ spec:
       backupTargetCredentialSecret: ~
       # -- Number of seconds that Longhorn waits before checking the default backupstore for new backups. The default value is "300". When the value is "0", polling is disabled.
       pollInterval: ~
+    metrics:
+      serviceMonitor:
+        # -- Setting that allows the creation of a Prometheus ServiceMonitor resource for Longhorn Manager components.
+        enabled: true
