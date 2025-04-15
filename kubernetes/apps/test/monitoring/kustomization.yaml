@@ -1,6 +1,6 @@
 ---
 resources:
-  # - ../../base/monitoring/namespace.yaml
+  - ../../base/monitoring/namespace.yaml
   # - ./victoriametrics
   # - ./victorialogs
   # - ./grafana
