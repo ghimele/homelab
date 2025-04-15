@@ -1,8 +1,5 @@
 ---
 resources:
   - ../../base/monitoring/namespace.yaml
-  # - ./victoriametrics
-  # - ./victorialogs
-  # - ./grafana
-  # - ./promtail
   - ./prometheus-node-exporter
+  - ./kube-state-metrics
