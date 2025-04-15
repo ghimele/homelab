@@ -77,6 +77,14 @@ spec:
             relabel_configs:
               - target_label: "cluster"
                 replacement: "TEST-KHC"
+          - job_name: "TEST-KHC-KUBESTAT"
+            scrape_interval: 60s
+            static_configs:
+              - targets: ["test-kube-state-metrics:8080"]
+            honor_labels: true
+            relabel_configs:
+              - target_label: "cluster"
+                replacement: "TEST-KHC"
 
     # -- prometheus-node-exporter dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml)
     prometheus-node-exporter:
