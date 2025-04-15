@@ -110,8 +110,8 @@ spec:
     kube-state-metrics:
       enabled: true
       fullnameOverride: vm-kube-state-metrics
-      extraArgs:
-        - --custom-resource-state-only=true
+      # extraArgs:
+      #   - --custom-resource-state-only=true
       rbac:
         extraRules:
           - apiGroups:
