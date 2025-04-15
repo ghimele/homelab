@@ -1,7 +1,0 @@
----
-apiVersion: v1
-kind: Node
-metadata:
-  name: svp-khc02
-  labels:
-    storage: longhorn

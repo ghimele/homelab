@@ -1,5 +1,4 @@
 ---
 resources:
   - ./secrets
-  # - ./node-label
   - ../base
