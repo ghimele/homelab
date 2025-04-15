@@ -54,10 +54,10 @@ spec:
         port: "8429"
         selectAllByDefault: true
         scrapeInterval: 20s
-        externalLabels: {}
-        # For multi-cluster setups it is useful to use "cluster" label to identify the metrics source.
-        # For example:
-        cluster: PROD-KHC
+        externalLabels: 
+          # For multi-cluster setups it is useful to use "cluster" label to identify the metrics source.
+          # For example:
+          cluster: PROD-KHC
         inlineScrapeConfig: |
           - job_name: unraid
             scheme: http
