@@ -9,5 +9,4 @@ spec:
   values:
     service:
       annotations:
-        prometheus.io/scrape: "true"
         tailscale.com/expose: "true"
