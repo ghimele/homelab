@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-kube-state-metrics   # service name
+  namespace: monitoring
+  annotations:
+    tailscale.com/tailnet-ip: ${TAILSCALE_TEST_KUBE_STATE_METRICS_IP}
+spec:
+  externalName: placeholder   # any value - will be overwritten by operator
+  type: ExternalName
