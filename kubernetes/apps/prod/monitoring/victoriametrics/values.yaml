@@ -73,6 +73,9 @@ spec:
             scrape_interval: 60s
             static_configs:
               - targets: ["test-khc-node-exporter:9100"]
+            relabel_configs:
+              - target_label: "cluster"
+                replacement: "TEST-KHC"
 
     # -- prometheus-node-exporter dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml)
     prometheus-node-exporter:
