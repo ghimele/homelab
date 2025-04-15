@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus-node-exporter
+  namespace: monitoring
+spec:
+  interval: 10m0s
+  values:
+    ## Service configuration
+    service:
+      ## Creating a service is enabled by default
+      enabled: true
+
+      ## Adding tailscale annotation we expose an existing service to tailscale
+      ## https://tailscale.com/kb/1439/kubernetes-operator-cluster-ingress#exposing-a-cluster-workload-by-annotating-an-existing-service
+      annotations:
+        prometheus.io/scrape: "true"
+        tailscale.com/expose: "true"

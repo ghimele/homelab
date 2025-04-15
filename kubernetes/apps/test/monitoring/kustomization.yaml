@@ -1,7 +1,8 @@
 ---
 resources:
-  - ../../base/monitoring/namespace.yaml
-  - ./victoriametrics
-  - ./victorialogs
-  - ./grafana
-  - ./promtail
+  # - ../../base/monitoring/namespace.yaml
+  # - ./victoriametrics
+  # - ./victorialogs
+  # - ./grafana
+  # - ./promtail
+  - ./prometheus-node-exporter
