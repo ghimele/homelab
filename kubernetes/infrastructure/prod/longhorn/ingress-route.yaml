@@ -27,4 +27,4 @@ spec:
         - name: x-forwarded-proto-https
           namespace: traefik
   tls:
-    secretName: longhorn.${DOMAIN_INTERNAL}
+    secretName: longhorn.${DOMAIN}
