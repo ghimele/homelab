@@ -1,0 +1,35 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard-victorialogs
+  namespace: monitoring
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_VICTORIALOGS}.${DOMAIN}"
+    gethomepage.dev/description: Log solution.
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: victorialogs.png
+    gethomepage.dev/name: victorialogs
+    gethomepage.dev/app: victorialogs
+    gethomepage.dev/widget.type: prometheus
+    gethomepage.dev/widget.url: "https://${HOST_VICTORIALOGS}.${DOMAIN}"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`${HOST_VICTORIALOGS}.${DOMAIN}`)"
+      middlewares:
+        - name: security-header
+          namespace: traefik
+        - name: redirectscheme
+          namespace: traefik
+      services:
+        - kind: Service
+          name: vm-logs-victoria-logs-single-server
+          namespace: monitoring
+          port: 9428
+
+  tls:
+    secretName: ${HOST_VICTORIALOGS}.${DOMAIN}
