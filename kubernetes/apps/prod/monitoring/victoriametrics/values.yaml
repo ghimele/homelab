@@ -56,7 +56,7 @@ spec:
           - ${HOST_VICTORIAMETRICS}.${DOMAIN}
         tls:
           - secretName: ${HOST_VICTORIAMETRICS}.${DOMAIN}
-          - hosts:
+            hosts:
               - ${HOST_VICTORIAMETRICS}.${DOMAIN}
 
     vmagent:
