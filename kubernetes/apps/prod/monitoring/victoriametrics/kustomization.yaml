@@ -2,7 +2,7 @@
 resources:
   - ../../../base/monitoring/victoriametrics
   - certificate.yaml
-  - ingress-route.yaml
+  #- ingress-route.yaml
 
 patches:
   - path: values.yaml

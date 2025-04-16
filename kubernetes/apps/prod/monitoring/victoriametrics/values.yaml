@@ -47,6 +47,15 @@ spec:
           resources:
             requests:
               storage: 20Gi
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+        - ${HOST_VICTORIAMETRICS}.${DOMAIN}
+        tls:
+        - hosts:
+          - ${HOST_VICTORIAMETRICS}.${DOMAIN}
+
     vmagent:
       # -- Create VMAgent CR
       enabled: true
