@@ -19,7 +19,7 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: "Host(`${HOST_VICTORIAMETRICS}.${DOMAIN}`) && PathPrefix(`/`)"
+      match: "Host(`${HOST_VICTORIAMETRICS}.${DOMAIN}`)"
       middlewares:
         - name: security-header
           namespace: traefik
