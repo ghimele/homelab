@@ -19,7 +19,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`${HOST_VICTORIAMETRICS}.${DOMAIN}`) && PathPrefix(`/vmui/?`)"
+      match: "Host(`${HOST_VICTORIAMETRICS}.${DOMAIN}`) && PathPrefix(`/`)"
       middlewares:
         - name: security-header
           namespace: traefik
