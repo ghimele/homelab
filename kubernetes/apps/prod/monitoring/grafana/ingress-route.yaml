@@ -21,7 +21,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: "Host(`${HOST_GRAFANA}.${DOMAIN}`) && PathPrefix(`/vmui`)"
+      match: Host(`${HOST_GRAFANA}.${DOMAIN}`)
       services:
         - kind: Service
           name: grafana

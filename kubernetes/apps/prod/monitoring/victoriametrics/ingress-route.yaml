@@ -19,7 +19,10 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`${HOST_VICTORIAMETRICS}.${DOMAIN}`)
+      match: "Host(`${HOST_VICTORIAMETRICS}.${DOMAIN}`) && PathPrefix(`/vmui`)"
+      middlewares:
+        - name: security-header
+          namespace: traefik
       services:
         - kind: Service
           name: vmsingle-vmetrics-victoria-metrics-k8s-stack
