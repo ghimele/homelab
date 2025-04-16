@@ -27,5 +27,8 @@ spec:
           name: vmsingle-vmetrics-victoria-metrics-k8s-stack
           namespace: monitoring
           port: 8429
+      middlewares:
+        - name: addprefix-vmui
+          namespace: traefik
   tls:
     secretName: ${HOST_VICTORIAMETRICS}.${DOMAIN}

@@ -1,0 +1,10 @@
+---
+# Prefixing with /vmui
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: addprefix-vmui
+  namespace: traefik
+spec:
+  addPrefix:
+    prefix: /vmui
