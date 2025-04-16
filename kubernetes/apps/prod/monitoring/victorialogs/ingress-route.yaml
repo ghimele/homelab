@@ -23,8 +23,8 @@ spec:
       middlewares:
         - name: security-header
           namespace: traefik
-        - name: redirectscheme
-          namespace: traefik
+        # - name: redirectscheme
+        #   namespace: traefik
       services:
         - kind: Service
           name: vm-logs-victoria-logs-single-server
