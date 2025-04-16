@@ -48,7 +48,7 @@ spec:
             requests:
               storage: 20Gi
       ingress:
-        enabled: true
+        enabled: false
         ingressClassName: traefik
         # -- Ingress default path
         path: "/vmui"

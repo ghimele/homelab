@@ -15,11 +15,13 @@ metadata:
     gethomepage.dev/widget.type: prometheus
     gethomepage.dev/widget.url: "https://${HOST_VICTORIAMETRICS}.${DOMAIN}"
 spec:
+  addPrefix:
+    prefix: /vmui
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`${HOST_VICTORIAMETRICS}.${DOMAIN}`) && Path(`/vmui`)
+      match: Host(`${HOST_VICTORIAMETRICS}.${DOMAIN}`)
       services:
         - kind: Service
           name: vmsingle-vmetrics-victoria-metrics-k8s-stack
