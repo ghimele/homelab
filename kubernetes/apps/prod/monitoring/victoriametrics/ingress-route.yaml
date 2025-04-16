@@ -16,7 +16,7 @@ metadata:
     gethomepage.dev/widget.url: "https://${HOST_VICTORIAMETRICS}.${DOMAIN}"
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - kind: Rule
       match: "Host(`${HOST_VICTORIAMETRICS}.${DOMAIN}`)"
