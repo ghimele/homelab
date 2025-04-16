@@ -51,10 +51,10 @@ spec:
         enabled: true
         ingressClassName: traefik
         hosts:
-        - ${HOST_VICTORIAMETRICS}.${DOMAIN}
-        tls:
-        - hosts:
           - ${HOST_VICTORIAMETRICS}.${DOMAIN}
+        tls:
+          - hosts:
+              - ${HOST_VICTORIAMETRICS}.${DOMAIN}
 
     vmagent:
       # -- Create VMAgent CR
