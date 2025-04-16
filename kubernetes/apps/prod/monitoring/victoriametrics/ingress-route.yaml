@@ -15,8 +15,6 @@ metadata:
     gethomepage.dev/widget.type: prometheus
     gethomepage.dev/widget.url: "https://${HOST_VICTORIAMETRICS}.${DOMAIN}"
 spec:
-  addPrefix:
-    prefix: /vmui
   entryPoints:
     - websecure
   routes:
