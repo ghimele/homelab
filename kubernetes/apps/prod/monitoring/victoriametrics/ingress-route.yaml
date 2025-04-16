@@ -1,0 +1,29 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard-victoriametrics
+  namespace: monitoring
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_VICTORIAMETRICS}.${DOMAIN}"
+    gethomepage.dev/description: Metrics monitoring solution.
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: victoriametrics.png
+    gethomepage.dev/name: victoriametrics
+    gethomepage.dev/app: victoriametrics
+    gethomepage.dev/widget.type: prometheus
+    gethomepage.dev/widget.url: "https://${HOST_VICTORIAMETRICS}.${DOMAIN}"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_VICTORIAMETRICS}.${DOMAIN}`)
+      services:
+        - kind: Service
+          name: vmsingle-vmetrics-victoria-metrics-k8s-stack
+          namespace: monitoring
+          port: 8429
+  tls:
+    secretName: ${HOST_VICTORIAMETRICS}.${DOMAIN}
