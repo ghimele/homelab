@@ -30,4 +30,4 @@ spec:
           port: 8429
 
   tls:
-    secretName: ${HOST_VICTORIAMETRICS}.${DOMAIN}
+    secretName: victoriametrics.${DOMAIN}

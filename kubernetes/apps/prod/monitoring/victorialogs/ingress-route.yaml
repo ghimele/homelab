@@ -23,13 +23,10 @@ spec:
       middlewares:
         - name: security-header
           namespace: traefik
-        # - name: redirectscheme
-        #   namespace: traefik
       services:
         - kind: Service
           name: vm-logs-victoria-logs-single-server
           namespace: monitoring
           port: 9428
-
   tls:
-    secretName: ${HOST_VICTORIALOGS}.${DOMAIN}
+    secretName: victorialogs.${DOMAIN}

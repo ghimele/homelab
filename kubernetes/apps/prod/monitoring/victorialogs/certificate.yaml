@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: victoriametrics.${DOMAIN}
+  name: victorialogs.${DOMAIN}
   namespace: monitoring
 spec:
-  secretName: victoriametrics.${DOMAIN}
+  secretName: victorialogs.${DOMAIN}
   dnsNames:
-    - ${HOST_VICTORIAMETRICS}.${DOMAIN}
+    - ${HOST_VICTORIALOGS}.${DOMAIN}
   issuerRef:
     kind: ClusterIssuer
     name: lets-encrypt
