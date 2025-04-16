@@ -51,7 +51,7 @@ spec:
         enabled: true
         ingressClassName: traefik
         # -- Ingress default path
-        path: "vmui"
+        path: "/vmui"
         hosts:
           - ${HOST_VICTORIAMETRICS}.${DOMAIN}
         tls:
