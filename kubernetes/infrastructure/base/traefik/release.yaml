@@ -30,6 +30,15 @@ spec:
       kubernetesCRD:
         enabled: true
         allowCrossNamespace: true
+        # -- Allows to reference ExternalName services in IngressRoute
+        allowExternalNameServices: true
+      kubernetesIngress:
+        # -- Load Kubernetes Ingress provider
+        enabled: true
+        # -- Allows to reference ExternalName services in Ingress
+        allowExternalNameServices: true
+        # -- Allows to return 503 when there is no endpoints available
+        allowEmptyServices: true
     logs:
       general:
         level: DEBUG
