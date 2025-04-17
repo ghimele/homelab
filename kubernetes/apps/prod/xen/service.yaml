@@ -9,4 +9,4 @@ spec:
   ports:
     - name: http
       port: 8443
-  externalName: svp-mgm01.ghimele.com
+  externalName: 192.168.10.51
