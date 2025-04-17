@@ -9,4 +9,4 @@ spec:
   ports:
     - name: http
       port: 8443
-  externalName: ${XEN_EXTERNALNAME}
+  externalName: "${XEN_EXTERNALNAME}"
