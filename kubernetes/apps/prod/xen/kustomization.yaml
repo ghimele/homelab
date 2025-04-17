@@ -3,6 +3,6 @@ resources:
   - namespace.yaml
   - secrets.enc.yaml
   - certificate.yaml
-  - endpoints.yaml
+  # - endpoints.yaml
   - service.yaml
   - ingress-route.yaml

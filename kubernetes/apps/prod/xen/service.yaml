@@ -1,12 +1,12 @@
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: xen
   namespace: xen
 spec:
-  insecureSkipVerify: true
+  type: ExternalName
   ports:
-    - port: 443
-      targetPort: 8443
-      protocol: TCP
+    - name: http
+      port: 8443
+  externalName: "${XEN_IP}"
