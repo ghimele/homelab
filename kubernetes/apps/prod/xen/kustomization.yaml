@@ -1,7 +1,7 @@
 ---
 resources:
   - namespace.yaml
-  - secrets.enc.yaml
+  # - secrets.enc.yaml
   - certificate.yaml
   # - endpoints.yaml
   - service.yaml
