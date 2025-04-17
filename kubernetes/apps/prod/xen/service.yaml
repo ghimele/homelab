@@ -7,6 +7,6 @@ metadata:
 spec:
   type: ExternalName
   ports:
-    - name: http
+    - name: https
       port: 8443
   externalName: 192.168.10.51
