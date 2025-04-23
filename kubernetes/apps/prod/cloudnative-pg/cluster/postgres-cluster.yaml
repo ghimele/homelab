@@ -10,7 +10,7 @@ spec:
   # imagePullSecret is only required if the images are located in a private registry
   # imagePullSecrets:
   #   - name: private_registry_access
-  instances: 2
+  instances: 3
   startDelay: 300
   stopDelay: 300
   primaryUpdateStrategy: unsupervised
@@ -22,6 +22,10 @@ spec:
       pg_stat_statements.track: all
       auto_explain.log_min_duration: '10s'
       max_slot_wal_keep_size: "2.5GB"
+    synchronous:
+      method: any
+      number: 1
+      dataDurability: required
 
   bootstrap:
     initdb:
