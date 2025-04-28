@@ -22,10 +22,10 @@ spec:
       pg_stat_statements.track: all
       auto_explain.log_min_duration: '10s'
       max_slot_wal_keep_size: "2.5GB"
-    synchronous:
-      method: any
-      number: 1
-      dataDurability: required
+    # synchronous:
+    #   method: any
+    #   number: 1
+    #   dataDurability: required
 
   bootstrap:
     initdb:
