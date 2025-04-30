@@ -7,8 +7,6 @@ metadata:
 spec:
   interval: 10m0s
 
-  dependsOn:
-    - name: cnpg-system/cloudnative-pg
   values:
     server:
       # responseHeaders: "Access-Control-Allow-Origin: \"*\"\nAccess-Control-Allow-Methods: \"GET,POST\""
