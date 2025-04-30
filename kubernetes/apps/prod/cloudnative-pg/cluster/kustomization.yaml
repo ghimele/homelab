@@ -1,7 +1,7 @@
 ---
 resources:
   - namespace.yaml
-  - db-credentials.enc.yaml
+  # - db-credentials.enc.yaml
   - postgres-cluster-gotify.enc.yaml
   - postgres-cluster-homeassistant.enc.yaml
   - longhorn-postgres-storage.yaml
