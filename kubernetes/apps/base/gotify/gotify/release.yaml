@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: gotify
-      version: '0.5.1'
+      version: '0.5.2'
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: gotify/server
-      tag: '2.6.1'
+      tag: '2.6.3'
 
     imagePullSecrets: []
 
