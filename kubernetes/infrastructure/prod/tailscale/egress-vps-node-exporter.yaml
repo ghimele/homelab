@@ -5,7 +5,7 @@ metadata:
   name: vps-node-exporter   # service name
   namespace: monitoring
   annotations:
-    tailscale.com/tailnet-ip: ${TAILSCALE_VPS_NODE_EXPORTER_IP}
+    tailscale.com/tailnet-ip: ${TAILSCALE_VPSLAB_NODE_EXPORTER_IP}
 spec:
   externalName: placeholder   # any value - will be overwritten by operator
   type: ExternalName
