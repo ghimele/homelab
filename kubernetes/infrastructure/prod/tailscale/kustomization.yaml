@@ -3,6 +3,8 @@ resources:
   - ../../base/tailscale/
   - ./egress-test-node-exporter.yaml
   - ./egress-test-kube-state-metrics.yaml
+  - ./egress-vps-node-exporter.yaml
+  - ./egress-vps-kube-state-metrics.yaml
 
 patches:
   - path: values.yaml
