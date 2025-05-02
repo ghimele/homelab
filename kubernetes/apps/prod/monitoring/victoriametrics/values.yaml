@@ -97,7 +97,7 @@ spec:
             relabel_configs:
               - target_label: "cluster"
                 replacement: "TEST-KHC"
-          - job_name: "VPSLAB-NODE-EXPORTER"
+          - job_name: "VPSLAB"
             scrape_interval: 60s
             static_configs:
               - targets: ["vps-node-exporter:9100"]
@@ -108,7 +108,7 @@ spec:
           - job_name: "VPSLAB-KUBESTAT"
             scrape_interval: 60s
             static_configs:
-              - targets: ["vps-kube-state-metrics-1:8080"]
+              - targets: ["vps-kube-state-metrics:8080"]
             honor_labels: true
             relabel_configs:
               - target_label: "cluster"
