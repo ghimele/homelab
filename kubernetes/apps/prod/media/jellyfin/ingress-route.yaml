@@ -2,23 +2,18 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: homepage
-  namespace: homepage
+  name: jellyfin
+  namespace: media
 spec:
   entryPoints:
     - websecure
   tls:
-    secretName: homepage.${DOMAIN}
+    secretName: jellyfin.${DOMAIN}
   routes:
     - kind: Rule
-      match: Host(`homepage.${DOMAIN}`)
+      match: Host(`${HOST_JELLYFIN}.${DOMAIN}`)
       services:
-        - name: homepage
+        - name: jellyfin
           kind: Service
-          namespace: homepage
-          port: 3000
-          sticky:
-            cookie:
-              httpOnly: true
-              secure: true
-              sameSite: none
+          namespace: media
+          port: 8096
