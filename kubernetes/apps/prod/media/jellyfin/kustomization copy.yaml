@@ -1,7 +1,0 @@
----
-resources:
-  - ../../base/homepage
-  - ./rbac.yaml
-  - ./certificate.yaml
-  - ./ingress-route.yaml
-  - ./configmap.enc.yaml

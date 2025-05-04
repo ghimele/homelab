@@ -9,4 +9,4 @@ resources:
   # - ./loki
   - ./gotify
   - ./home-assistant
-  # - ./uptime-kuma
+  - ./media
