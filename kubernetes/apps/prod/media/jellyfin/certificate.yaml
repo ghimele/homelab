@@ -2,12 +2,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: homepage.${DOMAIN}
+  name: jellyfin.${DOMAIN}
   namespace: homepage
 spec:
-  secretName: homepage.${DOMAIN}
+  secretName: jellyfin.${DOMAIN}
   dnsNames:
-    - homepage.${DOMAIN}
+    - ${HOST_JELLYFIN}.${DOMAIN}
   issuerRef:
     kind: ClusterIssuer
     name: lets-encrypt
