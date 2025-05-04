@@ -9,7 +9,7 @@ spec:
   interval: 10m0s
   chart:
     spec:
-      chart: jellyfin/jellyfin
+      chart: jellyfin
       version: '2.3.0'
       reconcileStrategy: ChartVersion
       sourceRef:
