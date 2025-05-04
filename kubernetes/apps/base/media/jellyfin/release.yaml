@@ -17,7 +17,7 @@ spec:
         name: jellyfin
         namespace: flux-system
   values:
-    namespace: jellyfin
+    namespace: media
     image:
       # -- Container image repository for Jellyfin.
       repository: docker.io/jellyfin/jellyfin
