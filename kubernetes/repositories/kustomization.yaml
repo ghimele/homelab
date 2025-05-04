@@ -16,3 +16,4 @@ resources:
   - metallb.yaml
   - victoriametrics.yaml
   - tailscale.yaml
+  - jellyfin.yaml
