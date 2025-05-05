@@ -1,0 +1,14 @@
+---
+# jellyfin release
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jellyfin
+  namespace: media
+spec:
+  values:
+    persistence:
+      media:
+        storageClass: nfs-media
+        ## -- Use an existing PVC for this mount
+        existingClaim: media-pvc

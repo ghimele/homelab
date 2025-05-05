@@ -3,3 +3,8 @@ resources:
   - ../../../base/media/jellyfin
   - ./certificate.yaml
   - ./ingress-route.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease
