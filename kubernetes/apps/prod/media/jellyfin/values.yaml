@@ -12,3 +12,7 @@ spec:
         storageClass: nfs-media
         ## -- Use an existing PVC for this mount
         existingClaim: media-pvc
+  # -- Node selector for pod scheduling.
+  nodeSelector: 
+    # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
+    node-role.kubernetes.io/nfs: ""
