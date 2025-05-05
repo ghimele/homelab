@@ -182,7 +182,8 @@ To install additional agent nodes [^2] and add them to the cluster, run the inst
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - agent \
   --server https://<ip or hostname of server>:6443 \
   --node-label node-role.kubernetes.io/postgres= \
-  --node-label node-role.kubernetes.io/longhorn= 
+  --node-label node-role.kubernetes.io/longhorn= \
+  --node-label node-role.kubernetes.io/nfs= 
 ```
 
 Setting the K3S_URL parameter causes the installer to configure K3s as an agent, instead of a server. The K3s agent will register with the K3s server listening at the supplied URL. The value to use for K3S_TOKEN is stored at /var/lib/rancher/k3s/server/node-token on your server node.
@@ -211,6 +212,13 @@ kubectl label node <NODE-NAME> node-role.kubernetes.io/longhorn=
 
 Before to install Longhorn we need to preapere the nodes, it is important to have the /mnt/longhorn-data folder available, in my configuration I've used an LVM and I mount the lvm to the /mnt/longhorn-data folder.
 It is also important to check the Longhorn Installation Requirements[^7]
+
+#### NFS
+We need to label the nodes where we would like to manage the nfs pv.
+
+```bash
+kubectl label node <NODE-NAME> node-role.kubernetes.io/nfs=
+```
 
 ## FLuxcd installation
 

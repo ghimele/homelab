@@ -1,0 +1,9 @@
+---
+resources:
+  - ../../../base/storage/cis-driver-nfs
+  - storageclass-nfs-media.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

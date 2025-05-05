@@ -17,3 +17,4 @@ resources:
   - victoriametrics.yaml
   - tailscale.yaml
   - jellyfin.yaml
+  - csi-driver-nfs.yaml

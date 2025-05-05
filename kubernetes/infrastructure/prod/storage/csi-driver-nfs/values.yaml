@@ -1,0 +1,13 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: csi-driver-nfs
+  namespace: nfs
+spec:
+  interval: 10m0s
+  values:
+    node:
+      nodeSelector:
+        # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
+        node-role.kubernetes.io/nfs: ""

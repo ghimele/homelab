@@ -1,0 +1,15 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-media
+  namespace: nfs
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: ${STORAGE_NFS_SERVER}
+  share: ${STORAGENFS_MEDIA_PATH}
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+# Note: The first two options are strictly for NFSv4.2
+mountOptions: ["nfsvers=4", "nconnect=8", "hard", "noatime"]
