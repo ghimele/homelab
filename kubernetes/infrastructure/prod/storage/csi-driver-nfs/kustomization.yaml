@@ -1,6 +1,6 @@
 ---
 resources:
-  - ../../../base/storage/cis-driver-nfs
+  - ../../../base/storage/csi-driver-nfs
   - storageclass-nfs-media.yaml
 
 patches:
