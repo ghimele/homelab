@@ -8,7 +8,7 @@ provisioner: nfs.csi.k8s.io
 parameters:
   server: ${STORAGE_NFS_SERVER}
   share: ${STORAGENFS_MEDIA_PATH}
-  subDir: ${pvc.metadata.name}
+  subDir: Media
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
 allowVolumeExpansion: true
