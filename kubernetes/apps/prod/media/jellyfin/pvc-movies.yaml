@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: media-pvc
+  name: Movies
   namespace: media
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 20Gi
+      storage: 30Gi
   storageClassName: nfs-media
