@@ -11,7 +11,7 @@ spec:
       media:
         storageClass: nfs-media
         ## -- Use an existing PVC for this mount
-        existingClaim: Movies
+        existingClaim: media
 
     # -- Node selector for pod scheduling.
     nodeSelector:
