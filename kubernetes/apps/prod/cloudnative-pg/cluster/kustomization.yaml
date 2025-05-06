@@ -1,12 +1,10 @@
 ---
 resources:
   - namespace.yaml
-  # - db-credentials.enc.yaml
-  - postgres-cluster-gotify.enc.yaml
-  - postgres-cluster-homeassistant.enc.yaml
+  - ./password-secrets
   - longhorn-postgres-storage.yaml
   - postgres-cluster.yaml
   - certificate.yaml
   - ingress-route.yaml
-  - gotify-db.yaml
-  - homeassistant-db.yaml
+  - ./databases
+

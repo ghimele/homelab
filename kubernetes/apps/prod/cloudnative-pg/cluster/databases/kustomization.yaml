@@ -1,0 +1,5 @@
+---
+resources:
+  - gotify-db.yaml
+  - homeassistant-db.yaml
+  - immich-db.yaml
