@@ -18,3 +18,4 @@ resources:
   - tailscale.yaml
   - jellyfin.yaml
   - csi-driver-nfs.yaml
+  - immich.yaml

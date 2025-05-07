@@ -1,0 +1,87 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immich
+  namespace: media
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: immich
+      version: 0.9.3
+      sourceRef:
+        kind: HelmRepository
+        name: immich
+        namespace: flux-system
+
+  values:
+    ## This chart relies on the common library chart from bjw-s
+    ## You can find it at https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+    ## Refer there for more detail about the supported values
+
+    # These entries are shared between all the Immich components
+
+    env:
+      # REDIS_HOSTNAME: '{{ printf "%s-redis-master" .Release.Name }}'
+      DB_HOSTNAME: ${IMMICH_HOST_DB}
+      DB_USERNAME: ${IMMICH_DB_USERNAME}
+      DB_DATABASE_NAME: ${IMMICH_DB_DATABASE_NAME}
+      DB_PASSWORD: ${IMMICH_DB_PASSWORD}
+      PUBLIC_IMMICH_SERVER_URL: https://${HOST_IMMICH}.${DOMAIN}
+
+    image:
+      # renovate: datasource=github-releases depName=immich-app/immich
+      tag: "v1.132.3"
+
+    immich:
+      metrics:
+        # Enabling this will create the service monitors needed to monitor immich with the prometheus operator
+        enabled: true
+      persistence:
+        # Main data store for all photos shared between different components.
+        library:
+          # Automatically creating the library volume is not supported by this chart
+          # You have to specify an existing PVC to use
+          existingClaim: media
+      configuration: {}
+
+    # Dependencies
+    redis:
+      enabled: true
+      architecture: standalone
+      auth:
+        enabled: false
+      master:
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            cpu: 500m
+
+    # Immich components
+
+    server:
+      enabled: true
+      image:
+        repository: ghcr.io/immich-app/immich-server
+        pullPolicy: IfNotPresent
+      ingress:
+        main:
+          enabled: false
+
+    machine-learning:
+      enabled: true
+      image:
+        repository: ghcr.io/immich-app/immich-machine-learning
+        pullPolicy: IfNotPresent
+      env:
+        TRANSFORMERS_CACHE: /cache
+      persistence:
+        cache:
+          enabled: true
+          size: 10Gi
+          # Optional: Set this to pvc to avoid downloading the ML models every start.
+          # type: emptyDir
+          accessMode: ReadWriteMany
+          storageClass: longhorn

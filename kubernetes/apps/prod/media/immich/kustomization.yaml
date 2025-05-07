@@ -1,0 +1,8 @@
+---
+resources:
+  - ../../../base/media/immich
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease
