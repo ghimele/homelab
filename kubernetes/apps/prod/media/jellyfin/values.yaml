@@ -7,7 +7,19 @@ metadata:
   namespace: media
 spec:
   values:
+    volumes:
+      - name: cache
+        persistentVolumeClaim:
+          claimName: jellyfin-cache
+
+    volumeMounts:
+      - name: cache
+        mountPath: /cache
+
     persistence:
+      config:
+        storageClass: longhorn
+        existingClaim: jellyfin-config
       media:
         storageClass: nfs-media
         ## -- Use an existing PVC for this mount
@@ -17,3 +29,11 @@ spec:
     nodeSelector:
       # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
       node-role.kubernetes.io/nfs: ""
+
+    metrics:
+      # -- Enable or disable metrics collection - Ensure you have started and configured your Jellyfin instance first as this will fail if system.xml does not exist yet
+      enabled: true
+      # -- Configuration for the Prometheus ServiceMonitor
+      serviceMonitor:
+        # -- Enable or disable the creation of a ServiceMonitor resource
+        enabled: true
