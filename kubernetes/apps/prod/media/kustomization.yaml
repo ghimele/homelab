@@ -2,4 +2,4 @@
 resources:
   - ../../base/media/namespace.yaml
   - ./pvc-media.yaml
-  # - ./jellyfin
+  - ./jellyfin
