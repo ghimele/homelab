@@ -24,7 +24,8 @@ spec:
 
     env:
       # REDIS_HOSTNAME: '{{ printf "%s-redis-master" .Release.Name }}'
-      DB_HOSTNAME: ${IMMICH_HOST_DB}
+      DB_URL: ${IMMICH_DB_URL}
+      DB_HOSTNAME: ${IMMICH_DB_HOSTNAME}
       DB_USERNAME: ${IMMICH_DB_USERNAME}
       DB_DATABASE_NAME: ${IMMICH_DB_DATABASE_NAME}
       DB_PASSWORD: ${IMMICH_DB_PASSWORD}
@@ -69,6 +70,10 @@ spec:
       ingress:
         main:
           enabled: false
+      # -- Node selector for pod scheduling.
+      nodeSelector:
+        # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
+        node-role.kubernetes.io/nfs: ""
 
     machine-learning:
       enabled: true

@@ -1,6 +1,8 @@
 ---
 resources:
   - ../../../base/media/immich
+  - ./certificate.yaml
+  - ./ingress-route.yaml
 
 patches:
   - path: values.yaml
