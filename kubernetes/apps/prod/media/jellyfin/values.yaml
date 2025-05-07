@@ -32,8 +32,8 @@ spec:
 
     metrics:
       # -- Enable or disable metrics collection - Ensure you have started and configured your Jellyfin instance first as this will fail if system.xml does not exist yet
-      enabled: true
+      enabled: false
       # -- Configuration for the Prometheus ServiceMonitor
       serviceMonitor:
         # -- Enable or disable the creation of a ServiceMonitor resource
-        enabled: true
+        enabled: false
