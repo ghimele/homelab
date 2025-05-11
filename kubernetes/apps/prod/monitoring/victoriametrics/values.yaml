@@ -146,6 +146,42 @@ spec:
                   source_labels: [mountpoint]
                   regex: "/var/lib/kubelet/pods.+"
 
+    # Component scraping the kube controller manager
+    kubeControllerManager:
+      # -- Enable kube controller manager metrics scraping
+      enabled: true
+
+      # -- If your kube controller manager is not deployed as a pod, specify IPs it can be found on
+      endpoints:
+        - ${MASTER_NODE_1_IP}
+        - ${MASTER_NODE_2_IP}
+        - ${MASTER_NODE_3_IP}
+
+      # all values for prometheus-node-exporter helm chart can be specified here
+      service:
+        # -- Create service for kube controller manager metrics scraping
+        enabled: true
+        labels:
+          jobLabel: PROD-KHC
+
+    # Component scraping kube scheduler
+    kubeScheduler:
+      # -- Enable KubeScheduler metrics scraping
+      enabled: true
+
+      # -- If your kube scheduler is not deployed as a pod, specify IPs it can be found on
+      endpoints:
+        - ${MASTER_NODE_1_IP}
+        - ${MASTER_NODE_2_IP}
+        - ${MASTER_NODE_3_IP}
+
+      # If using kubeScheduler.endpoints only the port and targetPort are used
+      service:
+        # -- Enable service for KubeScheduler metrics scrape
+        enabled: true
+        labels:
+          jobLabel: PROD-KHC
+
     # -- kube-state-metrics dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-state-metrics/values.yaml)
     kube-state-metrics:
       enabled: true
