@@ -161,6 +161,13 @@ spec:
       service:
         # -- Create service for kube controller manager metrics scraping
         enabled: true
+        # -- Kube controller manager service port
+        port: 10257
+        # -- Kube controller manager service target port
+        targetPort: 10257
+        # -- Kube controller manager service pod selector
+        selector:
+          component: kube-controller-manager
         labels:
           jobLabel: PROD-KHC
 
@@ -179,6 +186,13 @@ spec:
       service:
         # -- Enable service for KubeScheduler metrics scrape
         enabled: true
+        # -- KubeScheduler service port
+        port: 10259
+        # -- KubeScheduler service target port
+        targetPort: 10259
+        # -- KubeScheduler service pod selector
+        selector:
+          component: kube-scheduler
         labels:
           jobLabel: PROD-KHC
 
