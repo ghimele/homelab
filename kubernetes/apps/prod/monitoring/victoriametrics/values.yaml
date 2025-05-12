@@ -149,7 +149,7 @@ spec:
     # Component scraping the kube controller manager
     kubeControllerManager:
       # -- Enable kube controller manager metrics scraping
-      enabled: true
+      enabled: false
 
       # -- If your kube controller manager is not deployed as a pod, specify IPs it can be found on
       endpoints:
@@ -160,7 +160,7 @@ spec:
       # all values for prometheus-node-exporter helm chart can be specified here
       service:
         # -- Create service for kube controller manager metrics scraping
-        enabled: true
+        enabled: false
         # -- Kube controller manager service port
         port: 10257
         # -- Kube controller manager service target port
@@ -174,7 +174,7 @@ spec:
     # Component scraping kube scheduler
     kubeScheduler:
       # -- Enable KubeScheduler metrics scraping
-      enabled: true
+      enabled: false
 
       # -- If your kube scheduler is not deployed as a pod, specify IPs it can be found on
       endpoints:
@@ -185,7 +185,7 @@ spec:
       # If using kubeScheduler.endpoints only the port and targetPort are used
       service:
         # -- Enable service for KubeScheduler metrics scrape
-        enabled: true
+        enabled: false
         # -- KubeScheduler service port
         port: 10259
         # -- KubeScheduler service target port
