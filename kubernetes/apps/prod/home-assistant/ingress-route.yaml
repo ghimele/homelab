@@ -13,7 +13,7 @@ spec:
     - kind: Rule
       match: Host(`${HOST_HOME_ASSISTANT}.${DOMAIN}`)
       middlewares:
-        - name: x-forwarded-proto-https
+        - name: security-header
           namespace: traefik
       services:
         - name: home-assistant
