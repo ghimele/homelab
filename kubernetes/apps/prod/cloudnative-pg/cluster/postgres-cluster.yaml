@@ -6,7 +6,8 @@ metadata:
   namespace: cnpg-db
 spec:
   description: "PostgreSQL Cluster"
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.2
+  # imageName: ghcr.io/cloudnative-pg/postgresql:17.2
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5
   # imagePullSecret is only required if the images are located in a private registry
   # imagePullSecrets:
   #   - name: private_registry_access
@@ -22,6 +23,8 @@ spec:
       pg_stat_statements.track: all
       auto_explain.log_min_duration: '10s'
       max_slot_wal_keep_size: "2.5GB"
+    shared_preload_libraries:
+      - "vchord.so"
     synchronous:
       method: any
       number: 1
