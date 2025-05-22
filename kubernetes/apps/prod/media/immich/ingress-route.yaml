@@ -21,7 +21,7 @@ spec:
     - kind: Rule
       match: Host(`${HOST_IMMICH}.${DOMAIN}`)
       services:
-        - name: immich
+        - name: immich-server
           kind: Service
           namespace: media
           port: 2283
