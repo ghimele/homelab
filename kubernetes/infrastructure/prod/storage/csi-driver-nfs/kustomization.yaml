@@ -2,6 +2,7 @@
 resources:
   - ../../../base/storage/csi-driver-nfs
   - ./storageclass-nfs-media.yaml
+  - ./storageclass-nfs-photos.yaml
 
 patches:
   - path: values.yaml
