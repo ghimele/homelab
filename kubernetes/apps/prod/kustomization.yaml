@@ -7,6 +7,6 @@ resources:
   - ./monitoring
   # - ./promtail
   # - ./loki
-  - ./gotify
+  # - ./gotify
   - ./home-assistant
   - ./media
