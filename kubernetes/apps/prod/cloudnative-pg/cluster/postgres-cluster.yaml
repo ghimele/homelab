@@ -11,7 +11,7 @@ spec:
   # imagePullSecret is only required if the images are located in a private registry
   # imagePullSecrets:
   #   - name: private_registry_access
-  instances: 3
+  instances: 1
   startDelay: 300
   stopDelay: 300
   primaryUpdateStrategy: unsupervised
@@ -19,10 +19,14 @@ spec:
   postgresql:
     parameters:
       shared_buffers: 256MB
-      pg_stat_statements.max: '10000'
+      pg_stat_statements.max: '1000'
       pg_stat_statements.track: all
       auto_explain.log_min_duration: '10s'
       max_slot_wal_keep_size: "2.5GB"
+      pgaudit.log: "all, -misc"
+      pgaudit.log_catalog: "off"
+      pgaudit.log_parameter: "on"
+      pgaudit.log_relation: "on"
     shared_preload_libraries:
       - "vchord.so"
     synchronous:
