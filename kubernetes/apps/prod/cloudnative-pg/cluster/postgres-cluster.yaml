@@ -11,7 +11,7 @@ spec:
   # imagePullSecret is only required if the images are located in a private registry
   # imagePullSecrets:
   #   - name: private_registry_access
-  instances: 1
+  instances: 3
   startDelay: 300
   stopDelay: 300
   primaryUpdateStrategy: unsupervised
