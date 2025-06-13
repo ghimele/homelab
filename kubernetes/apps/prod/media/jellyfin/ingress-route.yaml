@@ -6,7 +6,7 @@ metadata:
   namespace: media
   annotations:
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://{HOST_JELLYFIN}.${DOMAIN}"
+    gethomepage.dev/href: "https://${HOST_JELLYFIN}.${DOMAIN}"
     gethomepage.dev/description: Jellifyn
     gethomepage.dev/group: Media
     gethomepage.dev/icon: jellyfin.png

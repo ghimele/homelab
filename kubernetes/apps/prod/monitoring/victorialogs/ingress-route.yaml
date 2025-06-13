@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/href: "https://${HOST_VICTORIALOGS}.${DOMAIN}"
     gethomepage.dev/description: Log solution.
     gethomepage.dev/group: Monitoring
-    gethomepage.dev/icon: victorialogs.png
+    gethomepage.dev/icon: victoriametrics.png
     gethomepage.dev/name: victorialogs
     gethomepage.dev/app: victorialogs
     gethomepage.dev/widget.type: prometheus

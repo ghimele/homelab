@@ -6,7 +6,7 @@ metadata:
   namespace: media
   annotations:
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://{HOST_IMMICH}.${DOMAIN}"
+    gethomepage.dev/href: "https://${HOST_IMMICH}.${DOMAIN}"
     gethomepage.dev/description: Immich
     gethomepage.dev/group: Media
     gethomepage.dev/icon: immich.png
