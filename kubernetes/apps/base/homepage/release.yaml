@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: homepage
-      version: '2025.6.1'
+      version: '2025.06.1'
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
