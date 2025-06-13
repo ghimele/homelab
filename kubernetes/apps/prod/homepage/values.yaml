@@ -12,6 +12,7 @@ spec:
       repository: ghcr.io/gethomepage/homepage
       # Overrides the image tag whose default is the chart appVersion.
       tag: 'v1.3.2'
+    enableRbac: false
     env:
       - name: HOMEPAGE_ALLOWED_HOSTS
         value: homepage.${DOMAIN}
