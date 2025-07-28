@@ -38,11 +38,11 @@ spec:
 
   storage:
     storageClass: "longhorn-postgres-storage"
-    size: 5Gi
+    size: 10Gi
 
   walStorage:
     storageClass: "longhorn-postgres-storage"
-    size: 5Gi
+    size: 10Gi
 
   monitoring:
     enablePodMonitor: true
