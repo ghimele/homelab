@@ -35,7 +35,7 @@
 - name: Change the bash prompt using the ghimele theme
   shell: |
     echo " " >> /home/ghimele/.bashrc
-    echo 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"' >> /home/ghimele/.profile
+    echo 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"' >> /home/ghimele/.bashrc
   when: theme_check2.rc != 0
 
 - name: Remove Oh My Posh installer
