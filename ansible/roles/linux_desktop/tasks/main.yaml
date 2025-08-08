@@ -10,6 +10,6 @@
     - desktop
 - import_tasks: ../../tasks/linux/vscode.yaml
 - import_tasks: ../../tasks/linux/kubectl.yaml
-# - import_tasks: ../../tasks/linux/brave.yaml
-# - import_tasks: ../../tasks/linux/flux.yaml
-# - import_tasks: ../../tasks/linux/headlamp.yaml
+- import_tasks: ../../tasks/linux/brave.yaml
+- import_tasks: ../../tasks/linux/flux.yaml
+- import_tasks: ../../tasks/linux/headlamp.yaml
