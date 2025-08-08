@@ -1,0 +1,23 @@
+---
+- name: Add pgAdmin GPG key
+  ansible.builtin.apt_key:
+    url: https://www.pgadmin.org/static/packages_pgadmin_org.pub
+    state: present
+
+- name: Add pgAdmin repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} pgadmin4"
+    state: present
+    filename: pgadmin4
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install pgAdmin4 (desktop and web)
+  ansible.builtin.apt:
+    name:
+      - pgadmin4
+      - pgadmin4-desktop
+      - pgadmin4-web
+    state: present
