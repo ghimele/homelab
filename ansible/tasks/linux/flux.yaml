@@ -1,8 +1,19 @@
 ---
 
+
+# Map ansible_architecture to flux arch
+- name: Set Flux arch
+  ansible.builtin.set_fact:
+    flux_arch: amd64
+
+# Map ansible_system to lowercase
+- name: Set Flux system
+  ansible.builtin.set_fact:
+    flux_system: "{{ ansible_system | lower }}"
+
 - name: Set Flux CLI download URL
   ansible.builtin.set_fact:
-    flux_cli_url: "https://github.com/fluxcd/flux2/releases/latest/download/flux_{{ ansible_system }}_{{ ansible_architecture }}.tar.gz"
+    flux_cli_url: "https://github.com/fluxcd/flux2/releases/latest/download/flux_{{ flux_system }}_{{ flux_arch }}.tar.gz"
 
 - name: Download Flux CLI
   ansible.builtin.get_url:
