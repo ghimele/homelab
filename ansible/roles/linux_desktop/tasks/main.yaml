@@ -1,0 +1,17 @@
+---
+- import_tasks: ../../tasks/linux/fonts.yaml
+  tags:
+    - fonts
+- import_tasks: ../../tasks/linux/oh-my-posh.yaml
+  tags:
+    - terminal
+- import_tasks: ../../tasks/linux/sops_localhost.yaml
+  tags:
+    - desktop
+- import_tasks: ../../tasks/linux/vscode.yml
+- import_tasks: ../../tasks/linux/vscode.yml
+- import_tasks: ../../tasks/linux/vscode.yml
+- import_tasks: ../../tasks/linux/kubectl.yml
+- import_tasks: ../../tasks/linux/brave.yml
+- import_tasks: ../../tasks/linux/flux.yml
+- import_tasks: ../../tasks/linux/headlamp.yml
