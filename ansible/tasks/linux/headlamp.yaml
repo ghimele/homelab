@@ -1,0 +1,9 @@
+---
+- name: Download Headlamp .deb
+  ansible.builtin.get_url:
+    url: https://github.com/headlamp-k8s/headlamp/releases/latest/download/headlamp.deb
+    dest: /tmp/headlamp.deb
+
+- name: Install Headlamp
+  ansible.builtin.apt:
+    deb: /tmp/headlamp.deb

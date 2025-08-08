@@ -1,0 +1,11 @@
+---
+- name: Download Flux CLI
+  ansible.builtin.get_url:
+    url: https://github.com/fluxcd/flux2/releases/latest/download/flux_$(uname -s)_$(uname -m).tar.gz
+    dest: /tmp/flux.tar.gz
+
+- name: Extract Flux CLI
+  ansible.builtin.unarchive:
+    src: /tmp/flux.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes

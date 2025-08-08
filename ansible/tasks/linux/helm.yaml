@@ -1,0 +1,7 @@
+---
+- name: Install Helm
+  become: yes
+  ansible.builtin.shell: |
+    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+  args:
+    creates: /usr/local/bin/helm
