@@ -8,10 +8,8 @@
 - import_tasks: ../../tasks/linux/sops_localhost.yaml
   tags:
     - desktop
-- import_tasks: ../../tasks/linux/vscode.yml
-- import_tasks: ../../tasks/linux/vscode.yml
-- import_tasks: ../../tasks/linux/vscode.yml
-- import_tasks: ../../tasks/linux/kubectl.yml
-- import_tasks: ../../tasks/linux/brave.yml
-- import_tasks: ../../tasks/linux/flux.yml
-- import_tasks: ../../tasks/linux/headlamp.yml
+- import_tasks: ../../tasks/linux/vscode.yaml
+- import_tasks: ../../tasks/linux/kubectl.yaml
+# - import_tasks: ../../tasks/linux/brave.yaml
+# - import_tasks: ../../tasks/linux/flux.yaml
+# - import_tasks: ../../tasks/linux/headlamp.yaml
