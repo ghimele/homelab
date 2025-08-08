@@ -1,7 +1,12 @@
 ---
+
+- name: Set Flux CLI download URL
+  ansible.builtin.set_fact:
+    flux_cli_url: "https://github.com/fluxcd/flux2/releases/latest/download/flux_{{ ansible_system }}_{{ ansible_architecture }}.tar.gz"
+
 - name: Download Flux CLI
   ansible.builtin.get_url:
-    url: https://github.com/fluxcd/flux2/releases/latest/download/flux_$(uname -s)_$(uname -m).tar.gz
+    url: "{{ flux_cli_url }}"
     dest: /tmp/flux.tar.gz
 
 - name: Extract Flux CLI
