@@ -1,4 +1,5 @@
 ---
+plugin: yaml
 all:
   hosts:
     127.0.0.1:
