@@ -27,5 +27,16 @@
     echo 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"' >> /home/ghimele/.profile
   when: theme_check.rc != 0
 
+- name: Check if .bashrc contains already the theme
+  shell: grep -s "./.posh-themes/ghimele.omp.json" /home/ghimele/.bashrc
+  register: theme_check2
+  ignore_errors: true
+
+- name: Change the bash prompt using the ghimele theme
+  shell: |
+    echo " " >> /home/ghimele/.bashrc
+    echo 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"' >> /home/ghimele/.profile
+  when: theme_check2.rc != 0
+
 - name: Remove Oh My Posh installer
   shell: rm /home/ghimele/oh-my-posh-install.sh

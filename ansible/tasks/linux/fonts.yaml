@@ -5,7 +5,7 @@
     state: directory
 
 - name: Cascadia exists
-  shell: "ls /usr/share/fonts/caskaydiacove*"
+  shell: "ls /usr/share/fonts/CaskaydiaCove*"
   register: caskaydia_exists
   ignore_errors: true
 
