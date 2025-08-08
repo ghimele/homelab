@@ -1,5 +1,7 @@
 ---
 - hosts: 127.0.0.1
   become: yes
+  tasks:
+    - debug: var=machine_type
   roles:
     - role: "{{ machine_type }}"
