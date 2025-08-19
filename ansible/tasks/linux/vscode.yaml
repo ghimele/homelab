@@ -6,7 +6,7 @@
 
 - name: Add VSCode repository
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.asc] https://packages.microsoft.com/repos/code stable main"
+    repo: "deb [arch=amd64 ] https://packages.microsoft.com/repos/code stable main"
     state: present
 
 - name: Install VSCode
