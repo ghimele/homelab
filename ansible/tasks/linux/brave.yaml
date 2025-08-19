@@ -1,16 +1,37 @@
 ---
-- name: Add Brave GPG key
-  ansible.builtin.apt_key:
-    url: https://brave-browser-apt-release.s3.brave.com/brave-core.asc
-    state: present
+- name: Install Brave Browser on Debian
+  hosts: all
+  become: true
+  vars:
+    brave_repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"
+    brave_key_url: "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg"
+    keyring_path: "/usr/share/keyrings/brave-browser-archive-keyring.gpg"
 
-- name: Add Brave repository
-  ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
-    state: present
+  tasks:
+    - name: Ensure curl is installed
+      apt:
+        name: curl
+        state: present
+        update_cache: no
 
-- name: Install Brave
-  ansible.builtin.apt:
-    name: brave-browser
-    state: present
-    update_cache: true
+    - name: Download Brave signing key
+      get_url:
+        url: "{{ brave_key_url }}"
+        dest: "{{ keyring_path }}"
+        mode: '0644'
+        validate_certs: yes
+
+    - name: Add Brave APT repository
+      ansible.builtin.apt_repository:
+        repo: "{{ brave_repo }}"
+        state: present
+        filename: brave-browser-release
+
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install Brave Browser
+      apt:
+        name: brave-browser
+        state: present   
