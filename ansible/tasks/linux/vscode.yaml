@@ -4,13 +4,17 @@
 #    url: https://packages.microsoft.com/keys/microsoft.asc
 #    dest: /etc/apt/trusted.gpg.d/microsoft.asc
 
-- name: Add VSCode repository
-  ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64 ] https://packages.microsoft.com/repos/code stable main"
-    state: present
+# - name: Add VSCode repository
+#  ansible.builtin.apt_repository:
+#    repo: "deb [arch=amd64 ] https://packages.microsoft.com/repos/code stable main"
+#    state: present
 
-- name: Install VSCode
-  ansible.builtin.apt:
-    name: code
-    state: present
-    update_cache: true
+# - name: Install VSCode
+#  ansible.builtin.apt:
+#    name: code
+#    state: present
+#    update_cache: true
+
+- name: Include gantsign.visual-studio-code role
+  import_role:
+    name: gantsign.visual-studio-code
