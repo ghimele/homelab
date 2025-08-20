@@ -38,8 +38,8 @@ jobs:
       - name: Generate Summary
         if: always()
         run: |
-          errors=$(grep -c "\[E" ansible-lint.log || true)
-          warnings=$(grep -c "\[W" ansible-lint.log || true)
+          errors=$(grep -c "(error)" ansible-lint.log || true)
+          warnings=$(grep -c "(warning)" ansible-lint.log || true)
           total=$((errors + warnings))
 
           {
