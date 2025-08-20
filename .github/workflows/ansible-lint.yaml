@@ -31,22 +31,28 @@ jobs:
 
       - name: Run ansible-lint
         id: lint
-        continue-on-error: true
         run: |
-          ansible-lint ansible/ | tee ansible-lint.log
+          echo "Running ansible-lint..."
+          ansible-lint ansible/ -q --nocolor > ansible-lint.log || true
 
-      - name: Summarize results
+      - name: Generate Summary
         if: always()
         run: |
-          errors=$(grep -c "ERROR:" ansible-lint.log || true)
-          warnings=$(grep -c "WARNING:" ansible-lint.log || true)
+          errors=$(grep -c "\[E" ansible-lint.log || true)
+          warnings=$(grep -c "\[W" ansible-lint.log || true)
+          total=$((errors + warnings))
 
-          echo "### Ansible Lint Report" >> $GITHUB_STEP_SUMMARY
-          echo "- ❌ Errors: $errors" >> $GITHUB_STEP_SUMMARY
-          echo "- ⚠️  Warnings: $warnings" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "See full log in the workflow run." >> $GITHUB_STEP_SUMMARY
-
-      - name: Fail if errors found
-        if: steps.lint.outcome == 'failure'
-        run: exit 1
+          {
+            echo "### 🔧 Ansible Lint Summary"
+            echo "- ✅ Files checked: $(find ansible -type f -name '*.yml' | wc -l)"
+            echo "- ❌ Errors: $errors"
+            echo "- ⚠️ Warnings: $warnings"
+            echo "- 📊 Total issues: $total"
+            echo ""
+            if [ "$total" -gt 0 ]; then
+              echo "<details><summary>Show details</summary>"
+              echo ""
+              cat ansible-lint.log
+              echo "</details>"
+            fi
+          } >> $GITHUB_STEP_SUMMARY

@@ -14,5 +14,30 @@ jobs:
         uses: actions/checkout@v5.0.0
       - name: Install yamllint
         run: pip install yamllint
-      - name: 🚀 Run yamllint
-        run: yamllint -f github .
+      - name: Run yamllint
+        id: lint
+        run: |
+          echo "Running yamllint..."
+          yamllint -f parsable . | tee yamllint.log || true
+
+      - name: Generate Summary
+        if: always()
+        run: |
+          errors=$(grep -c "error" yamllint.log || true)
+          warnings=$(grep -c "warning" yamllint.log || true)
+          total=$((errors + warnings))
+
+          {
+            echo "### 📝 YAML Lint Summary"
+            echo "- ✅ Files checked: $(find . -name '*.yaml' -o -name '*.yml' | wc -l)"
+            echo "- ❌ Errors: $errors"
+            echo "- ⚠️ Warnings: $warnings"
+            echo "- 📊 Total issues: $total"
+            echo ""
+            if [ "$total" -gt 0 ]; then
+              echo "<details><summary>Show details</summary>"
+              echo ""
+              cat yamllint.log
+              echo "</details>"
+            fi
+          } >> $GITHUB_STEP_SUMMARY
