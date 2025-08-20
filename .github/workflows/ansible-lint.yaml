@@ -1,0 +1,50 @@
+name: Ansible Lint
+
+on:
+  push:
+    paths:
+      - "ansible/**"
+      - ".github/workflows/ansible-lint.yaml"
+  pull_request:
+    paths:
+      - "ansible/**"
+      - ".github/workflows/ansible-lint.yaml"
+
+jobs:
+  ansible-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install ansible-lint
+        run: |
+          pip install ansible ansible-lint
+
+      - name: Run ansible-lint
+        id: lint
+        continue-on-error: true
+        run: |
+          ansible-lint ansible/ | tee ansible-lint.log
+
+      - name: Summarize results
+        if: always()
+        run: |
+          errors=$(grep -c "ERROR:" ansible-lint.log || true)
+          warnings=$(grep -c "WARNING:" ansible-lint.log || true)
+
+          echo "### Ansible Lint Report" >> $GITHUB_STEP_SUMMARY
+          echo "- ❌ Errors: $errors" >> $GITHUB_STEP_SUMMARY
+          echo "- ⚠️  Warnings: $warnings" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "See full log in the workflow run." >> $GITHUB_STEP_SUMMARY
+
+      - name: Fail if errors found
+        if: steps.lint.outcome == 'failure'
+        run: exit 1
