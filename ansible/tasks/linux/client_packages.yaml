@@ -8,4 +8,5 @@
       - unzip
       - age
       - yamllint
+      - ansible-lint
     update_cache: true
