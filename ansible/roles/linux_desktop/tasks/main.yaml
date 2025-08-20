@@ -8,6 +8,7 @@
 - import_tasks: ../../tasks/linux/sops_localhost.yaml
   tags:
     - desktop
+- import_tasks: ../../tasks/linux/client_packages.yaml
 - import_tasks: ../../tasks/linux/vscode.yaml
 - import_tasks: ../../tasks/linux/kubectl.yaml
 - import_tasks: ../../tasks/linux/helm.yaml
