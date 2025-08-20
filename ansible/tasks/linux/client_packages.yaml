@@ -7,4 +7,5 @@
       - htop
       - unzip
       - age
+      - yamllint
     update_cache: true
