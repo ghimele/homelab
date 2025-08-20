@@ -14,15 +14,22 @@ on:  # yamllint disable-line rule:truthy
       - 'docs/**'
 
 jobs:
-  yamllint:
-    name: 🧹 yamllint
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⤵️ Check out configuration from GitHub
-        uses: actions/checkout@v5.0.0
-      - name: 🚀 Run yamllint
-        run: |
-          yamllint .
+  # yamllint:
+  #   name: 🧹 yamllint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: ⤵️ Check out configuration from GitHub
+  #       uses: actions/checkout@v5.0.0
+  #     - name: 🚀 Run yamllint
+  #       run: |
+  #         yamllint .
+
+  yaml-lint:
+    uses: ./.github/workflows/yaml-lint.yaml
+
+  ansible-lint:
+    uses: ./.github/workflows/ansible-lint.yaml
+
   manifests:
     name: ☸ Validate Kubernetes manifests
     runs-on: ubuntu-latest

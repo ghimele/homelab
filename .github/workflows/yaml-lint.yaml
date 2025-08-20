@@ -1,0 +1,18 @@
+---
+
+name: YAML Lint
+
+on:
+  workflow_call:
+
+jobs:
+  yamllint:
+    name: 🧹 yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out configuration from GitHub
+        uses: actions/checkout@v5.0.0
+      - name: Install yamllint
+        run: pip install yamllint
+      - name: 🚀 Run yamllint
+        run: yamllint -f github .
