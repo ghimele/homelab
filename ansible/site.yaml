@@ -1,7 +1,12 @@
 ---
-- hosts: 127.0.0.1
+- name: Ansible Playbook for Linux Desktop Setup
+  hosts: 127.0.0.1
   become: yes
+  vars:
+    machine_type: linux_desktop
   tasks:
-    - debug: var=machine_type
+    - name: Show machine type
+      debug:
+        var: machine_type
   roles:
     - role: "{{ machine_type }}"

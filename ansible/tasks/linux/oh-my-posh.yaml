@@ -1,42 +1,50 @@
 ---
+
 - name: Download Oh My Posh installer
   get_url:
     url: https://ohmyposh.dev/install.sh
     dest: /home/ghimele/oh-my-posh-install.sh
+    mode: '0755'
 
 - name: Install Oh My Posh
   shell: |
     bash /home/ghimele/oh-my-posh-install.sh -d /usr/local/bin
+  args:
+    creates: /usr/local/bin/oh-my-posh
 
-- name: Create Theme folder if it doesn't exists
-  shell: mkdir -p /home/ghimele/.posh-themes
+- name: Create Theme folder if it doesn't exist
+  file:
+    path: /home/ghimele/.posh-themes
+    state: directory
+    mode: '0755'
 
 - name: Download the ghimele theme
   get_url:
     url: https://raw.githubusercontent.com/ghimele/shell-config/main/oh-my-posh-theme/ghimele.omp.json
     dest: /home/ghimele/.posh-themes/ghimele.omp.json
+    mode: '0644'
 
 - name: Check if .profile contains already the theme
-  shell: grep -s "./.posh-themes/ghimele.omp.json" /home/ghimele/.profile
+  ansible.builtin.lineinfile:
+    path: /home/ghimele/.profile
+    line: 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"'
+    state: present
+    insertafter: EOF
+  check_mode: no
   register: theme_check
   ignore_errors: true
 
-- name: Change the bash prompt using the ghimele theme
-  shell: |
-    echo " " >> /home/ghimele/.profile
-    echo 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"' >> /home/ghimele/.profile
-  when: theme_check.rc != 0
-
 - name: Check if .bashrc contains already the theme
-  shell: grep -s "./.posh-themes/ghimele.omp.json" /home/ghimele/.bashrc
-  register: theme_check2
+  ansible.builtin.lineinfile:
+    path: /home/ghimele/.bashrc
+    line: 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"'
+    state: present
+    insertafter: EOF
+  check_mode: no
+  register: theme_check
   ignore_errors: true
 
-- name: Change the bash prompt using the ghimele theme
-  shell: |
-    echo " " >> /home/ghimele/.bashrc
-    echo 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"' >> /home/ghimele/.bashrc
-  when: theme_check2.rc != 0
-
 - name: Remove Oh My Posh installer
-  shell: rm /home/ghimele/oh-my-posh-install.sh
+  ansible.builtin.file:
+    path: /home/ghimele/oh-my-posh-install.sh
+    state: absent

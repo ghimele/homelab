@@ -1,7 +1,7 @@
 ---
+
 - name: local_server
   hosts: localhost
-
   tasks:
     - import_tasks: tasks/server_packages.yaml
       tags:

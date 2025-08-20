@@ -1,7 +1,9 @@
 ---
 
 - name: Get latest kubectl version
-  ansible.builtin.shell: curl -L -s https://dl.k8s.io/release/stable.txt
+  ansible.builtin.uri:
+    url: https://dl.k8s.io/release/stable.txt
+    return_content: yes
   register: kubectl_version
   changed_when: false
 
@@ -10,3 +12,13 @@
     url: "https://dl.k8s.io/release/{{ kubectl_version.stdout }}/bin/linux/amd64/kubectl"
     dest: /usr/local/bin/kubectl
     mode: '0755'
+
+- name: Verify kubectl installation
+  ansible.builtin.command: kubectl version --client --short
+  register: kubectl_check
+  changed_when: false
+  failed_when: kubectl_check.rc != 0
+
+- name: Display kubectl version
+  ansible.builtin.debug:
+    msg: "kubectl version installed: {{ kubectl_check.stdout }}"

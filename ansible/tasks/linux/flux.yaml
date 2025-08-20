@@ -1,7 +1,29 @@
 ---
-- name: Install Fkux CLI
+- name: Download Flux install script
+  ansible.builtin.get_url:
+    url: https://fluxcd.io/install.sh
+    dest: /tmp/flux_install.sh
+    mode: '0755'
+
+- name: Install Flux CLI
   become: yes
   ansible.builtin.shell: |
-    curl -s https://fluxcd.io/install.sh | sudo bash
+    set -o pipefail
+    bash /tmp/flux_install.sh | sudo bash
   args:
     creates: /usr/local/bin/flux
+
+- name: Clean up Flux install script
+  ansible.builtin.file:
+    path: /tmp/flux_install.sh
+    state: absent
+
+- name: Verify Flux installation
+  ansible.builtin.command: flux --version
+  register: flux_check
+  changed_when: false
+  failed_when: flux_check.rc != 0
+
+- name: Display Flux version
+  ansible.builtin.debug:
+    msg: "Flux CLI version installed: {{ flux_check.stdout }}"

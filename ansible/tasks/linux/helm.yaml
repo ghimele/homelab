@@ -1,7 +1,30 @@
 ---
+- name: Download Helm install script
+  become: yes
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: /tmp/get-helm-3.sh
+    mode: '0755'
+
 - name: Install Helm
   become: yes
   ansible.builtin.shell: |
-    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+    set -o pipefail
+    bash /tmp/get-helm-3.sh
   args:
     creates: /usr/local/bin/helm
+
+- name: Remove Helm install script
+  become: yes
+  ansible.builtin.file:
+    path: /tmp/get-helm-3.sh
+    state: absent
+- name: Verify Helm installation
+  ansible.builtin.command: helm version --short
+  register: helm_check
+  changed_when: false
+  failed_when: helm_check.rc != 0
+
+- name: Display Helm version
+  ansible.builtin.debug:
+    msg: "Helm version installed: {{ helm_check.stdout }}"

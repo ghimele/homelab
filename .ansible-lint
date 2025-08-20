@@ -1,0 +1,16 @@
+# .ansible-lint
+# Pragmatic defaults for homelab setups
+profile: shared
+
+warn_list:       
+  - fqcn-builtins
+  - experimental
+
+skip_list:       
+  - yaml
+  - role-name
+  - galaxy
+  - meta-no-info
+  - meta-incorrect
+
+parseable: true

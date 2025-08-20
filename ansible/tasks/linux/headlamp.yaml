@@ -3,7 +3,25 @@
   ansible.builtin.get_url:
     url: https://github.com/headlamp-k8s/headlamp/releases/latest/download/headlamp.deb
     dest: /tmp/headlamp.deb
+    mode: '0644'
+    force: yes
 
 - name: Install Headlamp
   ansible.builtin.apt:
     deb: /tmp/headlamp.deb
+    state: present
+
+- name: Clean up Headlamp .deb
+  ansible.builtin.file:
+    path: /tmp/headlamp.deb
+    state: absent
+
+- name: Verify Headlamp installation
+  ansible.builtin.command: headlamp --version
+  register: headlamp_check
+  changed_when: false
+  failed_when: headlamp_check.rc != 0
+
+- name: Display Headlamp version
+  ansible.builtin.debug:
+    msg: "Headlamp version installed: {{ headlamp_check.stdout }}"

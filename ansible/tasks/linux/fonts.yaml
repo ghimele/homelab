@@ -1,17 +1,19 @@
 ---
-- name: ensure fonts directory
+- name: Ensure fonts directory
   file:
     path: "/usr/share/fonts/"
     state: directory
+    mode: '0755'
 
-- name: Cascadia exists
-  shell: "ls /usr/share/fonts/CaskaydiaCove*"
-  register: caskaydia_exists
-  ignore_errors: true
+- name: Check if Cascadia font exists
+  stat:
+    path: "/usr/share/fonts/CaskaydiaCoveNerdFont-Regular.ttf"
+  register: caskaydia_stat
 
 - name: Download Cascadia
-  when: caskaydia_exists is failed
   ansible.builtin.unarchive:
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip
     dest: "/usr/share/fonts/"
     remote_src: true
+    creates: "/usr/share/fonts/CaskaydiaCoveNerdFont-Regular.ttf"
+  when: not caskaydia_stat.stat.exists
