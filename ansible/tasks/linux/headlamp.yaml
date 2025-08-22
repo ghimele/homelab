@@ -1,7 +1,7 @@
 ---
 - name: Download Headlamp .deb
   ansible.builtin.get_url:
-    url: https://github.com/headlamp-k8s/headlamp/releases/latest/download/headlamp.deb
+    url: https://github.com/kubernetes-sigs/headlamp/releases/download/v0.34.0/headlamp_0.34.0-1_amd64.deb
     dest: /tmp/headlamp.deb
     mode: '0644'
     force: yes
