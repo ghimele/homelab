@@ -42,4 +42,9 @@
   tags:
     - desktop-app
 
+- name: Install HeadLamp
+  import_tasks: ../../tasks/linux/headlamp.yaml
+  tags:
+    - desktop-app
+
 # - import_tasks: ../../tasks/linux/pgadmin.yaml
