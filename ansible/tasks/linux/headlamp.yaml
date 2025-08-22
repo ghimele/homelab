@@ -16,10 +16,10 @@
     path: /tmp/headlamp.deb
     state: absent
 
-- name: Verify Headlamp installation
-  ansible.builtin.command: headlamp --version
-  register: headlamp_check
-  changed_when: false
+# - name: Verify Headlamp installation
+#   ansible.builtin.command: headlamp --version
+#   register: headlamp_check
+#   changed_when: false
 
 - name: Display Headlamp version
   ansible.builtin.debug:
