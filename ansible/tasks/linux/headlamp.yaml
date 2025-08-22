@@ -20,7 +20,6 @@
   ansible.builtin.command: headlamp --version
   register: headlamp_check
   changed_when: false
-  failed_when: headlamp_check.rc != 0
 
 - name: Display Headlamp version
   ansible.builtin.debug:
