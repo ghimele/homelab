@@ -21,6 +21,6 @@
 #   register: headlamp_check
 #   changed_when: false
 
-- name: Display Headlamp version
-  ansible.builtin.debug:
-    msg: "Headlamp version installed: {{ headlamp_check.stdout }}"
+# - name: Display Headlamp version
+#   ansible.builtin.debug:
+#     msg: "Headlamp version installed: {{ headlamp_check.stdout }}"
