@@ -27,7 +27,7 @@
 - name: Check if .profile contains already the theme
   ansible.builtin.lineinfile:
     path: /home/ghimele/.profile
-    line: 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"'
+    line: 'eval "$(oh-my-posh init bash --config /home/ghimele/posh-themes/ghimele.omp.json)"'
     state: present
     insertafter: EOF
   check_mode: no
@@ -37,7 +37,7 @@
 - name: Check if .bashrc contains already the theme
   ansible.builtin.lineinfile:
     path: /home/ghimele/.bashrc
-    line: 'eval "$(oh-my-posh init bash --config ./.posh-themes/ghimele.omp.json)"'
+    line: 'eval "$(oh-my-posh init bash --config /home/ghimele/.posh-themes/ghimele.omp.json)"'
     state: present
     insertafter: EOF
   check_mode: no
