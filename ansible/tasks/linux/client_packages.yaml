@@ -5,6 +5,8 @@
   apt:
     name:
       - curl
+      - wget
+      - git
       - htop
       - unzip
       - age
