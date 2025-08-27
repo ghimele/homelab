@@ -24,15 +24,15 @@
     dest: /home/ghimele/.posh-themes/ghimele.omp.json
     mode: '0644'
 
-- name: Check if .profile contains already the theme
-  ansible.builtin.lineinfile:
-    path: /home/ghimele/.profile
-    line: 'eval "$(oh-my-posh init bash --config /home/ghimele/posh-themes/ghimele.omp.json)"'
-    state: present
-    insertafter: EOF
-  check_mode: no
-  register: theme_check
-  ignore_errors: true
+# - name: Check if .profile contains already the theme
+#   ansible.builtin.lineinfile:
+#     path: /home/ghimele/.profile
+#     line: 'eval "$(oh-my-posh init bash --config /home/ghimele/posh-themes/ghimele.omp.json)"'
+#     state: present
+#     insertafter: EOF
+#   check_mode: no
+#   register: theme_check
+#   ignore_errors: true
 
 - name: Check if .bashrc contains already the theme
   ansible.builtin.lineinfile:

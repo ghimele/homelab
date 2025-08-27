@@ -11,40 +11,26 @@
   import_tasks: ../../tasks/linux/oh-my-posh.yaml
   tags:
     - terminal
+    - cli
 
 - name: Install SOPS
   import_tasks: ../../tasks/linux/sops_localhost.yaml
   tags:
-    - desktop
-
-- name: Install VSCode
-  import_tasks: ../../tasks/linux/vscode.yaml
-  tags:
-    - desktop-app
+    - cli
 
 - name: Install Kubectl
   import_tasks: ../../tasks/linux/kubectl.yaml
   tags:
     - kubernetes
+    - cli
 
 - name: Install Helm
   import_tasks: ../../tasks/linux/helm.yaml
   tags:
     - kubernetes
+    - cli
 
 # - name: Install Flux
 #   import_tasks: ../../tasks/linux/flux.yaml
 #   tags:
 #     - kubernetes
-
-- name: Install Brave Browser
-  import_tasks: ../../tasks/linux/brave.yaml
-  tags:
-    - desktop-app
-
-- name: Install HeadLamp
-  import_tasks: ../../tasks/linux/headlamp.yaml
-  tags:
-    - desktop-app
-
-# - import_tasks: ../../tasks/linux/pgadmin.yaml
