@@ -32,10 +32,10 @@
   tags:
     - kubernetes
 
-- name: Install Flux
-  import_tasks: ../../tasks/linux/flux.yaml
-  tags:
-    - kubernetes
+# - name: Install Flux
+#   import_tasks: ../../tasks/linux/flux.yaml
+#   tags:
+#     - kubernetes
 
 - name: Install Brave Browser
   import_tasks: ../../tasks/linux/brave.yaml
