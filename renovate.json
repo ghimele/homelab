@@ -4,26 +4,26 @@
     "config:recommended"
   ],
   "flux": {
-    "fileMatch": [
-      "kubernetes/.+\\.yaml$"
+    "managerFilePatterns": [
+      "/kubernetes/.+\\.yaml$/"
     ]
   },
   "helm-values": {
-    "fileMatch": [
-      "kubernetes/.+\\.ya?ml$"
+    "managerFilePatterns": [
+      "/kubernetes/.+\\.ya?ml$/"
     ]
   },
   "kubernetes": {
-    "fileMatch": [
-      "kubernetes/.+\\.ya?ml$"
+    "managerFilePatterns": [
+      "/kubernetes/.+\\.ya?ml$/"
     ]
   },
   "customManagers": [
     {
       "customType": "regex",
       "description": "Process CRD dependencies",
-      "fileMatch": [
-        "kubernetes/.+\\.ya?ml$"
+      "managerFilePatterns": [
+        "/kubernetes/.+\\.ya?ml$/"
       ],
       "matchStrings": [
         "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
@@ -34,10 +34,10 @@
     {
       "customType": "regex",
       "description": "Process various dependencies",
-      "fileMatch": [
-        "ansible/.+\\.ya?ml$",
-        "kubernetes/.+\\.ya?ml$",
-        ".+\\.md$"
+      "managerFilePatterns": [
+        "/ansible/.+\\.ya?ml$/",
+        "/kubernetes/.+\\.ya?ml$/",
+        "/.+\\.md$/"
       ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?(?<annotation> \\(\\d\\))?\n.*?\"(?<currentValue>\\S+)\"\n?"
@@ -48,8 +48,8 @@
     {
       "customType": "regex",
       "description": "Process raw GitHub URLs",
-      "fileMatch": [
-        "kubernetes/.+\\.ya?ml$"
+      "managerFilePatterns": [
+        "/kubernetes/.+\\.ya?ml$/"
       ],
       "matchStrings": [
         "https:\\/\\/raw.githubusercontent.com\\/(?<depName>[\\w\\d\\-_]+\\/[\\w\\d\\-_]+)\\/(?<currentValue>[\\w\\d\\.\\-_]+)\\/.*"
