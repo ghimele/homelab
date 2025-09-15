@@ -77,7 +77,7 @@ spec:
         ensure: present
         comment: Immich Role
         login: true
-        superuser: false
+        superuser: true
         passwordSecret:
           name: postgres-cluster-immich
 
