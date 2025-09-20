@@ -2,7 +2,7 @@
 resources:
   - home-assistant-secret.enc.yaml
   - home-assistant-pvc.yaml
-  - ../../base/home-assistant
+  - ../../../base/home-automation/home-assistant
   - certificate.yaml
   - ingress-route.yaml
 

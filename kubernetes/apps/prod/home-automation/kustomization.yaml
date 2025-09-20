@@ -1,0 +1,4 @@
+---
+resources:
+  - ../../base/home-automation/namespace.yaml
+  - ./home-assistant
