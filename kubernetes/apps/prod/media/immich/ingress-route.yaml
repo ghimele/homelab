@@ -1,27 +1,42 @@
----
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: immich
-  namespace: media
-  annotations:
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/href: "https://${HOST_IMMICH}.${DOMAIN}"
-    gethomepage.dev/description: Immich
-    gethomepage.dev/group: Media
-    gethomepage.dev/icon: immich.png
-    # gethomepage.dev/app: xen  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
-    gethomepage.dev/name: "Immich"
+    name: immich
+    namespace: media
+    annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/href: https://${HOST_IMMICH}.${DOMAIN}
+        gethomepage.dev/description: Immich
+        gethomepage.dev/group: Media
+        gethomepage.dev/icon: immich.png
+        # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+        gethomepage.dev/app: immich-server
+        gethomepage.dev/name: Immich
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: immich.${DOMAIN}
-  routes:
-    - kind: Rule
-      match: Host(`${HOST_IMMICH}.${DOMAIN}`)
-      services:
-        - name: immich-server
-          kind: Service
-          namespace: media
-          port: 2283
+    entryPoints:
+        - websecure
+    tls:
+        secretName: immich.${DOMAIN}
+    routes:
+        - kind: Rule
+          match: ENC[AES256_GCM,data:dkQjexbeUCOVNM/ZJj1rkLXZEXnHw2lvEpnY+mjGN7o=,iv:oG8g0EmQBP5kbI215W6bM/TDzo+J5iBKbJFrN3dUgzE=,tag:9ecm8sPN90BLnU7BPosnDA==,type:str]
+          services:
+            - name: immich-server
+              kind: Service
+              namespace: media
+              port: 2283
+sops:
+    age:
+        - recipient: age1xv8cuqcr09e3845unmja9x5jct30q9rmgz7awjc6dwrnq5m79etsvkz2z6
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBpL2xnL1lZWVppNmpnNXJO
+            MnluaitZTUtGbUFJbjgvandrZnRkellVT0FZCmoyclJyM2ZWWmRZQnlDWEZQYkto
+            LzRlODdsTDRCNEpWa1dYQ01OYnpBa2MKLS0tIFQrYi9UWjdxemFvVUFraFJJRnhl
+            ZFp0L1E5YmhlZlFDUzFBR1krKzkwYzAKNVNWXAXFL6vZ/2TqnGP3samEwynhcULy
+            o88HgoSoP7pLXCgCnIWFDH/Y5kDGuqqx3o7TVWcHoAlDwhEmIvrBFA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-09-20T14:04:24Z"
+    mac: ENC[AES256_GCM,data:bEbdsuX+wnAk0YfGSZlRTgGLDVfP/sfdzbUhR+Fgs8HwzXD6qtXFoX+1Qrd3TyghWJjJL5Vrfx7u3qTlaqLaRVJ+sozG84rj7gnTymVAryMXLhdji4/1PHmlvUVKLjQeERevoeCQqrP5DUMMNaB99lXE7zsjZRV6LsOlqr2b9Kg=,iv:DRrEtR4GgYGYeQyRg8OGA7+KHw2v1TpqkgZDOOd8Jes=,tag:9oW7YiNaFB3/8pUcQAHxkw==,type:str]
+    encrypted_regex: ^(user.*|pass.*|.*[Bb]earer.*|.*[Kk]ey|.*[Kk]eys|salt|sentry.*|.*[Tt]oken|data|stringData|match|href)$
+    version: 3.10.2
