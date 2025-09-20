@@ -1,0 +1,34 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: home-assistant
+    namespace: home-automation
+spec:
+    interval: 10m0s
+    values:
+        persistence:
+            config:
+                enabled: true
+                type: persistentVolumeClaim
+                existingClaim: home-assistant-pvc
+                advancedMounts:
+                    main:
+                        main:
+                            - path: /config
+                        code-server:
+                            - path: /config
+sops:
+    age:
+        - recipient: age1xv8cuqcr09e3845unmja9x5jct30q9rmgz7awjc6dwrnq5m79etsvkz2z6
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2bFhIZC9DZHYxZFVCNmNP
+            OXhmamdPZWdBSkNiRE5YTkI5TkNPTENrT0dVCnpSeE1tMjhVaTFEVkFGbHVTM1dy
+            QkR3aWo5UmQxTHM0eDcrOVNUZUVBSkUKLS0tIEdQZjEwQjRXTEFHejgvWVFNSi9k
+            WXJPdDBqWjlEZS9VUkYrTmVDRCszMWcKZ+0dPrKa+uMl9lQ8DI8ABVkqOEBg26x+
+            NpQqL615sBxQ/2BX1Q1pgcuh9sdWEiWCWGl818jQkRJnJZ9UoKvyBA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-09-20T14:02:16Z"
+    mac: ENC[AES256_GCM,data:QP55xZwVGUYnerGgbThpLTi07m3jBnHibwax/Nox6nl2gpCQ8GhQbcCfWaGcyxN/CoVqtWXVzWKozY43v65Du+s1xTIsjo+J3nY70bFYmNQOxy6+7mFrfPVTMm5Ryxckqkggq7jrYauh+TYHwLNflxNyOhUMRSgrmOxl5KHTLYM=,iv:x9Bo97VdDJ3zCH3Ge0RxVfQTw7dZSF4Zf4+LUGYQQC4=,tag:Wsisrsq++u4p33/hGYYYqA==,type:str]
+    encrypted_regex: ^(user.*|pass.*|.*[Bb]earer.*|.*[Kk]ey|.*[Kk]eys|salt|sentry.*|.*[Tt]oken|data|stringData|match|href)$
+    version: 3.10.2

@@ -1,12 +1,26 @@
----
 resources:
-  - ./homepage
-  - ./xen
-  - ./cloudnative-pg
-  # - ./kube-prometheus-stack
-  - ./monitoring
-  # - ./promtail
-  # - ./loki
-  # - ./gotify
-  - ./home-assistant
-  - ./media
+    - ./homepage
+    - ./xen
+    - ./cloudnative-pg
+    # - ./kube-prometheus-stack
+    - ./monitoring
+    # - ./promtail
+    # - ./loki
+    # - ./gotify
+    - ./home-automation
+    - ./media
+sops:
+    age:
+        - recipient: age1xv8cuqcr09e3845unmja9x5jct30q9rmgz7awjc6dwrnq5m79etsvkz2z6
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA1OGVNNVBJSHRGL3ZGU0pX
+            bGprMFFFZGVuc09vQzNFa0Zvd0V2WjNtUm1rCnBDRk1pRVZUcHM3QjdzckhsVWZN
+            QWdUbVJiY3lPWWxNTzlDd1RpdVJVMFkKLS0tIGMxbXowTjlsaUJjNU5xZW9hSlpu
+            M0tBYWRLZEtsd09NZ3Z0VUFZZmhIV1kKf7SrZoSCyO0zSucvd8SdAoNDoZp812a8
+            avkfKPyZGi+TTySDjYsEzXyxWnx4I3mAPRhA465OJAcVZ7/fdu1D0g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-09-20T13:48:28Z"
+    mac: ENC[AES256_GCM,data:EzITgT+W9bTkxb84EwpU3cvJpN4h0P3x9pTk+W1bDdEtvpbdDx3M+uNg8FtCcHJvv5EYmhC9Jhg3BGaElBXShxcwAl2SPoqO8jl8cM6aDv0UDLxOnEn/XZu1q8bOuHtq1ZCNSPVWK2maFz45Vb23xTZvvkrNiP4ugByYBelBIT4=,iv:01kU0RpYyxBvCEyD01ifZ1s1tspvKREec8wkrI+LQ3E=,tag:EK1h5DYfwY5G5kJO9mVXWQ==,type:str]
+    encrypted_regex: ^(user.*|pass.*|.*[Bb]earer.*|.*[Kk]ey|.*[Kk]eys|salt|sentry.*|.*[Tt]oken|data|stringData|match|href)$
+    version: 3.10.2
