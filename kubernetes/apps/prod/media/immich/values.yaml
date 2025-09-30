@@ -50,7 +50,7 @@ spec:
 
     # Dependencies
     redis:
-      enabled: false
+      enabled: true
       architecture: standalone
       auth:
         enabled: false
