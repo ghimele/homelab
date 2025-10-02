@@ -32,4 +32,4 @@ spec:
 
     image:
       # renovate: datasource=github-releases depName=immich-app/immich
-      tag: "v1.144.1"
+      tag: "v2.0.0"
