@@ -7,11 +7,14 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://${HOST_ESPHOME}.${DOMAIN}"
-    gethomepage.dev/description: "Open-source firmware framework that simplifies the process of creating custom firmware for popular WiFi-enabled microcontrollers"
+    gethomepage.dev/description: "Open-source firmware framework for popular WiFi-enabled microcontrollers"
     gethomepage.dev/group: Home Automation
     gethomepage.dev/icon: esphome.png
     gethomepage.dev/app: esphome  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
     gethomepage.dev/name: "ESPHome"
+    gethomepage.dev/widget.type: "esphome"
+    gethomepage.dev/widget.url: "https://${HOST_ESPHOME}.${DOMAIN}"
+    gethomepage.dev/widget.fields: '["total","online","offline","unknown"]'
 spec:
   entryPoints:
     - websecure
@@ -27,4 +30,4 @@ spec:
         - name: esphome
           kind: Service
           namespace: home-automation
-          port: 8123
+          port: 6053
