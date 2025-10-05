@@ -45,4 +45,4 @@ spec:
         forceRename: "{{.Release.Name}}"
         ports:
           http:
-            port: &esphome-port 6052
+            port: 6052
