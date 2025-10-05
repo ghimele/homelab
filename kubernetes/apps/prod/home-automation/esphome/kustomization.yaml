@@ -1,7 +1,7 @@
 ---
 resources:
   - esphome-pvc.yaml
-  - ../../../base/home-automation/esphome
+  - ../../../base/home-automation/esphome/release.yaml
   - certificate.yaml
   - ingress-route.yaml
 
