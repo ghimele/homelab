@@ -98,7 +98,6 @@ spec:
             port: 8123
           code-server:
             port: 8080
-
     metrics:
       enabled: true
       prometheusRule:

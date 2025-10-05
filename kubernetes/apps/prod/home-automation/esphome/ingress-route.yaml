@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: esphome
+  namespace: home-automation
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_ESPHOME}.${DOMAIN}"
+    gethomepage.dev/description: "Open-source firmware framework that simplifies the process of creating custom firmware for popular WiFi-enabled microcontrollers"
+    gethomepage.dev/group: Home Automation
+    gethomepage.dev/icon: esphome.png
+    gethomepage.dev/app: esphome  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+    gethomepage.dev/name: "ESPHome"
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: esphome.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_ESPHOME}.${DOMAIN}`)
+      middlewares:
+        - name: security-header
+          namespace: traefik
+      services:
+        - name: home-assistant
+          kind: Service
+          namespace: home-assistant
+          port: 8123
