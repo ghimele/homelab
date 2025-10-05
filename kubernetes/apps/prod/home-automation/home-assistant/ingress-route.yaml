@@ -4,6 +4,14 @@ kind: IngressRoute
 metadata:
   name: homeassistant
   namespace: home-assistant
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_HOME_ASSISTANT}.${DOMAIN}"
+    gethomepage.dev/description: "Open source home automation"
+    gethomepage.dev/group: "Home Automation"
+    gethomepage.dev/icon: home-assistant.png
+    gethomepage.dev/app: "home-assistant"  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+    gethomepage.dev/name: "Home Asssistant"
 spec:
   entryPoints:
     - websecure
