@@ -30,4 +30,4 @@ spec:
         - name: esphome
           kind: Service
           namespace: home-automation
-          port: 6053
+          port: 6052
