@@ -26,5 +26,5 @@ spec:
       services:
         - name: esphome
           kind: Service
-          namespace: esphome
+          namespace: home-automation
           port: 8123
