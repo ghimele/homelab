@@ -8,5 +8,5 @@ resources:
   # - ./promtail
   # - ./loki
   # - ./gotify
-  - ./home-assistant
+  - ./home-automation
   - ./media
