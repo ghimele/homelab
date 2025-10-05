@@ -1,0 +1,11 @@
+---
+resources:
+  - esphome-pvc.yaml
+  - ../../../base/home-automation/esphome
+  - certificate.yaml
+  - ingress-route.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

@@ -19,3 +19,4 @@ resources:
   - jellyfin.yaml
   - csi-driver-nfs.yaml
   - immich.yaml
+  - ./oci
