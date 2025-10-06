@@ -1,0 +1,10 @@
+---
+resources:
+  - ../../../base/home-automation/code-server/release.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: code-server
+  namespace: home-automation
+spec:
+  interval: 10m0s
+  values:
+    persistence:
+      config:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: esphome-pvc
+        advancedMounts:
+          main:
+            app:
+              - path: /config
+                mountPath: /esphome-config
