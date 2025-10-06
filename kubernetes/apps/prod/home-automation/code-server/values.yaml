@@ -16,4 +16,3 @@ spec:
           code-server:
             app:
               - path: /config
-                mountPath: /esphome-config
