@@ -13,7 +13,7 @@ spec:
         type: persistentVolumeClaim
         existingClaim: esphome-pvc
         advancedMounts:
-          main:
+          code-server:
             app:
               - path: /config
                 mountPath: /esphome-config

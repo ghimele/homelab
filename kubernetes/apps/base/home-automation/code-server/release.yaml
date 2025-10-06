@@ -13,46 +13,45 @@ spec:
     namespace: flux-system
   values:
     controllers:
-      containers:
-        main:
-          image:
-            repository: ghcr.io/coder/code-server
-            tag: 4.104.2
+      code-server:
+        pod:
+          securityContext:
+            runAsUser: 1003
+            runAsGroup: 1003
+            fsGroup: 1003
+            fsGroupChangePolicy: OnRootMismatch
+        containers:
+          app:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.104.2
 
-          args:
-            - --auth
-            - none
-            - --user-data-dir
-            - /home/coder/.vscode
-            - --extensions-dir
-            - /home/coder/.vscode
-            - --port
-            - "8080"
-            - --proxy-domain
-            - &host "code.home.${SECRET_DOMAIN}"
-            - /home/coder
+            args:
+              - --auth
+              - none
+              - --user-data-dir
+              - /home/coder/.vscode
+              - --extensions-dir
+              - /home/coder/.vscode
+              - --port
+              - "8080"
+              - --proxy-domain
+              - &host "code.home.${SECRET_DOMAIN}"
+              - /home/coder
 
-          env:
-            DISABLE_TELEMETRY: "true"
-            TZ: "${TIMEZONE}"
+            env:
+              DISABLE_TELEMETRY: "true"
+              TZ: "${TIMEZONE}"
 
-          resources:
-            requests:
-              cpu: 10m
-              memory: 640M
-            limits:
-              memory: 640M
-
-      pod:
-        securityContext:
-          runAsUser: 1003
-          runAsGroup: 1003
-          fsGroup: 1003
-          fsGroupChangePolicy: OnRootMismatch
-
+            resources:
+              requests:
+                cpu: 10m
+                memory: 640M
+              limits:
+                memory: 640M
     service:
-      main:
-        controller: main
+      app:
+        forceRename: "{{.Release.Name}}"
         ports:
           http:
             port: 8080
