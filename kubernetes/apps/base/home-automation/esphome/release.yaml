@@ -18,6 +18,7 @@ spec:
           securityContext:
             runAsUser: 1003
             runAsGroup: 1003
+            fsGroup: 1003
             runAsNonRoot: true
         containers:
           app:

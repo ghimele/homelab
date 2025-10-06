@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: code-server
+  namespace: home-automation
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_CODE_SERVER}.${DOMAIN}"
+    gethomepage.dev/description: "VSCode in the browser"
+    gethomepage.dev/group: Home Automation
+    gethomepage.dev/icon: vscode.png
+    # gethomepage.dev/app: esphome  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+    gethomepage.dev/name: "VSCode"
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: code-server.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_CODE_SERVER}.${DOMAIN}`)
+      middlewares:
+        - name: security-header
+          namespace: traefik
+      services:
+        - name: code-server
+          kind: Service
+          namespace: home-automation
+          port: 8080

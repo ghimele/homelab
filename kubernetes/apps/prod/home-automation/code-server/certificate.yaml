@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: code-server.${DOMAIN}
+  namespace: home-automation
+spec:
+  secretName: code-server.${DOMAIN}
+  dnsNames:
+    - ${HOST_CODE_SERVER}.${DOMAIN}
+  issuerRef:
+    kind: ClusterIssuer
+    name: lets-encrypt
