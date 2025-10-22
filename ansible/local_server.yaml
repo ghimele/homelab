@@ -3,18 +3,18 @@
 - name: local_server
   hosts: localhost
   tasks:
-    - import_tasks: tasks/server_packages.yaml
+    - import_tasks: tasks/linux/server_packages.yaml
       tags:
         - server
-    - import_tasks: tasks/fonts.yaml
+    - import_tasks: tasks/linux/fonts.yaml
       tags:
         - fonts
-    - import_tasks: tasks/oh-my-posh.yaml
+    - import_tasks: tasks/linux/oh-my-posh.yaml
       tags:
         - terminal
-    - import_tasks: tasks/sops_localhost.yaml
+    - import_tasks: tasks/linux/sops_localhost.yaml
       tags:
         - server
-    - import_tasks: tasks/cache-folder.yaml
+    - import_tasks: tasks/linux/cache-folder.yaml
       tags:
         - server
