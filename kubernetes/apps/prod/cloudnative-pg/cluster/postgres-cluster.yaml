@@ -38,11 +38,11 @@ spec:
 
   storage:
     storageClass: "longhorn-postgres-storage"
-    size: 10Gi
+    size: 30Gi
 
   walStorage:
     storageClass: "longhorn-postgres-storage"
-    size: 10Gi
+    size: 30Gi
 
   monitoring:
     enablePodMonitor: true
@@ -84,7 +84,7 @@ spec:
   tablespaces:
     - name: homeassistant
       storage:
-        size: 5Gi
+        size: 10Gi
         storageClass: "longhorn-postgres-storage"
     - name: gotify
       storage:
@@ -92,5 +92,5 @@ spec:
         storageClass: "longhorn-postgres-storage"
     - name: immich
       storage:
-        size: 5Gi
+        size: 10Gi
         storageClass: "longhorn-postgres-storage"
