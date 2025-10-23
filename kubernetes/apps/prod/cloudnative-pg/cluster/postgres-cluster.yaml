@@ -53,10 +53,10 @@ spec:
     podAntiAffinityType: required
     nodeSelector:
       node-role.kubernetes.io/postgres: ""
-      # tolerations:
-      #   - key: node-role.kubernetes.io/postgres
-      #     operator: Exists
-      #     effect: NoSchedule
+    tolerations:
+      - key: node-role.kubernetes.io/postgres
+        operator: Exists
+        effect: NoSchedule
   managed:
     roles:
       - name: homeassistant
