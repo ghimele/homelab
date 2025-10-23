@@ -1,6 +1,6 @@
 ---
 resources:
-  - ../../base/monitoring/namespace.yaml
+  # - ../../base/monitoring/namespace.yaml it is already created inside infrastructure
   - ./victoriametrics
   - ./victorialogs
   - ./grafana
