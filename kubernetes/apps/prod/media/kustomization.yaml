@@ -4,4 +4,4 @@ resources:
   - ./pvc-media.yaml
   - ./pvc-photos.yaml
   - ./jellyfin
-  # - ./immich
+  - ./immich
