@@ -23,4 +23,4 @@ spec:
         advancedMounts:
           code-server:
             app:
-              - path: /haconfig
+              - path: /ha-config
