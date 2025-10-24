@@ -17,20 +17,22 @@ spec:
 
   values:
     # These entries are shared between all the Immich components
-
-    env:
-      # REDIS_HOSTNAME: '{{ printf "%s-redis-master" .Release.Name }}'
-      DB_URL: ${IMMICH_DB_URL}
-      DB_HOSTNAME: ${IMMICH_DB_HOSTNAME}
-      DB_USERNAME: ${IMMICH_DB_USERNAME}
-      DB_DATABASE_NAME: ${IMMICH_DB_DATABASE_NAME}
-      DB_PASSWORD: ${IMMICH_DB_PASSWORD}
-      DB_VECTOR_EXTENSION: pgvector
-      PUBLIC_IMMICH_SERVER_URL: https://${HOST_IMMICH}.${DOMAIN}
-
-    image:
-      # renovate: datasource=github-releases depName=immich-app/immich
-      tag: "v2.0.1"
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              tag: v2.0.1
+            env:
+              REDIS_HOSTNAME: '{{ printf "%s-valkey" .Release.Name }}'
+              IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
+              DB_URL: ${IMMICH_DB_URL}
+              DB_HOSTNAME: ${IMMICH_DB_HOSTNAME}
+              DB_USERNAME: ${IMMICH_DB_USERNAME}
+              DB_DATABASE_NAME: ${IMMICH_DB_DATABASE_NAME}
+              DB_PASSWORD: ${IMMICH_DB_PASSWORD}
+              DB_VECTOR_EXTENSION: pgvector
+              PUBLIC_IMMICH_SERVER_URL: https://${HOST_IMMICH}.${DOMAIN}
 
     immich:
       metrics:
@@ -69,9 +71,13 @@ spec:
     # Immich components
     server:
       enabled: true
-      image:
-        repository: ghcr.io/immich-app/immich-server
-        pullPolicy: IfNotPresent
+      controllers:
+        main:
+          containers:
+            main:
+              image:
+                repository: ghcr.io/immich-app/immich-server
+                pullPolicy: IfNotPresent
       ingress:
         main:
           enabled: false
@@ -82,11 +88,17 @@ spec:
 
     machine-learning:
       enabled: true
-      image:
-        repository: ghcr.io/immich-app/immich-machine-learning
-        pullPolicy: IfNotPresent
-      env:
-        TRANSFORMERS_CACHE: /cache
+      controllers:
+        main:
+          containers:
+            main:
+              image:
+                repository: ghcr.io/immich-app/immich-machine-learning
+                pullPolicy: IfNotPresent
+              env:
+                TRANSFORMERS_CACHE: /cache
+                HF_XET_CACHE: /cache/huggingface-xet
+                MPLCONFIGDIR: /cache/matplotlib-config
       persistence:
         cache:
           enabled: true

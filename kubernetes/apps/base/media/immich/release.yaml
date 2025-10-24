@@ -21,15 +21,3 @@ spec:
     ## Refer there for more detail about the supported values
 
     # These entries are shared between all the Immich components
-
-    env:
-      # REDIS_HOSTNAME: '{{ printf "%s-redis-master" .Release.Name }}'
-      DB_HOSTNAME: ${IMMICH_HOST_DB}
-      DB_USERNAME: ${IMMICH_DB_USERNAME}
-      DB_DATABASE_NAME: ${IMMICH_DB_DATABASE_NAME}
-      DB_PASSWORD: ${IMMICH_DB_PASSWORD}
-      PUBLIC_IMMICH_SERVER_URL: https://${HOST_IMMICH}.${DOMAIN}
-
-    image:
-      # renovate: datasource=github-releases depName=immich-app/immich
-      tag: "v2.0.1"
