@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: homeassistant.${DOMAIN}
-  namespace: home-assistant
+  namespace: home-automation
 spec:
   secretName: homeassistant.${DOMAIN}
   dnsNames:
