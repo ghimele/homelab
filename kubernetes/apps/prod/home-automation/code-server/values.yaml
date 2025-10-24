@@ -15,4 +15,4 @@ spec:
         advancedMounts:
           code-server:
             app:
-              - path: /config
+              - path: /esphome-config
