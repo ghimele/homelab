@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   values:
     persistence:
-      config:
+      esphome-config:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: esphome-pvc
@@ -16,3 +16,11 @@ spec:
           code-server:
             app:
               - path: /esphome-config
+      ha-config:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: home-assistant-pvc
+        advancedMounts:
+          code-server:
+            app:
+              - path: /haconfig
