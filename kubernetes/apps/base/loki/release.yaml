@@ -20,7 +20,7 @@ spec:
     loki:
       image:
         repository: grafana/loki
-        tag: '3.5.7'
+        tag: '3.5.8'
       auth_enabled: false
       storage:
         type: filesystem
