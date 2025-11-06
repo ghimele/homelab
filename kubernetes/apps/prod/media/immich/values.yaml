@@ -22,6 +22,7 @@ spec:
         containers:
           main:
             image:
+              # renovate: datasource=github-releases depName=immich-app/immich
               tag: v2.1.0
             env:
               REDIS_HOSTNAME: '{{ printf "%s-valkey" .Release.Name }}'
