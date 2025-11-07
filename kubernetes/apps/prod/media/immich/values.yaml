@@ -22,8 +22,8 @@ spec:
         containers:
           main:
             image:
-              # renovate: datasource=github-releases depName=immich-app/immich
-              tag: v2.1.0
+              repository: ghcr.io/immich-app/immich-server
+              tag: v2.2.3@sha256:4504d794123c3f5410cc45bbc61e4d7dbcacec1e1b0cd2e599691430c94e5849
             env:
               REDIS_HOSTNAME: '{{ printf "%s-valkey" .Release.Name }}'
               IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
@@ -95,6 +95,7 @@ spec:
             main:
               image:
                 repository: ghcr.io/immich-app/immich-machine-learning
+                tag: v2.2.3@sha256:bf339cbb44af6c2ef25d9128e1da51b2bec0cfd524846a83e3017c21bd71ddb4
                 pullPolicy: IfNotPresent
               env:
                 TRANSFORMERS_CACHE: /cache
