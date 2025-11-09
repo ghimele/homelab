@@ -1,14 +1,15 @@
 ---
 resources:
+  - ./resources/config.yaml
   - ../../../base/monitoring/gatus
   - certificate.yaml
   - ingress-route.yaml
 
-configMapGenerator:
-  - name: gatus-configmap
-    namespace: monitoring
-    files:
-      - config.yaml=./resources/config.yaml
+# configMapGenerator:
+#   - name: gatus-configmap
+#     namespace: monitoring
+#     files:
+#       - config.yaml=./resources/config.yaml
 
 patches:
   - path: values.yaml
