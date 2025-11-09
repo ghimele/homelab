@@ -1,0 +1,15 @@
+---
+resources:
+  - ../../../base/monitoring/gatus
+  - certificate.yaml
+  - ingress-route.yaml
+
+configMapGenerator:
+  - name: gatus-configmap
+    files:
+      - config.yaml=./resources/config.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease
