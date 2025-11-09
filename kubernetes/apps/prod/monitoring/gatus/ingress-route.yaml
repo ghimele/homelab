@@ -1,0 +1,32 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard-gatus
+  namespace: monitoring
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_GATUS}.${DOMAIN}"
+    gethomepage.dev/description: Health dashboard.
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: gatus.png
+    gethomepage.dev/name: gatus
+    gethomepage.dev/app: gatus
+    gethomepage.dev/widget.type: gatus
+    gethomepage.dev/widget.url: "https://${HOST_gatus}.${DOMAIN}"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "Host(`${HOST_GATUS}.${DOMAIN}`)"
+      middlewares:
+        - name: security-header
+          namespace: traefik
+      services:
+        - kind: Service
+          name: gatus
+          namespace: monitoring
+          port: 80
+  tls:
+    secretName: gatus.${DOMAIN}

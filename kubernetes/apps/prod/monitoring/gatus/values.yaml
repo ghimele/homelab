@@ -1,0 +1,112 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gatus
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: gatus
+      # renovate: registryUrl=https://victoriametrics.github.io/helm-charts chart=victoria-logs-single
+      version: 1.4.4
+      sourceRef:
+        kind: HelmRepository
+        name: gatus
+        namespace: flux-system
+  values:
+    controllers:
+      gatus:
+        initContainers:
+          gatus-sidecar:
+            image:
+              repository: ghcr.io/home-operations/gatus-sidecar
+              tag: 0.0.9@sha256:31a52dd0e579c1f865b2580a4bb715d2a893deb1351fedeaba73598e9a578cbe
+            args:
+              - --auto-httproute
+              - --enable-httproute
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 32Mi
+            restartPolicy: Always
+        containers:
+          app:
+            image:
+              repository: ghcr.io/twin/gatus
+              tag: v5.31.0@sha256:3a432fcc2826b8eb2b38caceb83e7777fda139b8058b1d022c73a82be7342682
+            env:
+              TZ: ${TIMEZONE}
+              GATUS_CONFIG_PATH: /config
+              GATUS_DELAY_START_SECONDS: 5
+              WEB_PORT: &port 80
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              ccapabilities: { add: ["NET_RAW"], drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 256Mi
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1003
+            runAsGroup: 1003
+            fsGroup: 1003
+            fsGroupChangePolicy: OnRootMismatch
+        serviceAccount:
+          identifier: gatus
+    service:
+      app:
+        controller: gatus
+        ports:
+          http:
+            port: *port
+    serviceMonitor:
+      app:
+        endpoints:
+          - port: http
+    rbac:
+      roles:
+        gatus:
+          type: ClusterRole
+          rules:
+            - apiGroups: [""]
+              resources: ["configmaps", "secrets"]
+              verbs: ["get", "watch", "list"]
+      bindings:
+        gatus:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: gatus
+          subjects:
+            - identifier: gatus
+    serviceAccount:
+      gatus: {}
+    persistence:
+      config:
+        type: emptyDir
+      config-file:
+        type: configMap
+        name: gatus-configmap
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
