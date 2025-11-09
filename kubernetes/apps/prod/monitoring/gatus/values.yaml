@@ -5,16 +5,7 @@ metadata:
   name: gatus
   namespace: monitoring
 spec:
-  interval: 5m
-  chart:
-    spec:
-      chart: gatus
-      # renovate: registryUrl=https://victoriametrics.github.io/helm-charts chart=victoria-logs-single
-      version: 1.4.4
-      sourceRef:
-        kind: HelmRepository
-        name: gatus
-        namespace: flux-system
+  interval: 10m0s
   values:
     controllers:
       gatus:
