@@ -27,6 +27,6 @@ spec:
         - kind: Service
           name: gatus
           namespace: monitoring
-          port: 80
+          port: 8080
   tls:
     secretName: gatus.${DOMAIN}
