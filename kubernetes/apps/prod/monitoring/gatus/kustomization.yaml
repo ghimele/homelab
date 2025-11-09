@@ -6,9 +6,9 @@ resources:
 
 configMapGenerator:
   - name: gatus-configmap
+    namespace: monitoring
     files:
       - config.yaml=./resources/config.yaml
-  - namespace: monitoring
 
 patches:
   - path: values.yaml
