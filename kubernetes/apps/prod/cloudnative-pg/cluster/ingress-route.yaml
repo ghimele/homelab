@@ -4,6 +4,10 @@ kind: IngressRouteTCP
 metadata:
   name: postgres-cluster
   namespace: cnpg-db
+  annotations:
+    gatus.home-operations.com/endpoint: |-
+      conditions:
+      - "[CONNECTED] == true"
 spec:
   entryPoints:
     - websecure
