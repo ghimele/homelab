@@ -30,8 +30,7 @@ spec:
             group: "home-automation"
 
             # Tell Gatus to check the /api/ path, not /
-            path: "/api/"
-
+            url: http://home-assistant.home-automation.svc.cluster.local:80/api/
             # Check for a 401, which proves the HA
             # API is up and responding.
             conditions:
