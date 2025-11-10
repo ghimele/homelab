@@ -67,6 +67,8 @@ spec:
           identifier: gatus
     service:
       app:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         controller: gatus
         ports:
           http:

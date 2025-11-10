@@ -13,7 +13,7 @@ metadata:
     gethomepage.dev/name: gatus
     gethomepage.dev/app: gatus
     gethomepage.dev/widget.type: gatus
-    gethomepage.dev/widget.url: "https://${HOST_gatus}.${DOMAIN}"
+    gethomepage.dev/widget.url: "https://${HOST_GATUS}.${DOMAIN}"
 spec:
   entryPoints:
     - websecure

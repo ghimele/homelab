@@ -18,3 +18,30 @@ spec:
               - path: /config
             code-server:
               - path: /config
+    service:
+      main:
+        annotations:
+          # This enables discovery
+          gatus.io/monitor: "true"
+
+          # This tells Gatus *how* to monitor it
+          gatus.home-operations.com/endpoint: |
+            # Assign it to a group on the dashboard
+            group: "home-automation"
+
+            # Tell Gatus to check the /api/ path, not /
+            path: "/api/"
+
+            # Check for a 401, which proves the HA
+            # API is up and responding.
+            conditions:
+              - "[STATUS] == 401"
+              - "[RESPONSE_TIME] < 1000"
+        controller: main
+        type: ClusterIP
+        ports:
+          http:
+            port: 8123
+          code-server:
+            port: 8080
+        
