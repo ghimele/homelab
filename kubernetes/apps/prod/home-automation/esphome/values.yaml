@@ -7,6 +7,19 @@ metadata:
 spec:
   interval: 10m0s
   values:
+    service:
+      app:
+        annotations:
+          # This enables discovery
+          gatus.io/monitor: "true"
+          # This tells Gatus *how* to monitor it
+          gatus.home-operations.com/endpoint: |
+            # Assign it to a group on the dashboard
+            group: "home-automation"
+        forceRename: "{{.Release.Name}}"
+        ports:
+          http:
+            port: 6052
     persistence:
       config:
         enabled: true
