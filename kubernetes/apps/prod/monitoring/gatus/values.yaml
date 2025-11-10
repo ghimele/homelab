@@ -15,8 +15,9 @@ spec:
               repository: ghcr.io/home-operations/gatus-sidecar
               tag: 0.0.9@sha256:31a52dd0e579c1f865b2580a4bb715d2a893deb1351fedeaba73598e9a578cbe
             args:
-              - --auto-httproute
-              - --enable-httproute
+              # Tell the sidecar to enable Service discovery
+              - --enable-service
+              - --auto-service
             resources:
               requests:
                 cpu: 10m
@@ -79,9 +80,9 @@ spec:
         gatus:
           type: ClusterRole
           rules:
-            - apiGroups: ["gateway.networking.k8s.io"]
-              resources: ["gateways", "httproutes"]
-              verbs: ["get", "watch", "list"]
+            - apiGroups: [""]
+              resources: ["services"]
+              verbs: ["get", "list", "watch"]
       bindings:
         gatus:
           type: ClusterRoleBinding
