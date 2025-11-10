@@ -79,8 +79,8 @@ spec:
         gatus:
           type: ClusterRole
           rules:
-            - apiGroups: [""]
-              resources: ["configmaps", "secrets"]
+            - apiGroups: ["gateway.networking.k8s.io"]
+              resources: ["gateways", "httproutes"]
               verbs: ["get", "watch", "list"]
       bindings:
         gatus:
