@@ -18,7 +18,6 @@ spec:
               # Tell the sidecar to enable Service discovery
               - --enable-service
               - --auto-service
-              - --auto-group
             resources:
               requests:
                 cpu: 10m
