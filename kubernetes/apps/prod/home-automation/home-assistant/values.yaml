@@ -41,5 +41,7 @@ spec:
         ports:
           http:
             port: 8123
-          code-server:
-            port: 8080
+          coap:
+            protocol: UDP
+            port: 5683
+            targetPort: 5683
