@@ -7,6 +7,11 @@ metadata:
 spec:
   interval: 10m0s
   values:
+    defaultPodOptions:
+      # -- Node selector for pod scheduling.
+      nodeSelector:
+        # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
+        node-role.kubernetes.io/nfs: ""
     persistence:
       media:
         ## -- Use an existing PVC for this mount
@@ -15,10 +20,6 @@ spec:
         globalMounts:
           - path: /Data
             readOnly: false
-    # -- Node selector for pod scheduling.
-    nodeSelector:
-      # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
-      node-role.kubernetes.io/nfs: ""
     service:
       app:
         annotations:
