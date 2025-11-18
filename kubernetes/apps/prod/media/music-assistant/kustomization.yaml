@@ -1,5 +1,6 @@
 ---
 resources:
+  - music-assistant-pvc.yaml
   - ../../../base/media/music-assistant
   - ./certificate.yaml
   - ./ingress-route.yaml

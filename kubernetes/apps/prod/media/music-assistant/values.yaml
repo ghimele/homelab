@@ -15,14 +15,14 @@ spec:
     persistence:
       config:
         enabled: true
-        storageClass: local-path
+        type: persistentVolumeClaim
+        existingClaim: music-assistant-pvc
         globalMounts:
           - path: /data
-      media:
-        ## -- Use an existing PVC for this mount
-        enabled: true
-        storageClass: nfs-media
-        existingClaim: media
+      # media:
+      #   ## -- Use an existing PVC for this mount
+      #   enabled: true
+      #   existingClaim: media
     service:
       app:
         annotations:
