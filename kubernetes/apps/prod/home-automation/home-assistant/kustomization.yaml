@@ -5,6 +5,7 @@ resources:
   - ../../../base/home-automation/home-assistant
   - certificate.yaml
   - ingress-route.yaml
+  - coap-service.yaml
 
 patches:
   - path: values.yaml
