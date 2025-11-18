@@ -16,7 +16,7 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
-        existingClaim: music-assistant-pvc
+        existingClaim: music-assistant
         globalMounts:
           - path: /data
       # media:
