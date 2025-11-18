@@ -9,8 +9,8 @@ spec:
   values:
     persistence:
       media:
-        storageClass: nfs-media
         ## -- Use an existing PVC for this mount
+        enabled: true
         existingClaim: media
         globalMounts:
           - path: /Data
