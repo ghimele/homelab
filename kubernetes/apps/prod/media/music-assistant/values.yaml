@@ -12,14 +12,11 @@ spec:
       nodeSelector:
         # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
         node-role.kubernetes.io/nfs: ""
-    # persistence:
-    #   media:
-    #     ## -- Use an existing PVC for this mount
-    #     enabled: true
-    #     existingClaim: media
-    #     globalMounts:
-    #       - path: /Data
-    #         readOnly: false
+    persistence:
+      media:
+        ## -- Use an existing PVC for this mount
+        enabled: true
+        existingClaim: media
     service:
       app:
         annotations:
