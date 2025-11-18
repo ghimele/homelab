@@ -66,4 +66,5 @@ rules:
   trailing-spaces:
     level: error
   truthy:
+    allowed-values: ["yes", "no", "true", "false", "on", "off"]
     level: warning

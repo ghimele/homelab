@@ -1,0 +1,31 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: music-assistant
+  namespace: media
+spec:
+  interval: 10m0s
+  values:
+    persistence:
+      media:
+        storageClass: nfs-media
+        ## -- Use an existing PVC for this mount
+        existingClaim: media
+        globalMounts:
+          - path: /Data
+            readOnly: false
+    # -- Node selector for pod scheduling.
+    nodeSelector:
+      # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
+      node-role.kubernetes.io/nfs: ""
+    service:
+      main:
+        annotations:
+          # This enables discovery
+          gatus.io/monitor: "true"
+
+          # This tells Gatus *how* to monitor it
+          gatus.home-operations.com/endpoint: |
+            # Assign it to a group on the dashboard
+            group: "media"

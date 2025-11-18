@@ -1,0 +1,10 @@
+---
+resources:
+  - ../../../base/media/music-assistant
+  - ./certificate.yaml
+  - ./ingress-route.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

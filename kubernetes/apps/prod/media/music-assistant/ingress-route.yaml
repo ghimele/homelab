@@ -1,0 +1,27 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: music-assistant
+  namespace: media
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_MUSIC_ASSISTANT}.${DOMAIN}"
+    gethomepage.dev/description: music-assistant is an open source music server and controller for your local music collection and favorite streaming services.
+    gethomepage.dev/group: Media
+    gethomepage.dev/icon: music-assistant.png
+    # gethomepage.dev/app: xen  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+    gethomepage.dev/name: "Music Assistant"
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: music-assistant.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_MUSIC_ASSISTANT}.${DOMAIN}`)
+      services:
+        - name: music-assistant
+          kind: Service
+          namespace: media
+          port: 8096
