@@ -41,13 +41,13 @@ spec:
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"], add: ["SYS_ADMIN", "DAC_READ_SEARCH"] }
             resources: {}
-    # defaultPodOptions:
-    # securityContext:
-    #   runAsNonRoot: true
-    #   runAsUser: 1003
-    #   runAsGroup: 1003
-    # fsGroup: 1003
-    # fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1003
+        runAsGroup: 1003
+        fsGroup: 1003
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: music-assistant
