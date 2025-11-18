@@ -60,7 +60,8 @@ spec:
             permanent: true
       coap:
         port: 5683
-        expose: true
+        expose:
+          default: true
         exposedPort: 5683
         protocol: UDP
       # metrics
