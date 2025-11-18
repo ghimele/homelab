@@ -29,10 +29,10 @@ spec:
       pgaudit.log_relation: "on"
     shared_preload_libraries:
       - "vchord.so"
-    # synchronous:
-    #   method: any
-    #   number: 1
-    #   dataDurability: required
+  # synchronous:
+  #   method: any
+  #   number: 1
+  #   dataDurability: required
 
   enableSuperuserAccess: true
 

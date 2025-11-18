@@ -5,3 +5,4 @@ resources:
   - ./pvc-photos.yaml
   - ./jellyfin
   - ./immich
+  - ./music-assistant

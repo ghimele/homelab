@@ -9,6 +9,6 @@ spec:
     - coap  # Matches the name defined in step 1
   routes:
     - services:
-        - name: home-assistant 
+        - name: home-assistant
           namespace: home-automation
           port: 5683

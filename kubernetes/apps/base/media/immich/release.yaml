@@ -16,8 +16,8 @@ spec:
         namespace: flux-system
 
   values:
-    ## This chart relies on the common library chart from bjw-s
-    ## You can find it at https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
-    ## Refer there for more detail about the supported values
+  # This chart relies on the common library chart from bjw-s
+  # You can find it at https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+  # Refer there for more detail about the supported values
 
-    # These entries are shared between all the Immich components
+  # These entries are shared between all the Immich components
