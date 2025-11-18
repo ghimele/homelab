@@ -4,6 +4,7 @@ resources:
   - ../../../base/monitoring/gatus
   - certificate.yaml
   - ingress-route.yaml
+  - coap-service.yaml
 
 # configMapGenerator:
 #   - name: gatus-configmap
