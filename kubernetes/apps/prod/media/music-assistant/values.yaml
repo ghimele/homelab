@@ -20,7 +20,7 @@ spec:
       # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
       node-role.kubernetes.io/nfs: ""
     service:
-      main:
+      app:
         annotations:
           # This enables discovery
           gatus.io/monitor: "true"
@@ -29,3 +29,9 @@ spec:
           gatus.home-operations.com/endpoint: |
             # Assign it to a group on the dashboard
             group: "media"
+        controller: music-assistant
+        ports:
+          http:
+            port: 8095
+          stream:
+            port: 8097
