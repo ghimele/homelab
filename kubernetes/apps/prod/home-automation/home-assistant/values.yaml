@@ -43,4 +43,3 @@ spec:
             port: 8123
           code-server:
             port: 8080
-        

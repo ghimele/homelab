@@ -1,0 +1,14 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteUDP
+metadata:
+  name: home-assistant-coap
+  namespace: home-automation
+spec:
+  entryPoints:
+    - coap  # Matches the name defined in step 1
+  routes:
+    - services:
+        - name: home-assistant 
+          namespace: home-automation
+          port: 5683

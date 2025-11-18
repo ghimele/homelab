@@ -58,6 +58,11 @@ spec:
             to: websecure
             scheme: https
             permanent: true
+      coap:
+        port: 5683
+        expose: true
+        exposedPort: 5683
+        protocol: UDP
       # metrics
       metrics:
         port: 9100
