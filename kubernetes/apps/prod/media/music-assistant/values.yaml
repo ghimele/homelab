@@ -19,6 +19,12 @@ spec:
         existingClaim: music-assistant
         globalMounts:
           - path: /data
+      tmpfs:
+        type: emptyDir
+        enabled: true
+        advancedMounts:
+          globalMounts:
+            - path: /tmp
       # media:
       #   ## -- Use an existing PVC for this mount
       #   enabled: true
