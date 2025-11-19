@@ -20,11 +20,10 @@ spec:
         globalMounts:
           - path: /data
       tmpfs:
+        enabled: true # Must be true
         type: emptyDir
-        enabled: true
-        advancedMounts:
-          globalMounts:
-            - path: /tmp
+        mountPath: /tmp # <--- Corrected! Use simple mountPath
+
       # media:
       #   ## -- Use an existing PVC for this mount
       #   enabled: true
