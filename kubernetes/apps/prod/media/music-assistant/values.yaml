@@ -20,9 +20,12 @@ spec:
         globalMounts:
           - path: /data
       tmpfs:
-        enabled: true # Must be true
         type: emptyDir
-        mountPath: /tmp # <--- Corrected! Use simple mountPath
+        advancedMounts:
+          music-assistant:
+            app:
+              - path: /tmp
+                subPath: tmp
 
       # media:
       #   ## -- Use an existing PVC for this mount
