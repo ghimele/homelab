@@ -7,7 +7,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://${HOST_MUSIC_ASSISTANT}.${DOMAIN}"
-    gethomepage.dev/description: music-assistant is an open source music server and controller for your local music collection and favorite streaming services.
+    gethomepage.dev/description: Music library manager for offline and online music sources.
     gethomepage.dev/group: Media
     gethomepage.dev/icon: music-assistant.png
     # gethomepage.dev/app: xen  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
@@ -24,4 +24,4 @@ spec:
         - name: music-assistant
           kind: Service
           namespace: media
-          port: 8096
+          port: 8095
