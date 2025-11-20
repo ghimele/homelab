@@ -10,7 +10,7 @@ metadata:
     gethomepage.dev/description: "Self-hosted photo and video management solution"
     gethomepage.dev/group: Media
     gethomepage.dev/icon: immich.png
-    gethomepage.dev/app: immich-server  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+    gethomepage.dev/app: immich  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
     gethomepage.dev/name: "Immich"
 spec:
   entryPoints:
