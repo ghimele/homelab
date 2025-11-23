@@ -68,6 +68,17 @@ spec:
           enabled: true
           type: persistentVolumeClaim
           existingClaim: valkey-data
+      service:
+        main:
+          enabled: true
+          annotations:
+            # This enables discovery
+            gatus.io/monitor: "true"
+
+            # This tells Gatus *how* to monitor it
+            gatus.home-operations.com/endpoint: |
+              # Assign it to a group on the dashboard
+              group: "media"
 
     # Immich components
     server:
@@ -86,6 +97,17 @@ spec:
       nodeSelector:
         # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
         node-role.kubernetes.io/nfs: ""
+      service:
+        main:
+          enabled: true
+          annotations:
+            # This enables discovery
+            gatus.io/monitor: "true"
+
+            # This tells Gatus *how* to monitor it
+            gatus.home-operations.com/endpoint: |
+              # Assign it to a group on the dashboard
+              group: "media"
 
     machine-learning:
       enabled: true
@@ -109,3 +131,14 @@ spec:
           # type: emptyDir
           accessMode: ReadWriteMany
           storageClass: longhorn
+      service:
+        main:
+          enabled: true
+          annotations:
+            # This enables discovery
+            gatus.io/monitor: "true"
+
+            # This tells Gatus *how* to monitor it
+            gatus.home-operations.com/endpoint: |
+              # Assign it to a group on the dashboard
+              group: "media"
