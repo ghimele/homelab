@@ -37,3 +37,13 @@ spec:
       serviceMonitor:
         # -- Enable or disable the creation of a ServiceMonitor resource
         enabled: false
+
+    service:
+      annotations:
+        # This enables discovery
+        gatus.io/monitor: "true"
+
+        # This tells Gatus *how* to monitor it
+        gatus.home-operations.com/endpoint: |
+          # Assign it to a group on the dashboard
+          group: "media"
