@@ -50,7 +50,7 @@ spec:
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       annotations:
-      hostUsers: false
+      hostUsers: true
       securityContext:
         runAsNonRoot: false # Must be run as root user
         # runAsUser: 1003        # Must be run as root user
