@@ -6,8 +6,8 @@ metadata:
   namespace: home-automation
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: longhorn
+  storageClassName: local-path
