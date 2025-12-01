@@ -4,4 +4,4 @@ resources:
   - ./home-assistant
   - ./esphome
   - ./code-server
-  # - ./matter-server
+  - ./matter-server
