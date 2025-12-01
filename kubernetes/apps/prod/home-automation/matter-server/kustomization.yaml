@@ -1,0 +1,10 @@
+---
+resources:
+  - ../../../base/home-automation/matter-server
+  - certificate.yaml
+  - ingress-route.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

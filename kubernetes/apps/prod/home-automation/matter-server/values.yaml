@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home-automation
+spec:
+  interval: 10m0s
+  values:
+
+    service:
+      app:
+        annotations:
+          # This enables discovery
+          gatus.io/monitor: "true"
+
+          # This tells Gatus *how* to monitor it
+          gatus.home-operations.com/endpoint: |
+            # Assign it to a group on the dashboard
+            group: "home-automation"
+
+        controller: matter-server
+
