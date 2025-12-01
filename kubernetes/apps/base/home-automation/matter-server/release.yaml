@@ -47,6 +47,8 @@ spec:
               limits:
                 memory: 100Mi
     defaultPodOptions:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       annotations:
       hostUsers: false
       securityContext:
