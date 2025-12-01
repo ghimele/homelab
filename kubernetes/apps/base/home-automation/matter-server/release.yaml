@@ -50,12 +50,12 @@ spec:
       annotations:
       hostUsers: false
       securityContext:
-        runAsNonRoot: true # Must be run as root user
-        runAsUser: 1003        # Must be run as root user
-        runAsGroup: 1003
-        fsGroup: 1003
-        fsGroupChangePolicy: OnRootMismatch
-        supplementalGroups: [34]
+        runAsNonRoot: false # Must be run as root user
+        # runAsUser: 1003        # Must be run as root user
+        # runAsGroup: 1003
+        # fsGroup: 1003
+        # fsGroupChangePolicy: OnRootMismatch
+        # supplementalGroups: [34]
     service:
       app:
         ports:
