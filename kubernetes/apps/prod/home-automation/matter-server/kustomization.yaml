@@ -1,5 +1,6 @@
 ---
 resources:
+  - matter-server-pvc.yaml
   - ../../../base/home-automation/matter-server
   - certificate.yaml
   - ingress-route.yaml
