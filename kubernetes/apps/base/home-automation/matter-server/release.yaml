@@ -35,7 +35,7 @@ spec:
               tag: 8.1.0@sha256:170aa093ce91c76cde4cc390918307590f0f5558fcec93f913af3cb019e6562a
             env:
               TZ: ${TIMEZONE}
-              MATTER_SERVER__INSTANCE_NAME: "{{ .Release.Name }}"
+              MATTER_SERVER__INSTANCE_NAME: matter-server
               MATTER_SERVER__PORT: 5580
               MATTER_SERVER__APPLICATION_URL: ${HOST_MATTER_SERVER}.${DOMAIN}
               MATTER_SERVER__LOG_LEVEL: info
@@ -63,6 +63,6 @@ spec:
             port: 5580
     persistence:
       data:
-        existingClaim: "{{ .Release.Name }}"
+        existingClaim: matter-server-data
       tmp:
         type: emptyDir
