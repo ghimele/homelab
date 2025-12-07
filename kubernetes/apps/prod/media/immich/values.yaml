@@ -34,6 +34,12 @@ spec:
               DB_PASSWORD: ${IMMICH_DB_PASSWORD}
               DB_VECTOR_EXTENSION: pgvector
               PUBLIC_IMMICH_SERVER_URL: https://${HOST_IMMICH}.${DOMAIN}
+            resources:
+              requests:
+                cpu: 100m
+                memory: 2Gi
+              limits:
+                memory: 4Gi 
 
     immich:
       metrics:
