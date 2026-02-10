@@ -17,9 +17,9 @@ spec:
         namespace: flux-system
       interval: 12h
   values:
-    globalArguments:
-      - --global.checknewversion=true
-      - --global.sendanonymoususage=false
+    #globalArguments:
+    #  - --global.checknewversion=true
+    #  - --global.sendanonymoususage=false
     additionalArguments:
       - '--serverstransport.insecureskipverify'
       # - '--ping.entrypoint=metrics'
@@ -53,11 +53,12 @@ spec:
             defaultmode: keep
     ports:
       web:
-        redirections:
-          entryPoint:
-            to: websecure
-            scheme: https
-            permanent: true
+        http:
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              permanent: true
       coap:
         port: 5683
         expose:
