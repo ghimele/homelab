@@ -6,11 +6,11 @@ Longhorn is a lightweight, reliable and easy-to-use distributed block storage sy
 
 ## Created Resources
 
-| Kind                                | Name             |
-| ----------------------------------- | ---------------- |
-| [`HelmRelease`][ref-helm-release]   | `Longhorn`           |
-| [`Certificate`][ref-certificate]    | `Longhorn.${DOMAIN}` |
-| [`IngressRoute`][ref-ingress-route] | `Longhorn`           |
+| Kind | Name |
+| ---- | ---- |
+| [`HelmRelease`][ref-helm-release] | `Longhorn` |
+| [`Certificate`][ref-certificate] | `Longhorn.${DOMAIN}` |
+| [`IngressRoute`][ref-ingress-route] | `Longhorn` |
 
 [ref-helm-release]: https://fluxcd.io/docs/components/helm/helmreleases/
 [ref-certificate]: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate

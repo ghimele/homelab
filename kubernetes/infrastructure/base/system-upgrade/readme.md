@@ -2,7 +2,8 @@
 
 ## Introduction
 
-Rancher's [`system-upgrade-controller`](https://github.com/rancher/system-upgrade-controller) makes it easy to upgrade K3s nodes in an automated way. It introduces a `CustomResourceDefinition` named `Plan` to provide details about an update of a selected range of nodes:
+Rancher's [`system-upgrade-controller`](https://github.com/rancher/system-upgrade-controller) makes it easy to upgrade K3s nodes in an automated way.
+It introduces a `CustomResourceDefinition` named `Plan` to provide details about an update of a selected range of nodes:
 
 !!! example "Example of kind `Plan`"
 
@@ -17,10 +18,10 @@ The controller then picks up any `Plan` resource and performs the defined upgrad
 
 ## Created Resources
 
-| Kind                         | Name               |
-| ---------------------------- | ------------------ |
-| [`Namespace`][ref-namespace] | `system-upgrade`   |
-| [`Plan`][ref-plan]           | `master`, `worker` |
+| Kind | Name |
+| ---- | ---- |
+| [`Namespace`][ref-namespace] | `system-upgrade` |
+| [`Plan`][ref-plan] | `master`, `worker` |
 
 [ref-namespace]: https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/namespace-v1/
 [ref-plan]: https://docs.k3s.io/upgrades/automated#configure-plans

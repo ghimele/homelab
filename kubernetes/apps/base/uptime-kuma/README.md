@@ -6,11 +6,11 @@ Uptime Kuma is an easy-to-use self-hosted monitoring tool.
 
 ## Created Resources
 
-| Kind                                | Name             |
-| ----------------------------------- | ---------------- |
-| [`HelmRelease`][ref-helm-release]   | `uptime-kuma`           |
-| [`Certificate`][ref-certificate]    | `uptime-kuma.${DOMAIN}` |
-| [`IngressRoute`][ref-ingress-route] | `uptime-kuma`           |
+| Kind | Name |
+| ---- | ---- |
+| [`HelmRelease`][ref-helm-release] | `uptime-kuma` |
+| [`Certificate`][ref-certificate] | `uptime-kuma.${DOMAIN}` |
+| [`IngressRoute`][ref-ingress-route] | `uptime-kuma` |
 
 [ref-helm-release]: https://fluxcd.io/docs/components/helm/helmreleases/
 [ref-certificate]: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate

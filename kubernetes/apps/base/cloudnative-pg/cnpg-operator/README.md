@@ -6,11 +6,11 @@ CloudNativePG is a comprehensive platform designed to seamlessly manage PostgreS
 
 ## Created Resources
 
-| Kind                                | Name             |
-| ----------------------------------- | ---------------- |
-| [`HelmRelease`][ref-helm-release]   | `cloudnative-pg` |
-| [`Certificate`][ref-certificate]    | `loki.${DOMAIN}` |
-| [`IngressRoute`][ref-ingress-route] | `loki`           |
+| Kind | Name |
+| ---- | ---- |
+| [`HelmRelease`][ref-helm-release] | `cloudnative-pg` |
+| [`Certificate`][ref-certificate] | `loki.${DOMAIN}` |
+| [`IngressRoute`][ref-ingress-route] | `loki` |
 
 [ref-helm-release]: https://fluxcd.io/docs/components/helm/helmreleases/
 [ref-certificate]: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate

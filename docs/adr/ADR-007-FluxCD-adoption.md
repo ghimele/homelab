@@ -1,6 +1,7 @@
 # ADR 007: Use FluxCD for Kubernetes Cluster Management
 
 ## Status
+
 Accepted
 
 ## Date
@@ -9,11 +10,13 @@ Accepted
 
 ## Context and Problem Statement
 
-I need a reliable tool for managing Continuous Deployment (CD) and applying GitOps principles to my Kubernetes clusters. The tool should align well with my GitOps workflow, support Kubernetes-native integrations, and allow me to manage both infrastructure and applications declaratively.
+I need a reliable tool for managing Continuous Deployment (CD) and applying GitOps principles to my Kubernetes clusters.
+The tool should align well with my GitOps workflow, support Kubernetes-native integrations, and allow me to manage both infrastructure and applications declaratively.
 
 ## Solution (Decision)
 
-I have chosen **FluxCD** as the primary tool to manage Kubernetes cluster configurations and application deployments. FluxCD offers a lightweight, GitOps-first approach, making it easy to continuously reconcile the desired state of my clusters based on the configuration stored in Git.
+I have chosen **FluxCD** as the primary tool to manage Kubernetes cluster configurations and application deployments.
+FluxCD offers a lightweight, GitOps-first approach, making it easy to continuously reconcile the desired state of my clusters based on the configuration stored in Git.
 
 ### Key Advantages of FluxCD
 
@@ -33,13 +36,13 @@ I have chosen **FluxCD** as the primary tool to manage Kubernetes cluster config
 
 ## Comparison Table
 
-| Feature/Criteria             | FluxCD                        | Argo CD                          | Jenkins X                         |
-|------------------------------|-------------------------------|----------------------------------|--------------------------------|
-| **GitOps Focus**             | Strong GitOps principles      | GitOps but with added UI control | Primarily focused on CI/CD     |
-| **Resource Usage**           | Low                           | Medium (UI/API overhead)         | High                           |
-| **Deployment Strategies**    | Supports Helm/Kustomize       | Advanced (hooks, waves, etc.)    | Complex, focuses more on CI    |
-| **Multi-tenancy Support**    | Available with setup          | Strong native support            | Available but not as mature    |
-| **Ease of Use**              | Simple Git-based workflows    | UI-driven, more flexible         | High complexity                |
+| Feature/Criteria | FluxCD | Argo CD | Jenkins X |
+| ---------------- | ------ | ------- | --------- |
+| **GitOps Focus** | Strong GitOps principles | GitOps but with added UI control | Primarily focused on CI/CD |
+| **Resource Usage** | Low | Medium (UI/API overhead) | High |
+| **Deployment Strategies** | Supports Helm/Kustomize | Advanced (hooks, waves, etc.) | Complex, focuses more on CI |
+| **Multi-tenancy Support** | Available with setup | Strong native support | Available but not as mature |
+| **Ease of Use** | Simple Git-based workflows | UI-driven, more flexible | High complexity |
 
 ## Consequences
 

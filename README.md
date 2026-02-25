@@ -1,17 +1,21 @@
 # Ghimele's Homelab Configuration Repository
+
 ![GitHub tag status](https://img.shields.io/github/checks-status/ghimele/homelab/main?style=)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ghimele/homelab/ci.yaml?style=flat-square)
- [![Pipeline (docs)](https://img.shields.io/github/actions/workflow/status/ghimele/homelab/docs.yml?branch=main&label=docs&style=flat-square)](https://github.com/ghimele/homelab/actions/workflows/docs.yml) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ghimele/homelab?style=flat-square) [![GitHub Last Commit](https://img.shields.io/github/last-commit/ghimele/homelab?style=flat-square)](https://github.com/ghimele/homelab/commits/main) ![GitHub top language](https://img.shields.io/github/languages/top/ghimele/homelab?style=flat-square) ![GitHub repo size](https://img.shields.io/github/repo-size/ghimele/homelab?style=flat-square) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+ [![Pipeline (docs)](https://img.shields.io/github/actions/workflow/status/ghimele/homelab/docs.yml?branch=main&label=docs&style=flat-square)](https://github.com/ghimele/homelab/actions/workflows/docs.yml)
+ ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ghimele/homelab?style=flat-square) [![GitHub Last Commit](https://img.shields.io/github/last-commit/ghimele/homelab?style=flat-square)](https://github.com/ghimele/homelab/commits/main)
+ ![GitHub top language](https://img.shields.io/github/languages/top/ghimele/homelab?style=flat-square) ![GitHub repo size](https://img.shields.io/github/repo-size/ghimele/homelab?style=flat-square) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=flat-square&logo=kubernetes&logoColor=white) ![Ansible](https://img.shields.io/badge/ansible-%231A1918.svg?style=flat-square&logo=ansible&logoColor=white) ![Flux](https://img.shields.io/badge/flux-5468ff?style=flat-square&logo=flux&logoColor=white) ![Renovate](https://img.shields.io/badge/Renovate-308be3?style=flat-square&logo=renovate&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=flat-square&logo=kubernetes&logoColor=white)
+![Ansible](https://img.shields.io/badge/ansible-%231A1918.svg?style=flat-square&logo=ansible&logoColor=white) ![Flux](https://img.shields.io/badge/flux-5468ff?style=flat-square&logo=flux&logoColor=white) ![Renovate](https://img.shields.io/badge/Renovate-308be3?style=flat-square&logo=renovate&logoColor=white)
 
-
-
-Welcome to the Homelab Configuration repository! This repository contains the configuration and automation scripts used to manage and deploy resources in the homelab environment. It includes Ansible playbooks, Kubernetes manifests, Helm charts, and CI/CD workflows.
+Welcome to the Homelab Configuration repository! This repository contains the configuration and automation scripts used to manage and deploy resources in the homelab environment.
+It includes Ansible playbooks, Kubernetes manifests, Helm charts, and CI/CD workflows.
 
 ## Repository Structure
 
 Here's an overview of the repository structure:
+
 ```bash
 ├── .github/                # GitHub Actions workflows
 ├── ansible/                # Ansible playbooks and tasks for system automation

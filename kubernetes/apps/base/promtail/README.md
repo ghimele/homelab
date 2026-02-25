@@ -6,11 +6,11 @@ Promtail is an agent which ships the contents of local logs to a private Grafana
 
 ## Created Resources
 
-| Kind                                | Name             |
-| ----------------------------------- | ---------------- |
-| [`HelmRelease`][ref-helm-release]   | `promtail`           |
-| [`Certificate`][ref-certificate]    | `promtail.${DOMAIN}` |
-| [`IngressRoute`][ref-ingress-route] | `promtail`           |
+| Kind | Name |
+| ---- | ---- |
+| [`HelmRelease`][ref-helm-release] | `promtail` |
+| [`Certificate`][ref-certificate] | `promtail.${DOMAIN}` |
+| [`IngressRoute`][ref-ingress-route] | `promtail` |
 
 [ref-helm-release]: https://fluxcd.io/docs/components/helm/helmreleases/
 [ref-certificate]: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate

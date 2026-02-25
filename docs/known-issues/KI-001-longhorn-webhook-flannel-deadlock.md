@@ -1,12 +1,15 @@
 # KI-001 — Longhorn validating webhook blocks Flannel bootstrap (k3s HA)
 
 ## Status
+
 Mitigated
 
 ## First observed
+
 2026-02-23
 
 ## Affected components
+
 - k3s (HA control plane and agents)
 - Flannel (CNI)
 - Kubernetes API server
@@ -77,7 +80,7 @@ The cluster cannot recover automatically.
 - Pods stuck in `ContainerCreating` across all namespaces
 - Errors similar to:
 
-```
+```bash
 failed to setup network for sandbox:
 plugin type="flannel" failed (add):
 failed to load flannel 'subnet.env':
@@ -88,7 +91,7 @@ open /run/flannel/subnet.env: no such file or directory
 
 `k3s` logs repeatedly show:
 
-```
+```bash
 failed calling webhook "validator.longhorn.io":
 no endpoints available for service "longhorn-admission-webhook"
 ```
@@ -98,23 +101,28 @@ no endpoints available for service "longhorn-admission-webhook"
 ## Resolution
 
 1. Identify and remove the Longhorn validating webhook:
+
    ```bash
    kubectl get validatingwebhookconfigurations
    kubectl delete validatingwebhookconfiguration longhorn-webhook-validator
    ```
 
 2. Restart k3s control-plane nodes **sequentially**:
+
    ```bash
    sudo systemctl restart k3s
    ```
+
    Wait for each node to become `Ready` before proceeding.
 
 3. Restart all agent nodes:
+
    ```bash
    sudo systemctl restart k3s-agent
    ```
 
 4. Verify Flannel initialization:
+
    ```bash
    ls -l /run/flannel/subnet.env
    kubectl get nodes -o wide
@@ -136,9 +144,11 @@ no endpoints available for service "longhorn-admission-webhook"
 ## Prevention
 
 - Configure Longhorn validating admission webhook with:
+
   ```yaml
   failurePolicy: Ignore
   ```
+
 - Avoid fail-closed admission webhooks for storage components
 - Restart k3s HA control-plane nodes sequentially
 - Treat CNI initialization as a bootstrap-critical dependency

@@ -40,14 +40,14 @@ We will use **K3s** as the Kubernetes distribution for the following reasons:
 
 ## Comparison Table
 
-| Feature/Criteria         | K3s                             | MicroK8s                        | k0s                             | Standard Kubernetes             |
-|--------------------------|---------------------------------|---------------------------------|---------------------------------|---------------------------------|
-| **Resource Usage**        | Low                             | Low                             | Low                             | High                            |
-| **Setup Complexity**      | Simple                          | Simple                          | Simple                          | Complex                         |
-| **Feature Set**           | Full Kubernetes, with fewer dependencies | Full Kubernetes, with fewer dependencies | Full Kubernetes, with fewer dependencies | Full Kubernetes, complete set of features |
-| **Performance**           | Optimized for low-resource environments | Optimized for low-resource environments | Optimized for low-resource environments | Less optimized for low-resource environments |
-| **Community Support**     | Strong                          | Strong                          | Moderate                        | Very strong                     |
-| **HA (High Availability)**| Supported                       | Supported                       | Supported                       | Fully supported (but more complex) |
+| Feature/Criteria | K3s | MicroK8s | k0s | Standard Kubernetes |
+| ---------------- | --- | -------- | --- | ------------------- |
+| **Resource Usage** | Low | Low | Low | High |
+| **Setup Complexity** | Simple | Simple | Simple | Complex |
+| **Feature Set** | Full Kubernetes, with fewer dependencies | Full Kubernetes, with fewer dependencies | Full Kubernetes, with fewer dependencies | Full Kubernetes, complete set of features |
+| **Performance** | Optimized for low-resource environments | Optimized for low-resource environments | Optimized for low-resource environments | Less optimized for low-resource environments |
+| **Community Support** | Strong | Strong | Moderate | Very strong |
+| **HA (High Availability)** | Supported | Supported | Supported | Fully supported (but more complex) |
 
 ## Consequences
 

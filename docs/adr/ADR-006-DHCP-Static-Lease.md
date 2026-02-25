@@ -1,6 +1,7 @@
 # ADR 006: Use Static DHCP Leases Instead of Static IP Addresses
 
 ## Status
+
 Accepted
 
 ## Date
@@ -44,14 +45,15 @@ I have decided to use **Static DHCP Leases** for assigning consistent IP address
 
 ## Comparison Table
 
-| Feature/Criteria         | Static IP Address                | Static DHCP Lease (Chosen)        |
-|--------------------------|----------------------------------|----------------------------------|
-| **Configuration Method**  | Manual on device                 | Automatic via DHCP router        |
-| **Ease of Management**    | Harder to manage at scale        | Easier via centralized control   |
-| **Control**               | Full control over IPs            | Less direct control              |
-| **Potential for Conflicts**| Higher, if not planned properly | Managed by DHCP server           |
-| **Failover Concerns**     | No dependency on DHCP            | DHCP server failure can disrupt  |
+| Feature/Criteria | Static IP Address | Static DHCP Lease (Chosen) |
+| ---------------- | ----------------- | -------------------------- |
+| **Configuration Method** | Manual on device | Automatic via DHCP router |
+| **Ease of Management** | Harder to manage at scale | Easier via centralized control |
+| **Control** | Full control over IPs | Less direct control |
+| **Potential for Conflicts** | Higher, if not planned properly | Managed by DHCP server |
+| **Failover Concerns** | No dependency on DHCP | DHCP server failure can disrupt |
 
 ## Consequences
 
-By choosing **Static DHCP Leases**, we ensure easier management for the home network, especially with multiple devices requiring fixed IPs. This approach streamlines changes, such as replacing routers, without needing to reconfigure each device. However, there is a dependency on the DHCP server’s availability, which could affect devices if the server fails.
+By choosing **Static DHCP Leases**, we ensure easier management for the home network, especially with multiple devices requiring fixed IPs. This approach streamlines changes, such as replacing routers, without needing to reconfigure each device.
+However, there is a dependency on the DHCP server’s availability, which could affect devices if the server fails.

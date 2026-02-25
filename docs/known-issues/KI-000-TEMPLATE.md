@@ -1,15 +1,19 @@
 # KI-XXX — <Short descriptive title>
 
 ## Status
+
 <Active | Mitigated | Resolved>
 
 ## First observed
+
 YYYY-MM-DD
 
 ## Last updated
+
 YYYY-MM-DD
 
 ## Affected components
+
 - <component 1>
 - <component 2>
 - <component 3>
@@ -28,6 +32,7 @@ Explain **what happened** and **why it matters**, without going into recovery st
 Describe the user-visible and operational impact.
 
 Examples:
+
 - Cluster-wide outage
 - Partial service degradation
 - Control-plane instability
@@ -49,6 +54,7 @@ If useful, describe the sequence of events that led to the failure.
 How the issue can be identified.
 
 Examples:
+
 - Error messages
 - Alerts
 - Log patterns
@@ -64,6 +70,7 @@ Do **not** include full runbook steps here.
 Instead, summarize the actions taken and reference a runbook if available.
 
 Example:
+
 - Admission webhook removed
 - Control-plane restarted sequentially
 - Networking restored
@@ -75,6 +82,7 @@ Example:
 Explicitly state the data impact.
 
 Examples:
+
 - No data loss
 - Volumes preserved
 - Manual recovery required
@@ -87,6 +95,7 @@ Examples:
 Describe what prevents this issue from reoccurring.
 
 Examples:
+
 - Configuration changes
 - Architectural changes
 - Operational guidelines

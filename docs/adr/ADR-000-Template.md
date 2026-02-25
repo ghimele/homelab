@@ -23,11 +23,11 @@ Discuss any alternative solutions considered and why they were not chosen. This 
 ## Comparison Table
 
 | Feature/Criteria | Option 1 | Option 2 | Option 3 |
-|------------------|----------|----------|----------|
-| **Feature 1**    | [Details] | [Details] | [Details] |
-| **Feature 2**    | [Details] | [Details] | [Details] |
-| **Feature 3**    | [Details] | [Details] | [Details] |
-| **Cost**         | [Details] | [Details] | [Details] |
+| ---------------- | -------- | -------- | -------- |
+| **Feature 1** | [Details] | [Details] | [Details] |
+| **Feature 2** | [Details] | [Details] | [Details] |
+| **Feature 3** | [Details] | [Details] | [Details] |
+| **Cost** | [Details] | [Details] | [Details] |
 | **Community Support** | [Details] | [Details] | [Details] |
 
 ## Consequences

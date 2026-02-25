@@ -54,14 +54,14 @@ Enable **secrets encryption** in K3s by using the `--secrets-encryption` flag an
 
 ## Comparison Table
 
-| Feature/Criteria         | Do Nothing (Default) | External Vault (e.g., HashiCorp Vault, AWS KMS) | K3s Native Encryption + SOPS and age (Our Choice) |
-|--------------------------|----------------------|--------------------------------------------|----------------------------------|
-| **Security**             | Low (Base64-encoded secrets) | High (External key management) | High (Built-in encryption, Git versioning + encryption) |
-| **Complexity**           | Low                  | High                                     | Moderate                              |
-| **Key Management**       | None                 | Centralized                              | Managed via `age` keys                        |
-| **Integration**          | N/A                  | Requires additional infrastructure       | Requires CI/CD configuration                   |
-| **Cost**                 | None                 | High (Managed service fees)              | None                             |
-| **Community Support**    | High                 | High                                     | High                             |
+| Feature/Criteria | Do Nothing (Default) | External Vault (e.g., HashiCorp Vault, AWS KMS) | K3s Native Encryption + SOPS and age (Our Choice) |
+| ---------------- | -------------------- | ----------------------------------------------- | ------------------------------------------------- |
+| **Security** | Low (Base64-encoded secrets) | High (External key management) | High (Built-in encryption, Git versioning + encryption) |
+| **Complexity** | Low | High | Moderate |
+| **Key Management** | None | Centralized | Managed via `age` keys |
+| **Integration** | N/A | Requires additional infrastructure | Requires CI/CD configuration |
+| **Cost** | None | High (Managed service fees) | None |
+| **Community Support** | High | High | High |
 
 ## Consequences
 

@@ -2,7 +2,8 @@
 
 Almost all services require some kind of secret value at runtime. In order to store those secrets safely inside the Git repository I use Mozilla SOPS which is natively supported by Flux and age as an algorithm for encryption.
 
-[SOPS](https://github.com/getsops/sops) is an editor of encrypted files, it supports AWS KMS, GCP KMS, Azure Key Vault, and more. But hold on a second, weren’t we trying to keep our secrets separate from the cloud? Don’t worry, SOPS also extends its support to age and PGP.
+[SOPS](https://github.com/getsops/sops) is an editor of encrypted files, it supports AWS KMS, GCP KMS, Azure Key Vault, and more. But hold on a second, weren’t we trying to keep our secrets separate from the cloud?
+Don’t worry, SOPS also extends its support to age and PGP.
 
 [age](https://github.com/FiloSottile/age) is a secure file encryption tool with its own format, it can be used as a CLI or as a Go library and can be extended through plugins. You can even use your existing SSH keys
 
@@ -31,7 +32,7 @@ apt install age
 
 ## Configure SOPS ang age with Flux
 
-Generate an age key with age using age-keygen
+Generate an age key with age using age-keygen [^3]
 
 ```bash
 age-keygen -o age.agekey

@@ -1,6 +1,7 @@
 # Ansible Automation for Homelab
 
-This `ansible` folder contains the automation code for configuring and managing your homelab systems using [Ansible](https://www.ansible.com/). It includes playbooks, roles, tasks, and inventory files to automate the setup of desktops, servers, and other infrastructure components.
+This `ansible` folder contains the automation code for configuring and managing your homelab systems using [Ansible](https://www.ansible.com/).
+It includes playbooks, roles, tasks, and inventory files to automate the setup of desktops, servers, and other infrastructure components.
 
 ## Structure
 

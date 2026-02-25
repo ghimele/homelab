@@ -49,7 +49,8 @@ Production Kubernetes Home Cluster 01
 ## Xen-Orchestra
 
 In Xen Orchestra we need to create at least 3 VMs, one will be the controller and the other 2 nodes will be the workers.
-In Xen Orchestra I've created a template that uses [cloud-init](https://cloudinit.readthedocs.io/en/latest/index.html) in this way the first initialisation is done automatically. The cloud-init configuration uses an [Ansible](https://docs.ansible.com/ansible/latest/index.html#) playbook to automate the installation of the core server components.
+In Xen Orchestra I've created a template that uses [cloud-init](https://cloudinit.readthedocs.io/en/latest/index.html) in this way the first initialisation is done automatically.
+The cloud-init configuration uses an [Ansible](https://docs.ansible.com/ansible/latest/index.html#) playbook to automate the installation of the core server components.
 
 ![XEN VM create 1](assets/xen-vm-create01.png)
 
@@ -86,7 +87,8 @@ To install additional agent nodes [^2] and add them to the cluster, run the inst
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - agent --server https://<ip or hostname of server>:6443
 ```
 
-Setting the K3S_URL parameter causes the installer to configure K3s as an agent, instead of a server. The K3s agent will register with the K3s server listening at the supplied URL. The value to use for K3S_TOKEN is stored at /var/lib/rancher/k3s/server/node-token on your server node.
+Setting the K3S_URL parameter causes the installer to configure K3s as an agent, instead of a server.
+The K3s agent will register with the K3s server listening at the supplied URL. The value to use for K3S_TOKEN is stored at /var/lib/rancher/k3s/server/node-token on your server node.
 
 ## FLuxcd installation
 
