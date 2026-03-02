@@ -26,7 +26,7 @@ spec:
   values:
     image:
       repository: ghcr.io/blakeblackshear/frigate
-      tag: 0.14.1
+      tag: 0.17.0
 
     service:
       type: ClusterIP
