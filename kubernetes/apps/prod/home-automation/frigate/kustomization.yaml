@@ -1,7 +1,7 @@
 ---
 resources:
   - ../../../base/home-automation/frigate
-  - frigate-recordings-pvc.yaml
+  - frigate-media-pvc.yaml
   - certificate.yaml
   - ingress-route.yaml
 

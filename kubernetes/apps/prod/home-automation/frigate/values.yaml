@@ -48,10 +48,15 @@ spec:
         enabled: false
 
     persistence:
-      recordings:
+      media:
+        enabled: true
         type: persistentVolumeClaim
-        existingClaim: frigate-recordings
-        mountPath: /media/frigate/recordings
+        existingClaim: frigate-media
+        storageClass: nfs-media
+        subPath: /media/frigate
+        accessMode: ReadWriteMany
+        # -- Do not delete the pvc upon helm uninstall
+        skipuninstall: false
     nodeSelector:
       node-role.kubernetes.io/nfs: ""
     env:
