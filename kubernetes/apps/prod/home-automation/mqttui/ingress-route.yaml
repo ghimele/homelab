@@ -1,0 +1,32 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mqttui
+  namespace: home-automation
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_MQTTUI}.${DOMAIN}"
+    gethomepage.dev/description: "MQTT Web Interface"
+    gethomepage.dev/group: Home Automation
+    gethomepage.dev/icon: mqtt.png
+    gethomepage.dev/app: mqttui
+    gethomepage.dev/name: "MQTT UI"
+    gethomepage.dev/widget.type: "mqtt"
+    gethomepage.dev/widget.url: "mqtt://mosquitto.home-automation.svc.cluster.local:1883"
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: mqttui.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_MQTTUI}.${DOMAIN}`)
+      middlewares:
+        - name: security-header
+          namespace: traefik
+      services:
+        - name: mqttui
+          kind: Service
+          namespace: home-automation
+          port: 5000

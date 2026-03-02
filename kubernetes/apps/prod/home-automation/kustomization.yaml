@@ -6,3 +6,4 @@ resources:
   - ./code-server
   - ./matter-server
   - ./mosquitto
+  - ./mqttui
