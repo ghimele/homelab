@@ -20,4 +20,5 @@ resources:
   - csi-driver-nfs.yaml
   - immich.yaml
   - kube-prometheus-stack-source.yaml
+  - blakeblackshear.yaml
   - ./oci

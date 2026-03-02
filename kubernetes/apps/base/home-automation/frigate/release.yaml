@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: frigate
+  namespace: home-automation
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: frigate
+      version: 7.8.0
+      sourceRef:
+        kind: HelmRepository
+        name: blakeblackshear
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: ghcr.io/blakeblackshear/frigate
+      tag: 0.14.1
+    config:
+      mqtt:
+        host: mosquitto.home-automation.svc.cluster.local
+        port: 1883
+        topic_prefix: frigate
+        client_id: frigate
+    service:
+      type: ClusterIP
+      port: 5000
+    ingress:
+      enabled: false
+    persistence:
+      enabled: true
+      type: emptyDir
+      mountPath: /config
+    env:
+      TZ: ${TIMEZONE}

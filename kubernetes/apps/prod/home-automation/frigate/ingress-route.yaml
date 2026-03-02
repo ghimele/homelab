@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: frigate
+  namespace: home-automation
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_FRIGATE}.${DOMAIN}"
+    gethomepage.dev/description: "NVR with Realtime Object Detection for IP Cameras"
+    gethomepage.dev/group: Home Automation
+    gethomepage.dev/icon: frigate.png
+    gethomepage.dev/app: frigate
+    gethomepage.dev/name: "Frigate"
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: frigate.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_FRIGATE}.${DOMAIN}`)
+      middlewares:
+        - name: security-header
+          namespace: traefik
+      services:
+        - name: frigate
+          kind: Service
+          namespace: home-automation
+          port: 5000

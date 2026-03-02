@@ -1,0 +1,11 @@
+---
+resources:
+  - ../../../base/home-automation/frigate
+  - frigate-recordings-pvc.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

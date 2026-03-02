@@ -7,3 +7,4 @@ resources:
   - ./matter-server
   - ./mosquitto
   - ./mqttui
+  - ./frigate

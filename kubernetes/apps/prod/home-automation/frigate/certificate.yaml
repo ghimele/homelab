@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: frigate.${DOMAIN}
+  namespace: home-automation
+spec:
+  secretName: frigate.${DOMAIN}
+  dnsNames:
+    - ${HOST_FRIGATE}.${DOMAIN}
+  issuerRef:
+    kind: ClusterIssuer
+    name: lets-encrypt
