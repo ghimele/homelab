@@ -7,6 +7,17 @@ metadata:
 spec:
   interval: 10m
   values:
+    configMaps:
+      config:
+        data:
+          mosquitto.conf: |-
+            allow_anonymous true
+            autosave_interval 60
+            connection_messages false
+            listener 1883
+            per_listener_settings false
+            persistence true
+            persistence_location /config
     persistence:
       config:
         enabled: true
@@ -16,8 +27,18 @@ spec:
           mosquitto:
             app:
               - path: /mosquitto/config
+                subPath: config
               - path: /mosquitto/data
+                subPath: data
               - path: /mosquitto/log
+                subPath: log
+      config-file:
+        type: configMap
+        identifier: config
+        globalMounts:
+          - path: /mosquitto/config/mosquitto.conf
+            subPath: mosquitto.conf
+
     service:
       app:
         controller: mosquitto
