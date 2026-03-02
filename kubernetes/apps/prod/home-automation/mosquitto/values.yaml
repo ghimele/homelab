@@ -14,12 +14,13 @@ spec:
         existingClaim: mosquitto-pvc
         advancedMounts:
           mosquitto:
-            main:
+            app:
               - path: /mosquitto/config
               - path: /mosquitto/data
               - path: /mosquitto/log
     service:
-      main:
+      app:
+        controller: mosquitto
         type: ClusterIP
         ports:
           mqtt:
