@@ -5,6 +5,6 @@ metadata:
   name: blakeblackshear
   namespace: flux-system
 spec:
-  type: oci
+  type: default
   interval: 30m
-  url: oci://ghcr.io/blakeblackshear/charts
+  url: https://blakeblackshear.github.io/blakeshome-charts/
