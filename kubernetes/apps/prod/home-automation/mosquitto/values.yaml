@@ -23,15 +23,15 @@ spec:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: mosquitto-pvc
-        advancedMounts:
-          mosquitto:
-            app:
-              - path: /mosquitto/config
-                subPath: config
-              - path: /mosquitto/data
-                subPath: data
-              - path: /mosquitto/log
-                subPath: log
+        # advancedMounts:
+        #   mosquitto:
+        #     app:
+        #       - path: /mosquitto/config
+        #         subPath: config
+        #       - path: /mosquitto/data
+        #         subPath: data
+        #       - path: /mosquitto/log
+        #         subPath: log
       config-file:
         type: configMap
         identifier: config
