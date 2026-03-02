@@ -33,6 +33,15 @@ spec:
         port: 1883
         topic_prefix: frigate
         client_id: frigate
+
+      cameras:
+        dummy:
+          enabled: false
+          ffmpeg:
+            inputs:
+              - path: rtsp://dummy:dummy@dummy.com/stream
+                roles:
+                  - detect
     service:
       type: ClusterIP
       port: 5000
