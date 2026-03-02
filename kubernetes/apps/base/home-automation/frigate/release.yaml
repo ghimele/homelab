@@ -27,29 +27,19 @@ spec:
     image:
       repository: ghcr.io/blakeblackshear/frigate
       tag: 0.14.1
-    config: |
-      mqtt:
-        host: mosquitto.home-automation.svc.cluster.local
-        port: 1883
-        topic_prefix: frigate
-        client_id: frigate
 
-      cameras:
-        dummy:
-          enabled: false
-          ffmpeg:
-            inputs:
-              - path: rtsp://dummy:dummy@dummy.com/stream
-                roles:
-                  - detect
     service:
       type: ClusterIP
       port: 5000
+
     ingress:
       enabled: false
+
     persistence:
-      enabled: true
-      type: emptyDir
-      mountPath: /config
+      config:
+        enabled: true
+        type: emptyDir
+        mountPath: /config
+
     env:
       TZ: ${TIMEZONE}
