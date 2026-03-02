@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: frigate
-      version: 7.3.0
+      version: 7.4.0
       sourceRef:
         kind: HelmRepository
         name: blakeblackshear
@@ -27,7 +27,7 @@ spec:
     image:
       repository: ghcr.io/blakeblackshear/frigate
       tag: 0.14.1
-    config:
+    config: |
       mqtt:
         host: mosquitto.home-automation.svc.cluster.local
         port: 1883
