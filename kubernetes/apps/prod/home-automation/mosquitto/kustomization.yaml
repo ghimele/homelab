@@ -1,0 +1,9 @@
+---
+resources:
+  - mosquitto-pvc.yaml
+  - ../../../base/home-automation/mosquitto
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

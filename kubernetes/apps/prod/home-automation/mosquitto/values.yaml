@@ -1,0 +1,28 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mosquitto
+  namespace: home-automation
+spec:
+  interval: 10m
+  values:
+    persistence:
+      config:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: mosquitto-pvc
+        advancedMounts:
+          mosquitto:
+            main:
+              - path: /mosquitto/config
+              - path: /mosquitto/data
+              - path: /mosquitto/log
+    service:
+      main:
+        type: ClusterIP
+        ports:
+          mqtt:
+            port: 1883
+          websocket:
+            port: 9001
