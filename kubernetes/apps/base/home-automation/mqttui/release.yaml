@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: terdia07/mqttui
-              tag: v1.0.0
+              tag: v1.3.2
             env:
               TZ: ${TIMEZONE}
               MQTT_BROKER: mosquitto.home-automation.svc.cluster.local
