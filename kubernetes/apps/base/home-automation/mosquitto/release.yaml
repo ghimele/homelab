@@ -26,12 +26,6 @@ spec:
   values:
     controllers:
       mosquitto:
-        pod:
-          securityContext:
-            runAsUser: 1883
-            runAsGroup: 1883
-            fsGroup: 1883
-            runAsNonRoot: true
         containers:
           app:
             image:
