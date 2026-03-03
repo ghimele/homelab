@@ -12,9 +12,8 @@ spec:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: media
-        subPath: downloads/qbittorrent
-        storageClass: nfs-media
-        accessMode: ReadWriteMany
+        globalMounts:
+          - path: /downloads
 
     service:
       app:
