@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: qbittorrent
-      version: 1.0.0
+      chart: app-template
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
-        name: k8s-home-lab
+        name: bjw-s
         namespace: flux-system
   install:
     remediation:
@@ -24,22 +24,27 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/hotio/qbittorrent
-      tag: release-5.0.4
-
-    env:
-      TZ: ${TIMEZONE}
-
-    vpn:
-      enabled: false
+    controllers:
+      qbittorrent:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/hotio/qbittorrent
+              tag: release-5.0.4
+            env:
+              TZ: ${TIMEZONE}
+              PUID: "1000"
+              PGID: "1000"
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
 
     service:
-      main:
+      app:
+        controller: qbittorrent
         ports:
           http:
             port: 8080
-
-    ingress:
-      main:
-        enabled: false

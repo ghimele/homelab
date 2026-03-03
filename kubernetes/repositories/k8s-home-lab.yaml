@@ -5,6 +5,6 @@ metadata:
   name: k8s-home-lab
   namespace: flux-system
 spec:
-  type: oci
+  type: default
   interval: 30m
-  url: oci://ghcr.io/k8s-home-lab/helm-charts
+  url: https://k8s-home-lab.github.io/helm-charts/

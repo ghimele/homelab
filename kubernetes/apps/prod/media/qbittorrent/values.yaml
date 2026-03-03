@@ -17,7 +17,8 @@ spec:
         accessMode: ReadWriteMany
 
     service:
-      main:
+      app:
+        controller: qbittorrent
         annotations:
           gatus.io/monitor: "true"
           gatus.home-operations.com/endpoint: |
