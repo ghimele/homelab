@@ -6,4 +6,14 @@ metadata:
   namespace: home-automation
 spec:
   interval: 10m
-  values: {}
+  values:
+    service:
+      app:
+        annotations:
+          gatus.io/monitor: "true"
+          gatus.home-operations.com/endpoint: |
+            group: "home-automation"
+            url: http://mqttui.home-automation.svc.cluster.local:5000/
+            conditions:
+              - "[STATUS] == 200"
+              - "[RESPONSE_TIME] < 1000"
