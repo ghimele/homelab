@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: qbittorrent
+      version: 1.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-home-lab
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: ghcr.io/hotio/qbittorrent
+      tag: release-5.0.4
+
+    env:
+      TZ: ${TIMEZONE}
+
+    vpn:
+      enabled: false
+
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+
+    ingress:
+      main:
+        enabled: false

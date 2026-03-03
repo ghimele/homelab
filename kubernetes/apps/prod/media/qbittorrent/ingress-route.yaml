@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: qbittorrent
+  namespace: media
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_QBITTORRENT}.${DOMAIN}"
+    gethomepage.dev/description: "BitTorrent Downloader"
+    gethomepage.dev/group: Media
+    gethomepage.dev/icon: qbittorrent.png
+    gethomepage.dev/app: qbittorrent
+    gethomepage.dev/name: "qBittorrent"
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: qbittorrent.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_QBITTORRENT}.${DOMAIN}`)
+      middlewares:
+        - name: security-header
+          namespace: traefik
+      services:
+        - name: qbittorrent
+          kind: Service
+          namespace: media
+          port: 8080

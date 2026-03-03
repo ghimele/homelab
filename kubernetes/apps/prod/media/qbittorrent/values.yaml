@@ -1,0 +1,31 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+  namespace: media
+spec:
+  interval: 10m
+  values:
+    persistence:
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: media
+        subPath: downloads/qbittorrent
+        storageClass: nfs-media
+        accessMode: ReadWriteMany
+
+    service:
+      main:
+        annotations:
+          gatus.io/monitor: "true"
+          gatus.home-operations.com/endpoint: |
+            group: "media"
+            url: http://qbittorrent.media.svc.cluster.local:8080/
+            conditions:
+              - "[STATUS] == 200"
+              - "[RESPONSE_TIME] < 1000"
+
+    nodeSelector:
+      node-role.kubernetes.io/nfs: ""

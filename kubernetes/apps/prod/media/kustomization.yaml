@@ -6,3 +6,4 @@ resources:
   - ./jellyfin
   - ./immich
   - ./music-assistant
+  - ./qbittorrent
