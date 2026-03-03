@@ -21,6 +21,6 @@ spec:
       priority: 1
       services:
         - name: xen
-          port: 8444
+          port: 81
   tls:
     secretName: xen.${DOMAIN}

@@ -8,5 +8,5 @@ spec:
   type: ExternalName
   ports:
     - name: https
-      port: 8444
+      port: 81
   externalName: ${XEN_IP}
