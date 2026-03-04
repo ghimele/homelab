@@ -30,11 +30,9 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/sonarr
-              tag: 4.0.16.2946@sha256:22651c750eedb091f6d76ade95dbecae0eeafe2b55432c3b8d8b042e8745f344
+              tag: 4.0.16
             env:
               TZ: ${TIMEZONE}
-              PUID: "1000"
-              PGID: "1000"
             resources:
               requests:
                 cpu: 10m
