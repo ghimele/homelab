@@ -8,3 +8,4 @@ resources:
   - ./music-assistant
   - ./qbittorrent
   - ./sonarr
+  - ./prowlarr

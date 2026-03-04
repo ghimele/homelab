@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prowlarr
+  namespace: media
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_PROWLARR}.${DOMAIN}"
+    gethomepage.dev/description: "Indexer Manager for Usenet and BitTorrent"
+    gethomepage.dev/group: Media
+    gethomepage.dev/icon: prowlarr.png
+    gethomepage.dev/app: prowlarr
+    gethomepage.dev/name: "Prowlarr"
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: prowlarr.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_PROWLARR}.${DOMAIN}`)
+      middlewares:
+        - name: security-header
+          namespace: traefik
+      services:
+        - name: prowlarr
+          kind: Service
+          namespace: media
+          port: 9696

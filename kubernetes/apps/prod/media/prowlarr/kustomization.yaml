@@ -1,0 +1,11 @@
+---
+resources:
+  - ../../../base/media/prowlarr
+  - pvc-prowlarr-config.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

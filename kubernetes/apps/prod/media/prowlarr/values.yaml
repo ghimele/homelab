@@ -1,0 +1,30 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prowlarr
+  namespace: media
+spec:
+  interval: 10m
+  values:
+    persistence:
+      config:
+        enabled: true
+        existingClaim: prowlarr-config
+        globalMounts:
+          - path: /config
+
+    service:
+      app:
+        controller: prowlarr
+        annotations:
+          gatus.io/monitor: "true"
+          gatus.home-operations.com/endpoint: |
+            group: "media"
+            url: http://prowlarr.media.svc.cluster.local:9696/
+            conditions:
+              - "[STATUS] == 200"
+              - "[RESPONSE_TIME] < 1000"
+
+    nodeSelector:
+      node-role.kubernetes.io/nfs: ""
