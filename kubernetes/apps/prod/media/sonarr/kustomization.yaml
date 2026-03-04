@@ -1,0 +1,11 @@
+---
+resources:
+  - ./pvc-sonarr-config.yaml
+  - ../../../base/media/sonarr
+  - certificate.yaml
+  - ingress-route.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

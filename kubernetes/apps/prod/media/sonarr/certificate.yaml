@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sonarr.${DOMAIN}
+  namespace: media
+spec:
+  secretName: sonarr.${DOMAIN}
+  dnsNames:
+    - ${HOST_SONARR}.${DOMAIN}
+  issuerRef:
+    kind: ClusterIssuer
+    name: lets-encrypt

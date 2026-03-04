@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: sonarr
+  namespace: media
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_SONARR}.${DOMAIN}"
+    gethomepage.dev/description: "TV Series Collection Manager"
+    gethomepage.dev/group: Media
+    gethomepage.dev/icon: sonarr.png
+    gethomepage.dev/app: sonarr
+    gethomepage.dev/name: "Sonarr"
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: sonarr.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_SONARR}.${DOMAIN}`)
+      middlewares:
+        - name: security-header
+          namespace: traefik
+      services:
+        - name: sonarr
+          kind: Service
+          namespace: media
+          port: 8989
