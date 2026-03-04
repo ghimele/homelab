@@ -29,8 +29,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/hotio/prowlarr
-              tag: develop
+              repository: ghcr.io/home-operations/prowlarr
+              tag: 2.3.2
             env:
               TZ: ${TIMEZONE}
             resources:
