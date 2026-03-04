@@ -25,6 +25,3 @@ spec:
             conditions:
               - "[STATUS] == 200"
               - "[RESPONSE_TIME] < 1000"
-
-    nodeSelector:
-      node-role.kubernetes.io/nfs: ""
