@@ -1,8 +1,9 @@
 ---
 resources:
+  - ./pvc-qbittorrent-config.yaml
   - ../../../base/media/qbittorrent
-  - certificate.yaml
-  - ingress-route.yaml
+  - ./certificate.yaml
+  - ./ingress-route.yaml
 
 patches:
   - path: values.yaml

@@ -8,12 +8,16 @@ spec:
   interval: 10m
   values:
     persistence:
+      config:
+        existingClaim: qbittorrent-config
+        globalMounts:
+          - path: "/config"
       data:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: media
         globalMounts:
-          - path: /downloads
+          - path: /media
 
     service:
       app:
