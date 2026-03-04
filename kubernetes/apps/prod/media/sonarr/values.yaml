@@ -10,7 +10,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: config-sonarr
+        existingClaim: sonarr-config
         globalMounts:
           - path: /config
       data:
