@@ -33,6 +33,15 @@ spec:
               tag: 4.0.16
             env:
               TZ: ${TIMEZONE}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+              runAsNonRoot: true
+              runAsUser: 1003
+              runAsGroup: 1003
+              fsGroup: 1003
+              fsGroupChangePolicy: OnRootMismatch
             resources:
               requests:
                 cpu: 10m
