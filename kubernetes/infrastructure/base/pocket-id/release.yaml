@@ -24,6 +24,11 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/pocket-id/pocket-id
-      tag: v2.3.0
+    pocketID:
+      image:
+        # -- Registry and repository for the pocket-id image.
+        repository: ghcr.io/pocket-id/pocket-id
+        # -- Tag for the image.
+        tag: "v2.3.0"
+        # -- Image pull policy.
+        pullPolicy: IfNotPresent
