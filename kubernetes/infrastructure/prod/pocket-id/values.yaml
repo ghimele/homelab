@@ -17,6 +17,7 @@ spec:
 
     config:
       APP_URL: https://${HOST_POCKETID}.${DOMAIN}
+      PUBLIC_APP_URL: https://${HOST_POCKETID}.${DOMAIN}
       TRUST_PROXY: "true"
       ENCRYPTION_KEY: ${POCKETID_ENCRYPTION_KEY}
 
