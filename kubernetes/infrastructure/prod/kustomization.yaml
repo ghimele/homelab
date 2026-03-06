@@ -9,3 +9,4 @@ resources:
   - ./longhorn/
   - ./tailscale/
   - ./storage/
+  - ./pocket-id/

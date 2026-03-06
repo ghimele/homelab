@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: pocket-id
+  namespace: infrastructure
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_POCKETID}.${DOMAIN}"
+    gethomepage.dev/description: "Passkey OIDC Identity Provider"
+    gethomepage.dev/group: Infrastructure
+    gethomepage.dev/icon: key.png
+    gethomepage.dev/app: pocket-id
+    gethomepage.dev/name: "Pocket ID"
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: pocket-id.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_POCKETID}.${DOMAIN}`)
+      middlewares:
+        - name: security-header
+          namespace: traefik
+      services:
+        - name: pocket-id
+          kind: Service
+          namespace: infrastructure
+          port: 1411

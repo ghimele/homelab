@@ -22,4 +22,5 @@ resources:
   - kube-prometheus-stack-source.yaml
   - blakeblackshear.yaml
   - k8s-home-lab.yaml
+  - anza-labs.yaml
   - ./oci

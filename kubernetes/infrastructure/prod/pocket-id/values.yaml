@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pocket-id
+  namespace: infrastructure
+spec:
+  interval: 10m
+  values:
+    persistence:
+      data:
+        enabled: false
+
+    database:
+      provider: postgres
+      connectionString: postgres://pocketid:${POCKETID_DB_PASSWORD}@postgres-cluster-rw.cnpg-db.svc.cluster.local:5432/pocketid
+
+    config:
+      APP_URL: https://${HOST_POCKETID}.${DOMAIN}
+      TRUST_PROXY: "true"
+      ENCRYPTION_KEY: ${POCKETID_ENCRYPTION_KEY}
+
+    service:
+      main:
+        annotations:
+          gatus.io/monitor: "true"
+          gatus.home-operations.com/endpoint: |
+            group: "infrastructure"
+            url: http://pocket-id.infrastructure.svc.cluster.local:1411/
+            conditions:
+              - "[STATUS] == 200"
+              - "[RESPONSE_TIME] < 1000"
+        ports:
+          http:
+            port: 1411
