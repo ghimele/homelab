@@ -32,4 +32,4 @@ spec:
               - "[RESPONSE_TIME] < 1000"
         ports:
           http:
-            port: 1411
+            port: 80
