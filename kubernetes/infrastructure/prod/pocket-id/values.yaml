@@ -17,10 +17,11 @@ spec:
 
     config:
       APP_URL: https://${HOST_POCKETID}.${DOMAIN}
-      PUBLIC_APP_URL: https://${HOST_POCKETID}.${DOMAIN}
       TRUST_PROXY: "true"
       ENCRYPTION_KEY: ${POCKETID_ENCRYPTION_KEY}
-
+      PUID: 1000
+      PGID: 1000
+      
     service:
       main:
         annotations:
