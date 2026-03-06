@@ -80,6 +80,13 @@ spec:
         superuser: true
         passwordSecret:
           name: postgres-cluster-immich
+      - name: pocketid
+        ensure: present
+        comment: PocketID Role
+        login: true
+        superuser: false
+        passwordSecret:
+          name: postgres-cluster-pocketid
 
   tablespaces:
     - name: homeassistant
@@ -93,4 +100,8 @@ spec:
     - name: immich
       storage:
         size: 10Gi
+        storageClass: "longhorn-postgres-storage"
+    - name: pocketid
+      storage:
+        size: 500Mi
         storageClass: "longhorn-postgres-storage"

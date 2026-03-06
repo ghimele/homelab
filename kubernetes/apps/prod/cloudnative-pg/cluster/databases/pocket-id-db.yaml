@@ -1,0 +1,11 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: pocket-id
+  namespace: cnpg-db
+spec:
+  name: pocketid
+  owner: pocketid
+  cluster:
+    name: postgres-cluster

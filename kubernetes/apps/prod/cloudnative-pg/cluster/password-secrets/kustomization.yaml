@@ -3,3 +3,4 @@ resources:
   - postgres-cluster-gotify.enc.yaml
   - postgres-cluster-homeassistant.enc.yaml
   - postgres-cluster-immich.enc.yaml
+  - postgres-cluster-pocketid.enc.yaml

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/basic-auth
+metadata:
+    name: postgres-cluster-pocketid
+    namespace: cnpg-db
+stringData:
+    username: ENC[AES256_GCM,data:DZZ599RvfUc=,iv:R3Er6Koj2aGFvfs91u4FOAstvAqq3xO8mZiSCsDFk/U=,tag:0Aayq6TIyQv+/2mTytxA8A==,type:str]
+    password: ENC[AES256_GCM,data:tUJOv+/5zK+gaUgvnH8=,iv:YZgdFi9l17rOKOEyu/A880ibddf5Qpynyp1pv0Ep7Hg=,tag:OwBlAS+jDcwTyZEJEjZ/6A==,type:str]
+sops:
+    age:
+        - recipient: age1xv8cuqcr09e3845unmja9x5jct30q9rmgz7awjc6dwrnq5m79etsvkz2z6
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBJYlhSYk00Q1lOM0FxUHdr
+            Q1dPNGpBL0NFajZ5QVhpMjBmWmdDYkhjTmt3CjFud3lpTUpCRUY2U1NSMjB3VzB6
+            QklkeEl0amlMSFR0blBSQkZtcTVoK3MKLS0tIDRMclZGT21VZGFXdnIvUTM3UjlN
+            WEZJWFBUd0poRW9JZGxNamVNUHFMUkEKMyg5Tw/iamDg4h+j5sln1VXNtzilxRGR
+            87+fn5jsB/DfiMc+qhR0EZalMdrKQ9DwYGfguA4e4Ox+7w+5NqqNxQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-03-06T14:18:27Z"
+    mac: ENC[AES256_GCM,data:hEt7lKtOTVl+tXK6ikip7NL78Ox9ByXM34YqIZ+YAvFZjy1j27UkX78Yk4jo/tD4zoKg8M2wVTX6XjiwzCaX6DK6iu3VQfRDoQ2jQTSS96kOYu1YjMKDYwekcNFxwizSLu9FEah5rnPBcSngZ2JvFvXh2PhBRCnDX0KpBwJTMNc=,iv:sRuQOZV0nX3vs70RQ9DImLO8MeaKK2n11sjTLruuM44=,tag:hh3SuDTyg52SRUQV0MVgaA==,type:str]
+    encrypted_regex: ^(user.*|pass.*|.*[Bb]earer.*|.*[Kk]ey|.*[Kk]eys|salt|sentry.*|.*[Tt]oken|data|stringData|match|href)$
+    version: 3.10.2
