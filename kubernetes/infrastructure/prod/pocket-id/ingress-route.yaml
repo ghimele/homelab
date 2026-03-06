@@ -3,7 +3,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: pocket-id
-  namespace: infrastructure
+  namespace: security
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://${HOST_POCKETID}.${DOMAIN}"

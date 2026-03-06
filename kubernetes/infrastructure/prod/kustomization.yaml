@@ -1,6 +1,7 @@
 ---
 resources:
   - ./monitoring-namespace.yaml
+  - ./security-namespace.yaml
   - ./metallb/
   - ./cert-manager/
   - ./traefik/

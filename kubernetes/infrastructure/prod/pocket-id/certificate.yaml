@@ -3,7 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: pocket-id.${DOMAIN}
-  namespace: infrastructure
+  namespace: security
 spec:
   secretName: pocket-id.${DOMAIN}
   dnsNames:
