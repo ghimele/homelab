@@ -31,8 +31,8 @@ spec:
         annotations:
           gatus.io/monitor: "true"
           gatus.home-operations.com/endpoint: |
-            group: "infrastructure"
-            url: http://pocket-id.infrastructure.svc.cluster.local:1411/
+            group: "security"
+            url: http://pocket-id.security.svc.cluster.local:1411/
             conditions:
               - "[STATUS] == 200"
               - "[RESPONSE_TIME] < 1000"
