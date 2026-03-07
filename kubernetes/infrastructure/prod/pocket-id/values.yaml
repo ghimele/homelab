@@ -21,8 +21,7 @@ spec:
       data:
         enabled: true
         type: persistentVolumeClaim
-        storageClass: longhorn
-        size: 1Gi
+        existingClaim: pocket-id-data
         globalMounts:
           - path: /app/data
 

@@ -1,6 +1,7 @@
 ---
 resources:
   - ../../base/pocket-id
+  - pvc-pocket-id-data.yaml
   - certificate.yaml
   - ingress-route.yaml
 
