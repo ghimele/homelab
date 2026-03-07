@@ -27,4 +27,4 @@ spec:
         - name: pocket-id
           kind: Service
           namespace: security
-          port: 80
+          port: 1411
