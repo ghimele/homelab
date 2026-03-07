@@ -1,0 +1,14 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: headlamp
+  namespace: kube-system
+spec:
+  values:
+    config:
+      oidc:
+        clientID: ${HEADLAMP_POCKETID_CLIENTID}
+        clientSecret: ${HEADLAMP_POCKETID_CLIENTSECRET}
+        issuerURL: ${HEADLAMP_POCKETID_ISSUERURL}
+        scopes: "email,profile"
