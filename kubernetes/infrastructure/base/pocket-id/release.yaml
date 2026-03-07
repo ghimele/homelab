@@ -3,16 +3,16 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: pocket-id
-  namespace: security
+  namespace: infrastructure
 spec:
   interval: 15m
   chart:
     spec:
-      chart: pocket-id
-      # version: 1.7.6
+      chart: app-template
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
-        name: pocke-id
+        name: bjw-s
         namespace: flux-system
   install:
     remediation:
@@ -24,10 +24,25 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      # -- Registry and repository for the pocket-id image.
-      repository: ghcr.io/pocket-id/pocket-id
-      # -- Tag for the image.
-      tag: "v2.3.0"
-      # -- Image pull policy.
-      pullPolicy: IfNotPresent
+    controllers:
+      pocket-id:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/pocket-id/pocket-id
+              tag: v2.3.0
+            env:
+              TZ: ${TIMEZONE}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+
+    service:
+      app:
+        controller: pocket-id
+        ports:
+          http:
+            port: 1411
