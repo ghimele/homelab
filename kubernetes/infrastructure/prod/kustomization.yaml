@@ -10,4 +10,4 @@ resources:
   - ./longhorn/
   - ./tailscale/
   - ./storage/
-  # - ./pocket-id/
+  - ./pocket-id/

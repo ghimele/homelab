@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: anza-labs
+  name: pocke-id
   namespace: flux-system
 spec:
   type: default
   interval: 30m
-  url: https://anza-labs.github.io/charts/
+  url: oci://ghcr.io/hobbit44/pocket-id-helm/pocket-id

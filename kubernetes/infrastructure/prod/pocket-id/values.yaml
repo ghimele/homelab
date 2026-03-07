@@ -7,31 +7,32 @@ metadata:
 spec:
   interval: 10m
   values:
-    persistence:
-      data:
-        enabled: false
-
-    database:
-      provider: postgres
-      connectionString: postgres://pocketid:${POCKETID_DB_PASSWORD}@postgres-cluster-rw.cnpg-db.svc.cluster.local:5432/pocketid
-
     config:
       APP_URL: https://${HOST_POCKETID}.${DOMAIN}
       TRUST_PROXY: "true"
       ENCRYPTION_KEY: ${POCKETID_ENCRYPTION_KEY}
       PUID: 1000
       PGID: 1000
+      DB_CONNECTION_STRING : postgres://pocketid:${POCKETID_DB_PASSWORD}@postgres-cluster-rw.cnpg-db.svc.cluster.local:5432/pocketid
+
+    persistence:
+      # -- enable persistence when true
+      enabled: true
+      # -- default storage size
+      size: 1Gi
+      # -- accessMode
+      accessMode: ReadWriteOnce
+      # -- actual storageClass
+      storageClass: longhorn
 
     service:
-      main:
-        annotations:
-          gatus.io/monitor: "true"
-          gatus.home-operations.com/endpoint: |
-            group: "infrastructure"
-            url: http://pocket-id.infrastructure.svc.cluster.local:1411/
-            conditions:
-              - "[STATUS] == 200"
-              - "[RESPONSE_TIME] < 1000"
-        ports:
-          http:
-            port: 1411
+      type: ClusterIP
+      port: 1411
+      annotations:
+       gatus.io/monitor: "true"
+       gatus.home-operations.com/endpoint: |
+         group: "infrastructure"
+         url: http://pocket-id.infrastructure.svc.cluster.local:1411/
+         conditions:
+           - "[STATUS] == 200"
+           - "[RESPONSE_TIME] < 1000"

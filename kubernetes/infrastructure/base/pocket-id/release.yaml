@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: pocket-id
-      version: 1.7.6
+      # version: 1.7.6
       sourceRef:
         kind: HelmRepository
-        name: anza-labs
+        name: pocke-id
         namespace: flux-system
   install:
     remediation:
@@ -24,11 +24,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    pocketID:
-      image:
-        # -- Registry and repository for the pocket-id image.
-        repository: ghcr.io/pocket-id/pocket-id
-        # -- Tag for the image.
-        tag: "v2.3.0"
-        # -- Image pull policy.
-        pullPolicy: IfNotPresent
+    image:
+      # -- Registry and repository for the pocket-id image.
+      repository: ghcr.io/pocket-id/pocket-id
+      # -- Tag for the image.
+      tag: "v2.3.0"
+      # -- Image pull policy.
+      pullPolicy: IfNotPresent
