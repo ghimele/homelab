@@ -56,6 +56,7 @@ spec:
         clientSecret: ${HEADLAMP_POCKETID_CLIENTSECRET}
         issuerURL: ${HEADLAMP_POCKETID_ISSUERURL}
         scopes: "email,profile"
+      pluginsDir: /build/plugins
     volumeMounts:
       - mountPath: "/home/headlamp/.config/Headlamp/kubeconfigs/"
         name: kubeconfig
