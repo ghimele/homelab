@@ -56,7 +56,7 @@ spec:
           - /bin/sh
           - -c
           - cp -r /plugins/* /build/plugins/
-        name: headlamp-plugins
+        name: headlamp-plugins2
         volumeMounts:
           - mountPath: /build/plugins
             name: headlamp-plugins
