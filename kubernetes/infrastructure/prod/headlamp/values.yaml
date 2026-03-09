@@ -31,37 +31,37 @@ spec:
       #     - mountPath: /home/headlamp/.config/Headlamp
       #       name: headlamp
       #       readOnly: false
-      # - name: create-kubeconfig
-      #   command:
-      #     - /bin/sh
-      #     - "-c"
-      #     - |
-      #       kubectl config set-cluster main --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-      #       kubectl config set-credentials main --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-      #       kubectl config set-context main --cluster=main --user=main
-      #       kubectl config use-context main
-      #   env:
-      #     - name: KUBERNETES_SERVICE_HOST
-      #       fieldRef:
-      #           fieldPath: status.hostIP
-      #     - name: KUBERNETES_SERVICE_PORT
-      #       value: "6443"
-      #     - name: KUBECONFIG
-      #       value: /home/headlamp/.config/Headlamp/kubeconfigs/config
-      #   image: alpine/kubectl:1.35.2
-      #   securityContext:
-      #     capabilities:
-      #       drop:
-      #         - ALL
-      #     privileged: false
-      #     readOnlyRootFilesystem: true
-      #     runAsGroup: 101
-      #     runAsNonRoot: true
-      #     runAsUser: 100
-      #   volumeMounts:
-      #     - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
-      #       name: kubeconfig
-      #       readOnly: false
+      - name: create-kubeconfig
+        command:
+          - /bin/sh
+          - "-c"
+          - |
+            kubectl config set-cluster main --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            kubectl config set-credentials main --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+            kubectl config set-context main --cluster=main --user=main
+            kubectl config use-context main
+        env:
+          - name: KUBERNETES_SERVICE_HOST
+            fieldRef:
+                fieldPath: status.hostIP
+          - name: KUBERNETES_SERVICE_PORT
+            value: "6443"
+          - name: KUBECONFIG
+            value: /home/headlamp/.config/Headlamp/kubeconfigs/config
+        image: alpine/kubectl:1.35.2
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+          runAsGroup: 101
+          runAsNonRoot: true
+          runAsUser: 100
+        volumeMounts:
+          - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
+            name: kubeconfig
+            readOnly: false
 
     config:
       watchPlugins: true  # Set to true to enable automatic plugin updates in main headlamp container
