@@ -71,6 +71,7 @@ spec:
 
     pluginsManager:
       enabled: true
+      # configFile: "plugin.yml"
       configContent: |
         plugins:
           - name: cert-manager
@@ -79,3 +80,4 @@ spec:
           - name: flux
             source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_flux
             version: 0.5.0
+      baseImage: A_DOCKER_PROXY/node:lts-alpine  # Default is node:lts-alpine
