@@ -40,54 +40,28 @@ spec:
           - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
             name: kubeconfig
             readOnly: false
-      - # Install Flux plugin
-        image: ghcr.io/headlamp-k8s/headlamp-plugin-flux:v0.5.0@sha256:05c3df203b2ff82e09e944e31cd16ab66429f37df7566ba0d47285add7c78c5a
-        command:
-          - /bin/sh
-          - -c
-          - mkdir -p /build/plugins && cp -r /plugins/* /build/plugins/
-        name: headlamp-plugins
-        volumeMounts:
-          - mountPath: /build/plugins
-            name: headlamp-plugins
-      - # Install Cert Manager plugin
-        image: ghcr.io/headlamp-k8s/headlamp-plugin-cert-manager:v0.1.0
-        command:
-          - /bin/sh
-          - -c
-          - cp -r /plugins/* /build/plugins/
-        name: headlamp-plugins2
-        volumeMounts:
-          - mountPath: /build/plugins
-            name: headlamp-plugins
     config:
       oidc:
         clientID: ${HEADLAMP_POCKETID_CLIENTID}
         clientSecret: ${HEADLAMP_POCKETID_CLIENTSECRET}
         issuerURL: ${HEADLAMP_POCKETID_ISSUERURL}
         scopes: "email,profile"
-      pluginsDir: /build/plugins
     volumeMounts:
       - mountPath: "/home/headlamp/.config/Headlamp/kubeconfigs/"
         name: kubeconfig
         readOnly: true
-      - mountPath: /build/plugins
-        name: headlamp-plugins
     volumes:
       - name: kubeconfig
         emptyDir: {}
-      - name: headlamp-plugins
-        emptyDir: {}
 
-    # pluginsManager:
-    #   enabled: true
-    #   # configFile: "plugin.yml"
-    #   configContent: |
-    #     plugins:
-    #       - name: cert-manager
-    #         source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_cert-manager
-    #         version: 0.1.0
-    #       - name: flux
-    #         source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_flux
-    #         version: 0.5.0
-    #   baseImage: A_DOCKER_PROXY/node:lts-alpine  # Default is node:lts-alpine
+    pluginsManager:
+      enabled: true
+      configContent: |
+        plugins:
+          - name: cert-manager
+            source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_cert-manager
+            version: 0.1.0
+          - name: flux
+            source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_flux
+            version: 0.5.0
+      baseImage: node:lts-alpine
