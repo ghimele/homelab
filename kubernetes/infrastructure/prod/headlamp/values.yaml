@@ -6,53 +6,62 @@ metadata:
   namespace: kube-system
 spec:
   values:
+    image:
+      # -- Container image registry
+      registry: ghcr.io
+      # -- Container image name
+      repository: headlamp-k8s/headlamp
+      # -- Image pull policy. One of Always, Never, IfNotPresent
+      pullPolicy: IfNotPresent
+      # -- Container image tag, If "" uses appVersion in Chart.yaml
+      tag: "v0.40.1"
     initContainers:
-      - name: create-plugins-dir
-        command:
-          - /bin/sh
-          - "-c"
-          - |
-            mkdir -p /home/headlamp/.config/Headlamp/plugins
-            chown 100:101 home/headlamp/.config/Headlamp/plugins
-        image: alpine:3.19
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
-        volumeMounts:
-          - mountPath: /home/headlamp/.config/Headlamp
-            name: headlamp
-            readOnly: false
-      - name: create-kubeconfig
-        command:
-          - /bin/sh
-          - "-c"
-          - |
-            kubectl config set-cluster main --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-            kubectl config set-credentials main --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-            kubectl config set-context main --cluster=main --user=main
-            kubectl config use-context main
-        env:
-          - name: KUBERNETES_SERVICE_HOST
-            fieldRef:
-                fieldPath: status.hostIP
-          - name: KUBERNETES_SERVICE_PORT
-            value: "6443"
-          - name: KUBECONFIG
-            value: /home/headlamp/.config/Headlamp/kubeconfigs/config
-        image: alpine/kubectl:1.35.2
-        securityContext:
-          capabilities:
-            drop:
-              - ALL
-          privileged: false
-          readOnlyRootFilesystem: true
-          runAsGroup: 101
-          runAsNonRoot: true
-          runAsUser: 100
-        volumeMounts:
-          - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
-            name: kubeconfig
-            readOnly: false
+      # - name: create-plugins-dir
+      #   command:
+      #     - /bin/sh
+      #     - "-c"
+      #     - |
+      #       mkdir -p /home/headlamp/.config/Headlamp/plugins
+      #       chown 100:101 home/headlamp/.config/Headlamp/plugins
+      #   image: alpine:3.19
+      #   securityContext:
+      #     runAsUser: 0
+      #     runAsGroup: 0
+      #   volumeMounts:
+      #     - mountPath: /home/headlamp/.config/Headlamp
+      #       name: headlamp
+      #       readOnly: false
+      # - name: create-kubeconfig
+      #   command:
+      #     - /bin/sh
+      #     - "-c"
+      #     - |
+      #       kubectl config set-cluster main --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      #       kubectl config set-credentials main --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+      #       kubectl config set-context main --cluster=main --user=main
+      #       kubectl config use-context main
+      #   env:
+      #     - name: KUBERNETES_SERVICE_HOST
+      #       fieldRef:
+      #           fieldPath: status.hostIP
+      #     - name: KUBERNETES_SERVICE_PORT
+      #       value: "6443"
+      #     - name: KUBECONFIG
+      #       value: /home/headlamp/.config/Headlamp/kubeconfigs/config
+      #   image: alpine/kubectl:1.35.2
+      #   securityContext:
+      #     capabilities:
+      #       drop:
+      #         - ALL
+      #     privileged: false
+      #     readOnlyRootFilesystem: true
+      #     runAsGroup: 101
+      #     runAsNonRoot: true
+      #     runAsUser: 100
+      #   volumeMounts:
+      #     - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
+      #       name: kubeconfig
+      #       readOnly: false
 
     config:
       watchPlugins: true  # Set to true to enable automatic plugin updates in main headlamp container
@@ -88,4 +97,3 @@ spec:
           parallel: true
           maxConcurrent: 2
       baseImage: node:lts-alpine
-      
