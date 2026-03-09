@@ -7,7 +7,22 @@ metadata:
 spec:
   values:
     initContainers:
-      - command:
+      - name: create-plugins-dir
+        command:
+          - /bin/sh
+          - "-c"
+          - |
+            mkdir -p /home/headlamp/.config/Headlamp/plugins
+        image: alpine:3.19
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+        volumeMounts:
+          - mountPath: /home/headlamp/.config/Headlamp
+            name: headlamp
+            readOnly: false
+      - name: create-kubeconfig
+        command:
           - /bin/sh
           - "-c"
           - |
@@ -24,7 +39,6 @@ spec:
           - name: KUBECONFIG
             value: /home/headlamp/.config/Headlamp/kubeconfigs/config
         image: alpine/kubectl:1.35.2
-        name: create-kubeconfig
         securityContext:
           capabilities:
             drop:
@@ -49,8 +63,13 @@ spec:
       - mountPath: "/home/headlamp/.config/Headlamp/kubeconfigs/"
         name: kubeconfig
         readOnly: true
+      - mountPath: "/home/headlamp/.config/Headlamp/"
+        name: headlamp
+        readOnly: false
     volumes:
       - name: kubeconfig
+        emptyDir: {}
+      - name: headlamp
         emptyDir: {}
 
     pluginsManager:
