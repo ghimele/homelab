@@ -14,7 +14,7 @@ spec:
           - |
             mkdir -p /home/headlamp/.config/Headlamp/plugins
             chown 100:101 home/headlamp/.config/Headlamp/plugins
-        image: alpine:3.19
+        image: alpine:3.23
         securityContext:
           runAsUser: 0
           runAsGroup: 0
