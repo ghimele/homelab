@@ -51,7 +51,7 @@ spec:
           - mountPath: /build/plugins
             name: headlamp-plugins
       - # Install Cert Manager plugin
-        image: ghcr.io/headlamp-k8s/ghcr.io/headlamp-k8s/headlamp-plugin-cert-manager:v0.1.0
+        image: ghcr.io/headlamp-k8s/headlamp-plugin-cert-manager:v0.1.0
         command:
           - /bin/sh
           - -c
