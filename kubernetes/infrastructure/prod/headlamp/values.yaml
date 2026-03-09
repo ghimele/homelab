@@ -7,6 +7,16 @@ metadata:
 spec:
   values:
     initContainers:
+      - # Create plugins directory with proper permissions
+        command:
+          - /bin/sh
+          - -c
+          - mkdir -p /home/headlamp/.config/Headlamp/plugins && chown -R 100:100 /home/headlamp/.config/Headlamp/plugins
+        image: alpine:latest
+        name: create-plugins-dir
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
       - # Generate kubeconfig file. Can be removed when https://github.com/kubernetes-sigs/headlamp/issues/1826 is resolved
         command:
           - /bin/sh
