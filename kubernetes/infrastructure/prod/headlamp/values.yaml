@@ -7,31 +7,22 @@ metadata:
 spec:
   values:
     initContainers:
-      - # Create plugins directory with proper permissions
-        command:
+      - command:
           - /bin/sh
-          - -c
-          - mkdir -p /home/headlamp/.config/Headlamp && chown -R 100:100 /home/headlamp/.config/Headlamp
-        image: alpine:latest
-        name: create-plugins-dir
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
-        volumeMounts:
-          - mountPath: /home/headlamp/.config/Headlamp
-            name: headlamp-config
-      - # Generate kubeconfig file. Can be removed when https://github.com/kubernetes-sigs/headlamp/issues/1826 is resolved
-        command:
-          - /bin/sh
-          - -c
-          - export KUBECONFIG=/home/headlamp/.config/Headlamp/config && kubectl config set-cluster main --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt && kubectl config set-credentials main --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token) && kubectl config set-context main --cluster=main --user=main && kubectl config use-context main
+          - "-c"
+          - |
+            kubectl config set-cluster main --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            kubectl config set-credentials main --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+            kubectl config set-context main --cluster=main --user=main
+            kubectl config use-context main
         env:
           - name: KUBERNETES_SERVICE_HOST
-            valueFrom:
-              fieldRef:
+            fieldRef:
                 fieldPath: status.hostIP
           - name: KUBERNETES_SERVICE_PORT
             value: "6443"
+          - name: KUBECONFIG
+            value: /home/headlamp/.config/Headlamp/kubeconfigs/config
         image: alpine/kubectl:1.35.2
         name: create-kubeconfig
         securityContext:
@@ -44,21 +35,22 @@ spec:
           runAsNonRoot: true
           runAsUser: 100
         volumeMounts:
-          - mountPath: /home/headlamp/.config/Headlamp
-            name: headlamp-config
+          - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
+            name: kubeconfig
             readOnly: false
+
     config:
-      kubeconfig: /home/headlamp/.config/Headlamp/config
       oidc:
         clientID: ${HEADLAMP_POCKETID_CLIENTID}
         clientSecret: ${HEADLAMP_POCKETID_CLIENTSECRET}
         issuerURL: ${HEADLAMP_POCKETID_ISSUERURL}
         scopes: "email,profile"
     volumeMounts:
-      - mountPath: "/home/headlamp/.config/Headlamp/"
-        name: headlamp-config
+      - mountPath: "/home/headlamp/.config/Headlamp/kubeconfigs/"
+        name: kubeconfig
+        readOnly: true
     volumes:
-      - name: headlamp-config
+      - name: kubeconfig
         emptyDir: {}
 
     pluginsManager:
