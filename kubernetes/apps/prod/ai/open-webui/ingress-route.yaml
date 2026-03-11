@@ -27,4 +27,4 @@ spec:
         - name: open-webui
           kind: Service
           namespace: ai
-          port: 8080
+          port: 80
