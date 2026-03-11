@@ -9,6 +9,9 @@
 - [ADR-005: Use Conventional Commits for Commit Message Management](./ADR-005-Conventional-Commits.md)
 - [ADR 006: Use Static DHCP Leases Instead of Static IP Addresses](./ADR-006-DHCP-Static-Lease.md)
 - [ADR 007: Use FluxCD for Kubernetes Cluster Management](./ADR-007-FluxCD-adoption.md)
+- [ADR-008: Use K3s as Kubernetes Distribution](./ADR-008-K3s-adoption.md)
+- [ADR-009: Secrets Managment](./ADR-009-Secrets-Managment.md)
+- [ADR-010: Use Pocket-ID as OIDC Provider for SSO with Passkeys](./ADR-010-Use-Pocket-ID.md)
 
 ## Rejected Records
 
