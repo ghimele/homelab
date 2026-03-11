@@ -7,6 +7,6 @@ metadata:
 spec:
   type: ExternalName
   ports:
-    - name: https
+    - name: http
       port: 81
   externalName: ${XEN_IP}

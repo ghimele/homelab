@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: open-webui
+  namespace: ai
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_OPEN_WEB_UI}.${DOMAIN}"
+    gethomepage.dev/description: "A home for AI."
+    gethomepage.dev/group: "AI"
+    gethomepage.dev/icon: open-webui.png
+    gethomepage.dev/app: "open-webui"  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+    gethomepage.dev/name: "Open WebUI"
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: open-webui.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`${HOST_OPEN_WEB_UI}.${DOMAIN}`)
+      middlewares:
+        - name: security-header
+          namespace: traefik
+      services:
+        - name: open-webui
+          kind: Service
+          namespace: ai
+          port: 8080

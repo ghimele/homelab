@@ -22,5 +22,5 @@ resources:
   - kube-prometheus-stack-source.yaml
   - blakeblackshear.yaml
   - k8s-home-lab.yaml
-  # - pocket-id.yaml
+  - open-webui.yaml
   - ./oci

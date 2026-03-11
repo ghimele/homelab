@@ -1,0 +1,11 @@
+---
+resources:
+  - ./open-webui-pvc.yaml
+  - ../../../base/ai/open-webui
+  - ./certificate.yaml
+  - ./ingress-route.yaml
+  
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease

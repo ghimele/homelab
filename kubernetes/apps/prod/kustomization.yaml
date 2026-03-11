@@ -10,3 +10,4 @@ resources:
   # - ./gotify
   - ./home-automation
   - ./media
+  - ./ai
