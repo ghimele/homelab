@@ -22,6 +22,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`${HOST_TRAEFIK}.${DOMAIN}`)
+      middlewares:
+        - name: oidc
+          namespace: traefik
       services:
         - name: api@internal
           kind: TraefikService
