@@ -29,8 +29,6 @@ spec:
           kind: TraefikService
     - kind: Rule
       match: Host(`${HOST_TRAEFIK}.${DOMAIN}`) &&  PathPrefix("/api")
-      middlewares:
-        - name: oidc
       services:
         - name: api@internal
           kind: TraefikService

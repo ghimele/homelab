@@ -12,3 +12,4 @@ spec:
         Url: "urn:k8s:secret:oidc-secret:providerUrl"
         ClientId: "urn:k8s:secret:oidc-secret:providerClientId"
         ClientSecret: "urn:k8s:secret:oidc-secret:providerClientSecret"
+      Scopes: ["openid", "profile", "email"]
