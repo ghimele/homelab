@@ -7,5 +7,6 @@ resources:
   - ./immich
   - ./music-assistant
   - ./qbittorrent
-  - ./sonarr
   - ./prowlarr
+  # - ./sonarr
+  
