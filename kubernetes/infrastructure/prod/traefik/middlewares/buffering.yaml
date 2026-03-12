@@ -1,0 +1,11 @@
+---
+# https://doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/buffering/
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: buffering
+  namespace: traefik
+spec:
+  buffering:
+    maxRequestBodyBytes: 104857600
+    memRequestBodyBytes: 2097152

@@ -23,6 +23,8 @@ spec:
       middlewares:
         - name: security-header
           namespace: traefik
+        - name: buffering
+          namespace: traefik
       services:
         - name: open-webui
           kind: Service
