@@ -26,5 +26,7 @@ spec:
       middlewares:
         - name: x-forwarded-proto-https
           namespace: traefik
+        - name: oidc
+          namespace: traefik
   tls:
     secretName: longhorn.${DOMAIN}
