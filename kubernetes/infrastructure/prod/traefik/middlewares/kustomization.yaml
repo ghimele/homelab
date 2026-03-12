@@ -3,3 +3,5 @@ resources:
   - security-header.yaml
   - redirectscheme.yaml
   - buffering.yaml
+  - oidc-secret.enc.yaml
+  - oidc.yaml

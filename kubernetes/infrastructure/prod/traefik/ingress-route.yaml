@@ -22,11 +22,15 @@ spec:
   routes:
     - kind: Rule
       match: Host(`${HOST_TRAEFIK}.${DOMAIN}`)
+      middlewares:
+        - name: oidc
       services:
         - name: api@internal
           kind: TraefikService
     - kind: Rule
       match: Host(`${HOST_TRAEFIK}.${DOMAIN}`) &&  PathPrefix("/api")
+      middlewares:
+        - name: oidc
       services:
         - name: api@internal
           kind: TraefikService
