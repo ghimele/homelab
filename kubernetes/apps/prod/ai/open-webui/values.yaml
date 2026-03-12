@@ -6,6 +6,19 @@ metadata:
 spec:
   interval: 10m
   values:
+    image:
+      # -- Open WebUI image repository
+      # @section -- Image configuration
+      repository: ghcr.io/open-webui/open-webui
+      # -- Open WebUI image tag (Open WebUI image tags can be found here: https://github.com/open-webui/open-webui)
+      # @section -- Image configuration
+      tag: "0.8.10"
+      # -- Open WebUI image pull policy
+      # @section -- Image configuration
+      pullPolicy: "IfNotPresent"
+      # -- Use a slim version of the Open WebUI image
+      # @section -- Image configuration
+      useSlim: false
     ollama:
       enabled: false
     pipelines:
