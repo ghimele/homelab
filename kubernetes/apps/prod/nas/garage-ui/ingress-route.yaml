@@ -1,0 +1,26 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: garage-ui
+  namespace: nas
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_GARAGE_UI}.${DOMAIN}"
+    gethomepage.dev/description: Garage UI
+    gethomepage.dev/group: NAS
+    gethomepage.dev/icon: garage.png
+    gethomepage.dev/app: garage-ui  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+    gethomepage.dev/name: "Garage UI"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`${HOST_GARAGE_UI}.${DOMAIN}`)
+      kind: Rule
+      priority: 1
+      services:
+        - name: garage-ui
+          port: 3909
+  tls:
+    secretName: garage-ui.${DOMAIN}

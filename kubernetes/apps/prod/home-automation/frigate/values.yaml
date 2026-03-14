@@ -48,7 +48,7 @@ spec:
           motion:
             enabled: true   
             threshold: 30        # Increase to reduce sensitivity
-            contour_area: 30     # Increase to require larger motion
+            contour_area: 35     # Increase to require larger motion
           record:
             enabled: true
             retain:

@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: garage-ui
+  namespace: nas
+spec:
+  type: ExternalName
+  ports:
+    - name: http
+      port: 3909
+  externalName: ${GARAGE_UI_IP}

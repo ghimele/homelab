@@ -1,7 +1,7 @@
 ---
 resources:
   - ./homepage
-  - ./xen
+  - ./nas
   - ./cloudnative-pg
   # - ./kube-prometheus-stack
   - ./monitoring
