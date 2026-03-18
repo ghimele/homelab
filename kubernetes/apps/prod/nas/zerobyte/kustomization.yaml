@@ -1,6 +1,6 @@
 ---
 resources:
   - certificate.yaml
-  - endpoints.yaml
+  - endpoint.yaml
   - service.yaml
   - ingress-route.yaml
