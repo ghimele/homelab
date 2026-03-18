@@ -3,3 +3,4 @@ resources:
   - ./namespace.yaml
   - ./garage-ui
   - ./xen
+  - ./zerobyte

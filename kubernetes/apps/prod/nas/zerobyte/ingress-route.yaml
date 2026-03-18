@@ -1,0 +1,26 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: zerobyte
+  namespace: nas
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_ZEROBYTE}.${DOMAIN}"
+    gethomepage.dev/description: Zerobyte
+    gethomepage.dev/group: NAS
+    gethomepage.dev/icon: zerobyte.png
+    gethomepage.dev/app: zerobyte
+    gethomepage.dev/name: "Zerobyte"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`${HOST_ZEROBYTE}.${DOMAIN}`)
+      kind: Rule
+      priority: 1
+      services:
+        - name: zerobyte
+          port: 4096
+  tls:
+    secretName: zerobyte.${DOMAIN}
