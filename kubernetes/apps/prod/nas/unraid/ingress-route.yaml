@@ -1,0 +1,26 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: unraid
+  namespace: nas
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://${HOST_UNRAID}.${DOMAIN}"
+    gethomepage.dev/description: Unraid
+    gethomepage.dev/group: NAS
+    gethomepage.dev/icon: unraid.png
+    gethomepage.dev/app: unraid
+    gethomepage.dev/name: "Unraid"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`${HOST_UNRAID}.${DOMAIN}`)
+      kind: Rule
+      priority: 1
+      services:
+        - name: unraid
+          port: 80
+  tls:
+    secretName: unraid.${DOMAIN}
