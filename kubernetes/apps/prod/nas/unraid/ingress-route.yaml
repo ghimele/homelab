@@ -10,7 +10,6 @@ metadata:
     gethomepage.dev/description: Unraid
     gethomepage.dev/group: NAS
     gethomepage.dev/icon: unraid.png
-    gethomepage.dev/app: unraid
     gethomepage.dev/name: "Unraid"
 spec:
   entryPoints:
