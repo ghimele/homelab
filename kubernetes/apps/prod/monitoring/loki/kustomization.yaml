@@ -1,6 +1,6 @@
 ---
 resources:
-  - ../../base/loki
+  - ../../../base/monitoring/loki
   - certificate.yaml
   - ingress-route.yaml
 

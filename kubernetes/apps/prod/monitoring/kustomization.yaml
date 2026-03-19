@@ -2,7 +2,7 @@
 resources:
   # - ../../base/monitoring/namespace.yaml it is already created inside infrastructure
   - ./victoriametrics
-  - ./victorialogs
+  - ./loki
   - ./grafana
   - ./promtail
   - ./gatus
