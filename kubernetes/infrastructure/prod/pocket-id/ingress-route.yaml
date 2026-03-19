@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/href: "https://${HOST_POCKETID}.${DOMAIN}"
     gethomepage.dev/description: "Passkey OIDC Identity Provider"
     gethomepage.dev/group: Infrastructure
-    gethomepage.dev/icon: pocketid.png
+    gethomepage.dev/icon: sh-pocket-id
     gethomepage.dev/app: pocket-id
     gethomepage.dev/name: "Pocket ID"
 spec:
