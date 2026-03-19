@@ -8,7 +8,7 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://${HOST_ZEROBYTE}.${DOMAIN}"
     gethomepage.dev/description: Zerobyte
-    gethomepage.dev/group: NAS
+    gethomepage.dev/group: Storage
     gethomepage.dev/icon: zerobyte.png
     gethomepage.dev/app: zerobyte
     gethomepage.dev/name: "Zerobyte"

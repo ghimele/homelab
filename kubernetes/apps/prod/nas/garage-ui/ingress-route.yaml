@@ -8,7 +8,7 @@ metadata:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://${HOST_GARAGE_UI}.${DOMAIN}"
     gethomepage.dev/description: Garage UI
-    gethomepage.dev/group: NAS
+    gethomepage.dev/group: Storage
     gethomepage.dev/icon: garage.png
     gethomepage.dev/app: garage-ui  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
     gethomepage.dev/name: "Garage UI"

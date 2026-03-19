@@ -7,8 +7,8 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/href: "https://${HOST_UNRAID}.${DOMAIN}"
-    gethomepage.dev/description: Unraid
-    gethomepage.dev/group: NAS
+    gethomepage.dev/description: Oceano Unraid NAS
+    gethomepage.dev/group: Infrastructure
     gethomepage.dev/icon: unraid.png
     gethomepage.dev/name: "Unraid"
 spec:
