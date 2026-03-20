@@ -2,4 +2,4 @@
 resources:
   - namespace.yaml
   - release.yaml
-  - grafana-dashboards
+  # - grafana-dashboards
