@@ -1,7 +1,7 @@
 ---
 resources:
   # - ../../base/monitoring/namespace.yaml it is already created inside infrastructure
-  - ./victoriametrics
+  - ./kube-prometheus-stack
   - ./loki
   - ./grafana
   - ./promtail

@@ -1,0 +1,216 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: '82.10.5'
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+  install:
+    createNamespace: true
+    crds: Skip
+  upgrade:
+    crds: Skip
+  values:
+    fullnameOverride: ''
+
+    crds:
+      enabled: false
+
+    alertmanager:
+      config:
+        inhibit_rules:
+          - source_matchers:
+              - 'severity = critical'
+            target_matchers:
+              - 'severity =~ warning|info'
+            equal:
+              - 'namespace'
+              - 'alertname'
+          - source_matchers:
+              - 'severity = warning'
+            target_matchers:
+              - 'severity = info'
+            equal:
+              - 'namespace'
+              - 'alertname'
+          - source_matchers:
+              - 'alertname = InfoInhibitor'
+            target_matchers:
+              - 'severity = info'
+            equal:
+              - 'namespace'
+        route:
+          group_by: ['namespace']
+          receiver: discord
+          routes:
+            - receiver: nowhere
+              matchers:
+                - alertname =~ "InfoInhibitor|Watchdog"
+        receivers:
+          # - name: nowhere
+          - name: discord
+            discord_configs:
+              - webhook_url: ${ALERTMANAGER_DISCORD_URL}
+                title: >-
+                  {{ template "discord.iske.title" . }}
+                message: >-
+                  {{ template "discord.iske.message" . }}
+                send_resolved: true
+        templates:
+          - /etc/alertmanager/config/*.tmpl
+      templateFiles:
+        discord.tmpl: |-
+          {{ define "discord.iske.title" }}
+          [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}{{ end }}
+          {{ define "discord.iske.message" }}
+          {{ range $i, $e := .Alerts -}}
+          {{ if $i }}———{{ end }}
+          {{ if .Labels.severity }}`{{ .Labels.severity }}`{{ end }}
+
+          {{ if and (eq .Status "resolved") .Annotations.resolved -}}
+          *Resolved*
+          {{ .Annotations.resolved }}
+          {{- else -}}
+          *Description*
+          {{ .Annotations.description }}
+          {{- end }}
+
+          {{ if not .Annotations.minimal -}}
+          *Labels*
+          {{- range .Labels.SortedPairs }}
+          • {{ .Name }}: `{{ .Value }}`
+          {{- end }}
+          {{- end }}
+          {{ end }}{{ end }}
+      serviceMonitor:
+        relabelings:
+          - sourceLabels: [__meta_kubernetes_pod_node_name]
+            separator: ;
+            regex: ^(.*)$
+            targetLabel: nodename
+            replacement: $1
+            action: replace
+      alertmanagerSpec:
+        logLevel: info  # before: warn
+        externalUrl: https://${HOST_ALERTS}.${DOMAIN}
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 50Gi
+
+    grafana:
+      enabled: false
+
+    kubeControllerManager:
+      enabled: false
+
+    coreDns:
+      serviceMonitor:
+        relabelings:
+          - sourceLabels: [__meta_kubernetes_pod_node_name]
+            separator: ;
+            regex: ^(.*)$
+            targetLabel: nodename
+            replacement: $1
+            action: replace
+
+    kubeEtcd:
+      enabled: false
+
+    kubeScheduler:
+      enabled: false
+
+    kubeProxy:
+      enabled: false
+
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      prometheus:
+        monitor:
+          relabelings:
+            - sourceLabels: [__meta_kubernetes_pod_node_name]
+              separator: ;
+              regex: ^(.*)$
+              targetLabel: nodename
+              replacement: $1
+              action: replace
+
+    prometheus-node-exporter:
+      fullnameOverride: prometheus-node-exporter
+      extraArgs:
+        - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+        - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$
+        - --no-collector.nvme
+      prometheus:
+        monitor:
+          relabelings:
+            - sourceLabels: [__meta_kubernetes_pod_node_name]
+              separator: ;
+              regex: ^(.*)$
+              targetLabel: nodename
+              replacement: $1
+              action: replace
+
+    prometheus:
+      ## Resource limits & requests
+      resources:
+        requests:
+          memory: 500Mi
+        limits:
+          memory: 1.5Gi
+      prometheusSpec:
+        externalUrl: https://${HOST_PROMETHEUS}.${DOMAIN}
+        # TODO: implement label for selection, enable all service monitors for now
+        serviceMonitorSelector: {}
+        serviceMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorNamespaceSelector: {}
+        # TODO: implement label for selection, enable all pod monitors for now
+        podMonitorSelector: {}
+        podMonitorSelectorNilUsesHelmValues: false
+        podMonitorNamespaceSelector: {}
+        retention: 2w
+        replicas: 1
+        logLevel: info  # before: warn
+        ruleNamespaceSelector: {}  # Add a namespace if you want Prometheus to identify rules created in specific namespaces. Leave {} to detect rules from any namespace.
+        ruleSelector: {}  # Add a label if you want Prometheus to detect rules with a specific selector. Leave {} to detect rules with any label.
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: longhorn
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 20Gi
+        additionalScrapeConfigs:
+          - job_name: unraid
+            scheme: http
+            scrape_interval: 60s
+            static_configs:
+              - targets: ['${HOST_OCEANO}.${DOMAIN}:9100']
+          - job_name: pfsense
+            scheme: http
+            scrape_interval: 60s
+            static_configs:
+              - targets: ['${HOST_PFSENSE}.${DOMAIN}:9100']
+          - job_name: 'longhorn'
+            scrape_interval: 60s
+            scheme: http
+            metrics_path: '/metrics'
+            static_configs:
+              - targets: ['longhorn-backend.longhorn-system.svc.cluster.local:9500']
+  interval: 10m0s

@@ -1,5 +1,0 @@
----
-resources:
-  - ../../base/kube-prometheus-stack
-  - certificate.yaml
-  - ingress-route.yaml
