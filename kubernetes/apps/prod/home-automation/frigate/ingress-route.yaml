@@ -27,4 +27,4 @@ spec:
         - name: frigate
           kind: Service
           namespace: home-automation
-          port: 5000
+          port: 8971
