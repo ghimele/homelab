@@ -57,6 +57,7 @@ spec:
                 - alertname =~ "InfoInhibitor|Watchdog"
         receivers:
           # - name: nowhere
+          - name: "null"  # Add this to your config as well
           - name: discord
             discord_configs:
               - webhook_url: ${ALERTMANAGER_DISCORD_URL}
