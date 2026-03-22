@@ -50,11 +50,6 @@ spec:
                   rtsp://127.0.0.1:8554/AdeleCamera     # <----- The stream you want to use for record
                 roles:
                   - detect
-          onvif:
-            host: 192.168.51.105
-            port: 8000
-            user: {FRIGATE_CAM1_USER}
-            password: {FRIGATE_CAM1_PASS}
           detect:
             enabled: false # <---- disable detection until you have a working camera feed
             width: 1280
