@@ -30,7 +30,12 @@ spec:
 
       go2rtc:
         streams:
-          AdeleCamera: rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@192.168.51.105:554/stream1
+          AdeleCamera: 
+            - rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@192.168.51.105:554/stream1
+            - "ffmpeg:AdeleCamera#audio=opus"
+        webrtc:
+          candidates:
+            - frigate.home-automation.svc.cluster.local:8555
 
       cameras:
         AdeleCamera:
@@ -45,6 +50,9 @@ spec:
                   rtsp://127.0.0.1:8554/AdeleCamera     # <----- The stream you want to use for record
                 roles:
                   - detect
+          audio:
+            enabled: true
+            two_way: true
           detect:
             enabled: false # <---- disable detection until you have a working camera feed
             width: 1280
@@ -77,3 +85,4 @@ spec:
       FRIGATE_CAM1_USER: ${FRIGATE_CAM1_USER}
       FRIGATE_CAM1_PASS: ${FRIGATE_CAM1_PASS}
       FRIGATE_CAM1_IP: ${FRIGATE_CAM1_IP}
+      FRIGATE_HOSTNAME: ${HOST_FRIGATE}.${DOMAIN}

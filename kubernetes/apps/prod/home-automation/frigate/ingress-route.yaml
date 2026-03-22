@@ -28,3 +28,10 @@ spec:
           kind: Service
           namespace: home-automation
           port: 5000
+    - kind: Rule
+      match: PathPrefix(`/webrtc`)
+      services:
+        - name: frigate
+          kind: Service
+          namespace: home-automation
+          port: 8555
