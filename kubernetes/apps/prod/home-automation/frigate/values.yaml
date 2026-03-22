@@ -28,17 +28,21 @@ spec:
         cpu1:
           type: cpu
 
+      go2rtc:
+        streams:
+          AdeleCamera: rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@192.168.51.105:554/stream1
+
       cameras:
         AdeleCamera:
           enabled: true
           ffmpeg:
             inputs:
               - path: 
-                  rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@${FRIGATE_CAM1_IP}:554/stream1     # <----- The stream you want to use for record
+                  rtsp://127.0.0.1:8554/AdeleCamera     # <----- The stream you want to use for record
                 roles:
                   - record
               - path: 
-                  rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@${FRIGATE_CAM1_IP}:554/stream2     # <----- The stream you want to use for record
+                  rtsp://127.0.0.1:8554/AdeleCamera     # <----- The stream you want to use for record
                 roles:
                   - detect
           detect:
