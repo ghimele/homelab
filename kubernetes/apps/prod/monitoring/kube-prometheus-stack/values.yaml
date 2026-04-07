@@ -196,7 +196,7 @@ spec:
                 - ReadWriteOnce
               resources:
                 requests:
-                  storage: 20Gi
+                  storage: 30Gi
         additionalScrapeConfigs:
           - job_name: unraid
             scheme: http
