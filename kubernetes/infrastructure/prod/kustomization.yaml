@@ -6,7 +6,7 @@ resources:
   - ./cert-manager/
   - ./traefik/
   - ./headlamp
-  - ./system-upgrade/
+  # - ./system-upgrade/
   - ./longhorn/
   - ./tailscale/
   - ./storage/
