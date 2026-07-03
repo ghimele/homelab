@@ -7,15 +7,6 @@ metadata:
   namespace: media
 spec:
   values:
-    volumes:
-      - name: cache
-        persistentVolumeClaim:
-          claimName: jellyfin-cache
-
-    volumeMounts:
-      - name: cache
-        mountPath: /cache
-
     persistence:
       config:
         storageClass: longhorn
@@ -24,6 +15,11 @@ spec:
         storageClass: nfs-media
         ## -- Use an existing PVC for this mount
         existingClaim: media
+      cache:
+        enabled: true
+        type: pvc
+        storageClass: longhorn
+        existingClaim: jellyfin-cache
 
     # -- Node selector for pod scheduling.
     nodeSelector:
