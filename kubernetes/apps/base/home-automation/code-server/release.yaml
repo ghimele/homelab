@@ -36,8 +36,6 @@ spec:
               - --port
               - "8080"
               - --proxy-domain
-              - &host "code.home.${SECRET_DOMAIN}"
-              - /home/coder
 
             env:
               DISABLE_TELEMETRY: "true"
