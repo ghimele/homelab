@@ -2,11 +2,11 @@
 resources:
   # - pvc-jellyfin-cache.yaml
   - pvc-jellyfin-config.yaml
-  - ../../../base/media/jellyfin
+  # - ../../../base/media/jellyfin
   - ./certificate.yaml
   - ./ingress-route.yaml
 
-patches:
-  - path: values.yaml
-    target:
-      kind: HelmRelease
+# patches:
+  #- path: values.yaml
+    #target:
+      #kind: HelmRelease
