@@ -44,18 +44,19 @@ spec:
         allowExternalNameServices: true
         # -- Allows to return 503 when there is no endpoints available
         allowEmptyServices: true
-    logs:
-      general:
-        level: DEBUG
-        format: json
-      access:
-        enabled: true
-        filePath: "/data/log/traefik/access.log"
-        format: json
-        bufferingSize: 100
-        fields:
-          headers:
-            defaultmode: keep
+    # we use the standard config for log
+    # logs:
+    #  general:
+    #    level: DEBUG
+    #    format: json
+    #  access:
+    #    enabled: true
+    #    filePath: "/data/log/traefik/access.log"
+    #    format: json
+    #    bufferingSize: 100
+    #    fields:
+    #      headers:
+    #        defaultmode: keep
     ports:
       web:
         http:
