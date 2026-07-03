@@ -19,7 +19,8 @@ spec:
         enabled: true
         type: pvc
         storageClass: longhorn
-        existingClaim: jellyfin-cache
+        accessMode: ReadWriteOnce
+        size: 10Gi
 
     # -- Node selector for pod scheduling.
     nodeSelector:
