@@ -20,9 +20,10 @@ spec:
               - --auto-service
             resources:
               requests:
-                cpu: 10m
+                cpu: 50m
+                memory: 128Mi
               limits:
-                memory: 32Mi
+                memory: 128Mi
             restartPolicy: Always
         containers:
           app:
