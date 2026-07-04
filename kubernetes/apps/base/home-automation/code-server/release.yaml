@@ -36,6 +36,7 @@ spec:
               - --port
               - "8080"
               - --proxy-domain
+              - "${HOST_CODE_SERVER}.${DOMAIN}"
 
             env:
               DISABLE_TELEMETRY: "true"
