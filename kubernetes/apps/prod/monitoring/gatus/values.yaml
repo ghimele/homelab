@@ -64,6 +64,7 @@ spec:
             runAsGroup: 1003
             fsGroup: 1003
             fsGroupChangePolicy: OnRootMismatch
+          automountServiceAccountToken: true
         serviceAccount:
           identifier: gatus
     service:
