@@ -19,6 +19,14 @@ spec:
         existingClaim: music-assistant
         globalMounts:
           - path: /data
+
+      music:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: media
+        globalMounts:
+          - path: /media
+
       tmpfs:
         type: emptyDir
         advancedMounts:
