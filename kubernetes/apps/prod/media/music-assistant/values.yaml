@@ -16,7 +16,8 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
-        existingClaim: music-assistant
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
         globalMounts:
           - path: /data
 
