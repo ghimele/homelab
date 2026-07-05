@@ -5,7 +5,7 @@ resources:
   - ./pvc-photos.yaml
   - ./jellyfin
   - ./immich
-  - ./music-assistant
+  # - ./music-assistant
   - ./qbittorrent
   - ./prowlarr
   # - ./sonarr
