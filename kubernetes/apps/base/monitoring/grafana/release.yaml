@@ -81,22 +81,14 @@ spec:
       datasources.yaml:
         apiVersion: 1
         datasources:
-          - name: VictoriaMetrics
+          - name: Prometheus
             type: prometheus
             uid: prometheus
             access: proxy
-            url: http://vmsingle-vmetrics-victoria-metrics-k8s-stack.monitoring.svc.cluster.local:8429
+            url: http://prometheus-operated.monitoring.svc:9090
             jsonData:
-              prometheusType: Prometheus
               timeInterval: 1m
             isDefault: true
-          - name: VictoriaMetrics (DS)
-            isDefault: false
-            access: proxy
-            type: victoriametrics-metrics-datasource
-          - name: VictoriaLogs
-            type: victoriametrics-logs-datasource
-            url: http://vm-logs-victoria-logs-single-server.monitoring.svc:9428
           - name: Alertmanager
             access: proxy
             jsonData:
@@ -116,96 +108,96 @@ spec:
               path: /var/lib/grafana/dashboards/default
     dashboards:
       default:
-        cloudflared:
-          # renovate: depName="Cloudflare Tunnels (cloudflared)"
-          gnetId: 17457
-          revision: 6
-          datasource:
-            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
+        # cloudflared:
+        #   # renovate: depName="Cloudflare Tunnels (cloudflared)"
+        #   gnetId: 17457
+        #   revision: 6
+        #   datasource:
+        #     - { name: DS_PROMETHEUS, value: VictoriaMetrics }
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
           revision: 36
-          datasource: VictoriaMetrics
+          datasource: prometheus
         cloudnative-pg:
           url: https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/main/charts/cluster/grafana-dashboard.json
-          datasource: VictoriaMetrics
+          datasource: prometheus
         cert-manager:
           # renovate: depName="Cert-manager-Kubernetes"
           gnetId: 20842
           revision: 3
-          datasource: VictoriaMetrics
-        omada-exporter:
-          url: https://raw.githubusercontent.com/charlie-haley/omada_exporter/main/dashboard.json
-          datasource: VictoriaMetrics
+          datasource: prometheus
+        # omada-exporter:
+        #   url: https://raw.githubusercontent.com/charlie-haley/omada_exporter/main/dashboard.json
+        #   datasource: VictoriaMetrics
         flux-cluster:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
-          datasource: VictoriaMetrics
+          datasource: prometheus
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
-          datasource: VictoriaMetrics
+          datasource: prometheus
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
           gnetId: 15761
           revision: 16
-          datasource: VictoriaMetrics
+          datasource: prometheus
         kubernetes-coredns:
           # renovate: depName="Kubernetes / System / CoreDNS"
           gnetId: 15762
           revision: 17
-          datasource: VictoriaMetrics
+          datasource: prometheus
         kubernetes-global:
           # renovate: depName="Kubernetes / Views / Global"
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
           # gnetId: 15757
           # revision: 43
           token: ''
-          datasource: VictoriaMetrics
+          datasource: prometheus
           folder: Kubernetes
         kubernetes-namespaces:
           # renovate: depName="Kubernetes / Views / Namespaces"
           gnetId: 15758
           revision: 34
-          datasource: VictoriaMetrics
+          datasource: prometheus
         kubernetes-nodes:
           # renovate: depName="Kubernetes / Views / Nodes"
           gnetId: 15759
           revision: 29
-          datasource: VictoriaMetrics
+          datasource: prometheus
         kubernetes-pods:
           # renovate: depName="Kubernetes / Views / Pods"
           gNetId: 15760
           revision: 21
-          datasource: VictoriaMetrics
+          datasource: prometheus
         kubernetes-volumes:
           # renovate: depName="K8s / Storage / Volumes / Cluster"
           gnetId: 11454
           revision: 14
-          datasource: VictoriaMetrics
-        smartctl-exporter:
-          # renovate: depName="SMARTctl Exporter Dashboard"
-          gnetId: 22604
-          revision: 1
-          datasource:
-            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
+          datasource: prometheus
+        # smartctl-exporter:
+        #   # renovate: depName="SMARTctl Exporter Dashboard"
+        #   gnetId: 22604
+        #   revision: 1
+        #   datasource:
+        #     - { name: DS_PROMETHEUS, value: VictoriaMetrics }
         node-feature-discovery:
           url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
-          datasource: VictoriaMetrics
-        blocky:
-          url: https://0xerr0r.github.io/blocky/latest/blocky-grafana.json
-          datasource:
-            - { name: DS_PROMETHEUS, value: VictoriaMetrics }
-        victoriametrics:
-          url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/victoriametrics.json
-        vmagent:
-          url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/vmagent.json
-        vmlogs:
-          gnetid: 23274
-          # url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/victorialogs.json
-        vmalert:
-          url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/vmalert.json
-        vmoperator:
-          url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/operator.json
+          datasource: prometheus
+        # blocky:
+        #   url: https://0xerr0r.github.io/blocky/latest/blocky-grafana.json
+        #   datasource:
+        #     - { name: DS_PROMETHEUS, value: VictoriaMetrics }
+        # victoriametrics:
+        #   url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/victoriametrics.json
+        # vmagent:
+        #   url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/vmagent.json
+        # vmlogs:
+        #   gnetid: 23274
+        #   # url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/victorialogs.json
+        # vmalert:
+        #   url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/vmalert.json
+        # vmoperator:
+        #   url: https://raw.githubusercontent.com/VictoriaMetrics/VictoriaMetrics/refs/heads/master/dashboards/operator.json
     sidecar:
       dashboards:
         enabled: false
@@ -221,7 +213,7 @@ spec:
         labelValue: ""
     plugins:
       - grafana-piechart-panel
-      - victoriametrics-logs-datasource
+      # - victoriametrics-logs-datasource
     serviceMonitor:
       enabled: true
     testFramework:
