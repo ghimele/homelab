@@ -101,9 +101,16 @@ spec:
         addServicesLabels: true
         service:
           enabled: true
+          annotations:
+            prometheus.io/scrape: "true"
+            prometheus.io/path: /metrics
+            prometheus.io/port: "9100"
         disableAPICheck: false
         serviceMonitor:
           enabled: true
+          additionalLabels:
+            app.kubernetes.io/component: traefik
+            app.kubernetes.io/part-of: ingress
           namespaceSelector:
             matchNames:
               - traefik

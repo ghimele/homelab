@@ -214,4 +214,9 @@ spec:
             metrics_path: '/metrics'
             static_configs:
               - targets: ['longhorn-backend.longhorn-system.svc.cluster.local:9500']
+          - job_name: traefik
+            metrics_path: /metrics
+            scrape_interval: 30s
+            static_configs:
+              - targets: ['traefik.traefik.svc.cluster.local:9100']
   interval: 10m0s
