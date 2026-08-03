@@ -88,13 +88,25 @@ spec:
       storageClass: "local-path"
     tracing:
       addInternals: true
+    deployment:
+      podAnnotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "9100"
     metrics:
       prometheus:
+        entryPoint: metrics
+        addEntryPointsLabels: true
+        addRoutersLabels: true
+        addServicesLabels: true
         service:
           enabled: true
         disableAPICheck: false
         serviceMonitor:
           enabled: true
+          namespaceSelector:
+            matchNames:
+              - traefik
           metricRelabelings:
             - sourceLabels: [__name__]
               separator: ;
