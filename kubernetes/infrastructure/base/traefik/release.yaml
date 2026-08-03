@@ -108,9 +108,6 @@ spec:
         disableAPICheck: false
         serviceMonitor:
           enabled: true
-          additionalLabels:
-            app.kubernetes.io/component: traefik
-            app.kubernetes.io/part-of: ingress
           namespaceSelector:
             matchNames:
               - traefik
