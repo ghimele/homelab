@@ -26,6 +26,7 @@ spec:
       enabled: false
 
     alertmanager:
+      enabled: true
       config:
         inhibit_rules:
           - source_matchers:
@@ -174,6 +175,11 @@ spec:
         limits:
           memory: 1.5Gi
       prometheusSpec:
+        alertingEndpoints:
+          - namespace: monitoring
+            name: alertmanager-operated
+            port: web
+            scheme: http
         externalUrl: https://${HOST_PROMETHEUS}.${DOMAIN}
         # TODO: implement label for selection, enable all service monitors for now
         serviceMonitorSelector: {}
