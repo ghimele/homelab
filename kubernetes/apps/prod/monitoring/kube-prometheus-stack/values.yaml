@@ -102,6 +102,7 @@ spec:
             replacement: $1
             action: replace
       alertmanagerSpec:
+        portName: http-web
         logLevel: info  # before: warn
         externalUrl: https://${HOST_ALERTS}.${DOMAIN}
         storage:
@@ -178,7 +179,7 @@ spec:
         alertingEndpoints:
           - namespace: monitoring
             name: alertmanager-operated
-            port: web
+            port: http-web
             scheme: http
         externalUrl: https://${HOST_PROMETHEUS}.${DOMAIN}
         # TODO: implement label for selection, enable all service monitors for now
