@@ -176,7 +176,7 @@ spec:
           datasource: prometheus
         traefik:
           # renovate: depName="Traefik"
-          gnetId: 17347
+          gnetId: 17346
           revision: 1
           datasource: prometheus
         # smartctl-exporter:
