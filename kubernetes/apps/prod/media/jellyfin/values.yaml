@@ -27,6 +27,36 @@ spec:
       # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
       node-role.kubernetes.io/nfs: ""
 
+    # Probe the real /health endpoint at startup so liveness only kicks in once Jellyfin
+    # is genuinely ready. The chart default startupProbe uses tcpSocket, which passes as
+    # soon as Kestrel binds 8096 (a few seconds), letting liveness kill the pod while the
+    # DB/config on the Longhorn volume is still initialising (~50s+ cold boot).
+    startupProbe:
+      httpGet:
+        path: /health
+        port: http
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      failureThreshold: 30  # up to ~5 min to become healthy
+
+    livenessProbe:
+      httpGet:
+        path: /health
+        port: http
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+
+    readinessProbe:
+      httpGet:
+        path: /health
+        port: http
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+
     metrics:
       # -- Enable or disable metrics collection - Ensure you have started and configured your Jellyfin instance first as this will fail if system.xml does not exist yet
       enabled: false
