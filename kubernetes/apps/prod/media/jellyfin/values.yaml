@@ -27,35 +27,26 @@ spec:
       # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
       node-role.kubernetes.io/nfs: ""
 
-    # Probe the real /health endpoint at startup so liveness only kicks in once Jellyfin
-    # is genuinely ready. The chart default startupProbe uses tcpSocket, which passes as
-    # soon as Kestrel binds 8096 (a few seconds), letting liveness kill the pod while the
-    # DB/config on the Longhorn volume is still initialising (~50s+ cold boot).
-    startupProbe:
-      # Null the chart's default tcpSocket handler; Helm merges values and a probe
-      # may only have one handler type.
-      tcpSocket: null
-      httpGet:
-        path: /health
-        port: http
-      initialDelaySeconds: 10
-      periodSeconds: 10
-      failureThreshold: 30  # up to ~5 min to become healthy
-
+    # The chart's default startupProbe (tcpSocket) passes as soon as Kestrel binds 8096,
+    # so liveness/readiness take over while Jellyfin is still doing its ~50s cold boot on
+    # the Longhorn config volume. We can't swap the startup handler to httpGet /health
+    # because Flux strips null values from HelmRelease spec.values, so the chart's tcpSocket
+    # can't be removed (two handlers = invalid Deployment). Instead we give liveness a wide
+    # failure window so it can't kill the pod mid-boot, and let readiness gate traffic.
     livenessProbe:
       httpGet:
         path: /health
         port: http
-      initialDelaySeconds: 10
+      initialDelaySeconds: 30
       periodSeconds: 10
       timeoutSeconds: 5
-      failureThreshold: 3
+      failureThreshold: 12  # tolerate ~2 min of boot before restarting
 
     readinessProbe:
       httpGet:
         path: /health
         port: http
-      initialDelaySeconds: 10
+      initialDelaySeconds: 15
       periodSeconds: 10
       timeoutSeconds: 5
       failureThreshold: 3
