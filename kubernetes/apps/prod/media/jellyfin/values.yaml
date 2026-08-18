@@ -32,6 +32,9 @@ spec:
     # soon as Kestrel binds 8096 (a few seconds), letting liveness kill the pod while the
     # DB/config on the Longhorn volume is still initialising (~50s+ cold boot).
     startupProbe:
+      # Null the chart's default tcpSocket handler; Helm merges values and a probe
+      # may only have one handler type.
+      tcpSocket: null
       httpGet:
         path: /health
         port: http
