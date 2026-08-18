@@ -21,6 +21,7 @@ The goal of this section is to:
 | ID | Title | Affected Components | Status |
 | -- | ----- | ------------------- | ------ |
 | KI-001 | Longhorn webhook blocks Flannel bootstrap in k3s HA | k3s, Flannel, Longhorn | Mitigated |
+| KI-002 | CloudNativePG CRD/operator version skew causes hot reconcile loop | CloudNativePG, CRDs, FluxCD | Resolved |
 
 ---
 
