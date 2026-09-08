@@ -31,7 +31,7 @@ spec:
       go2rtc:
         streams:
           AdeleCamera: 
-            - rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@192.168.51.105:554/stream1
+            - rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@{FRIGATE_CAM1_IP}:554/stream1
             - "ffmpeg:AdeleCamera#audio=opus"
         webrtc:
           candidates:
