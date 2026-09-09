@@ -96,6 +96,14 @@
       "matchPackageNames": [
         "/commitlint/"
       ]
+    },
+    {
+      "description": "Auto-approve and merge minor and patch version updates",
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "automerge": true,
+      "automergeType": "pr"
     }
   ]
 }
