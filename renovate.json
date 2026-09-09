@@ -56,6 +56,17 @@
       ],
       "datasourceTemplate": "github-releases",
       "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
+      "description": "Process GitHub release download URLs",
+      "managerFilePatterns": [
+        "/kubernetes/.+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[\\w\\-]+) depName=(?<depName>[\\w\\d\\-_\\/]+)\n\\s*-\\s+https:\\/\\/github\\.com\\/[\\w\\d\\-_]+\\/[\\w\\d\\-_]+\\/releases\\/download\\/(?<currentValue>v?[\\w\\d\\.\\-_]+)\\/"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
     }
   ],
   "packageRules": [
