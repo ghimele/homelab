@@ -6,7 +6,8 @@ on:
 
 jobs:
   approve-and-merge:
-    if: ${{ and(eq(github.event.pull_request.user.login, 'renovate[bot]'), contains(github.event.pull_request.body, 'Update Type: patch')) }}
+    if: >-
+        ${{ github.event.pull_request.user.login == 'renovate[bot]' && contains(github.event.pull_request.body, 'Update Type: patch') }}
     runs-on: ubuntu-latest
     steps:
       - name: Approve pull request
