@@ -1,0 +1,26 @@
+name: Auto-approve and merge Renovate minor/patch PRs
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, labeled]
+
+jobs:
+  approve-and-merge:
+    if: ${{ and(eq(github.event.pull_request.user.login, 'renovate[bot]'), or(contains(github.event.pull_request.body, 'Update Type: patch'))) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Approve pull request
+        uses: peter-evans/approve-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ github.event.pull_request.number }}
+          body: "Auto-approved by workflow for Renovate minor/patch updates"
+
+      - name: Merge pull request
+        uses: peter-evans/merge-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: merge
+          commit-title: "chore(deps): auto-merge Renovate PR"
+          merge-when: success
