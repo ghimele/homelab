@@ -89,13 +89,16 @@ spec:
         plugins:
           - name: cert-manager
             source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_cert-manager
-            version: 0.1.0
+            # renovate: datasource=github-tags depName=headlamp-k8s/headlamp-plugins versioning=semver
+            version: "0.1.0"
           - name: flux
             source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_flux
-            version: 0.5.0
+            # renovate: datasource=github-tags depName=headlamp-k8s/headlamp-plugins versioning=semver
+            version: "0.5.0"
           - name: CloudNativePG
             source: https://artifacthub.io/packages/headlamp/cnpg-headlamp-plugin/cnpg-headlamp-plugin
-            version: 0.1.4
+            # renovate: datasource=github-tags depName=cloudnative-pg/cnpg-headlamp-plugin versioning=semver
+            version: "0.1.4"
         installOptions:
           parallel: true
           maxConcurrent: 2
