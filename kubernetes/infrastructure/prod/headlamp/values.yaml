@@ -16,21 +16,21 @@ spec:
       # -- Container image tag, If "" uses appVersion in Chart.yaml
       tag: "v0.46.0"
     initContainers:
-      - name: create-plugins-dir
-        command:
-          - /bin/sh
-          - "-c"
-          - |
-            mkdir -p /home/headlamp/.config/Headlamp/plugins
-            chown 100:101 home/headlamp/.config/Headlamp/plugins
-        image: alpine:3.19
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
-        volumeMounts:
-          - mountPath: /home/headlamp/.config/Headlamp
-            name: headlamp
-            readOnly: false
+      # - name: create-plugins-dir
+      #   command:
+      #     - /bin/sh
+      #     - "-c"
+      #     - |
+      #       mkdir -p /home/headlamp/.config/Headlamp/plugins
+      #       chown 100:101 home/headlamp/.config/Headlamp/plugins
+      #   image: alpine:3.19
+      #   securityContext:
+      #     runAsUser: 0
+      #     runAsGroup: 0
+      #   volumeMounts:
+      #     - mountPath: /home/headlamp/.config/Headlamp
+      #       name: headlamp
+      #       readOnly: false
       - name: create-kubeconfig
         command:
           - /bin/sh
@@ -95,7 +95,7 @@ spec:
             source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_flux
             # renovate: datasource=github-tags depName=headlamp-k8s/headlamp-plugins versioning=semver
             version: "0.5.0"
-          - name: CloudNativePG
+          - name: cnpg
             source: https://artifacthub.io/packages/headlamp/cnpg-headlamp-plugin/cnpg-headlamp-plugin
             # renovate: datasource=github-tags depName=cloudnative-pg/cnpg-headlamp-plugin versioning=semver
             version: "0.1.4"
