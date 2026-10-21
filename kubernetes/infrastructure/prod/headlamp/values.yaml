@@ -94,7 +94,7 @@ spec:
             source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_flux
             version: 0.5.0
           - name: cnpg
-            source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_cnpg_plugin
+            source: https://artifacthub.io/packages/headlamp/cnpg-headlamp-plugin/cnpg-headlamp-plugin
             version: 0.1.4
         installOptions:
           parallel: true
