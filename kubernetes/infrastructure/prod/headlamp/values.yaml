@@ -16,21 +16,21 @@ spec:
       # -- Container image tag, If "" uses appVersion in Chart.yaml
       tag: "v0.45.0"
     initContainers:
-      # - name: create-plugins-dir
-      #   command:
-      #     - /bin/sh
-      #     - "-c"
-      #     - |
-      #       mkdir -p /home/headlamp/.config/Headlamp/plugins
-      #       chown 100:101 home/headlamp/.config/Headlamp/plugins
-      #   image: alpine:3.19
-      #   securityContext:
-      #     runAsUser: 0
-      #     runAsGroup: 0
-      #   volumeMounts:
-      #     - mountPath: /home/headlamp/.config/Headlamp
-      #       name: headlamp
-      #       readOnly: false
+      - name: create-plugins-dir
+        command:
+          - /bin/sh
+          - "-c"
+          - |
+            mkdir -p /home/headlamp/.config/Headlamp/plugins
+            chown 100:101 home/headlamp/.config/Headlamp/plugins
+        image: alpine:3.19
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+        volumeMounts:
+          - mountPath: /home/headlamp/.config/Headlamp
+            name: headlamp
+            readOnly: false
       - name: create-kubeconfig
         command:
           - /bin/sh
