@@ -98,7 +98,7 @@ spec:
           - name: cnpg
             source: https://artifacthub.io/packages/headlamp/cnpg-headlamp-plugin/cnpg-headlamp-plugin
             # renovate: datasource=github-tags depName=cloudnative-pg/cnpg-headlamp-plugin versioning=semver
-            version: "0.1.4"
+            version: "0.1.6"
         installOptions:
           parallel: true
           maxConcurrent: 2
