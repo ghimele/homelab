@@ -4,3 +4,4 @@ resources:
   - ./middlewares
   - certificate.yaml
   - ingress-route.yaml
+  - tailscale-service.yaml
