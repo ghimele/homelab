@@ -14,7 +14,7 @@ spec:
       # -- Image pull policy. One of Always, Never, IfNotPresent
       pullPolicy: IfNotPresent
       # -- Container image tag, If "" uses appVersion in Chart.yaml
-      tag: "v0.45.0"
+      tag: "v0.46.0"
     initContainers:
       # - name: create-plugins-dir
       #   command:
@@ -48,7 +48,7 @@ spec:
             value: "6443"
           - name: KUBECONFIG
             value: /home/headlamp/.config/Headlamp/kubeconfigs/config
-        image: alpine/kubectl:1.37.0
+        image: alpine/kubectl:1.37.2
         securityContext:
           capabilities:
             drop:
@@ -89,10 +89,16 @@ spec:
         plugins:
           - name: cert-manager
             source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_cert-manager
-            version: 0.1.0
+            # renovate: datasource=github-tags depName=headlamp-k8s/headlamp-plugins versioning=semver
+            version: "0.1.0"
           - name: flux
             source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_flux
-            version: 0.5.0
+            # renovate: datasource=github-tags depName=headlamp-k8s/headlamp-plugins versioning=semver
+            version: "0.5.0"
+          - name: cnpg
+            source: https://artifacthub.io/packages/headlamp/cnpg-headlamp-plugin/cnpg-headlamp-plugin
+            # renovate: datasource=github-tags depName=cloudnative-pg/cnpg-headlamp-plugin versioning=semver
+            version: "0.1.6"
         installOptions:
           parallel: true
           maxConcurrent: 2
