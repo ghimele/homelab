@@ -24,6 +24,8 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    rbac:
+      namespaced: true
     deploymentStrategy:
       type: Recreate
     fullnameOverride: grafana
@@ -213,9 +215,10 @@ spec:
           disableDelete: true
           foldersFromFilesStructure: true
       datasources:
-        enabled: false
-        searchNamespace: ALL
+        enabled: true
+        label: grafana-datasource
         labelValue: ""
+        resource: configmap
     plugins:
       - grafana-piechart-panel
       # - victoriametrics-logs-datasource
