@@ -96,17 +96,25 @@ spec:
             }
             rule {
               target_label = "job"
-              replacement  = "alloy-node-exporter"
+              replacement  = "node-exporter"
             }
             rule {
               target_label = "nodename"
               replacement  = sys.env("HOSTNAME")
             }
+            rule {
+              target_label = "namespace"
+              replacement  = sys.env("POD_NAMESPACE")
+            }
+            rule {
+              target_label = "pod"
+              replacement  = sys.env("POD_NAME")
+            }
           }
 
           prometheus.scrape "node" {
             targets    = discovery.relabel.node.output
-            job_name   = "alloy-node-exporter"
+            job_name   = "node-exporter"
             forward_to = [prometheus.remote_write.local.receiver]
           }
 

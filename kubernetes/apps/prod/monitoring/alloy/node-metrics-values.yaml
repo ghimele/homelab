@@ -12,3 +12,11 @@ spec:
       extraEnv:
         - name: PROMETHEUS_REMOTE_WRITE_URL
           value: http://prometheus-operated.monitoring.svc:9090/api/v1/write
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace

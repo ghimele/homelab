@@ -152,6 +152,9 @@ spec:
               replacement: $1
               action: replace
 
+    nodeExporter:
+      enabled: false
+
     prometheus-node-exporter:
       fullnameOverride: prometheus-node-exporter
       extraArgs:
