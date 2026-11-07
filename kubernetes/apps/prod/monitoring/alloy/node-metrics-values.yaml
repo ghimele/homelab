@@ -8,6 +8,11 @@ spec:
   values:
     serviceMonitor:
       enabled: true
+    controller:
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
     alloy:
       extraEnv:
         - name: CLUSTER_NAME
