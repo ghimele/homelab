@@ -3,6 +3,7 @@ resources:
   - ../../../base/monitoring/alloy
   - ../../../base/monitoring/alloy/events
   - ../../../base/monitoring/alloy/node-metrics
+  - syslog-service.yaml
 
 patches:
   - path: values.yaml
