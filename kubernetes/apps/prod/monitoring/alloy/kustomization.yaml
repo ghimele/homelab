@@ -2,6 +2,7 @@
 resources:
   - ../../../base/monitoring/alloy
   - ../../../base/monitoring/alloy/events
+  - ../../../base/monitoring/alloy/node-metrics
 
 patches:
   - path: values.yaml
@@ -12,3 +13,7 @@ patches:
     target:
       kind: HelmRelease
       name: alloy-events
+  - path: node-metrics-values.yaml
+    target:
+      kind: HelmRelease
+      name: alloy-node-metrics

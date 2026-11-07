@@ -1,0 +1,117 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: alloy-node-metrics
+  namespace: monitoring
+spec:
+  interval: 10m0s
+  chart:
+    spec:
+      chart: alloy
+      version: '1.2.1'
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    rbac:
+      create: false
+    serviceAccount:
+      automountServiceAccountToken: false
+    controller:
+      type: daemonset
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      volumes:
+        extra:
+          - name: host-root
+            hostPath:
+              path: /
+          - name: host-proc
+            hostPath:
+              path: /proc
+          - name: host-sys
+            hostPath:
+              path: /sys
+    alloy:
+      listenPort: 12346
+      mounts:
+        extra:
+          - name: host-root
+            mountPath: /host/root
+            readOnly: true
+            mountPropagation: HostToContainer
+          - name: host-proc
+            mountPath: /host/proc
+            readOnly: true
+          - name: host-sys
+            mountPath: /host/sys
+            readOnly: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: '1'
+          memory: 512Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      configMap:
+        content: |
+          prometheus.exporter.unix "node" {
+            rootfs_path        = "/host/root"
+            procfs_path        = "/host/proc"
+            sysfs_path         = "/host/sys"
+            udev_data_path     = "/host/root/run/udev/data"
+            disable_collectors = ["nvme"]
+
+            filesystem {
+              mount_points_exclude = "^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)"
+              fs_types_exclude     = "^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs)$"
+            }
+          }
+
+          discovery.relabel "node" {
+            targets = prometheus.exporter.unix.node.targets
+
+            rule {
+              target_label = "instance"
+              replacement  = sys.env("HOSTNAME")
+            }
+            rule {
+              target_label = "job"
+              replacement  = "alloy-node-exporter"
+            }
+            rule {
+              target_label = "nodename"
+              replacement  = sys.env("HOSTNAME")
+            }
+          }
+
+          prometheus.scrape "node" {
+            targets    = discovery.relabel.node.output
+            job_name   = "alloy-node-exporter"
+            forward_to = [prometheus.remote_write.local.receiver]
+          }
+
+          prometheus.remote_write "local" {
+            endpoint {
+              url = sys.env("PROMETHEUS_REMOTE_WRITE_URL")
+            }
+          }

@@ -1,0 +1,14 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: alloy-node-metrics
+  namespace: monitoring
+spec:
+  values:
+    serviceMonitor:
+      enabled: true
+    alloy:
+      extraEnv:
+        - name: PROMETHEUS_REMOTE_WRITE_URL
+          value: http://prometheus-operated.monitoring.svc:9090/api/v1/write

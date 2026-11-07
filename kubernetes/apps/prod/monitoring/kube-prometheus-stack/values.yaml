@@ -176,6 +176,7 @@ spec:
         limits:
           memory: 1.5Gi
       prometheusSpec:
+        enableRemoteWriteReceiver: true
         alertingEndpoints:
           - namespace: monitoring
             name: alertmanager-operated
