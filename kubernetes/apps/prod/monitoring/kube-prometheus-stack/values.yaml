@@ -242,7 +242,7 @@ spec:
             scheme: http
             scrape_interval: 60s
             static_configs:
-              - targets: ['${HOST_OCEANO}.${DOMAIN}:9100']
+              - targets: ['${UNRAID_IP}:9100']
           - job_name: pfsense
             scheme: http
             scrape_interval: 60s
