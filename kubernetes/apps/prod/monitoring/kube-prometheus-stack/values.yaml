@@ -118,6 +118,33 @@ spec:
     grafana:
       enabled: false
 
+    kubelet:
+      serviceMonitor:
+        relabelings:
+          - action: replace
+            sourceLabels: [__metrics_path__]
+            targetLabel: metrics_path
+          - targetLabel: cluster
+            replacement: ${CLUSTER_NAME}
+        cAdvisorRelabelings:
+          - action: replace
+            sourceLabels: [__metrics_path__]
+            targetLabel: metrics_path
+          - targetLabel: cluster
+            replacement: ${CLUSTER_NAME}
+        probesRelabelings:
+          - action: replace
+            sourceLabels: [__metrics_path__]
+            targetLabel: metrics_path
+          - targetLabel: cluster
+            replacement: ${CLUSTER_NAME}
+        resourceRelabelings:
+          - action: replace
+            sourceLabels: [__metrics_path__]
+            targetLabel: metrics_path
+          - targetLabel: cluster
+            replacement: ${CLUSTER_NAME}
+
     kubeControllerManager:
       enabled: false
 
@@ -145,6 +172,8 @@ spec:
       prometheus:
         monitor:
           relabelings:
+            - targetLabel: cluster
+              replacement: ${CLUSTER_NAME}
             - sourceLabels: [__meta_kubernetes_pod_node_name]
               separator: ;
               regex: ^(.*)$

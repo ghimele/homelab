@@ -10,6 +10,8 @@ spec:
       enabled: true
     alloy:
       extraEnv:
+        - name: CLUSTER_NAME
+          value: ${CLUSTER_NAME}
         - name: PROMETHEUS_REMOTE_WRITE_URL
           value: http://prometheus-operated.monitoring.svc:9090/api/v1/write
         - name: POD_NAME

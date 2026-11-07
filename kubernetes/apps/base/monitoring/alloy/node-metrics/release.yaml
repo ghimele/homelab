@@ -91,6 +91,10 @@ spec:
             targets = prometheus.exporter.unix.node.targets
 
             rule {
+              target_label = "cluster"
+              replacement  = sys.env("CLUSTER_NAME")
+            }
+            rule {
               target_label = "instance"
               replacement  = sys.env("HOSTNAME")
             }
