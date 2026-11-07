@@ -1,0 +1,135 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: alloy
+  namespace: monitoring
+spec:
+  interval: 10m0s
+  chart:
+    spec:
+      chart: alloy
+      version: '1.2.1'
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    controller:
+      type: daemonset
+    alloy:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: '1'
+          memory: 512Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      extraPorts:
+        - name: syslog
+          port: 1514
+          targetPort: 1514
+          protocol: TCP
+      configMap:
+        content: |
+          discovery.kubernetes "pods" {
+            role = "pod"
+            selectors {
+              role  = "pod"
+              field = "spec.nodeName=" + sys.env("HOSTNAME")
+            }
+          }
+
+          discovery.relabel "pods" {
+            targets = discovery.kubernetes.pods.targets
+
+            rule {
+              source_labels = ["__meta_kubernetes_pod_controller_name"]
+              regex         = "([0-9a-z-.]+?)(-[0-9a-f]{8,10})?"
+              target_label  = "__tmp_controller_name"
+            }
+            rule {
+              source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_name", "__meta_kubernetes_pod_label_app", "__tmp_controller_name", "__meta_kubernetes_pod_name"]
+              regex         = "^;*([^;]+)(;.*)?$"
+              target_label  = "app"
+            }
+            rule {
+              source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_instance", "__meta_kubernetes_pod_label_instance"]
+              regex         = "^;*([^;]+)(;.*)?$"
+              target_label  = "instance"
+            }
+            rule {
+              source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_component", "__meta_kubernetes_pod_label_component"]
+              regex         = "^;*([^;]+)(;.*)?$"
+              target_label  = "component"
+            }
+            rule {
+              source_labels = ["__meta_kubernetes_pod_node_name"]
+              target_label  = "node_name"
+            }
+            rule {
+              source_labels = ["__meta_kubernetes_namespace"]
+              target_label  = "namespace"
+            }
+            rule {
+              source_labels = ["__meta_kubernetes_pod_name"]
+              target_label  = "pod"
+            }
+            rule {
+              source_labels = ["__meta_kubernetes_pod_container_name"]
+              target_label  = "container"
+            }
+            rule {
+              source_labels = ["namespace", "app"]
+              separator     = "/"
+              target_label  = "job"
+            }
+          }
+
+          loki.source.kubernetes "pods" {
+            targets    = discovery.relabel.pods.output
+            forward_to = [loki.write.local.receiver]
+          }
+
+          loki.relabel "syslog" {
+            forward_to = []
+            rule {
+              source_labels = ["__syslog_message_hostname"]
+              target_label  = "host"
+            }
+          }
+
+          loki.source.syslog "syslog" {
+            listener {
+              address               = "0.0.0.0:1514"
+              protocol              = "tcp"
+              idle_timeout          = "60s"
+              label_structured_data = true
+              labels                = { job = "syslog" }
+            }
+            relabel_rules = loki.relabel.syslog.rules
+            forward_to    = [loki.write.local.receiver]
+          }
+
+          loki.write "local" {
+            endpoint {
+              url = "http://loki:3100/loki/api/v1/push"
+            }
+          }

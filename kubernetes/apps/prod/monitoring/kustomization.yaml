@@ -4,5 +4,5 @@ resources:
   - ./kube-prometheus-stack
   - ./loki
   - ./grafana
-  - ./promtail
+  - ./alloy
   - ./gatus
