@@ -7,6 +7,12 @@ metadata:
 spec:
   interval: 10m0s
   values:
+    loki:
+      limits_config:
+        retention_period: 720h
+      compactor:
+        retention_enabled: true
+        delete_request_store: filesystem
     singleBinary:
       persistence:
         size: 15Gi

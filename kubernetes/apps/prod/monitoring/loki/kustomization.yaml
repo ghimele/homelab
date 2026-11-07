@@ -3,6 +3,7 @@ resources:
   - ../../../base/monitoring/loki
   - certificate.yaml
   - ingress-route.yaml
+  - pvc.yaml
 
 patches:
   - path: loki-values.yaml
