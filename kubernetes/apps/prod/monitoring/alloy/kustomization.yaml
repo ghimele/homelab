@@ -1,3 +1,14 @@
 ---
 resources:
   - ../../../base/monitoring/alloy
+  - ../../../base/monitoring/alloy/events
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease
+      name: alloy
+  - path: events-values.yaml
+    target:
+      kind: HelmRelease
+      name: alloy-events

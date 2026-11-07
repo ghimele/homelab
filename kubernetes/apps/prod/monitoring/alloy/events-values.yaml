@@ -1,0 +1,10 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: alloy-events
+  namespace: monitoring
+spec:
+  values:
+    serviceMonitor:
+      enabled: true
