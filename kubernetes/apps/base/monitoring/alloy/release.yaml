@@ -47,6 +47,10 @@ spec:
           port: 1514
           targetPort: 1514
           protocol: TCP
+        - name: syslog-udp
+          port: 1514
+          targetPort: 1514
+          protocol: UDP
       configMap:
         content: |
           discovery.kubernetes "pods" {
@@ -123,6 +127,12 @@ spec:
               idle_timeout          = "60s"
               label_structured_data = true
               labels                = { job = "syslog" }
+            }
+            listener {
+              address       = "0.0.0.0:1514"
+              protocol      = "udp"
+              syslog_format = "rfc5424"
+              labels        = { job = "syslog" }
             }
             relabel_rules = loki.relabel.syslog.rules
             forward_to    = [loki.write.local.receiver]
