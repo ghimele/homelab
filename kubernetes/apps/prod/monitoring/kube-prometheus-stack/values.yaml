@@ -53,7 +53,7 @@ spec:
           group_by: ['namespace']
           receiver: discord
           routes:
-            - receiver: nowhere
+            - receiver: "null"
               matchers:
                 - alertname =~ "InfoInhibitor|Watchdog"
         receivers:
