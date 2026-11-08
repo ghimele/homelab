@@ -73,3 +73,54 @@ spec:
           for: 1m
           labels:
             severity: warning
+        - alert: CNPGInstanceNotReady
+          annotations:
+            description: A PostgreSQL instance has not been ready for 5 minutes.
+            summary: PostgreSQL instance is not ready.
+          expr: |-
+            kube_pod_status_ready{namespace="cnpg-db", pod=~"postgres-cluster-[0-9]+", condition="false"} == 1
+          for: 5m
+          labels:
+            severity: critical
+        - alert: CNPGConnectionsHigh
+          annotations:
+            description: PostgreSQL connections have exceeded 80% of the configured maximum for 10 minutes.
+            summary: PostgreSQL connections are nearing the limit.
+          expr: |-
+            sum by (namespace, pod) (cnpg_backends_total{namespace="cnpg-db", job="cnpg-db/postgres-cluster"})
+              / on (namespace, pod)
+            max by (namespace, pod) (cnpg_pg_settings_setting{namespace="cnpg-db", job="cnpg-db/postgres-cluster", name="max_connections"}) > 0.8
+          for: 10m
+          labels:
+            severity: warning
+        - alert: CNPGVolumeSpaceLow
+          annotations:
+            description: A PostgreSQL data, WAL, or tablespace volume has less than 15% available space.
+            summary: PostgreSQL volume space is low.
+          expr: |-
+            kubelet_volume_stats_available_bytes{namespace="cnpg-db", persistentvolumeclaim=~"postgres-cluster-[0-9]+(-wal|-tbs-.+)?"}
+              / kubelet_volume_stats_capacity_bytes{namespace="cnpg-db", persistentvolumeclaim=~"postgres-cluster-[0-9]+(-wal|-tbs-.+)?"} < 0.15
+          for: 10m
+          labels:
+            severity: warning
+        - alert: CNPGNoSuccessfulBackup
+          annotations:
+            description: CNPG reports no successful backup for postgres-cluster; external backups are not represented by this metric.
+            summary: No successful CNPG-managed backup is recorded.
+          expr: |-
+            max(cnpg_collector_last_available_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"}) == 0
+          for: 30m
+          labels:
+            namespace: cnpg-db
+            severity: warning
+        - alert: CNPGBackupFailed
+          annotations:
+            description: The most recent failed CNPG backup is newer than the most recent successful backup.
+            summary: PostgreSQL backup failed.
+          expr: |-
+            max(cnpg_collector_last_failed_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"})
+              > max(cnpg_collector_last_available_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"})
+          for: 10m
+          labels:
+            namespace: cnpg-db
+            severity: warning
