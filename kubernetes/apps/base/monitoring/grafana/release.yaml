@@ -234,19 +234,20 @@ spec:
                 },
                 {
                   "id": 5,
-                  "title": "PostgreSQL Collectors",
+                  "title": "HA Recorder DB Sessions",
+                  "description": "Sessions for the homeassistant database/user. Positive values show observed authenticated sessions, not a fresh HA connection or read/write test. Missing metrics mean Unknown.",
                   "type": "stat",
                   "datasource": {"type": "prometheus", "uid": "prometheus"},
                   "gridPos": {"x": 16, "y": 0, "w": 4, "h": 4},
                   "targets": [{
                     "refId": "A",
-                    "expr": "min(up{namespace=\"cnpg-db\",pod=~\"postgres-cluster-[0-9]+\"}) * min(cnpg_collector_up{namespace=\"cnpg-db\",pod=~\"postgres-cluster-[0-9]+\"})",
+                    "expr": "sum(cnpg_backends_total{namespace=\"cnpg-db\",job=\"cnpg-db/postgres-cluster\",datname=\"homeassistant\",usename=\"homeassistant\"})",
                     "instant": true
                   }],
                   "fieldConfig": {
-                    "defaults": {"noValue": "Unknown", "mappings": [{"type": "value", "options": {
-                      "0": {"text": "Unhealthy", "color": "red"}, "1": {"text": "Healthy", "color": "green"}
-                    }}]},
+                    "defaults": {"noValue": "Unknown", "unit": "short", "decimals": 0, "thresholds": {
+                      "mode": "absolute", "steps": [{"color": "orange", "value": null}, {"color": "green", "value": 1}]
+                    }, "mappings": [{"type": "value", "options": {"0": {"text": "No sessions", "color": "orange"}}}]},
                     "overrides": []
                   },
                   "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none", "colorMode": "background"}
