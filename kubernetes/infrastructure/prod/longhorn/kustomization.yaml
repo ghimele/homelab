@@ -3,6 +3,7 @@ resources:
   - ../../base/longhorn
   - certificate.yaml
   - ingress-route.yaml
+  - metrics-network-policy.yaml
 
 patches:
   - path: values.yaml
