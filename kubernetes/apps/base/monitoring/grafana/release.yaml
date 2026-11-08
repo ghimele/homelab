@@ -141,38 +141,51 @@ spec:
         flux-logs:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/logs.json
           datasource: loki
+        kubernetes-prometheus:
+          # renovate: depName="Kubernetes / System / prometheus"
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-addons-prometheus.json
+          token: ''
+          datasource: prometheus
         kubernetes-api-server:
           # renovate: depName="Kubernetes / System / API Server"
-          gnetId: 15761
-          revision: 21
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-api-server.json
+          token: ''
+          # gnetId: 15761
+          # revision: 21
           datasource: prometheus
         kubernetes-coredns:
           # renovate: depName="Kubernetes / System / CoreDNS"
-          gnetId: 15762
-          revision: 22
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-coredns.json
+          token: ''
+          # gnetId: 15762
+          # revision: 22
           datasource: prometheus
         kubernetes-global:
           # renovate: depName="Kubernetes / Views / Global"
           url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
-          # gnetId: 15757
-          # revision: 43
           token: ''
           datasource: prometheus
           folder: Kubernetes
         kubernetes-namespaces:
           # renovate: depName="Kubernetes / Views / Namespaces"
-          gnetId: 15758
-          revision: 46
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json	
+          token: ''
+          # gnetId: 15758
+          # revision: 46
           datasource: prometheus
         kubernetes-nodes:
           # renovate: depName="Kubernetes / Views / Nodes"
-          gnetId: 15759
-          revision: 40
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json	
+          token: ''
+          # gnetId: 15759
+          # revision: 40
           datasource: prometheus
         kubernetes-pods:
           # renovate: depName="Kubernetes / Views / Pods"
-          gNetId: 15760
-          revision: 41
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+          token: ''
+          # gNetId: 15760
+          # revision: 41
           datasource: prometheus
         kubernetes-volumes:
           # renovate: depName="K8s / Storage / Volumes / Cluster"
