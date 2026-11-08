@@ -138,6 +138,169 @@ spec:
         alertmanager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/alertmanager/dashboards/alertmanager-overview.json
           datasource: prometheus
+        house-health:
+          json: |
+            {
+              "uid": "homelab-house-health",
+              "title": "Home Health",
+              "schemaVersion": 39,
+              "version": 1,
+              "editable": true,
+              "tags": ["home-automation", "home-assistant"],
+              "timezone": "browser",
+              "refresh": "30s",
+              "time": {"from": "now-3h", "to": "now"},
+              "links": [
+                {"title": "Service Checks", "type": "link", "url": "/d/KPI7Qj1Wk", "keepTime": true},
+                {"title": "Storage", "type": "link", "url": "/d/homelab-longhorn", "keepTime": true},
+                {"title": "Alerts", "type": "link", "url": "https://${HOST_ALERTS}.${DOMAIN}"}
+              ],
+              "panels": [
+                {
+                  "id": 1,
+                  "title": "Home Assistant API",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 0, "y": 0, "w": 4, "h": 4},
+                  "targets": [{
+                    "refId": "A",
+                    "expr": "max(gatus_results_endpoint_success{namespace=\"monitoring\",job=\"gatus\",key=\"home-automation_home-assistant\"})",
+                    "instant": true
+                  }],
+                  "fieldConfig": {
+                    "defaults": {"noValue": "Unknown", "mappings": [{"type": "value", "options": {
+                      "0": {"text": "Down", "color": "red"}, "1": {"text": "Up", "color": "green"}
+                    }}]},
+                    "overrides": []
+                  },
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none", "colorMode": "background"}
+                },
+                {
+                  "id": 2,
+                  "title": "Available HA Replicas",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 4, "y": 0, "w": 4, "h": 4},
+                  "targets": [{
+                    "refId": "A",
+                    "expr": "max(kube_deployment_status_replicas_available{namespace=\"home-automation\",deployment=\"home-assistant\"})",
+                    "instant": true
+                  }],
+                  "fieldConfig": {
+                    "defaults": {"noValue": "Unknown", "unit": "short", "decimals": 0, "thresholds": {
+                      "mode": "absolute", "steps": [{"color": "red", "value": null}, {"color": "green", "value": 1}]
+                    }},
+                    "overrides": []
+                  },
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none", "colorMode": "background"}
+                },
+                {
+                  "id": 3,
+                  "title": "API Response Time",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 8, "y": 0, "w": 4, "h": 4},
+                  "targets": [{
+                    "refId": "A",
+                    "expr": "1000 * max(gatus_results_duration_seconds{namespace=\"monitoring\",job=\"gatus\",key=\"home-automation_home-assistant\"})",
+                    "instant": true
+                  }],
+                  "fieldConfig": {
+                    "defaults": {"noValue": "Unknown", "unit": "ms", "decimals": 1, "thresholds": {
+                      "mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "orange", "value": 500}, {"color": "red", "value": 1000}]
+                    }},
+                    "overrides": []
+                  },
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none", "colorMode": "background"}
+                },
+                {
+                  "id": 4,
+                  "title": "HA Config PVC Used",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 12, "y": 0, "w": 4, "h": 4},
+                  "targets": [{
+                    "refId": "A",
+                    "expr": "100 * max(kubelet_volume_stats_used_bytes{namespace=\"home-automation\",persistentvolumeclaim=\"home-assistant-pvc\"} / kubelet_volume_stats_capacity_bytes)",
+                    "instant": true
+                  }],
+                  "fieldConfig": {
+                    "defaults": {"noValue": "Unknown", "unit": "percent", "decimals": 1, "thresholds": {
+                      "mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "orange", "value": 80}, {"color": "red", "value": 90}]
+                    }},
+                    "overrides": []
+                  },
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none", "colorMode": "background"}
+                },
+                {
+                  "id": 5,
+                  "title": "PostgreSQL Collectors",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 16, "y": 0, "w": 4, "h": 4},
+                  "targets": [{
+                    "refId": "A",
+                    "expr": "min(up{namespace=\"cnpg-db\",pod=~\"postgres-cluster-[0-9]+\"}) * min(cnpg_collector_up{namespace=\"cnpg-db\",pod=~\"postgres-cluster-[0-9]+\"})",
+                    "instant": true
+                  }],
+                  "fieldConfig": {
+                    "defaults": {"noValue": "Unknown", "mappings": [{"type": "value", "options": {
+                      "0": {"text": "Unhealthy", "color": "red"}, "1": {"text": "Healthy", "color": "green"}
+                    }}]},
+                    "overrides": []
+                  },
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none", "colorMode": "background"}
+                },
+                {
+                  "id": 6,
+                  "title": "Critical Alerts",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 20, "y": 0, "w": 4, "h": 4},
+                  "targets": [{"refId": "A", "expr": "count(ALERTS{alertstate=\"firing\",severity=\"critical\"}) or vector(0)", "instant": true}],
+                  "fieldConfig": {
+                    "defaults": {"unit": "short", "decimals": 0, "thresholds": {
+                      "mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "red", "value": 1}]
+                    }},
+                    "overrides": []
+                  },
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none", "colorMode": "background"}
+                },
+                {
+                  "id": 7,
+                  "title": "Home Assistant API History",
+                  "type": "state-timeline",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 0, "y": 4, "w": 12, "h": 9},
+                  "targets": [{
+                    "refId": "A",
+                    "expr": "max(gatus_results_endpoint_success{namespace=\"monitoring\",job=\"gatus\",key=\"home-automation_home-assistant\"})",
+                    "legendFormat": "Home Assistant"
+                  }],
+                  "fieldConfig": {
+                    "defaults": {"noValue": "Unknown", "custom": {"spanNulls": false}, "mappings": [{"type": "value", "options": {
+                      "0": {"text": "Down", "color": "red"}, "1": {"text": "Up", "color": "green"}
+                    }}]},
+                    "overrides": []
+                  },
+                  "options": {"mergeValues": true, "showValue": "auto", "rowHeight": 0.9, "legend": {"showLegend": false}}
+                },
+                {
+                  "id": 8,
+                  "title": "HA Restarts in the Last Hour",
+                  "type": "timeseries",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 12, "y": 4, "w": 12, "h": 9},
+                  "targets": [{
+                    "refId": "A",
+                    "expr": "max by (pod) (increase(kube_pod_container_status_restarts_total{namespace=\"home-automation\",pod=~\"home-assistant-.*\",container=\"main\"}[1h]))",
+                    "legendFormat": "{{pod}}"
+                  }],
+                  "fieldConfig": {"defaults": {"noValue": "Unknown", "unit": "short", "min": 0, "decimals": 0}, "overrides": []},
+                  "options": {"legend": {"displayMode": "table", "placement": "bottom", "calcs": ["lastNotNull"]}}
+                }
+              ]
+            }
         longhorn:
           json: |
             {
