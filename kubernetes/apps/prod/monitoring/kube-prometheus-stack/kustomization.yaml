@@ -3,6 +3,7 @@ resources:
   - ../../../base/monitoring/kube-prometheus-stack
   - certificate.yaml
   - ingress-route.yaml
+  - flux-podmonitor.yaml
 
 patches:
   - path: values.yaml
