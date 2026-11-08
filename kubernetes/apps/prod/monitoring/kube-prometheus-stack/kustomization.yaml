@@ -5,6 +5,7 @@ resources:
   - ingress-route.yaml
   - flux-podmonitor.yaml
   - flux-prometheusrule.yaml
+  - homeassistant-prometheusrule.yaml
 
 patches:
   - path: values.yaml

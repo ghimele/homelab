@@ -1,0 +1,46 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: homeassistant-alerts
+  namespace: monitoring
+spec:
+  groups:
+    - name: homeassistant.rules
+      rules:
+        - alert: HomeAssistantAPIUnavailable
+          expr: |-
+            max by (key) (
+              gatus_results_endpoint_success{namespace="monitoring",job="gatus",key="home-automation_home-assistant"}
+            ) == 0
+          for: 2m
+          labels:
+            severity: critical
+            namespace: home-automation
+          annotations:
+            summary: Home Assistant API health check is failing.
+            description: Gatus has failed the Home Assistant API check for 2 minutes. The check expects HTTP 401 from /api/ and a response under one second. Home Assistant may be running but unresponsive.
+        - alert: HomeAssistantWorkloadUnavailable
+          expr: |-
+            max by (cluster, namespace, deployment) (
+              kube_deployment_status_replicas_available{namespace="home-automation",deployment="home-assistant"}
+            ) < 1
+            or
+            absent(kube_deployment_status_replicas_available{namespace="home-automation",deployment="home-assistant"})
+          for: 2m
+          labels:
+            severity: critical
+            namespace: home-automation
+          annotations:
+            summary: Home Assistant has no available workload.
+            description: Home Assistant has no available replica, or its deployment availability metric has been missing, for 2 minutes. Check the deployment, pod status, and kube-state-metrics.
+        - alert: HomeAssistantHealthMonitoringMissing
+          expr: |-
+            absent(gatus_results_endpoint_success{namespace="monitoring",job="gatus",key="home-automation_home-assistant"})
+          for: 5m
+          labels:
+            severity: warning
+            namespace: home-automation
+          annotations:
+            summary: Home Assistant API monitoring has no data.
+            description: The Home Assistant Gatus health-check metric has been absent for 5 minutes. Availability is unknown. Check Gatus, endpoint discovery, and Prometheus scraping.
