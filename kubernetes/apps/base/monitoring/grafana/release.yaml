@@ -129,6 +129,148 @@ spec:
           gnetId: 20842
           revision: 3
           datasource: prometheus
+        gatus:
+          gnetId: 24379
+          revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: prometheus
+        alertmanager:
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/alertmanager/dashboards/alertmanager-overview.json
+          datasource: prometheus
+        longhorn:
+          json: |
+            {
+              "uid": "homelab-longhorn",
+              "title": "Longhorn / Storage Health",
+              "schemaVersion": 39,
+              "version": 1,
+              "editable": true,
+              "tags": ["longhorn", "storage"],
+              "timezone": "browser",
+              "refresh": "30s",
+              "time": {"from": "now-6h", "to": "now"},
+              "panels": [
+                {
+                  "id": 1,
+                  "title": "Volumes",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 0, "y": 0, "w": 4, "h": 4},
+                  "targets": [{"refId": "A", "expr": "count(max by (volume) (longhorn_volume_capacity_bytes))", "instant": true}],
+                  "fieldConfig": {"defaults": {"unit": "short", "decimals": 0}, "overrides": []},
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none"}
+                },
+                {
+                  "id": 2,
+                  "title": "Healthy Volumes",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 4, "y": 0, "w": 4, "h": 4},
+                  "targets": [{"refId": "A", "expr": "sum(max by (volume) (longhorn_volume_robustness{state=\"healthy\"}))", "instant": true}],
+                  "fieldConfig": {"defaults": {"unit": "short", "decimals": 0, "color": {"mode": "fixed", "fixedColor": "green"}}, "overrides": []},
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none"}
+                },
+                {
+                  "id": 3,
+                  "title": "Degraded Volumes",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 8, "y": 0, "w": 4, "h": 4},
+                  "targets": [{"refId": "A", "expr": "sum(max by (volume) (longhorn_volume_robustness{state=\"degraded\"}))", "instant": true}],
+                  "fieldConfig": {
+                    "defaults": {"unit": "short", "decimals": 0, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "orange", "value": 1}]}},
+                    "overrides": []
+                  },
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none", "colorMode": "background"}
+                },
+                {
+                  "id": 4,
+                  "title": "Faulted Volumes",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 12, "y": 0, "w": 4, "h": 4},
+                  "targets": [{"refId": "A", "expr": "sum(max by (volume) (longhorn_volume_robustness{state=\"faulted\"}))", "instant": true}],
+                  "fieldConfig": {
+                    "defaults": {"unit": "short", "decimals": 0, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "red", "value": 1}]}},
+                    "overrides": []
+                  },
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none", "colorMode": "background"}
+                },
+                {
+                  "id": 5,
+                  "title": "Attached Volumes",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 16, "y": 0, "w": 4, "h": 4},
+                  "targets": [{"refId": "A", "expr": "sum(max by (volume) (longhorn_volume_state{state=\"attached\"}))", "instant": true}],
+                  "fieldConfig": {"defaults": {"unit": "short", "decimals": 0}, "overrides": []},
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none"}
+                },
+                {
+                  "id": 6,
+                  "title": "Volumes Without Longhorn Backup",
+                  "type": "stat",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 20, "y": 0, "w": 4, "h": 4},
+                  "targets": [{"refId": "A", "expr": "sum(max by (volume) (longhorn_volume_last_backup_at) == bool 0)", "instant": true}],
+                  "fieldConfig": {"defaults": {"unit": "short", "decimals": 0}, "overrides": []},
+                  "options": {"reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "graphMode": "none"}
+                },
+                {
+                  "id": 7,
+                  "title": "Volume Health",
+                  "type": "table",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 0, "y": 4, "w": 12, "h": 9},
+                  "targets": [{"refId": "A", "expr": "max by (volume, pvc, pvc_namespace, state) (longhorn_volume_robustness) == 1", "instant": true, "format": "table"}],
+                  "transformations": [{"id": "organize", "options": {"excludeByName": {"Time": true, "Value": true}, "renameByName": {"volume": "Volume", "pvc": "PVC", "pvc_namespace": "Namespace", "state": "State"}}}],
+                  "fieldConfig": {"defaults": {"custom": {"filterable": true}}, "overrides": []},
+                  "options": {"showHeader": true, "cellHeight": "sm"}
+                },
+                {
+                  "id": 8,
+                  "title": "Disk Usage",
+                  "type": "timeseries",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 12, "y": 4, "w": 12, "h": 9},
+                  "targets": [{"refId": "A", "expr": "100 * max by (node, disk) (longhorn_disk_usage_bytes) / max by (node, disk) (longhorn_disk_capacity_bytes)", "legendFormat": "{{node}} / {{disk}}"}],
+                  "fieldConfig": {"defaults": {"unit": "percent", "min": 0, "max": 100}, "overrides": []},
+                  "options": {"legend": {"displayMode": "table", "placement": "bottom", "calcs": ["lastNotNull"]}}
+                },
+                {
+                  "id": 9,
+                  "title": "Volume Actual Size / Capacity",
+                  "type": "timeseries",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 0, "y": 13, "w": 12, "h": 9},
+                  "targets": [{
+                    "refId": "A",
+                    "expr": "100 * max by (volume, pvc, pvc_namespace) (longhorn_volume_actual_size_bytes) / max by (volume, pvc, pvc_namespace) (longhorn_volume_capacity_bytes)",
+                    "legendFormat": "{{pvc_namespace}} / {{pvc}}"
+                  }],
+                  "fieldConfig": {"defaults": {"unit": "percent", "min": 0}, "overrides": []},
+                  "options": {"legend": {"displayMode": "table", "placement": "bottom", "calcs": ["lastNotNull"]}}
+                },
+                {
+                  "id": 10,
+                  "title": "Last Successful Longhorn Backup",
+                  "type": "table",
+                  "datasource": {"type": "prometheus", "uid": "prometheus"},
+                  "gridPos": {"x": 12, "y": 13, "w": 12, "h": 9},
+                  "targets": [{"refId": "A", "expr": "1000 * max by (volume, pvc, pvc_namespace) (longhorn_volume_last_backup_at)", "instant": true, "format": "table"}],
+                  "transformations": [{"id": "organize", "options": {"excludeByName": {"Time": true}, "renameByName": {"volume": "Volume", "pvc": "PVC", "pvc_namespace": "Namespace"}}}],
+                  "fieldConfig": {
+                    "defaults": {"custom": {"filterable": true}},
+                    "overrides": [{"matcher": {"id": "byName", "options": "Value"}, "properties": [
+                      {"id": "unit", "value": "dateTimeAsIso"},
+                      {"id": "mappings", "value": [{"type": "value", "options": {"0": {"text": "Never", "color": "orange"}}}]}
+                    ]}]
+                  },
+                  "options": {"showHeader": true, "cellHeight": "sm"}
+                }
+              ]
+            }
         # omada-exporter:
         #   url: https://raw.githubusercontent.com/charlie-haley/omada_exporter/main/dashboard.json
         #   datasource: VictoriaMetrics
@@ -168,14 +310,14 @@ spec:
           folder: Kubernetes
         kubernetes-namespaces:
           # renovate: depName="Kubernetes / Views / Namespaces"
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json	
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
           token: ''
           # gnetId: 15758
           # revision: 46
           datasource: prometheus
         kubernetes-nodes:
           # renovate: depName="Kubernetes / Views / Nodes"
-          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json	
+          url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
           token: ''
           # gnetId: 15759
           # revision: 40
