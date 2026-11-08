@@ -5,3 +5,9 @@ resources:
   - certificate.yaml
   - ingress-route.yaml
   - tailscale-service.yaml
+
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease
+      name: traefik
