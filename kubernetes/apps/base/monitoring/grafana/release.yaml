@@ -179,7 +179,7 @@ spec:
         traefik:
           # renovate: depName="Traefik"
           gnetId: 17346
-          revision: 1
+          revision: 9
           datasource: prometheus
         # smartctl-exporter:
         #   # renovate: depName="SMARTctl Exporter Dashboard"
