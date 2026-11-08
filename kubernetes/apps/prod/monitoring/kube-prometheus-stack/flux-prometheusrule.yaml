@@ -1,0 +1,35 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: flux-alerts
+  namespace: monitoring
+spec:
+  groups:
+    - name: flux.rules
+      rules:
+        - alert: FluxResourceNotReady
+          expr: |-
+            gotk_resource_info{
+              customresource_kind=~"Kustomization|HelmRelease|GitRepository|HelmRepository|HelmChart|Bucket|OCIRepository",
+              ready!="True",
+              suspended!="true"
+            } == 1
+          for: 10m
+          labels:
+            severity: warning
+            namespace: '{{ $labels.exported_namespace }}'
+          annotations:
+            summary: Flux resource has not been ready for 10 minutes.
+            description: '{{ $labels.customresource_kind }} {{ $labels.exported_namespace }}/{{ $labels.name }} has readiness {{ $labels.ready }}. Check its status conditions and Flux controller logs.'
+        - alert: FluxControllerReconciliationErrors
+          expr: |-
+            sum by (cluster, namespace, controller) (
+              increase(controller_runtime_reconcile_total{namespace="flux-system",result="error"}[5m])
+            ) > 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: Flux controller is repeatedly failing reconciliation.
+            description: 'Controller {{ $labels.controller }} in {{ $labels.namespace }} has reported reconciliation errors in successive five-minute windows for 10 minutes. Check the controller logs.'

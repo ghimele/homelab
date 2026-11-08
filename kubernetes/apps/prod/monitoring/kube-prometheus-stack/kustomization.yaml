@@ -4,6 +4,7 @@ resources:
   - certificate.yaml
   - ingress-route.yaml
   - flux-podmonitor.yaml
+  - flux-prometheusrule.yaml
 
 patches:
   - path: values.yaml

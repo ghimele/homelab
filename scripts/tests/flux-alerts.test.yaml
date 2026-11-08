@@ -1,0 +1,70 @@
+---
+rule_files:
+  - /tmp/flux-rules.yaml
+evaluation_interval: 1m
+tests:
+  - name: Flux readiness ignores suspended and recovered resources
+    interval: 1m
+    input_series:
+      - series: 'gotk_resource_info{namespace="monitoring",exported_namespace="flux-system",name="apps",customresource_kind="Kustomization",ready="False",suspended="false"}'
+        values: '1x15'
+      - series: 'gotk_resource_info{namespace="monitoring",exported_namespace="media",name="healthy",customresource_kind="HelmRelease",ready="True",suspended="false"}'
+        values: '1x15'
+      - series: 'gotk_resource_info{namespace="monitoring",exported_namespace="media",name="suspended",customresource_kind="HelmRelease",ready="False",suspended="true"}'
+        values: '1x15'
+      - series: 'gotk_resource_info{namespace="monitoring",exported_namespace="media",name="recovering",customresource_kind="HelmRelease",ready="False",suspended="false"}'
+        values: '1x4 stale _x10'
+      - series: 'gotk_resource_info{namespace="monitoring",exported_namespace="flux-system",name="pending",customresource_kind="OCIRepository",ready="Unknown"}'
+        values: '1x15'
+    alert_rule_test:
+      - eval_time: 9m
+        alertname: FluxResourceNotReady
+        exp_alerts: []
+      - eval_time: 10m
+        alertname: FluxResourceNotReady
+        exp_alerts:
+          - exp_labels:
+              namespace: flux-system
+              exported_namespace: flux-system
+              name: apps
+              customresource_kind: Kustomization
+              ready: "False"
+              suspended: "false"
+              severity: warning
+            exp_annotations:
+              summary: Flux resource has not been ready for 10 minutes.
+              description: Kustomization flux-system/apps has readiness False. Check its status conditions and Flux controller logs.
+          - exp_labels:
+              namespace: flux-system
+              exported_namespace: flux-system
+              name: pending
+              customresource_kind: OCIRepository
+              ready: Unknown
+              severity: warning
+            exp_annotations:
+              summary: Flux resource has not been ready for 10 minutes.
+              description: OCIRepository flux-system/pending has readiness Unknown. Check its status conditions and Flux controller logs.
+  - name: Flux controller errors must persist beyond a single retry
+    interval: 1m
+    input_series:
+      - series: 'controller_runtime_reconcile_total{cluster="prod",namespace="flux-system",controller="kustomization",result="error"}'
+        values: '0+1x20'
+      - series: 'controller_runtime_reconcile_total{cluster="prod",namespace="flux-system",controller="helmrelease",result="error"}'
+        values: '0 1x19'
+      - series: 'controller_runtime_reconcile_total{cluster="prod",namespace="flux-system",controller="gitrepository",result="success"}'
+        values: '0+1x20'
+    alert_rule_test:
+      - eval_time: 10m
+        alertname: FluxControllerReconciliationErrors
+        exp_alerts: []
+      - eval_time: 11m
+        alertname: FluxControllerReconciliationErrors
+        exp_alerts:
+          - exp_labels:
+              cluster: prod
+              namespace: flux-system
+              controller: kustomization
+              severity: warning
+            exp_annotations:
+              summary: Flux controller is repeatedly failing reconciliation.
+              description: Controller kustomization in flux-system has reported reconciliation errors in successive five-minute windows for 10 minutes. Check the controller logs.
