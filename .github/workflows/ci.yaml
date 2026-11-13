@@ -2,7 +2,10 @@
 name: HomeLab CI
 
 on:  # yamllint disable-line rule:truthy
+  # Feature branches are validated via pull_request; only run push CI on main
   push:
+    branches:
+      - main
     paths-ignore:
       - '**/README.md'
       - 'assets/**'
