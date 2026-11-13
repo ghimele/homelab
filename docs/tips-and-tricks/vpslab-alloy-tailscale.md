@@ -5,6 +5,56 @@ Grafana Alloy runs there as a DaemonSet, scrapes the VPS node-exporter and kube-
 
 ## How it works
 
+The left column is the metrics path and the right column is the logs path. Only the thick arrows cross the tailnet.
+
+```mermaid
+flowchart TB
+  subgraph vpslab["vpslab: k3s on the VPS"]
+    NE["prometheus-node-exporter<br/>hostNetwork, port 9100"]
+    KSM["kube-state-metrics<br/>port 8080"]
+    KAPI["Kubernetes API<br/>pod logs"]
+
+    subgraph alloy["Alloy DaemonSet (monitoring)"]
+      SCRAPE["prometheus.scrape<br/>node_exporter, kube_state_metrics"]
+      RW["prometheus.remote_write<br/>homelab"]
+      LSRC["loki.source.kubernetes<br/>pods"]
+      LW["loki.write<br/>homelab"]
+    end
+
+    SVCP["Service<br/>homelab-prometheus"]
+    SVCL["Service<br/>homelab-loki"]
+
+    subgraph tsns["namespace tailscale: Alloy-only NetworkPolicy"]
+      PXP["egress proxy<br/>ts-homelab-prometheus"]
+      PXL["egress proxy<br/>ts-homelab-loki"]
+    end
+  end
+
+  subgraph homelab["homelab prod"]
+    TSP["tailnet device<br/>prometheus-prod"]
+    TSL["tailnet device<br/>loki-prod"]
+    PROM["Prometheus<br/>remote-write receiver"]
+    LOKI["Loki<br/>push API"]
+    GRAF["Grafana<br/>filter cluster=VPS-LAB"]
+  end
+
+  NE -- "scrape every 60s" --> SCRAPE
+  KSM -- "scrape every 60s" --> SCRAPE
+  SCRAPE -- "add cluster=VPS-LAB" --> RW
+  KAPI -- "tail" --> LSRC
+  LSRC -- "add cluster=VPS-LAB" --> LW
+  RW -- "/api/v1/write" --> SVCP
+  LW -- "/loki/api/v1/push" --> SVCL
+  SVCP --> PXP
+  SVCL --> PXL
+  PXP == "tailnet, tcp:9090" ==> TSP
+  PXL == "tailnet, tcp:3100" ==> TSL
+  TSP --> PROM
+  TSL --> LOKI
+  PROM --> GRAF
+  LOKI --> GRAF
+```
+
 | Item | Metrics | Logs |
 | ---- | ------- | ---- |
 | Source in vpslab | `prometheus-node-exporter` and `kube-state-metrics` pods of the same node, scraped every 60s | Pod logs of the same node, read through the Kubernetes API |
