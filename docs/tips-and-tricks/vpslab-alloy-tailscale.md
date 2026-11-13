@@ -129,9 +129,11 @@ The `Kubernetes / Views` dashboards take their `cluster` variable from `kube_nod
 - The default node alerts of kube-prometheus-stack select `job="node-exporter"`, so they now also evaluate the VPS series.
   The `kubernetes-apps` and `kubernetes-storage` alerts select `job="kube-state-metrics"`, so they now also cover vpslab workloads (crash loops, replica mismatches, failed jobs); the `cluster` label tells the two clusters apart.
 - Every vpslab pod log, including Alloy's own, goes to the homelab Loki. Watch the size of the Loki volume. To ship less, restrict `discovery.kubernetes "pods"` with a `namespaces` block in the vpslab `release.yaml`.
-- The homelab VictoriaMetrics vmagent already pulls the VPS node-exporter and kube-state-metrics through the Tailscale egress Services `vps-node-exporter` and `vps-kube-state-metrics`.
-  Those jobs are `VPSLAB` and `VPSLAB-KUBESTAT`, labelled `cluster="VPSLAB"`. That data is only in VictoriaMetrics, which is not provisioned as a Grafana datasource, and it keeps working.
-  The Alloy push is the copy visible in Grafana, under `cluster="VPS-LAB"` (with the hyphen). Remove the pull path when you no longer need it.
+- The Alloy push replaces the old VictoriaMetrics pull path, which has been removed. VictoriaMetrics is no longer deployed in homelab prod.
+  The vpslab node-exporter and kube-state-metrics Services no longer carry `tailscale.com/expose`.
+  The homelab egress Services `vps-node-exporter` and `vps-kube-state-metrics` and the vmagent jobs `VPSLAB` and `VPSLAB-KUBESTAT` are gone.
+  The SOPS keys `TAILSCALE_VPSLAB_NODE_EXPORTER_IP` and `TAILSCALE_VPSLAB_KUBE_STATE_METRICS_IP` are now unused and can be deleted.
+  Any Tailscale policy rule that allowed homelab to reach vpslab on `tcp:9100` or `tcp:8080` can be deleted too.
 - The kubelet and cAdvisor metrics of vpslab are not forwarded, so the `Kubernetes / Views` panels based on container CPU, memory and network usage (`container_*`) stay empty for `VPS-LAB`.
 - vpslab never ran Promtail, so there was nothing to remove there. Alloy replaces it for log shipping. The homelab repository still has unreferenced Promtail manifests under `kubernetes/apps`, left untouched.
 - The egress Services use `tailscale.com/tailnet-ip`, like the existing homelab egress Services. If a device is recreated its IP changes and the SOPS key must be updated; `tailscale.com/tailnet-fqdn` avoids that.
