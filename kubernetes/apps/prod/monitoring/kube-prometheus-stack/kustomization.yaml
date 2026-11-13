@@ -6,6 +6,7 @@ resources:
   - flux-podmonitor.yaml
   - flux-prometheusrule.yaml
   - homeassistant-prometheusrule.yaml
+  - tailscale-service.yaml
 
 patches:
   - path: values.yaml

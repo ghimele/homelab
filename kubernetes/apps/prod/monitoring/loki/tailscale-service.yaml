@@ -1,0 +1,23 @@
+---
+# Exposes Loki on the tailnet so the vpslab Alloy can push its pod logs (see docs/tips-and-tricks/vpslab-alloy-tailscale.md).
+# Loki runs with auth_enabled: false, so restrict who can reach it with a Tailscale ACL.
+# https://tailscale.com/kb/1439/kubernetes-operator-cluster-ingress#exposing-a-cluster-workload-by-annotating-an-existing-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: loki-tailscale
+  namespace: monitoring
+  annotations:
+    tailscale.com/expose: "true"
+    tailscale.com/hostname: loki-prod
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/component: single-binary
+  ports:
+    - name: http-metrics
+      port: 3100
+      targetPort: http-metrics
+      protocol: TCP

@@ -1,0 +1,22 @@
+---
+# Exposes Prometheus on the tailnet so the vpslab Alloy can push its metrics to the remote-write receiver (see docs/tips-and-tricks/vpslab-alloy-tailscale.md).
+# The port also serves the query and lifecycle APIs, so restrict who can reach it with a Tailscale ACL.
+# https://tailscale.com/kb/1439/kubernetes-operator-cluster-ingress#exposing-a-cluster-workload-by-annotating-an-existing-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-tailscale
+  namespace: monitoring
+  annotations:
+    tailscale.com/expose: "true"
+    tailscale.com/hostname: prometheus-prod
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: prometheus
+    operator.prometheus.io/name: kube-prometheus-stack-prometheus
+  ports:
+    - name: http-web
+      port: 9090
+      targetPort: 9090
+      protocol: TCP

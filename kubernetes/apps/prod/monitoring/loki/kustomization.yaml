@@ -4,6 +4,7 @@ resources:
   - certificate.yaml
   - ingress-route.yaml
   - pvc.yaml
+  - tailscale-service.yaml
 
 patches:
   - path: loki-values.yaml
