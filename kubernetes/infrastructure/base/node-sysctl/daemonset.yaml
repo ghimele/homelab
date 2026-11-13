@@ -1,0 +1,77 @@
+---
+# Raises non-namespaced kernel limits on every node.
+# fs.inotify.* cannot be set through pod securityContext.sysctls, so a privileged
+# init container writes them to the host. Values are only raised, never lowered.
+# See docs/known-issues/KI-003-inotify-instance-limit-exhausted.md
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-sysctl
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: node-sysctl
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: node-sysctl
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: node-sysctl
+    spec:
+      priorityClassName: system-node-critical
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      tolerations:
+        - operator: Exists
+      initContainers:
+        - name: sysctl
+          image: docker.io/library/busybox:1.38.0
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+              set -eu
+              raise() {
+                cur="$(sysctl -n "$1")"
+                if [ "$cur" -lt "$2" ]; then
+                  sysctl -w "$1=$2"
+                else
+                  echo "$1 = $cur (>= $2, unchanged)"
+                fi
+              }
+              raise fs.inotify.max_user_instances 8192
+              raise fs.inotify.max_user_watches 524288
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              cpu: 10m
+              memory: 8Mi
+            limits:
+              cpu: 50m
+              memory: 16Mi
+      containers:
+        - name: pause
+          image: registry.k8s.io/pause:3.10.2
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 65535
+            runAsGroup: 65535
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            requests:
+              cpu: 1m
+              memory: 4Mi
+            limits:
+              cpu: 10m
+              memory: 8Mi

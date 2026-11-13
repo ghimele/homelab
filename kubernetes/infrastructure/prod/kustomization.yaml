@@ -11,3 +11,4 @@ resources:
   - ./tailscale/
   - ./storage/
   - ./pocket-id/
+  - ./node-sysctl/
