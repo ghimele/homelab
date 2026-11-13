@@ -99,6 +99,16 @@ spec:
       ingress:
         main:
           enabled: false
+      defaultPodOptions:
+        # Never co-locate with immich-machine-learning (performance)
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: machine-learning
+                    app.kubernetes.io/instance: immich
+                topologyKey: kubernetes.io/hostname
       # -- Node selector for pod scheduling.
       nodeSelector:
         # We will install all the services on nodes labeled as storage:NFS (the agent nodes)
@@ -129,6 +139,16 @@ spec:
                 TRANSFORMERS_CACHE: /cache
                 HF_XET_CACHE: /cache/huggingface-xet
                 MPLCONFIGDIR: /cache/matplotlib-config
+      defaultPodOptions:
+        # Never co-locate with immich-server (performance)
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: server
+                    app.kubernetes.io/instance: immich
+                topologyKey: kubernetes.io/hostname
       persistence:
         cache:
           enabled: true
