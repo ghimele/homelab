@@ -103,24 +103,47 @@ spec:
           for: 10m
           labels:
             severity: warning
+        # Backup alerts use the Barman Cloud plugin metrics (vpslab Garage object store), which supersede cnpg_collector_*.
         - alert: CNPGNoSuccessfulBackup
           annotations:
-            description: CNPG reports no successful backup for postgres-cluster; external backups are not represented by this metric.
-            summary: No successful CNPG-managed backup is recorded.
+            description: The Barman Cloud plugin reports no successful base backup of postgres-cluster in the vpslab Garage object store.
+            summary: No successful PostgreSQL backup is recorded.
           expr: |-
-            max(cnpg_collector_last_available_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"}) == 0
+            max(barman_cloud_cloudnative_pg_io_last_available_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"}) == 0
+              or absent(barman_cloud_cloudnative_pg_io_last_available_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"})
+          for: 2h
+          labels:
+            namespace: cnpg-db
+            severity: warning
+        - alert: CNPGBackupTooOld
+          annotations:
+            description: The latest successful base backup of postgres-cluster is older than 36 hours (daily schedule).
+            summary: PostgreSQL backup is too old.
+          expr: |-
+            time() - max(barman_cloud_cloudnative_pg_io_last_available_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"} > 0) > 36 * 3600
           for: 30m
           labels:
             namespace: cnpg-db
             severity: warning
         - alert: CNPGBackupFailed
           annotations:
-            description: The most recent failed CNPG backup is newer than the most recent successful backup.
+            description: The most recent failed backup of postgres-cluster is newer than the most recent successful backup.
             summary: PostgreSQL backup failed.
           expr: |-
-            max(cnpg_collector_last_failed_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"})
-              > max(cnpg_collector_last_available_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"})
+            max(barman_cloud_cloudnative_pg_io_last_failed_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"})
+              > max(barman_cloud_cloudnative_pg_io_last_available_backup_timestamp{namespace="cnpg-db", job="cnpg-db/postgres-cluster"})
           for: 10m
           labels:
             namespace: cnpg-db
             severity: warning
+        - alert: CNPGWALArchiveBacklog
+          annotations:
+            description: >-
+              {{ $value }} WAL segments on {{ $labels.pod }} are waiting to be archived to the vpslab Garage object store.
+              WAL accumulates on the WAL volume until archiving recovers; a full WAL volume stops PostgreSQL.
+            summary: PostgreSQL WAL archiving is falling behind.
+          expr: |-
+            cnpg_collector_pg_wal_archive_status{namespace="cnpg-db", job="cnpg-db/postgres-cluster", value="ready"} > 20
+          for: 30m
+          labels:
+            severity: critical

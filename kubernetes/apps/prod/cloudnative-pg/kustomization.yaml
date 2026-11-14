@@ -1,4 +1,5 @@
 ---
 resources:
   - ./cnpg-operator
+  - ./barman-cloud-plugin
   - ./cluster

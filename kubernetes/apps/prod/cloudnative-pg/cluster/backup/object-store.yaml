@@ -1,0 +1,44 @@
+---
+# Off-site backup target for postgres-cluster: the Garage bucket on the vpslab, reached through the Tailscale egress.
+# Objects are stored under s3://cnpg-backups/<serverName>/ (serverName defaults to the cluster name).
+# https://cloudnative-pg.io/plugin-barman-cloud/docs/object_stores/
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: vpslab-garage
+  namespace: cnpg-db
+spec:
+  retentionPolicy: "14d"
+  configuration:
+    destinationPath: s3://cnpg-backups/
+    endpointURL: http://garage-vpslab.cnpg-db.svc.cluster.local:3900
+    s3AddressingStyle: path
+    s3Credentials:
+      accessKeyId:
+        name: barman-garage-credentials
+        key: ACCESS_KEY_ID
+      secretAccessKey:
+        name: barman-garage-credentials
+        key: ACCESS_SECRET_KEY
+      region:
+        name: barman-garage-credentials
+        key: REGION
+    wal:
+      compression: zstd
+      maxParallel: 4
+    data:
+      compression: zstd
+      jobs: 2
+  instanceSidecarConfiguration:
+    env:
+      # Garage (like most non-AWS S3 servers) rejects the default checksums of recent boto3 versions.
+      - name: AWS_REQUEST_CHECKSUM_CALCULATION
+        value: when_required
+      - name: AWS_RESPONSE_CHECKSUM_VALIDATION
+        value: when_required
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        memory: 512Mi

@@ -12,6 +12,7 @@
 - [ADR-008: Use K3s as Kubernetes Distribution](./ADR-008-K3s-adoption.md)
 - [ADR-009: Secrets Managment](./ADR-009-Secrets-Managment.md)
 - [ADR-010: Use Pocket-ID as OIDC Provider for SSO with Passkeys](./ADR-010-Use-Pocket-ID.md)
+- [ADR-011: Back Up CNPG to Garage on the vpslab with the Barman Cloud Plugin](./ADR-011-CNPG-Backup-To-Vpslab-Garage.md)
 
 ## Rejected Records
 

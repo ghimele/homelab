@@ -1,0 +1,15 @@
+---
+# Tailscale egress to the Garage S3 API running on the vpslab (tailnet device "garage-vpslab", port 3900).
+# The FQDN (e.g. garage-vpslab.<tailnet>.ts.net) comes from the SOPS-encrypted cluster-secrets; it is used instead of
+# the IP because a changed IP would silently break WAL archiving. While it is empty the operator ignores this Service.
+# https://tailscale.com/kb/1438/kubernetes-operator-cluster-egress
+apiVersion: v1
+kind: Service
+metadata:
+  name: garage-vpslab
+  namespace: cnpg-db
+  annotations:
+    tailscale.com/tailnet-fqdn: "${TAILSCALE_VPSLAB_GARAGE_FQDN}"
+spec:
+  externalName: placeholder   # any value - will be overwritten by operator
+  type: ExternalName

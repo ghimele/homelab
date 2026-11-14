@@ -7,4 +7,5 @@ resources:
   - certificate.yaml
   - ingress-route.yaml
   - ./databases
+  - ./backup
 

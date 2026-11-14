@@ -1,0 +1,7 @@
+---
+# Backups of postgres-cluster to the Garage S3 bucket on the vpslab (see docs/tips-and-tricks/cnpg-backup-vpslab-garage.md).
+resources:
+  - barman-garage-credentials.enc.yaml
+  - egress-garage-vpslab.yaml
+  - object-store.yaml
+  - scheduled-backup.yaml

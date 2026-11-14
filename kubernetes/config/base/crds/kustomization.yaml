@@ -5,3 +5,4 @@ resources:
   - kube-prometheus-stack
   - traefik
   - cnpg
+  - barman-cloud

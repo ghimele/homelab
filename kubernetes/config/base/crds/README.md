@@ -7,3 +7,4 @@ The following services require CRDs which are deployed by this section:
 
 - [`cert-manager`](/kubernetes/infrastructure/cert-manager/)
 - [`kube-prometheus-stack`](/kubernetes/infrastructure/kube-prometheus-stack/)
+- [`plugin-barman-cloud`](/kubernetes/apps/base/cloudnative-pg/barman-cloud-plugin/) (`ObjectStore`, sourced from the upstream repository tag that matches the chart `appVersion`)

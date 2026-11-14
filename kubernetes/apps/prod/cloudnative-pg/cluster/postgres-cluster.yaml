@@ -47,6 +47,13 @@ spec:
   monitoring:
     enablePodMonitor: true
 
+  # WAL archiving and base backups to the vpslab Garage bucket (ObjectStore in ./backup/object-store.yaml).
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: vpslab-garage
+
   affinity:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname

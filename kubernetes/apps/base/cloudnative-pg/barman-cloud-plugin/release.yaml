@@ -1,0 +1,41 @@
+---
+# CloudNativePG Barman Cloud plugin (CNPG-I): WAL archiving and base backups to S3-compatible object storage.
+# It must run in the operator namespace and the chart must keep the default "barman-cloud" Service name.
+# The ObjectStore CRD is installed by kubernetes/config/base/crds/barman-cloud (single source of truth, see KI-002).
+# https://cloudnative-pg.io/plugin-barman-cloud/docs/installation/
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plugin-barman-cloud
+  namespace: cnpg-system
+spec:
+  interval: 15m
+  dependsOn:
+    - name: cloudnative-pg
+  chart:
+    spec:
+      chart: plugin-barman-cloud
+      version: 0.9.0
+      sourceRef:
+        kind: HelmRepository
+        name: cloudnative-pg-charts
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    crds:
+      create: false
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 256Mi

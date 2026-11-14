@@ -1,0 +1,18 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: barman-cloud-source
+  namespace: flux-system
+spec:
+  url: https://github.com/cloudnative-pg/plugin-barman-cloud
+  ref:
+    # Keep in sync with the appVersion of the plugin-barman-cloud chart (apps/base/cloudnative-pg/barman-cloud-plugin).
+    # renovate: datasource=github-releases depName=cloudnative-pg/plugin-barman-cloud
+    tag: v0.16.0
+  interval: 15m
+  ignore: |
+    # exclude all
+    /*
+    # include crds directory
+    !/config/crd/bases
