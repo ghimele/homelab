@@ -123,11 +123,12 @@ kubectl --context PROD-KHC -n cnpg-db get svc garage-vpslab \
   -o jsonpath='{.status.conditions[?(@.type=="TailscaleProxyReady")].status}{"\n"}'
 kubectl --context PROD-KHC -n cnpg-db get cluster postgres-cluster \
   -o jsonpath='{.status.conditions[?(@.type=="ContinuousArchiving")].status}{"\n"}'
-kubectl --context PROD-KHC -n cnpg-db get backups
+kubectl --context PROD-KHC -n cnpg-db get backups.postgresql.cnpg.io
 kubectl --context PROD-KHC -n cnpg-db get objectstore vpslab-garage -o jsonpath='{.status}{"\n"}'
 ```
 
 The Service must report `True`, `ContinuousArchiving` must be `True`, and the latest `Backup` must be `completed`.
+Use the full name `backups.postgresql.cnpg.io`: in PROD-KHC, plain `kubectl get backups` lists the Longhorn backups instead.
 The `ObjectStore` status shows `firstRecoverabilityPoint` and `lastSuccessfulBackupTime`.
 For details, read the sidecar log on the primary: `kubectl -n cnpg-db logs <primary-pod> -c plugin-barman-cloud`.
 
@@ -149,6 +150,7 @@ spec:
 
 | Symptom | Check |
 | ------- | ----- |
+| `requested plugin is not available: barman-cloud.cloudnative-pg.io` on the first rollout | Expected once: `immediate: true` starts a backup before the pods are rolled with the sidecar. Wait for `Cluster in healthy state`, then take an on-demand backup |
 | `ContinuousArchiving=False`, sidecar log shows connection errors | Egress Service not ready (FQDN key missing), Tailscale grant missing, or Garage down |
 | `AccessDenied` / `InvalidAccessKeyId` | The key in `barman-garage-credentials` differs from the one imported by the vpslab bootstrap Job |
 | `Quota exceeded` | Bucket reached 60 GiB: shorten the retention or raise `BUCKET_QUOTA_MAX_SIZE_BYTES` (and check the VPS disk) |
