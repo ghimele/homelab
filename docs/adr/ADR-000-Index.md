@@ -28,4 +28,4 @@ None
 
 ## Records with non-standard statuses
 
-None
+- [ADR-012: Host the VPS Cluster in the Homelab Repository with a Shared Base](./ADR-012-Host-VPS-Cluster-In-Homelab-Repo.md)
