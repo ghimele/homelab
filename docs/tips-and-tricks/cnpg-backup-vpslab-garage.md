@@ -196,7 +196,7 @@ The plugin metrics replace the `cnpg_collector_*` backup metrics, which stay at 
 
 ## Restore
 
-Restores always create a **new** cluster from the object store.
+Restores always create a **new** cluster from the object store. The step-by-step procedures (one database, full cluster, lost homelab) and the monthly restore test are in the [CNPG disaster recovery runbook](cnpg-disaster-recovery.md).
 The recovery cluster reads `postgres-cluster`'s backups through the same `ObjectStore` and replays WAL up to the latest archived segment, or up to a target time:
 
 ```yaml
@@ -208,9 +208,10 @@ metadata:
 spec:
   instances: 1
   imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5   # same major version and extensions as the source
-  storage: { storageClass: longhorn-postgres-storage, size: 30Gi }
-  walStorage: { storageClass: longhorn-postgres-storage, size: 30Gi }
-  tablespaces: []   # copy the tablespaces list of postgres-cluster, they are restored too
+  # local-path: Longhorn has no room for a second copy of the cluster, and local-path does not enforce sizes
+  storage: { storageClass: local-path, size: 10Gi }
+  walStorage: { storageClass: local-path, size: 10Gi }
+  tablespaces: []   # copy the tablespaces list of postgres-cluster (with local-path), they are restored too
   bootstrap:
     recovery:
       source: origin
