@@ -36,9 +36,16 @@ spec:
           - /bin/sh
           - "-c"
           - |
+            set -e
             kubectl config set-cluster PROD-KHC --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
             kubectl config set-credentials PROD-KHC --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
             kubectl config set-context PROD-KHC --cluster=PROD-KHC --user=PROD-KHC
+            if [ -n "${TAILSCALE_VPSLAB_API_FQDN}" ]; then
+              kubectl config set-cluster VPS-LAB --server=https://vpslab-api.kube-system.svc.cluster.local:443 --tls-server-name="${TAILSCALE_VPSLAB_API_FQDN}"
+              kubectl config set-context VPS-LAB --cluster=VPS-LAB
+            else
+              echo "Skipping VPS-LAB context: configure TAILSCALE_VPSLAB_API_FQDN in the cluster-secrets Secret." >&2
+            fi
             kubectl config use-context PROD-KHC
         env:
           - name: KUBERNETES_SERVICE_HOST
@@ -70,6 +77,8 @@ spec:
         clientSecret: ${HEADLAMP_POCKETID_CLIENTSECRET}
         issuerURL: ${HEADLAMP_POCKETID_ISSUERURL}
         scopes: "email,profile"
+    podLabels:
+      headlamp.vpslab-api-client: "true"
     volumeMounts:
       - mountPath: "/home/headlamp/.config/Headlamp/kubeconfigs/"
         name: kubeconfig

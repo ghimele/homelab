@@ -1,6 +1,8 @@
 ---
 resources:
   - ../../base/tailscale/
+  - ./egress-vpslab-headlamp.yaml
+  - ./egress-vpslab-headlamp-network-policy.yaml
   #  ./egress-test-node-exporter.yaml
   - ./egress-test-kube-state-metrics.yaml
 

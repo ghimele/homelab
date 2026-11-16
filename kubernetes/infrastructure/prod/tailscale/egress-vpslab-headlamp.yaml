@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpslab-api
+  namespace: kube-system
+  annotations:
+    tailscale.com/tailnet-fqdn: "${TAILSCALE_VPSLAB_API_FQDN}"
+spec:
+  type: ExternalName
+  externalName: placeholder
+  ports:
+    - name: https
+      port: 443
+      protocol: TCP

@@ -1,0 +1,21 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: vpslab-api-headlamp-only
+  namespace: tailscale
+spec:
+  podSelector:
+    matchLabels:
+      tailscale.com/parent-resource-ns: kube-system
+      tailscale.com/parent-resource: vpslab-api
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              headlamp.vpslab-api-client: "true"
