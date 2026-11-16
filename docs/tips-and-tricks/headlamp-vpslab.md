@@ -7,19 +7,19 @@ Headlamp users authenticate to the homelab instance through Pocket ID. Requests 
 ## Prerequisites
 
 - HTTPS certificates are enabled for the tailnet.
-- The homelab `TAILSCALE_PROXY_TAG` value identifies the source tag used by the Tailscale egress proxy.
+- The tags of the homelab egress proxy device (`kube-system-vpslab-api`). In prod, `TAILSCALE_PROXY_TAG` holds `tag:k8s,tag:test-k8s`, so the device carries both. Do not use `tag:test-k8s` as the source: it is also the default tag of the test cluster's proxies and would give them access too. Check the tags in the admin console or with `tailscale whois <proxy-ip>` from a proxy pod.
 - The tag of the vpslab operator device. Check it in the admin console or with `tailscale whois <operator-ip>` from a proxy pod. This guide assumes the default `tag:k8s-operator`.
 
 ## Deploy and configure
 
 1. Reconcile the vpslab repository. The Tailscale operator API proxy is enabled in auth mode and the vpslab cluster binds `headlamp-vpslab-ro` to the built-in `view` role.
-2. In the Tailscale access policy, allow the homelab proxy tag to reach the vpslab operator on TCP 443, and map that source to the Kubernetes read-only group. Replace the source placeholder with the exact `TAILSCALE_PROXY_TAG` value, including its `tag:` prefix, and the destination with the operator device's actual tag:
+2. In the Tailscale access policy, allow the homelab proxy tag to reach the vpslab operator on TCP 443, and map that source to the Kubernetes read-only group. Use one JSON string per tag in `src` (never a comma-separated string), and set `dst` to the operator device's actual tag. `tag:k8s` is shared by every proxy of the prod operator; for a tighter scope, give the egress Service its own tag with the `tailscale.com/tags` annotation and use that tag as `src`:
 
    ```json
    {
      "grants": [
        {
-         "src": ["<value-of-TAILSCALE_PROXY_TAG>"],
+         "src": ["tag:k8s"],
          "dst": ["tag:k8s-operator"],
          "ip": ["tcp:443"],
          "app": {
