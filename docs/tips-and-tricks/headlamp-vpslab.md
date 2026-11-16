@@ -43,8 +43,8 @@ The vpslab RBAC and API-proxy configuration are in `ghimele/vpslab` under `kuber
 
 ## Verify
 
-- In Headlamp, choose the `VPS-LAB` cluster and confirm that resources such as nodes and namespaces are visible.
-- Verify that viewing Secrets is forbidden; the bound `view` role does not grant Secret access.
+- In Headlamp, choose the `VPS-LAB` cluster and confirm that namespaces and workloads such as Pods and Deployments are visible.
+- Verify that viewing Secrets is forbidden; the bound `view` role does not grant Secret access. Cluster-scoped resources that `view` does not cover, such as Nodes, are forbidden as well.
 - Check the homelab egress Service condition with `kubectl --context <homelab-context> -n kube-system get service vpslab-api -o yaml` and inspect its `TailscaleEgressSvcReady` condition. Check the vpslab operator logs if the API proxy is not ready.
 
 ## Troubleshooting
@@ -64,6 +64,7 @@ The vpslab RBAC and API-proxy configuration are in `ghimele/vpslab` under `kuber
 
 References:
 
+- [Reach the vpslab API only over Tailscale with kubectl and Headlamp Desktop](vpslab-kubectl-tailscale.md)
 - [Tailscale Kubernetes API server proxy setup](https://tailscale.com/docs/kubernetes-operator/api-server-access/setup-api-over-tailscale)
 - [Tailscale API proxy authentication and RBAC](https://tailscale.com/docs/kubernetes-operator/api-server-access/auth-and-rbac)
 - [Tailscale cluster egress](https://tailscale.com/docs/kubernetes-operator/egress)
