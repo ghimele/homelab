@@ -73,6 +73,40 @@ spec:
           for: 1m
           labels:
             severity: warning
+        # HA replication slots retain at most max_slot_wal_keep_size of WAL for a disconnected replica; past that the slot is lost
+        # and the replica can only catch up from the WAL archive or by being rebuilt.
+        - alert: CNPGReplicaNotStreaming
+          annotations:
+            description: >-
+              Primary {{ $labels.pod }} reports HA replication slot {{ $labels.slot_name }} inactive for 10 minutes, so that replica is not streaming.
+              The slot retains WAL only up to max_slot_wal_keep_size; check the replica logs before the slot is lost.
+            summary: A PostgreSQL replica is not streaming from the primary.
+          expr: |-
+            (cnpg_pg_replication_slots_active{namespace="cnpg-db", job="cnpg-db/postgres-cluster", slot_name=~"_cnpg_.+"} == 0)
+              and on (namespace, pod)
+            (cnpg_pg_replication_in_recovery{namespace="cnpg-db", job="cnpg-db/postgres-cluster"} == 0)
+          for: 10m
+          labels:
+            severity: warning
+        - alert: CNPGReplicationSlotWALRetentionHigh
+          annotations:
+            description: >-
+              HA replication slot {{ $labels.slot_name }} on primary {{ $labels.pod }} retains {{ $value | humanizePercentage }} of max_slot_wal_keep_size.
+              Above 100% the slot is lost and the replica stays stuck ("requested WAL segment has already been removed")
+              until it restores the missing WAL from the archive or is rebuilt (delete the replica pod and its PVCs).
+            summary: A PostgreSQL replication slot is about to lose, or has lost, the WAL its replica needs.
+          expr: |-
+            (
+              cnpg_pg_replication_slots_pg_wal_lsn_diff{namespace="cnpg-db", job="cnpg-db/postgres-cluster", slot_name=~"_cnpg_.+"}
+                / on (namespace, pod) group_left ()
+              (max by (namespace, pod) (cnpg_pg_settings_setting{namespace="cnpg-db", job="cnpg-db/postgres-cluster", name="max_slot_wal_keep_size"}) * 1024 * 1024)
+                > 0.8
+            )
+              and on (namespace, pod)
+            (cnpg_pg_replication_in_recovery{namespace="cnpg-db", job="cnpg-db/postgres-cluster"} == 0)
+          for: 5m
+          labels:
+            severity: critical
         - alert: CNPGInstanceNotReady
           annotations:
             description: A PostgreSQL instance has not been ready for 5 minutes.
