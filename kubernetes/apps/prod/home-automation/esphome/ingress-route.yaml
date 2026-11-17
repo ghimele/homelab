@@ -13,7 +13,8 @@ metadata:
     gethomepage.dev/app: esphome  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
     gethomepage.dev/name: "ESPHome"
     gethomepage.dev/widget.type: "esphome"
-    gethomepage.dev/widget.url: "https://${HOST_ESPHOME}.${DOMAIN}"
+    # Internal URL: the public route is behind SSO, which the homepage widget cannot pass.
+    gethomepage.dev/widget.url: "http://esphome.home-automation.svc.cluster.local:6052"
     gethomepage.dev/widget.fields: '["total","online","offline","unknown"]'
 spec:
   entryPoints:
@@ -23,7 +24,10 @@ spec:
   routes:
     - kind: Rule
       match: Host(`${HOST_ESPHOME}.${DOMAIN}`)
+      # The ESPHome dashboard has no authentication configured, so SSO is its only authentication.
       middlewares:
+        - name: oidc
+          namespace: traefik
         - name: security-header
           namespace: traefik
       services:

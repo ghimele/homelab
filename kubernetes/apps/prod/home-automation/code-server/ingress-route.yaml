@@ -20,7 +20,10 @@ spec:
   routes:
     - kind: Rule
       match: Host(`${HOST_CODE_SERVER}.${DOMAIN}`)
+      # code-server runs with --auth none, so SSO is its only authentication.
       middlewares:
+        - name: oidc
+          namespace: traefik
         - name: security-header
           namespace: traefik
       services:
