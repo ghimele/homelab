@@ -20,6 +20,10 @@ spec:
   routes:
     - kind: Rule
       match: Host(`${HOST_HEADLAMP}.${DOMAIN}`)
+      # Headlamp does not authenticate users; every request uses the selected kubeconfig context's credentials.
+      middlewares:
+        - name: oidc
+          namespace: traefik
       services:
         - kind: Service
           name: headlamp

@@ -2,7 +2,8 @@
 
 The homelab Headlamp instance can use the vpslab Kubernetes API through the Tailscale Kubernetes Operator's API server proxy. The API is not exposed publicly. The proxy authenticates the homelab egress device, and vpslab RBAC grants that identity read-only access.
 
-Headlamp users authenticate to the homelab instance through Pocket ID. Requests to vpslab use the shared Tailscale egress identity, so every authenticated Headlamp user receives the same vpslab `view` permissions.
+Headlamp users sign in through Pocket ID at the Traefik `oidc` middleware. Headlamp itself uses the credentials of the selected kubeconfig context.
+Requests to vpslab therefore use the shared Tailscale egress identity, and every signed-in user receives the same vpslab `view` permissions.
 
 ## Prerequisites
 
@@ -60,7 +61,8 @@ The vpslab RBAC and API-proxy configuration are in `ghimele/vpslab` under `kuber
 - Do not use `noauth` mode or add a vpslab service-account token to Headlamp's kubeconfig.
 - Keep the grant scoped to the homelab proxy tag and the vpslab operator tag. The custom Kubernetes group is mapped by that grant; do not bind it to a privileged role. To scope the grant tighter than the shared `tag:k8s-operator`, register the vpslab operator under a dedicated tag (delete the device and the `operator` state Secret so it re-registers) and point `dst` at it.
 - The homelab NetworkPolicy restricts the egress proxy to Headlamp pods; retain its pod label if the Headlamp release name or chart configuration changes.
-- The egress identity is shared by requests from Headlamp, so protect the Headlamp UI with its existing Pocket ID authentication.
+- Headlamp runs without in-cluster mode and does not authenticate users. `PROD-KHC` uses the Headlamp service account, which is bound to `cluster-admin`, and `VPS-LAB` uses the egress identity.
+  Keep the Traefik `oidc` middleware on the Headlamp IngressRoute; without it, anyone who reaches the URL gets these permissions.
 
 References:
 

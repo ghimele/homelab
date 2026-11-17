@@ -73,12 +73,10 @@ spec:
             readOnly: false
 
     config:
+      # In-cluster mode adds a "main" context that duplicates PROD-KHC and needs an OIDC token the k3s API server does not accept.
+      # Users sign in at the Traefik oidc middleware on the IngressRoute instead.
+      inCluster: false
       watchPlugins: true  # Set to true to enable automatic plugin updates in main headlamp container
-      oidc:
-        clientID: ${HEADLAMP_POCKETID_CLIENTID}
-        clientSecret: ${HEADLAMP_POCKETID_CLIENTSECRET}
-        issuerURL: ${HEADLAMP_POCKETID_ISSUERURL}
-        scopes: "email,profile"
     podLabels:
       headlamp.vpslab-api-client: "true"
     volumeMounts:
