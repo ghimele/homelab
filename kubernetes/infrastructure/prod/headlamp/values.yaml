@@ -111,4 +111,8 @@ spec:
         installOptions:
           parallel: true
           maxConcurrent: 2
-      baseImage: node:lts-alpine
+      # The sidecar receives the cluster-admin service-account token, so pin what it runs.
+      # renovate: datasource=npm depName=@headlamp-k8s/pluginctl
+      version: "0.1.1"
+      # Pinned by digest; bump the tag and digest together (docker buildx imagetools inspect node:<tag>).
+      baseImage: node:26.13.1-alpine3.24@sha256:6bd9ab43c0ec0190ca7b2d193906cb8b7edf6e7f4afa43ddeccd6452710bffb5

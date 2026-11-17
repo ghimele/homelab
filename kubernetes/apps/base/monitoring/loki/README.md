@@ -9,12 +9,11 @@ Grafana Loki is a set of open source components that can be composed into a full
 | Kind | Name |
 | ---- | ---- |
 | [`HelmRelease`][ref-helm-release] | `loki` |
-| [`Certificate`][ref-certificate] | `loki.${DOMAIN}` |
-| [`IngressRoute`][ref-ingress-route] | `loki` |
 
 [ref-helm-release]: https://fluxcd.io/docs/components/helm/helmreleases/
-[ref-certificate]: https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.Certificate
-[ref-ingress-route]: https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/#kind-ingressroute
+
+Loki has no web UI and no public route: it runs with `auth_enabled: false`, so query it through Grafana.
+In-cluster clients use `http://loki.monitoring.svc:3100`; the vpslab pushes through the Tailscale Service in the prod overlay.
 
 ## Links
 

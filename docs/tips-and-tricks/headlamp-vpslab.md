@@ -2,8 +2,8 @@
 
 The homelab Headlamp instance can use the vpslab Kubernetes API through the Tailscale Kubernetes Operator's API server proxy. The API is not exposed publicly. The proxy authenticates the homelab egress device, and vpslab RBAC grants that identity read-only access.
 
-Headlamp users sign in through Pocket ID at the Traefik `oidc` middleware. Headlamp itself uses the credentials of the selected kubeconfig context.
-Requests to vpslab therefore use the shared Tailscale egress identity, and every signed-in user receives the same vpslab `view` permissions.
+Headlamp users sign in through Pocket ID at the Traefik `oidc` middleware, which only admits the account whose `email` claim equals `${EMAIL}` (others get 403). Headlamp itself uses the credentials of the selected kubeconfig context.
+Requests to vpslab therefore use the shared Tailscale egress identity, and the signed-in user receives the vpslab `view` permissions.
 
 ## Prerequisites
 
@@ -67,7 +67,9 @@ The vpslab RBAC and API-proxy configuration are in `ghimele/vpslab` under `kuber
 - Keep the grant scoped to the homelab proxy tag and the vpslab operator tag. The custom Kubernetes group is mapped by that grant; do not bind it to a privileged role. To scope the grant tighter than the shared `tag:k8s-operator`, register the vpslab operator under a dedicated tag (delete the device and the `operator` state Secret so it re-registers) and point `dst` at it.
 - The homelab NetworkPolicy restricts the egress proxy to Headlamp pods; retain its pod label if the Headlamp release name or chart configuration changes.
 - Headlamp runs without in-cluster mode and does not authenticate users. `PROD-KHC` uses the Headlamp service account, which is bound to `cluster-admin`, and `VPS-LAB` uses the egress identity.
-  Keep the Traefik `oidc` middleware on the Headlamp IngressRoute; without it, anyone who reaches the URL gets these permissions.
+  Keep the Traefik `oidc` middleware, and its owner-only `email` assertion, on the Headlamp IngressRoute; without it, anyone who reaches the URL gets these permissions.
+- Plugins run in the browser through Headlamp's backend, so a malicious plugin gets the same `cluster-admin` access. The plugin manager sidecar also receives the service-account token.
+  Keep the plugin versions, `pluginsManager.version` (pluginctl) and the `node` image digest in the [Headlamp values](../../kubernetes/infrastructure/prod/headlamp/values.yaml) pinned, and review plugin updates before merging.
 - The [Headlamp ingress policy](../../kubernetes/infrastructure/prod/headlamp/network-policy.yaml) allows only the Traefik release's pods in the `traefik` namespace to reach TCP 4466.
   It leaves outbound traffic unchanged, including DNS, both Kubernetes APIs, and plugin downloads.
 - Kubelet health probes from Headlamp's own node remain allowed without a broad node or pod CIDR exception.

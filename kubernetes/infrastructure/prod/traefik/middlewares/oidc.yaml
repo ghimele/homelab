@@ -13,3 +13,11 @@ spec:
         ClientId: "urn:k8s:secret:oidc-secret:providerClientId"
         ClientSecret: "urn:k8s:secret:oidc-secret:providerClientSecret"
       Scopes: ["openid", "profile", "email"]
+      # Only the homelab owner may pass; other Pocket ID users get 403.
+      # The match is exact and case-sensitive against the ID token email claim.
+      Authorization:
+        AssertClaims:
+          - Name: email
+            AnyOf: ["${EMAIL}"]
+        # Re-check on every request so sessions created before this rule are also rejected.
+        CheckOnEveryRequest: true
