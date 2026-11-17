@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: homepage
+  namespace: homepage
+spec:
+  values:
+    env:
+      - name: HOMEPAGE_VAR_GRAFANA_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: homepage-widget-credentials
+            key: HOMEPAGE_VAR_GRAFANA_USERNAME
+      - name: HOMEPAGE_VAR_GRAFANA_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: homepage-widget-credentials
+            key: HOMEPAGE_VAR_GRAFANA_PASSWORD
