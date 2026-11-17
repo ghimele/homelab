@@ -46,6 +46,10 @@ The vpslab RBAC and API-proxy configuration are in `ghimele/vpslab` under `kuber
 
 - In Headlamp, choose the `VPS-LAB` cluster and confirm that namespaces and workloads such as Pods and Deployments are visible.
 - Verify that viewing Secrets is forbidden; the bound `view` role does not grant Secret access. Cluster-scoped resources that `view` does not cover, such as Nodes, are forbidden as well.
+- After applying `headlamp-traefik-only`, confirm Headlamp stays Ready and both clusters remain usable through the authenticated URL.
+- Check that ordinary pods cannot connect directly to `headlamp.kube-system.svc.cluster.local:80` or the Headlamp pod IP on TCP 4466.
+  Include a non-Traefik pod in the `traefik` namespace and a pod with Traefik labels in another namespace; neither should connect.
+  Test actual pod traffic, not `kubectl port-forward`, which can bypass NetworkPolicy.
 - Check the homelab egress Service condition with `kubectl --context <homelab-context> -n kube-system get service vpslab-api -o yaml` and inspect its `TailscaleEgressSvcReady` condition. Check the vpslab operator logs if the API proxy is not ready.
 
 ## Troubleshooting
@@ -55,6 +59,7 @@ The vpslab RBAC and API-proxy configuration are in `ghimele/vpslab` under `kuber
 - The first request can fail with `TLS handshake timeout` while the proxy obtains its certificate. Retry after a minute.
 - Connections from a brand-new pod can be refused for a few seconds until the NetworkPolicy has synced its pod label.
 - Confirm that the egress Service reports `TailscaleProxyReady=True` and the MagicDNS name in `TAILSCALE_VPSLAB_API_FQDN` matches the operator device.
+- If Traefik returns a gateway error after a chart upgrade, check the Headlamp and Traefik pod labels and Headlamp's listening port against `headlamp-traefik-only`.
 
 ## Security notes
 
@@ -63,6 +68,11 @@ The vpslab RBAC and API-proxy configuration are in `ghimele/vpslab` under `kuber
 - The homelab NetworkPolicy restricts the egress proxy to Headlamp pods; retain its pod label if the Headlamp release name or chart configuration changes.
 - Headlamp runs without in-cluster mode and does not authenticate users. `PROD-KHC` uses the Headlamp service account, which is bound to `cluster-admin`, and `VPS-LAB` uses the egress identity.
   Keep the Traefik `oidc` middleware on the Headlamp IngressRoute; without it, anyone who reaches the URL gets these permissions.
+- The [Headlamp ingress policy](../../kubernetes/infrastructure/prod/headlamp/network-policy.yaml) allows only the Traefik release's pods in the `traefik` namespace to reach TCP 4466.
+  It leaves outbound traffic unchanged, including DNS, both Kubernetes APIs, and plugin downloads.
+- Kubelet health probes from Headlamp's own node remain allowed without a broad node or pod CIDR exception.
+  NetworkPolicy is not a boundary against node/host-network access, privileged workloads, or administrators using port-forward.
+- Keep network-policy enforcement enabled. Other policies selecting Headlamp can add permissions; avoid broader allow rules and restrict who can create workloads with the allowed labels in the `traefik` namespace.
 
 References:
 

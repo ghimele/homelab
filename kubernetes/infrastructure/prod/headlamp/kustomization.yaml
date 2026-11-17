@@ -3,6 +3,7 @@ resources:
   - ../../base/headlamp/
   - certificate.yaml
   - ingress-route.yaml
+  - network-policy.yaml
 
 patches:
   - path: values.yaml
