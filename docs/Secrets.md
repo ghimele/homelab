@@ -61,6 +61,40 @@ creation_rules:
     age: age1xv8cuqcr09e3845unmja9x5jct30q9rmgz7awjc6dwrnq5m79etsvkz2z6
 ```
 
+## Consuming cluster secrets in workloads
+
+Flux substitutes `${VAR}` placeholders from the `cluster-secrets` Secret (`postBuild.substituteFrom`) into every
+manifest it applies. Do **not** put secret placeholders directly in HelmRelease values that end up as container
+`env` values, ConfigMaps (e.g. `grafana.ini`) or annotations: after substitution the value is stored in plaintext on
+the HelmRelease, Deployment, ConfigMap or IngressRoute, where anyone (or any service account) with read access to
+those resources can see it.
+
+Instead, add a `credentials.yaml` Secret next to the app overlay that only contains placeholders, and reference it:
+
+```yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: immich-db-credentials
+  namespace: media
+type: Opaque
+stringData:
+  DB_URL: ${IMMICH_DB_URL}
+  DB_PASSWORD: ${IMMICH_DB_PASSWORD}
+```
+
+- **Container env**: use `valueFrom.secretKeyRef` (app-template, immich), `envFromSecrets` (frigate) or
+  `envValueFrom` (grafana) instead of literal values.
+- **Grafana**: admin login comes from `admin.existingSecret`; `ini` keys are overridden with `GF_<SECTION>_<KEY>`
+  environment variables (e.g. `GF_AUTH_GITHUB_CLIENT_SECRET`) instead of being written into `grafana.ini`.
+- **Homepage widgets**: expose the credential to homepage as a `HOMEPAGE_VAR_*` env var from a Secret and reference
+  it in the annotation as `gethomepage.dev/widget.password: "{{HOMEPAGE_VAR_GRAFANA_PASSWORD}}"`.
+
+> [!NOTE]
+> Name these files `credentials.yaml`: `.gitignore` excludes `*secret.yaml` and `secret.*` to avoid committing
+> plaintext secrets by mistake. Never put real values in them, only `${VAR}` placeholders.
+
 ## References
 
 [^1]: [SOPS Installation](https://github.com/getsops/sops/releases)

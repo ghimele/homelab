@@ -79,7 +79,7 @@ spec:
     nodeSelector:
       node-role.kubernetes.io/nfs: ""
     env:
-      FRIGATE_CAM1_USER: ${FRIGATE_CAM1_USER}
-      FRIGATE_CAM1_PASS: ${FRIGATE_CAM1_PASS}
-      FRIGATE_CAM1_IP: ${FRIGATE_CAM1_IP}
       FRIGATE_HOSTNAME: ${HOST_FRIGATE}.${DOMAIN}
+    # Provides the FRIGATE_CAM1_* variables referenced in the config above
+    envFromSecrets:
+      - frigate-camera-credentials

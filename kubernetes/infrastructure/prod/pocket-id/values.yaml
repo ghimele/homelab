@@ -14,8 +14,16 @@ spec:
             env:
               APP_URL: https://${HOST_POCKETID}.${DOMAIN}
               TRUST_PROXY: "true"
-              ENCRYPTION_KEY: ${POCKETID_ENCRYPTION_KEY}
-              DB_CONNECTION_STRING: postgres://pocketid:${POCKETID_DB_PASSWORD}@postgres-cluster-rw.cnpg-db.svc.cluster.local:5432/pocketid
+              ENCRYPTION_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: pocket-id-secrets
+                    key: ENCRYPTION_KEY
+              DB_CONNECTION_STRING:
+                valueFrom:
+                  secretKeyRef:
+                    name: pocket-id-secrets
+                    key: DB_CONNECTION_STRING
 
     persistence:
       data:

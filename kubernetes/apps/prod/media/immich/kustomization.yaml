@@ -2,6 +2,7 @@
 resources:
   - ../../../base/media/immich
   - ./pvc-valkey-data.yaml
+  - ./credentials.yaml
   - ./certificate.yaml
   - ./ingress-route.yaml
 

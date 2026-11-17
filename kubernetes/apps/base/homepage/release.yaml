@@ -16,6 +16,15 @@ spec:
         kind: HelmRepository
         name: ghimele
         namespace: flux-system
+  # Image pulls from ghcr.io can take several minutes on a cold node
+  timeout: 15m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
   values:
     namespace: homepage
     image:

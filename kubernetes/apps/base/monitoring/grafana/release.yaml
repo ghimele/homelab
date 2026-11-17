@@ -31,13 +31,21 @@ spec:
     fullnameOverride: grafana
     defaultDashboardsEnabled: true
     defaultDashboardsTimezone: ${TIMEZONE}
-    # Administrator credentials when not using an existing secret (see below)
-    adminUser: ${GRAFANA_USERNAME}
-    adminPassword: ${GRAFANA_PASSWORD}
+    # Administrator credentials come from the grafana-credentials Secret (secret.yaml)
+    admin:
+      existingSecret: grafana-credentials
+      userKey: admin-user
+      passwordKey: admin-password
     env:
       GF_DATE_FORMATS_USE_BROWSER_LOCALE: true
       GF_EXPLORE_ENABLED: true
       GF_SECURITY_ANGULAR_SUPPORT_ENABLED: true
+    # Overrides auth.github.client_secret so it never lands in the grafana.ini ConfigMap
+    envValueFrom:
+      GF_AUTH_GITHUB_CLIENT_SECRET:
+        secretKeyRef:
+          name: grafana-credentials
+          key: github-client-secret
     grafana.ini:
       server:
         domain: ${HOST_GRAFANA}.${DOMAIN}
@@ -52,7 +60,6 @@ spec:
         token_url: https://github.com/login/oauth/access_token
         api_url: https://api.github.com/user
         client_id: ${GRAFANA_GIHUB_CLIENTID}
-        client_secret: ${GRAFANA_GITHUB_CLIENTSECRET}
         allowed_domains: ghimele.com github.com outlook.com
         # Users live in an emptyDir DB and re-sign-up after every restart, so sign-up stays on;
         # strict mode rejects every GitHub login except the owner's.

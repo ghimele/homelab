@@ -27,12 +27,6 @@ spec:
             env:
               REDIS_HOSTNAME: '{{ printf "%s-valkey" .Release.Name }}'
               IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
-              DB_URL: ${IMMICH_DB_URL}
-              DB_HOSTNAME: ${IMMICH_DB_HOSTNAME}
-              DB_USERNAME: ${IMMICH_DB_USERNAME}
-              DB_DATABASE_NAME: ${IMMICH_DB_DATABASE_NAME}
-              DB_PASSWORD: ${IMMICH_DB_PASSWORD}
-              DB_VECTOR_EXTENSION: pgvector
               PUBLIC_IMMICH_SERVER_URL: https://${HOST_IMMICH}.${DOMAIN}
             resources:
               requests:
@@ -96,6 +90,22 @@ spec:
               image:
                 repository: ghcr.io/immich-app/immich-server
                 pullPolicy: IfNotPresent
+              # Only the server talks to Postgres; keep DB credentials off machine-learning and valkey.
+              env:
+                DB_URL:
+                  valueFrom:
+                    secretKeyRef:
+                      name: immich-db-credentials
+                      key: DB_URL
+                DB_PASSWORD:
+                  valueFrom:
+                    secretKeyRef:
+                      name: immich-db-credentials
+                      key: DB_PASSWORD
+                DB_HOSTNAME: ${IMMICH_DB_HOSTNAME}
+                DB_USERNAME: ${IMMICH_DB_USERNAME}
+                DB_DATABASE_NAME: ${IMMICH_DB_DATABASE_NAME}
+                DB_VECTOR_EXTENSION: pgvector
       ingress:
         main:
           enabled: false

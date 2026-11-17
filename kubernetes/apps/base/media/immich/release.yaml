@@ -14,6 +14,15 @@ spec:
         kind: HelmRepository
         name: immich
         namespace: flux-system
+  # Server and machine-learning images are large; give cold pulls time to finish
+  timeout: 15m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
 
   values:
   # This chart relies on the common library chart from bjw-s

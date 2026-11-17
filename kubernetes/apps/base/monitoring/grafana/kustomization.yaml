@@ -1,3 +1,4 @@
 ---
 resources:
+  - credentials.yaml
   - release.yaml
