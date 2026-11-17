@@ -12,7 +12,8 @@ metadata:
     gethomepage.dev/icon: traefik.png
     gethomepage.dev/name: Traefik
     gethomepage.dev/widget.type: traefik
-    gethomepage.dev/widget.url: "https://${HOST_TRAEFIK}.${DOMAIN}"
+    # Internal-only API endpoint (traefik-api Service below); the public host requires SSO for every path
+    gethomepage.dev/widget.url: "http://traefik-api.traefik.svc.cluster.local:8080"
     gethomepage.dev/app: traefik  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
 spec:
   entryPoints:
@@ -28,8 +29,36 @@ spec:
       services:
         - name: api@internal
           kind: TraefikService
+---
+# Read-only Traefik API on the internal "traefik" entrypoint (:8080), used by the homepage widget.
+# Port 8080 is not part of the LoadBalancer Service, so this is reachable only from inside the cluster.
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-api-internal
+  namespace: traefik
+spec:
+  entryPoints:
+    - traefik
+  routes:
     - kind: Rule
-      match: Host(`${HOST_TRAEFIK}.${DOMAIN}`) &&  PathPrefix("/api")
+      match: PathPrefix(`/api`)
       services:
         - name: api@internal
           kind: TraefikService
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-api
+  namespace: traefik
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: traefik-traefik
+  ports:
+    - name: traefik
+      port: 8080
+      targetPort: traefik
+      protocol: TCP

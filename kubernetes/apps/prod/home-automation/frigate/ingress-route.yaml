@@ -20,7 +20,11 @@ spec:
   routes:
     - kind: Rule
       match: Host(`${HOST_FRIGATE}.${DOMAIN}`)
+      # Port 5000 is Frigate's unauthenticated API/UI, so SSO is its only authentication.
+      # In-cluster clients (Home Assistant, Gatus) use the Service directly and are unaffected.
       middlewares:
+        - name: oidc
+          namespace: traefik
         - name: security-header
           namespace: traefik
       services:
@@ -28,10 +32,3 @@ spec:
           kind: Service
           namespace: home-automation
           port: 5000
-    - kind: Rule
-      match: PathPrefix(`/webrtc`)
-      services:
-        - name: frigate
-          kind: Service
-          namespace: home-automation
-          port: 8555
