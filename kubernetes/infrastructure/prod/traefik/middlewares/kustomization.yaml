@@ -5,3 +5,4 @@ resources:
   - buffering.yaml
   - oidc-secret.enc.yaml
   - oidc.yaml
+  - oidc-groups.yaml

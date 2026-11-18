@@ -18,6 +18,26 @@ spec:
             - "[RESPONSE_TIME] < 2000"
 
     config: |
+      # Authentication is delegated to the Traefik oidc-groups middleware (Pocket ID groups).
+      # Port 8971 serves plain HTTP and trusts the X-Forwarded-* headers, so only Traefik may expose it.
+      auth:
+        enabled: false
+
+      tls:
+        enabled: false
+
+      proxy:
+        logout_url: /logout
+        default_role: viewer
+        header_map:
+          user: x-forwarded-user
+          role: x-forwarded-groups
+          role_map:
+            admin:
+              - administrators
+            viewer:
+              - viewers
+
       mqtt:
         host: mosquitto.home-automation.svc.cluster.local
         port: 1883

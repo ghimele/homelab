@@ -1,0 +1,31 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oidc-groups
+  namespace: traefik
+spec:
+  plugin:
+    traefik-oidc-auth:  # same key as in the static configuration
+      Secret: "urn:k8s:secret:oidc-secret:pluginSecret"
+      Provider:
+        Url: "urn:k8s:secret:oidc-secret:providerUrl"
+        ClientId: "urn:k8s:secret:oidc-secret:providerClientId"
+        ClientSecret: "urn:k8s:secret:oidc-secret:providerClientSecret"
+      # "groups" makes Pocket ID add the user's group names to the ID token.
+      Scopes: ["openid", "profile", "email", "groups"]
+      # Role-based access: members of the Pocket ID groups "administrators" or "viewers" may pass; everyone else gets 403.
+      # The app behind this middleware decides what each group may do, using the headers below.
+      Authorization:
+        AssertClaims:
+          - Name: groups
+            AnyOf: ["administrators", "viewers"]
+        # Re-check token claims on every request; group changes require fresh claims.
+        CheckOnEveryRequest: true
+      # Headers are always set by the plugin, so a client cannot spoof them.
+      # X-Forwarded-Groups is a comma-separated list (a trailing comma is harmless).
+      Headers:
+        - Name: X-Forwarded-User
+          Value: "{{ .claims.preferred_username }}"
+        - Name: X-Forwarded-Groups
+          Value: "{{ range .claims.groups }}{{ . }},{{ end }}"

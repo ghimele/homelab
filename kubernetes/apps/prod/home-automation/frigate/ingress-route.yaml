@@ -20,10 +20,11 @@ spec:
   routes:
     - kind: Rule
       match: Host(`${HOST_FRIGATE}.${DOMAIN}`)
-      # Port 5000 is Frigate's unauthenticated API/UI, so SSO is its only authentication.
-      # In-cluster clients (Home Assistant, Gatus) use the Service directly and are unaffected.
+      # Port 8971 trusts the identity headers set by oidc-groups (Frigate auth is disabled and maps
+      # the Pocket ID groups "administrators"/"viewers" to its own roles), so SSO is its only authentication.
+      # In-cluster clients (Home Assistant, Gatus) use port 5000 on the Service and are unaffected.
       middlewares:
-        - name: oidc
+        - name: oidc-groups
           namespace: traefik
         - name: security-header
           namespace: traefik
@@ -31,4 +32,4 @@ spec:
         - name: frigate
           kind: Service
           namespace: home-automation
-          port: 5000
+          port: 8971

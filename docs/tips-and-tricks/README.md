@@ -8,6 +8,7 @@ In this section I will collect all the tips and tricks that will make it easier 
 - [Send vpslab metrics and logs to the homelab with Alloy and Tailscale](vpslab-alloy-tailscale.md)
 - [Back up the CNPG cluster to Garage on the vpslab](cnpg-backup-vpslab-garage.md)
 - [Access vpslab from Headlamp over Tailscale](headlamp-vpslab.md)
+- [Role-based access to apps with Pocket ID groups](pocket-id-groups.md)
 - [Reach the vpslab API only over Tailscale with kubectl and Headlamp Desktop](vpslab-kubectl-tailscale.md)
 - [CNPG disaster recovery runbook](cnpg-disaster-recovery.md)
 - [Move the VPS cluster from vpslab into this repository](vps-cluster-monorepo-migration.md)
