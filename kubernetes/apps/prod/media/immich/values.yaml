@@ -67,7 +67,7 @@ spec:
         data:
           enabled: true
           type: persistentVolumeClaim
-          existingClaim: valkey-data
+          existingClaim: immich-valkey-data
       service:
         main:
           enabled: true

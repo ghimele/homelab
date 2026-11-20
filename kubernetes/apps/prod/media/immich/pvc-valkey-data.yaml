@@ -2,7 +2,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: valkey-data
+  # Use a distinct claim while the old valkey-data claim is terminating.
+  name: immich-valkey-data
   namespace: media
 spec:
   accessModes:
