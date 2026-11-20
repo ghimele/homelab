@@ -125,6 +125,9 @@ spec:
   instances: 1
   imageName: ghcr.io/tensorchord/cloudnative-vectorchord:17.5   # same image as postgres-cluster
   enableSuperuserAccess: true
+  affinity:
+    nodeSelector:
+      kubernetes.io/hostname: svp-khc11
   postgresql:
     shared_preload_libraries:
       - "vchord.so"
@@ -177,7 +180,9 @@ spec:
 - There is no `plugins` block, so the temporary cluster never archives. Flux does not manage it, so it does not delete it either.
 - Follow the restore with `kubectl -n cnpg-db get cluster postgres-restore -w` and `kubectl -n cnpg-db get pods -l cnpg.io/cluster=postgres-restore`.
   The `postgres-restore-1-full-recovery-*` pod downloads the base backup and replays the WAL; then `postgres-restore-1` starts.
-- Delete it when you are done. The `local-path` volumes go with it:
+- If you route a production application to the restore, keep the old primary fenced and update the app's GitOps configuration before resuming Flux. For Pocket ID, the database hostname is set in its [Secret manifest](../../kubernetes/infrastructure/prod/pocket-id/credentials.yaml). Enable and verify backups and WAL archiving to a separate archive path before relying on the restore for production writes.
+- Before switching Pocket ID back, compare both databases and decide which data to keep. Changing the hostname does not copy restore-only writes. Keep the restore intact, restart Pocket ID to load the updated Secret, and verify both OIDC discovery and connections to the production primary.
+- Delete the restore only after no applications depend on it and any writes made after cutover have been backed up or migrated. The `local-path` volumes go with it:
 
 ```bash
 kubectl -n cnpg-db delete cluster postgres-restore
