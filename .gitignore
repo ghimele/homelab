@@ -6,6 +6,9 @@
 **/.env
 **/.envrc
 
+# Track SOPS-encrypted YAML files
+!**/*.enc.yaml
+
 packer-*.log
 packer_cache/
 *.iso
