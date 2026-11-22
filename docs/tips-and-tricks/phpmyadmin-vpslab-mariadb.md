@@ -7,7 +7,7 @@ Pocket ID Traefik OIDC middleware. It reaches the VPS Lab MariaDB instance
 through a Tailscale Kubernetes operator egress Service.
 
 - URL: `https://phpmyadmin.<DOMAIN>`
-- Database host entered in phpMyAdmin: `mariadb-vpslab.tail7be528.ts.net`
+- Database host entered in phpMyAdmin: `mariadb-vpslab.${TAILSCALE_VPSLAB_MARIADB_FQDN}`
 - Database port: `3306`
 - MariaDB service on the VPS: `mariadb.mariadb.svc.cluster.local:3306`
 
@@ -40,4 +40,4 @@ kubectl --context PROD-KHC -n phpmyadmin rollout status deployment/phpmyadmin
 
 A connection test can be performed from a temporary database client pod, but
 phpMyAdmin should be verified in the browser first. The expected login route
-is `mariadb-vpslab.tail7be528.ts.net:3306`.
+is `mariadb-vpslab.${TAILSCALE_VPSLAB_MARIADB_FQDN}:3306`.
