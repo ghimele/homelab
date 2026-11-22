@@ -63,6 +63,27 @@ configuration nor saved server connections are migrated automatically.
    kubectl --context PROD-KHC -n cnpg-db rollout status deployment/pgadmin
    ```
 
+## Server registration
+
+The production primary is deployed automatically in `servers.json` as
+`Production PostgreSQL (primary)`. Flux mounts that ConfigMap at
+`/pgadmin4/servers.json`; pgAdmin imports it for the bootstrap account.
+
+- Host: `postgres-cluster-rw.cnpg-db.svc.cluster.local`
+- Port: `5432`
+- Maintenance database: `postgres`
+- SSL mode: `prefer`
+
+The YAML intentionally contains no database password. Enter the password when
+connecting and use pgAdmin's master password to save it. The
+`postgres-cluster-superuser` Kubernetes Secret contains the bootstrap
+superuser credential:
+
+```bash
+kubectl --context PROD-KHC -n cnpg-db get secret postgres-cluster-superuser \
+  -o jsonpath='{.data.password}' | base64 --decode
+```
+
 ## Accounts and operations
 
 - The bootstrap account is an **internal** pgAdmin administrator. Pocket ID

@@ -3,4 +3,5 @@ resources:
   - ../../../base/pgadmin/release.yaml
   - certificate.yaml
   - ingress-route.yaml
+  - servers-config.yaml
   - secret.enc.yaml
