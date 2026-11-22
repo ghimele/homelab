@@ -1,90 +1,101 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: pgadmin
+  namespace: cnpg-db
 spec:
-  interval: 15m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-      interval: 15m
-  maxHistory: 3
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
-      main:
+      pgadmin:
         strategy: Recreate
-        annotations:
-          reloader.stakater.com/auto: "true"
         pod:
+          automountServiceAccountToken: false
           securityContext:
-            runAsUser: 5050  # ${APP_UID}
-            runAsGroup: 5050  # ${APP_GID}
-            fsGroup: 5050  # ${APP_GID}
+            runAsNonRoot: true
+            runAsUser: 5050
+            runAsGroup: 5050
+            fsGroup: 5050
             fsGroupChangePolicy: OnRootMismatch
+            seccompProfile:
+              type: RuntimeDefault
         containers:
-          main:
+          app:
             image:
               repository: docker.io/dpage/pgadmin4
-              tag: "2024-10-15-1"
-            envFrom:
-              - secretRef:
-                  name: pgadmin-secret
+              tag: "9.19"
+            env:
+              PGADMIN_DEFAULT_EMAIL:
+                valueFrom:
+                  secretKeyRef:
+                    name: pgadmin
+                    key: admin-email
+              PGADMIN_DEFAULT_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: pgadmin
+                    key: admin-password
+              POCKET_ID_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: pgadmin
+                    key: oidc-client-id
+              POCKET_ID_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: pgadmin
+                    key: oidc-client-secret
+              PGADMIN_LISTEN_ADDRESS: "0.0.0.0"
+              PGADMIN_LISTEN_PORT: "5050"
+              PGADMIN_DISABLE_POSTFIX: "true"
+              PGADMIN_CONFIG_AUTHENTICATION_SOURCES: "['oauth2', 'internal']"
+              PGADMIN_CONFIG_OAUTH2_AUTO_CREATE_USER: "True"
+              PGADMIN_CONFIG_MASTER_PASSWORD: "True"
+              PGADMIN_CONFIG_PROXY_X_FOR_COUNT: "0"
+              PGADMIN_CONFIG_PROXY_X_PROTO_COUNT: "1"
+              PGADMIN_CONFIG_PROXY_X_PORT_COUNT: "0"
+              PGADMIN_CONFIG_OAUTH2_CONFIG: >-
+                [{'OAUTH2_NAME': 'pocket-id',
+                'OAUTH2_DISPLAY_NAME': 'Pocket ID',
+                'OAUTH2_CLIENT_ID': __import__('os').environ['POCKET_ID_CLIENT_ID'],
+                'OAUTH2_CLIENT_SECRET': __import__('os').environ['POCKET_ID_CLIENT_SECRET'],
+                'OAUTH2_SERVER_METADATA_URL': 'https://${HOST_POCKETID}.${DOMAIN}/.well-known/openid-configuration',
+                'OAUTH2_SCOPE': 'openid email profile'}]
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: ["ALL"]
             resources:
               requests:
-                cpu: 15m
-                memory: 164M
+                cpu: 50m
+                memory: 256Mi
               limits:
-                memory: 236M
-
+                cpu: "1"
+                memory: 512Mi
     service:
-      main:
-        controller: main
+      app:
+        forceRename: "{{ .Release.Name }}"
+        controller: pgadmin
         ports:
           http:
-            port: 80
-
-    ingress:
-      main:
-        enabled: true
-        className: internal-nginx
-        hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN_NAME}"
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
-
+            port: 5050
     persistence:
       config:
-        enabled: true
-        existingClaim: "${VOLSYNC_CLAIM}"
-        advancedMounts:
-          main:
-            main:
-              - path: /var/lib/pgadmin
-      server-json:
-        enabled: true
-        type: configMap
-        name: servers-json
+        type: persistentVolumeClaim
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 1Gi
         globalMounts:
-          - path: /pgadmin4/servers.json
-            subPath: servers.json
+          - path: /var/lib/pgadmin

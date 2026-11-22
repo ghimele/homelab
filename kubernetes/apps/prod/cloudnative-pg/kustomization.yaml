@@ -3,3 +3,5 @@ resources:
   - ./cnpg-operator
   - ./barman-cloud-plugin
   - ./cluster
+  # Enable pgadmin after provisioning its Pocket ID client and encrypted Secret.
+  # - ./pgadmin
