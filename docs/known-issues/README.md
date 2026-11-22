@@ -23,6 +23,8 @@ The goal of this section is to:
 | KI-001 | Longhorn webhook blocks Flannel bootstrap in k3s HA | k3s, Flannel, Longhorn | Mitigated |
 | KI-002 | CloudNativePG CRD/operator version skew causes hot reconcile loop | CloudNativePG, CRDs, FluxCD | Resolved |
 | KI-003 | inotify instance limit exhausted crashes Jellyfin on startup | Jellyfin, k3s nodes, kernel sysctls | Resolved |
+| [KI-004](KI-004-k3s-etcd-member-divergence.md) | k3s etcd members report inconsistent cluster state | k3s, etcd, Longhorn, CloudNativePG | Mitigated |
+| [KI-005](KI-005-unraid-rpcbind-network-namespace.md) | Unraid NFS fails when rpcbind is detected in another namespace | Unraid, Docker, NFS, Kubernetes | Mitigated |
 
 ---
 
