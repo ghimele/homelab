@@ -12,6 +12,7 @@ In this section I will collect all the tips and tricks that will make it easier 
 - [Reach the vpslab API only over Tailscale with kubectl and Headlamp Desktop](vpslab-kubectl-tailscale.md)
 - [CNPG disaster recovery runbook](cnpg-disaster-recovery.md)
 - [Move the VPS cluster from vpslab into this repository](vps-cluster-monorepo-migration.md)
+- [CloudNativePG production resource dependencies](cnpg-resource-dependencies.md)
 
 ## References
 

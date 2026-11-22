@@ -18,3 +18,7 @@ C4Context
   UpdateElementStyle(UserAadmin,$shadowing="true",$sprite="robot")
   UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
 ```
+
+## Production operations documentation
+
+See [Production Kubernetes cluster](Production-Cluster.md) for the Flux deployment layers, shared platform dependencies, application dependency checklists, rollout order, and first troubleshooting commands.
