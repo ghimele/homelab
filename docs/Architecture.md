@@ -21,4 +21,4 @@ C4Context
 
 ## Production operations documentation
 
-See [Production Kubernetes cluster](Production-Cluster.md) for the Flux deployment layers, shared platform dependencies, application dependency checklists, rollout order, and first troubleshooting commands.
+See [Production Kubernetes cluster](Production-Cluster.md) for Flux deployment layers, application dependencies, bootstrap considerations, backup coverage, and troubleshooting.
