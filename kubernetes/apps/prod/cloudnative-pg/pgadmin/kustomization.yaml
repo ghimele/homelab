@@ -3,4 +3,4 @@ resources:
   - ../../../base/pgadmin/release.yaml
   - certificate.yaml
   - ingress-route.yaml
-  # Add secret.enc.yaml here before enabling this overlay.
+  - secret.enc.yaml
