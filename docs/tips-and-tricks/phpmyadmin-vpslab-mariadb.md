@@ -7,7 +7,8 @@ Pocket ID Traefik OIDC middleware. It reaches the VPS Lab MariaDB instance
 through a Tailscale Kubernetes operator egress Service.
 
 - URL: `https://phpmyadmin.<DOMAIN>`
-- Database host entered in phpMyAdmin: `mariadb-vpslab.${TAILSCALE_VPSLAB_MARIADB_FQDN}`
+- Database host entered in phpMyAdmin: `mariadb-vpslab.phpmyadmin.svc.cluster.local`
+- Tailnet FQDN used by the Tailscale operator: `mariadb-vpslab.${TAILSCALE_VPSLAB_MARIADB_FQDN}`
 - Database port: `3306`
 - MariaDB service on the VPS: `mariadb.mariadb.svc.cluster.local:3306`
 
