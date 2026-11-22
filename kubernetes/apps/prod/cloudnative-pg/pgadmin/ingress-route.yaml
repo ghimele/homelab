@@ -4,6 +4,18 @@ kind: IngressRoute
 metadata:
   name: pgadmin
   namespace: cnpg-db
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/href: "https://pgadmin.${DOMAIN}"
+    gethomepage.dev/description: "PostgreSQL administration tool"
+    gethomepage.dev/group: Database
+    gethomepage.dev/icon: pgadmin.png
+    gethomepage.dev/app: pgadmin  # optional, may be needed if app.kubernetes.io/name != ingress metadata.name
+    gethomepage.dev/name: "pgAdmin"
+    gethomepage.dev/widget.type: "pgadmin"
+    # Internal URL: the public route is behind SSO, which the homepage widget cannot pass.
+    gethomepage.dev/widget.url: "http://pgadmin.cnpg-db.svc.cluster.local:5050"
+    gethomepage.dev/widget.fields: '["total","online","offline","unknown"]'
 spec:
   entryPoints:
     - websecure
