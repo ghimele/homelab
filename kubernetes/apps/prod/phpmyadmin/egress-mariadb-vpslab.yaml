@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb-vpslab
+  namespace: phpmyadmin
+  annotations:
+    tailscale.com/tailnet-fqdn: "${TAILSCALE_VPSLAB_MARIADB_FQDN}"
+spec:
+  type: ExternalName
+  externalName: placeholder
+  ports:
+    - name: mariadb
+      port: 3306
+      protocol: TCP

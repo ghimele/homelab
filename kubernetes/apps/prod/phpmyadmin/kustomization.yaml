@@ -1,0 +1,7 @@
+---
+resources:
+  - namespace.yaml
+  - release.yaml
+  - egress-mariadb-vpslab.yaml
+  - certificate.yaml
+  - ingress-route.yaml

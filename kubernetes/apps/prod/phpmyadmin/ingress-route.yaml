@@ -1,0 +1,30 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: phpmyadmin
+  namespace: phpmyadmin
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Database
+    gethomepage.dev/href: "https://phpmyadmin.${DOMAIN}"
+    gethomepage.dev/icon: phpmyadmin.png
+    gethomepage.dev/name: phpMyAdmin
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: phpmyadmin.${DOMAIN}
+  routes:
+    - kind: Rule
+      match: Host(`phpmyadmin.${DOMAIN}`)
+      middlewares:
+        - name: oidc
+          namespace: traefik
+        - name: security-header
+          namespace: traefik
+      services:
+        - name: phpmyadmin
+          kind: Service
+          namespace: phpmyadmin
+          port: 80

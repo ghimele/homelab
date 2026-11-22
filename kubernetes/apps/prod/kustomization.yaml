@@ -3,6 +3,7 @@ resources:
   - ./homepage
   - ./nas
   - ./cloudnative-pg
+  - ./phpmyadmin
   # - ./kube-prometheus-stack
   - ./monitoring
   # - ./promtail
