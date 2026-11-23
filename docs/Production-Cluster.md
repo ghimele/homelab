@@ -74,6 +74,153 @@ Flux reconciles production resources in this order:
 - **Monitoring:** Provides metrics, logs, alerts, and dashboards through
   Prometheus, Loki, Alloy, Grafana, and Gatus.
 
+## Service dependency map
+
+The following diagram summarizes required and optional application dependencies. Solid lines indicate required dependencies; dotted lines indicate optional or data-flow relationships.
+
+```mermaid
+flowchart LR
+  subgraph Platform["Platform and configuration"]
+    Git["Git repository"]
+    Flux["Flux"]
+    SOPS["SOPS and Age"]
+    Settings["Cluster settings"]
+    Secrets["Cluster secrets"]
+  end
+
+  subgraph Network["Network and access"]
+    DNS["DNS"]
+    MetalLB["MetalLB"]
+    Traefik["Traefik"]
+    CertManager["cert-manager"]
+    Tailscale["Tailscale"]
+  end
+
+  subgraph Storage["Storage"]
+    Longhorn["Longhorn"]
+    NFS["NFS CSI"]
+  end
+
+  subgraph Identity["Identity and databases"]
+    PocketID["Pocket ID"]
+    CNPG["CloudNativePG"]
+  end
+
+  subgraph Home["Home automation"]
+    Mosquitto["Mosquitto"]
+    HomeAssistant["Home Assistant"]
+    Frigate["Frigate"]
+    ESPHome["ESPHome"]
+    CodeServer["code-server"]
+    Matter["Matter Server"]
+    MQTTUI["MQTT UI"]
+  end
+
+  subgraph Media["Media"]
+    Jellyfin["Jellyfin"]
+    Immich["Immich"]
+    MusicAssistant["Music Assistant"]
+    Qbit["qBittorrent"]
+    Prowlarr["Prowlarr"]
+  end
+
+  subgraph Observability["Monitoring and observability"]
+    Prometheus["kube-prometheus-stack"]
+    Loki["Loki"]
+    Alloy["Alloy"]
+    Grafana["Grafana"]
+    Gatus["Gatus"]
+  end
+
+  subgraph NAS["NAS and virtualization"]
+    NASExt["External endpoints"]
+    Garage["Garage UI"]
+    Xen["Xen"]
+    Zerobyte["Zerobyte"]
+    Unraid["Unraid"]
+  end
+
+  Homepage["Homepage"]
+  Headlamp["Headlamp"]
+  Backup["Garage backup and recovery"]
+
+  Git --> Flux
+  Flux --> SOPS
+  SOPS --> Secrets
+  SOPS --> Settings
+
+  DNS --> Traefik
+  MetalLB --> Traefik
+  CertManager --> Traefik
+  Traefik --> Home
+  Traefik --> Media
+  Traefik --> Observability
+  Traefik --> NASExt
+  Traefik --> Homepage
+  Traefik --> PocketID
+  Traefik --> Headlamp
+
+  Secrets --> CNPG
+  Secrets --> PocketID
+  Secrets --> HomeAssistant
+  Secrets --> Immich
+  Longhorn --> CNPG
+  CNPG --> PocketID
+  CNPG --> HomeAssistant
+  CNPG --> Immich
+  PocketID --> Homepage
+
+  Longhorn --> HomeAssistant
+  Mosquitto --> HomeAssistant
+  Mosquitto --> Frigate
+  Mosquitto --> MQTTUI
+  NFS --> Frigate
+  Longhorn --> ESPHome
+  PocketID --> CodeServer
+  PocketID --> MQTTUI
+  Longhorn --> Matter
+
+  NFS --> Jellyfin
+  NFS --> Immich
+  NFS --> Qbit
+  NFS --> MusicAssistant
+  CNPG --> Immich
+  Immich -.-> NFS
+
+  Prowlarr --> Qbit
+  Jellyfin -.-> Media
+  MusicAssistant -.-> Jellyfin
+
+  Prometheus --> Grafana
+  Loki --> Grafana
+  Alloy --> Loki
+  Prometheus --> Gatus
+  Grafana --> Homepage
+  Alloy --> Kubernetes["Kubernetes API"]
+  Prometheus --> Kubernetes
+  Gatus -.-> Traefik
+
+  Tailscale --> NASExt
+  NASExt --> Garage
+  NASExt --> Xen
+  NASExt --> Zerobyte
+  NASExt --> Unraid
+  NFS --> NASExt
+
+  CNPG --> Backup
+  Tailscale --> Backup
+  Backup --> Garage
+  Secrets --> Backup
+
+  Kubernetes --> Homepage
+  Kubernetes --> Headlamp
+
+  classDef optional stroke-dasharray: 5 5;
+  class Jellyfin,Media,MusicAssistant,Immich optional;
+```
+
+The map does not imply that every service is deployed by the same reconciliation step: Flux ordering and the bootstrap caveat are described in [Flux deployment layers](#flux-deployment-layers) and [Bootstrap and rollout considerations](#bootstrap-and-rollout-considerations).
+
 ## Standard application dependency pattern
 
 Most HTTP applications follow this pattern:
@@ -227,6 +374,269 @@ dependencies are listed in the [application dependency catalog](#application-dep
 
 Directories alone do not prove a workload is deployed; check its complete
 parent resource chain.
+
+## Namespace dependency diagrams
+
+The diagrams below show the primary dependencies for each enabled production namespace. They are troubleshooting views, not Flux reconciliation-order guarantees.
+
+### `flux-system`
+
+```mermaid
+flowchart LR
+  Git["Git repository"] --> Flux["Flux controllers"]
+  SOPSKey["Age private key"] --> Flux
+  Flux --> Sources["Repositories and OCI sources"]
+  Flux --> Kustomizations["repositories, config, infrastructure, apps"]
+  Sources --> Config["Config resources"]
+  Config --> Infrastructure["Infrastructure resources"]
+  Infrastructure --> Applications["Application resources"]
+```
+
+### `homepage`
+
+```mermaid
+flowchart LR
+  Homepage["Homepage"]
+  Kubernetes["Kubernetes API and RBAC"] --> Homepage
+  Secrets["Cluster and widget Secrets"] --> Homepage
+  Config["SOPS-decrypted ConfigMap"] --> Homepage
+  OIDC["Traefik OIDC"] --> Homepage
+  PocketID["Pocket ID"] --> OIDC
+  Traefik["Traefik"] --> Homepage
+  CertManager["cert-manager"] --> Traefik
+  Grafana["Grafana"] -. "optional widgets" .-> Homepage
+```
+
+### `nas`
+
+```mermaid
+flowchart LR
+  Traefik["Traefik"] --> Services["Kubernetes Services and routes"]
+  CertManager["cert-manager"] --> Traefik
+  Services --> Garage["Garage UI"]
+  Services --> Xen["Xen Orchestra"]
+  Services --> Zerobyte["Zerobyte"]
+  Services --> Unraid["Unraid"]
+  Tailscale["Tailscale"] -.-> Services
+  Network["K3s external network routing"] --> Garage
+  Network --> Xen
+  Network --> Zerobyte
+  Network --> Unraid
+```
+
+### `cnpg-system`
+
+```mermaid
+flowchart LR
+  Flux["Flux"] --> CNPG["CloudNativePG operator"]
+  Flux --> Plugin["Barman Cloud plugin"]
+  CNPG --> CRDs["PostgreSQL CRDs"]
+  CRDs --> CNPGClusters["cnpg-db clusters"]
+  HelmRepositories["Helm repositories"] --> Flux
+```
+
+### `cnpg-db`
+
+```mermaid
+flowchart LR
+  Operator["cnpg-system operator"] --> Cluster["PostgreSQL cluster"]
+  Longhorn["Longhorn StorageClass"] --> Cluster
+  Secrets["SOPS role and application Secrets"] --> Cluster
+  Cluster --> Endpoint["postgres-cluster-rw"]
+  Endpoint --> PocketID["Pocket ID"]
+  Endpoint --> HomeAssistant["Home Assistant"]
+  Endpoint --> Immich["Immich"]
+  Endpoint --> pgAdmin["pgAdmin"]
+  Cluster --> Tailscale["Tailscale egress"]
+  Tailscale --> Garage["Garage backups"]
+```
+
+### `monitoring`
+
+```mermaid
+flowchart LR
+  Kubernetes["Kubernetes API"] --> Prometheus["Prometheus"]
+  Kubernetes --> Alloy["Alloy"]
+  Prometheus --> PrometheusStorage["Metrics and Alertmanager PVC"]
+  Longhorn["Longhorn or configured storage"] --> PrometheusStorage
+  Alloy --> Loki["Loki"]
+  Loki --> LokiStorage["Loki PVC"]
+  Prometheus --> Grafana["Grafana"]
+  Loki --> Grafana
+  Grafana --> Traefik["Traefik"]
+  CertManager["cert-manager"] --> Traefik
+  Prometheus --> Gatus["Gatus"]
+  Traefik --> Gatus
+```
+
+### `home-automation`
+
+```mermaid
+flowchart LR
+  Mosquitto["Mosquitto"] --> HomeAssistant["Home Assistant"]
+  Mosquitto --> Frigate["Frigate"]
+  Mosquitto --> MQTTUI["MQTT UI"]
+  CNPG["CloudNativePG"] --> HomeAssistant
+  Longhorn["Longhorn"] --> HomeAssistant
+  Longhorn --> ESPHome["ESPHome"]
+  Longhorn --> CodeServer["code-server"]
+  Longhorn --> Matter["Matter Server"]
+  Longhorn --> Mosquitto
+  Network["Homelab devices and routing"] --> ESPHome
+  Network --> Matter
+  Network --> Frigate
+  NFS["NFS or dedicated storage"] -. "optional for media" .-> Frigate
+  Traefik["Traefik"] --> HomeAutomation["Browser-accessible workloads"]
+  CertManager["cert-manager"] --> Traefik
+```
+
+### `media`
+
+```mermaid
+flowchart LR
+  NFS["nfs-media PVC"] --> Jellyfin["Jellyfin"]
+  NFS --> Immich["Immich"]
+  NFS --> QBit["qBittorrent"]
+  CNPG["CloudNativePG"] --> Immich
+  Valkey["Valkey"] --> Immich
+  ConfigStorage["Application PVCs"] --> Jellyfin
+  ConfigStorage --> Immich
+  ConfigStorage --> Music["Music Assistant"]
+  ConfigStorage --> QBit
+  ConfigStorage --> Prowlarr["Prowlarr"]
+  Prowlarr --> QBit
+  Network["Network access to indexers and players"] --> Prowlarr
+  Network --> Music
+  Traefik["Traefik"] --> MediaBrowser["Media browser routes"]
+  CertManager["cert-manager"] --> Traefik
+```
+
+### `metallb-system`
+
+```mermaid
+flowchart LR
+  K3s["K3s network"] --> MetalLB["MetalLB controller and speakers"]
+  Pool["IPAddressPool"] --> MetalLB
+  Layer2["L2Advertisement"] --> MetalLB
+  MetalLB --> LB["LoadBalancer addresses"]
+  LB --> Traefik["Traefik"]
+  LB --> ExternalName["ExternalName routes"]
+```
+
+### `cert-manager`
+
+```mermaid
+flowchart LR
+  Cloudflare["Cloudflare DNS credentials"] --> CertManager["cert-manager"]
+  ClusterIssuer["lets-encrypt ClusterIssuer"] --> CertManager
+  CertManager --> Certificates["Certificate resources"]
+  Certificates --> TLS["TLS Secrets"]
+  TLS --> Traefik["Traefik"]
+  Traefik --> Applications["Protected applications"]
+```
+
+### `traefik`
+
+```mermaid
+flowchart LR
+  MetalLB["MetalLB"] --> Traefik["Traefik"]
+  DNS["DNS"] --> Traefik
+  CertManager["cert-manager"] --> TLS["TLS certificates"]
+  TLS --> Traefik
+  Traefik --> Routes["IngressRoutes"]
+  Routes --> Services["Application Services"]
+  OIDC["Traefik OIDC middleware"] --> Traefik
+  PocketID["Pocket ID"] -. "OIDC discovery" .-> OIDC
+```
+
+### `kube-system`
+
+```mermaid
+flowchart LR
+  K3s["K3s API and etcd"] --> Headlamp["Headlamp"]
+  RBAC["Kubernetes RBAC"] --> Headlamp
+  Traefik["Traefik"] --> Headlamp
+  CertManager["cert-manager"] --> Traefik
+  Tailscale["Tailscale VPSLab egress"] -. "optional" .-> Headlamp
+  K3s --> Sysctl["node-sysctl"]
+  K3s --> API["VPSLab API egress"]
+```
+
+### `longhorn-system`
+
+```mermaid
+flowchart LR
+  Nodes["K3s nodes"] --> Longhorn["Longhorn controllers and engines"]
+  Longhorn --> StorageClass["longhorn StorageClass"]
+  StorageClass --> CNPG["CloudNativePG PVCs"]
+  StorageClass --> PocketID["Pocket ID data"]
+  StorageClass --> HomeAutomation["Home automation PVCs"]
+  StorageClass --> Applications["Other application PVCs"]
+  Replication["Configured Longhorn replication"] --> Longhorn
+```
+
+### `tailscale`
+
+```mermaid
+flowchart LR
+  Kubernetes["K3s cluster"] --> Operator["Tailscale operator"]
+  Operator --> Tailnet["Tailnet access"]
+  Tailnet --> CNPGBackup["CNPG backup to Garage"]
+  Tailnet --> Headlamp["VPSLab API egress"]
+  Tailnet --> ExternalRoutes["ExternalName and egress Services"]
+  ExternalRoutes --> NAS["NAS and VPSLab services"]
+```
+
+### `nfs`
+
+```mermaid
+flowchart LR
+  ClusterSettings["NFS server address"] --> NFS["NFS CSI driver"]
+  NFSServer["Unraid NFS server and exports"] --> NFS
+  NFS --> MediaClass["nfs-media StorageClass"]
+  NFS --> PhotosClass["nfs-photos StorageClass"]
+  MediaClass --> Jellyfin["Jellyfin"]
+  MediaClass --> Immich["Immich"]
+  MediaClass --> Downloads["qBittorrent"]
+  PhotosClass --> Immich
+```
+
+### `security`
+
+```mermaid
+flowchart LR
+  CNPG["postgres-cluster-rw"] --> PocketID["Pocket ID"]
+  CNPGDatabase["pocketid database and role"] --> PocketID
+  ClusterSecrets["Pocket ID password and encryption key"] --> PocketID
+  Longhorn["Longhorn StorageClass"] --> PocketData["pocket-id-data PVC"]
+  PocketData --> PocketID
+  CertManager["cert-manager"] --> Certificate["Pocket ID TLS certificate"]
+  Certificate --> Traefik["Traefik"]
+  Traefik --> PocketID
+  DNS["Pocket ID DNS"] --> Traefik
+```
+
+### `system-upgrade`
+
+```mermaid
+flowchart LR
+  Kubernetes["Kubernetes API"] --> Controller["system-upgrade-controller"]
+  Controller --> ServerPlan["Server upgrade plan"]
+  Controller --> AgentPlan["Agent upgrade plan"]
+  NodeLabels["Matching node labels"] --> ServerPlan
+  NodeLabels --> AgentPlan
+  ImageSource["K3s upgrade image or source"] --> ServerPlan
+  ImageSource --> AgentPlan
+  ServerPlan --> Nodes["K3s server nodes"]
+  AgentPlan --> Nodes
+```
+
+### Disabled or reserved namespaces
+
+No dependency diagrams are shown for `gotify`, `ai`, `uptime-kuma`, `Sonarr`,
+`VictoriaMetrics`, `VictoriaLogs`, or `home-assistant` here because their
+production workloads are disabled or reserved. Verify the top-level Kustomization
+before adding them to the live dependency map.
 
 ## Application dependency catalog
 
