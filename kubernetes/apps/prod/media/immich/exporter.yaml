@@ -1,0 +1,104 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-exporter
+  namespace: media
+  labels:
+    app: immich-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: immich-exporter
+  template:
+    metadata:
+      labels:
+        app: immich-exporter
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: immich-exporter
+          image: ghcr.io/moond4rk/immich-exporter:v1.5.0
+          imagePullPolicy: IfNotPresent
+          args: []
+          env:
+            - name: IMMICH_BASE_URL
+              value: http://immich-server:2283/api
+            - name: IMMICH_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: immich-exporter
+                  key: token
+            - name: SCRAPE_INTERVAL
+              value: 2m
+            - name: BREAKDOWN_INTERVAL
+              value: 15m
+            - name: COLLECT_PEOPLE
+              value: "false"
+          ports:
+            - name: metrics
+              containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: immich-exporter
+  namespace: media
+  labels:
+    app: immich-exporter
+spec:
+  selector:
+    app: immich-exporter
+  ports:
+    - name: metrics
+      port: 8000
+      targetPort: metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: immich-exporter
+  namespace: media
+  labels:
+    app: immich-exporter
+    release: kube-prometheus-stack
+spec:
+  namespaceSelector:
+    matchNames:
+      - media
+  selector:
+    matchLabels:
+      app: immich-exporter
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 60s
+      scrapeTimeout: 30s

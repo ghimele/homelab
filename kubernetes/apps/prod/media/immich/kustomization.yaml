@@ -5,6 +5,8 @@ resources:
   - ./credentials.yaml
   - ./certificate.yaml
   - ./ingress-route.yaml
+  - ./exporter.yaml
+  - ./exporter-credentials.yaml
 
 patches:
   - path: values.yaml
