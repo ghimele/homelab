@@ -97,6 +97,12 @@ spec:
             access: proxy
             jsonData:
               implementation: prometheus
+          - name: Loki
+            type: loki
+            uid: loki
+            access: proxy
+            url: http://loki:3100
+            isDefault: false
 
     dashboardProviders:
       dashboardproviders.yaml:
@@ -134,6 +140,12 @@ spec:
         gatus:
           gnetId: 24379
           revision: 1
+          datasource:
+            - name: DS_PROMETHEUS
+              value: prometheus
+        immich-library:
+          # renovate: datasource=github-releases depName=moonD4rk/immich-exporter
+          url: https://raw.githubusercontent.com/moonD4rk/immich-exporter/v1.5.0/grafana/dashboard.json
           datasource:
             - name: DS_PROMETHEUS
               value: prometheus

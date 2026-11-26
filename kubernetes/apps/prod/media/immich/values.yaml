@@ -28,12 +28,14 @@ spec:
               REDIS_HOSTNAME: '{{ printf "%s-valkey" .Release.Name }}'
               IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
               PUBLIC_IMMICH_SERVER_URL: https://${HOST_IMMICH}.${DOMAIN}
+              IMMICH_TELEMETRY_INCLUDE: all
+              IMMICH_LOG_FORMAT: json
             resources:
               requests:
                 cpu: 100m
                 memory: 2Gi
               limits:
-                memory: 4Gi 
+                memory: 4Gi
 
     immich:
       metrics:
@@ -106,6 +108,8 @@ spec:
                 DB_USERNAME: ${IMMICH_DB_USERNAME}
                 DB_DATABASE_NAME: ${IMMICH_DB_DATABASE_NAME}
                 DB_VECTOR_EXTENSION: pgvector
+                IMMICH_TELEMETRY_INCLUDE: all
+                IMMICH_LOG_FORMAT: json
       ingress:
         main:
           enabled: false
@@ -149,6 +153,8 @@ spec:
                 TRANSFORMERS_CACHE: /cache
                 HF_XET_CACHE: /cache/huggingface-xet
                 MPLCONFIGDIR: /cache/matplotlib-config
+                IMMICH_TELEMETRY_INCLUDE: all
+                IMMICH_LOG_FORMAT: json
       defaultPodOptions:
         # Never co-locate with immich-server (performance)
         affinity:
